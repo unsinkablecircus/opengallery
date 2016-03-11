@@ -1,7 +1,7 @@
 var express = require('express');
 var AWS = require('aws-sdk');
 
-var dd = new AWS.DynamoDB();
+/* create instance of dynamoDB here */
 
 var app = express();
 
