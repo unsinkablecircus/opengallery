@@ -1,10 +1,11 @@
 {
-  "name": "Open Gallery",
+  "name": "OpenGallery",
   "version": "1.0.0",
   "description": "A peer to peer artist platform for sharing and discovering new media content.",
   "main": "index.js",
   "scripts": {
-    "test": ""
+    "test": "",
+    "dev": "webpack-dev-server --devtool source-map --progress --colors --hot --content-base client"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/unsinkablecircus/opengallery/issues"
   },
-  "homepage": "https://opengallery.io"
+  "homepage": "https://opengallery.io",
+  "dependencies": {
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
+  }
 }
