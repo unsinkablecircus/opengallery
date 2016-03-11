@@ -18,7 +18,7 @@ const App = class App extends React.Component {
     <div className='app-shell'>
       <div className=''>
         <div className=''>
-          <h1>{Hello, World!}</h1>
+          <h1>{'Hello, World!'}</h1>
         </div>
       </div>
     </div>
