@@ -15,10 +15,8 @@ module.exports = {
       { 
         test: /\.jsx?$/, 
         loader: 'babel-loader',
-        // include: path.join
-        // just client folder
-        // point dev server to public
-        exclude: [/node_modules/, /typings/],
+        include: path.resolve(__dirname, './client'),
+        // exclude: [/node_modules/, /typings/],
         query: {
             presets: ['es2015', 'react']
         } 
