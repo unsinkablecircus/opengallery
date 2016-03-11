@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var outputPath = __dirname + '/client';
 
 module.exports = {
-    entry: "./entry.js",
+    entry: "./../client/components/App.js",
     output: {
         path: outputPath,
         filename: "app.js"
@@ -13,8 +13,8 @@ module.exports = {
     module: {
         loaders: [
             { 
-                test: /\.css$/, 
-                loader: "style!css",
+                test: /\.jsx?$/, 
+                loader: 'babel-loader',
                 exclude: [/node_modules/, /typings/],
                 query: {
                     presets: ['es2015', 'react']
