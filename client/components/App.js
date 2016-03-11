@@ -7,7 +7,7 @@ const ReactDOM = require('react-dom');
 //import components here
 // const Nav = require('./nav/nav');
 
-const App = class App extends React.Component {
+class App extends React.Component {
   
   constructor(props) {
     super(props);
@@ -27,4 +27,4 @@ const App = class App extends React.Component {
 
 };
 
-ReactDOM.render(( <App />), document.getElementById('app'));
+ReactDOM.render( <App />, document.getElementById('app'));
