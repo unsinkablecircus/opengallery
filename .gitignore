@@ -8,5 +8,5 @@ logs
 npm-debug.log*
 
 # Webpack Bundle + Map
-public/bundle.js
-public/bundle.js.map
+public/app.js
+public/app.js.map
