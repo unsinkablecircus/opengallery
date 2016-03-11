@@ -1,13 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var outputPath = __dirname + '/client';
+var outputPath = __dirname + '/public';
 
 module.exports = {
     entry: "./../client/components/App.js",
     output: {
         path: outputPath,
-        filename: "app.js"
+        filename: "bundle.js"
     },
     devtool: 'source-map',
     module: {
