@@ -1,0 +1,12 @@
+# Project Dependencies
+node_modules
+
+# Logs
+logs
+*.log
+.npm
+npm-debug.log*
+
+# Webpack Bundle + Map
+public/app.js
+public/app.js.map
