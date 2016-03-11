@@ -1,0 +1,19 @@
+{
+  "name": "Open Gallery",
+  "version": "1.0.0",
+  "description": "A peer to peer artist platform for sharing and discovering new media content.",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unsinkablecircus/opengallery.git"
+  },
+  "author": "Daniel Wong, Evan Chen, John Domingo, Megan Ring",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unsinkablecircus/opengallery/issues"
+  },
+  "homepage": "https://opengallery.io"
+}
