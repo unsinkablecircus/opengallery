@@ -7,34 +7,38 @@
 ├── client
 │   └── components
 │   │   ├── App.js
-│   │   ├── Nav.js
-│   │   ├── Image.js
-│   │   ├── gallery
-│   │   │   ├── Gallery.js
-│   │   │   ├── GalleryImage.js
-│   │   ├── feed
-│   │   │   ├── Feed.js
-│   │   │   ├── FeedImage.js
-│   │   ├── words
-│   │   │   ├── WordList.js
-│   │   │   ├── WordListEntry.js
+│   │   ├── nav
+│   │   │   ├── Nav.js
+│   │   │   ├── Signin.js
+│   │   │   └── Signup.js
+│   │   ├── carousel
+│   │   │   └── Carousel.js
+│   │   ├── grid
+│   │   │   ├── Grid.js
+│   │   │   ├── GridImage.js
+│   │   ├── wordmap
+│   │   │   ├── Map.js
+│   │   │   └── Word.js
 │   │   └── user
-│   │       ├── UserList.js
-│   │       ├── UserListEntry.js
-│   │       ├── Upload.js
-│   │       ├── Signin.js
-│   │       └── Signup.js
+│   │       ├── User.js
+│   │       ├── UserGrid.js
+│   │       └── UploadForm.js
 ├── server
-│   └── server.js
+│   ├── server.js
+│   └── config
+│   │   ├── router.js
+│   │   ├── middleware.js
+│   │   └── helpers.js
 ├── public
 │   ├── app.js
 │   ├── index.html
 │   ├── style.css
 │   └── assets
-├── db
 ├── spec
-│   ├── client
-│   └── server
+│   ├── clientTest.js
+│   └── serverTest.js
+├── config
+│   └── webpack.config.js
 ├── package.json
 ├── .babelrc
 ├── .gitignore
