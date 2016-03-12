@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "",
-    "dev": "webpack-dev-server --devtool source-map --progress --colors --hot --content-base client"
+    "build": "webpack --config ./config/webpack.config.js",
+    "dev": "webpack-dev-server --devtool source-map --progress --colors --hot --content-base public"
   },
   "repository": {
     "type": "git",
