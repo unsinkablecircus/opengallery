@@ -12,7 +12,7 @@ require('./config/router.js')(app, express);
 // listen to port
 var port = Number(process.env.PORT ||  8000);
 app.listen(port, function() {
-  console.log(`listening on port ${port}`);
+  console.log(`  🎨  Open Gallery | Node listening on port ${port}`);
 });
 
 module.exports = app;

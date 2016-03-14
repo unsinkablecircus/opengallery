@@ -1,3 +1,5 @@
+var path = require('path');
+
 var helpers = require('./helpers.js');
 // insert controllers here
 var UserController = require('../user/userController.js');
