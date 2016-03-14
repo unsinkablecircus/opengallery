@@ -10,3 +10,6 @@ npm-debug.log*
 # Webpack Bundle + Map
 public/app.js
 public/app.js.map
+
+# Config
+config.js
