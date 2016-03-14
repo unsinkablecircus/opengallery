@@ -1,30 +1,18 @@
-//Code that starts app goes here
-//React modules
-const React = require('react');
-const ReactDOM = require('react-dom');
-// const { Router, Route, Link, IndexRoute, hashHistory, RouterContext } = require('react-router');
+import React from 'react'
+import Nav from './nav/Nav'
+import Grid from './grid/Grid'
 
-//import components here
-// const Nav = require('./nav/nav');
+import injectTapEventPlugin from'react-tap-event-plugin'
+injectTapEventPlugin()
 
-const App = class App extends React.Component {
-  
-  constructor(props) {
-    super(props);
-  }
-  
+export default class App extends React.Component {
   render () {
     return (
-    <div className='app-shell'>
-      <div className=''>
-        <div className=''>
-          <h1>{'Hello, World!'}</h1>
-        </div>
+      <div>
+        <Nav/>
+        <Grid/>
       </div>
-    </div>
-    );
+    )
   }
-
-};
-
-ReactDOM.render(( <App />), document.getElementById('app'));
+}
+>>>>>>> 0fab82e9cd8e2ab942b2b25d946e98e17e3b0caa
