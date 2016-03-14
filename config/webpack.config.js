@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var outputPath = __dirname + './../public';
 
 module.exports = {
-  entry: "./client/components/App.js",
+  entry: "./client/index",
   output: {
       path: outputPath,
       filename: "app.js"
@@ -12,13 +12,10 @@ module.exports = {
   devtool: 'source-map',
   module: {
     loaders: [
-      { 
-        test: /\.jsx?$/, 
+      {
+        test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: [/node_modules/, /typings/],
-        query: {
-            presets: ['es2015', 'react']
-        } 
+        exclude: [/node_modules/, /typings/]
       }
     ]
   }
