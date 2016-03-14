@@ -1,11 +1,5 @@
-//Code that starts app goes here
-//React modules
 const React = require('react');
 const ReactDOM = require('react-dom');
-// const { Router, Route, Link, IndexRoute, hashHistory, RouterContext } = require('react-router');
-
-//import components here
-// const Nav = require('./nav/nav');
 
 class App extends React.Component {
   
@@ -15,16 +9,16 @@ class App extends React.Component {
   
   render () {
     return (
-    <div className='app-shell'>
-      <div className=''>
-        <div className=''>
-          <h1>{'Hello, World!'}</h1>
+      <div className='app'>
+        <div className="">
+          <div className="">
+            {'Hello, WOr'}
+          </div>
         </div>
       </div>
-    </div>
     );
   }
 
 };
 
-ReactDOM.render( <App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
