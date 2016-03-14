@@ -1,24 +1,17 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react'
+import Nav from './nav/Nav'
+import Grid from './grid/Grid'
 
-class App extends React.Component {
-  
-  constructor(props) {
-    super(props);
-  }
-  
+import injectTapEventPlugin from'react-tap-event-plugin'
+injectTapEventPlugin()
+
+export default class App extends React.Component {
   render () {
     return (
-      <div className='app'>
-        <div className="">
-          <div className="">
-            {'Hello, WOr'}
-          </div>
-        </div>
+      <div>
+        <Nav/>
+        <Grid/>
       </div>
-    );
+    )
   }
-
-};
-
-ReactDOM.render(<App />, document.getElementById('app'));
+}
