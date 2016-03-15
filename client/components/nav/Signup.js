@@ -13,6 +13,9 @@ const Signup = ({
   onSigninModalClick,
   onSigninSubmit
 }) => {
+  let username;
+  let password;
+
   const actions = [
     <FlatButton
       label="Cancel"
@@ -22,7 +25,7 @@ const Signup = ({
     <FlatButton
       label="Submit"
       primary={true}
-      onTouchTap={ onSigninModalClick }
+      onTouchTap={ () => {console.log(username); onSigninModalClick(); } }
     />,
   ];
   return (
@@ -33,7 +36,7 @@ const Signup = ({
         modal={true}
         open={ showSigninModal }
       >
-        <TextField hintText='username'/><br />
+        <TextField ref= { (node) => {username = node} } hintText='username'/><br />
         <TextField hintText='password'/>
       </Dialog>
     </div>

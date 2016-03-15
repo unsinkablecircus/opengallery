@@ -66,7 +66,6 @@ ReactDOM.render(
     <Provider store = {store}>
       <Router history={history}>
         {getRoutes()}
-        </Route>
       </Router>
     </Provider>
   </div>,
