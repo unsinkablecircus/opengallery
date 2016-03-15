@@ -29,14 +29,17 @@
   //     MEDIA     //
   ///////////////////
 
+  currentFeedTags: [], // represents current tags used to filter the feed
   currentTile: 'media_id_01'
+  isFetchingMedia: false,
+  errorFetchingMedia: '',
   grid: [
     String, // 'media_id_01'
     String, // 'media_id_02'
     ...
   ],
 
-  tileData: {
+  media: {
     'media_id_01': {
       userId: String, // 'user_id_01'
       userFeedbackId: String, // 'feedback_id_01'
@@ -56,7 +59,7 @@
     ...
   },
 
-  feedbackData: {
+  feedback: {
     'feedback_id_01': {
       hashtag: String,
       count: Number
