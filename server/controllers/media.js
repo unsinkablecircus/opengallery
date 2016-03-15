@@ -1,10 +1,8 @@
 // upload media to s3 (async)
 // on upload, store image url to postgreSQL db
 const pg = require('../db/database')
-const s3 = require('../s3/s3')
-const knex = require('knex')
 
-let Media = pg.Model.extend({
+const Media = pg.Model.extend({
   tableName: 'media',
   hasTimestamps: true
 })
