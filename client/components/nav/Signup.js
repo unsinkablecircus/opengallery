@@ -67,12 +67,12 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const SignupContainer = connect(
+const SignupModal = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Signup);
 
-export default SignupContainer;
+export default SignupModal;
 
 
 

@@ -6,14 +6,14 @@ import injectTapEventPlugin from'react-tap-event-plugin'
 injectTapEventPlugin()
 
 // modals
-import SignupContainer from './nav/Signup'
+import SignupModal from './nav/Signup'
 
 export default class App extends React.Component {
 
   render () {
     return (
       <div>
-        <SignupContainer />
+        <SignupModal />
 
         <Nav/>
         <Grid/>
