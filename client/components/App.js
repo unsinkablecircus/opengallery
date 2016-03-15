@@ -15,3 +15,4 @@ export default class App extends React.Component {
     )
   }
 }
+>>>>>>> 0fab82e9cd8e2ab942b2b25d946e98e17e3b0caa
