@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { loadGrid } from '../actions/grid'
-import Grid from '../components/Grid/'
+import Grid from '../components/grid/Grid'
 
 const mapStateToProps = (state) => {
   return {
