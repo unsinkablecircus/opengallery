@@ -4,9 +4,10 @@
   "description": "A peer to peer artist platform for sharing and discovering new media content.",
   "main": "index.js",
   "scripts": {
-    "test": "",
     "build": "webpack --watch --config ./config/webpack.config.js",
-    "dev": "webpack-dev-server --devtool source-map --progress --colors --hot --content-base public"
+    "dev": "webpack-dev-server --devtool source-map --progress --colors --hot --content-base public",
+    "test": "mocha --compilers js:babel-register --recursive",
+    "test:watch": "npm test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -43,8 +44,11 @@
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
+    "babel-core": "^6.7.2",
     "babel-polyfill": "^6.7.2",
+    "babel-register": "^6.7.2",
     "chai": "^3.5.0",
+    "expect": "^1.15.2",
     "mocha": "^2.4.5"
   }
 }
