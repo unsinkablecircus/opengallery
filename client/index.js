@@ -16,7 +16,7 @@ import { Route, Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import { Provider } from 'react-redux'
 import getRoutes from './routes'
-
+import thunkMiddleware from 'redux-thunk'
 // import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
