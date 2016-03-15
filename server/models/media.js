@@ -7,9 +7,22 @@ const Media = pg.Model.extend({
   hasTimestamps: true
 })
 
+
+
 module.exports = Media;
 
 /*
+// from example collections file
+var db = require('../config');
+var Link = require('../models/link');
+
+var Links = new db.Collection();
+
+Links.model = Link;
+
+module.exports = Links;
+
+// from example model file
 var Link = db.Model.extend({
   tableName: 'urls',
   hasTimestamps: true,
