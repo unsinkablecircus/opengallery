@@ -18,7 +18,7 @@ for (var i = 285; i >= 1; i--) {
   images.push(`http://gratisography.com/pictures/${i}_1.jpg`)
 }
 
-const Grid = ({media}) => {
+const Grid = ({isFetchingMedia, errorFetchingMedia, grid, media, feedback, loadGrid}) => {
   return (
     <GridList
       cellHeight={300}
