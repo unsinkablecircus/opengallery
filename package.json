@@ -41,7 +41,10 @@
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
+    "babel-eslint": "^5.0.0",
     "chai": "^3.5.0",
+    "eslint": "^1.10.3",
+    "eslint-plugin-react": "^4.1.0",
     "mocha": "^2.4.5"
   }
 }
