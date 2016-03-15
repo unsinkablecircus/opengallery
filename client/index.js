@@ -12,11 +12,10 @@
 //   </Provider>,
 // =======
 
-import { Router, browserHistory } from 'react-router'
+import { Route, Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import { Provider } from 'react-redux'
 import getRoutes from './routes'
-
 
 // import 'babel-polyfill'
 import React from 'react'
@@ -26,21 +25,50 @@ import { createStore, combineReducers } from 'redux'
 import App from './components/App'
 
 
+var initialState = {
+  loggedIn: false,
+  showSigninModal: false
+}
+
+
+// define a reducer that handles whether user is logged in or not.
+// will be refactored.
+const Auth = (state=initialState, action) => {
+  switch (action.type) {
+    case 'TOGGLE_LOGGEDIN':
+    // can't use ...state spread operator. Probably an issue with babel?
+      return Object.assign({}, state, {
+          loggedIn: !state.loggedIn
+      });
+    case 'TOGGLE_SIGNIN_MODAL':
+      return Object.assign({}, state, {
+          showSigninModal: !state.showSigninModal,
+      });
+    default:
+      return state;
+  }
+}
 
 // code below will be abstracted into a reducers file
+// remember: only the relevant part of the state gets passed to Auth or routing.
+// as in, Auth only receives Auth, routing only receives routing.
 const reducer = combineReducers({
-  // {...reducers},
+  Auth,
   routing: routerReducer
 });
 
 const store = createStore(reducer)
 const history = syncHistoryWithStore(browserHistory, store)
 
+
 ReactDOM.render(
   <div>
-    <Router history={history}>
-      {getRoutes()}
-    </Router>
+    <Provider store = {store}>
+      <Router history={history}>
+        {getRoutes()}
+        </Route>
+      </Router>
+    </Provider>
   </div>,
   document.getElementById('app')
 )

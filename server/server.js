@@ -1,5 +1,6 @@
 var express = require('express');
 var AWS = require('aws-sdk');
+const path = require('path')
 
 var app = express();
 
@@ -39,6 +40,17 @@ s3.putObject(params, function(err, data) {
   }
 });
 */
+
+// With react router, serer needs to serve up files
+app.get('*', function (request, response){
+  response.sendFile('index.html', {"root": "public"})
+})
+
+// example of connecting to postgresql database below (will move to models later):
+// var client = new pg.Client(connectionInfo);
+// client.connect();
+// var query = client.query('CREATE TABLE items(id SERIAL PRIMARY KEY, text VARCHAR(40) not null, complete BOOLEAN)');
+// query.on('end', function() { client.end(); });
 
 // listen to port
 var port = Number(process.env.PORT || 8000);
