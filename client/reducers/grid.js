@@ -1,4 +1,4 @@
-import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from './actions/grid'
+import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
 
 const grid = (state, action) => {
   switch (action.type) {
