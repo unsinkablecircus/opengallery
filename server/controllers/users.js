@@ -23,4 +23,4 @@ module.exports = {
         // jwt.encode(user, 'secret');
         // send back the token to user
   }
-}
+};

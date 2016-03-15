@@ -1,4 +1,4 @@
-import expect from 'expect'
+import { expect } from 'chai'
 import * as gridActions from '../client/actions/grid'
 
 console.log('GRID ACTIONS:', JSON.stringify(gridActions))
