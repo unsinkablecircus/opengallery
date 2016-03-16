@@ -19,6 +19,7 @@ exports.uploadPhoto = function (req, res) {
   })
 };
 
+//promisified w/knex
 uploadToPG = function (req, res, next) {};
 
 //need to promisify
@@ -37,5 +38,5 @@ uploadToS3 = function (req, res, next) {
   })
 };
 
-//use knex to 
+//promisified w/knex
 updatePGid = function (req, res, next) {};
