@@ -27,7 +27,7 @@ s3.listBuckets(function(err, data) {
 });
 
 var params = {
-  Bucket: 'opengallery', // required 
+  Bucket: 'opengallery', // required
   Key: 'TEST_KEY', // required
   ACL: 'public-read',
   Body: 'TEST_BODY'
@@ -54,8 +54,10 @@ app.get('*', function (request, response){
 
 // listen to port
 var port = Number(process.env.PORT || 8000);
-app.listen(port, function() {
-  console.log(`  🎨  Open Gallery | Node listening on port ${port}`);
-});
+if(!module.parent){
+  app.listen(port, function() {
+    console.log(`  🎨  Open Gallery | Node listening on port ${port}`);
+  });
+}
 
 module.exports = app;
