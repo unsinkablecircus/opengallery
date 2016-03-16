@@ -4,26 +4,24 @@ const grid = (state, action) => {
   switch (action.type) {
     case GRID_REQUEST:
       return Object.assign({}, state, {
-        isFetchingMedia: true
+        isFetchingMedia: action.meta.fetching
       })
     case GRID_SUCCESS:
       return Object.assign({}, state, {
-        isFetchingMedia: false,
+        isFetchingMedia: action.meta.fetching,
         errorFetchingMedia: '',
-        grid: action.grid,
-        media: action.media,
-        feedback: action.feedback
+        {...action.payload}
       })
     case GRID_FAILURE:
       return Object.assign({}, state, {
-        isFetchingMedia: false,
-        errorFetchingMedia: action.error
+        isFetchingMedia: action.meta.fetching,
+        errorFetchingMedia: action.payload
       })
     default:
       return {
         isFetchingMedia: false,
         errorFetchingMedia: '',
-        grid: action.media,
+        grid: action.grid,
         media: action.media,
         feedback: action.feedback
       }
