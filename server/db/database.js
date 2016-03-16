@@ -6,8 +6,6 @@ const connectionInfo = {
   database: 'opengallery'
 };
 
-const client = new pg.Client(connectionInfo);
-
 const pg = require('knex')({
   client: 'pg',
   connection: connectionInfo,
