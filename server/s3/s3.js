@@ -22,9 +22,11 @@ var params = {
 s3.putObject(params, function(err, data) {
   if (err) {
     console.log("Error uploading data: ", err);
+    next(err);
   } else {
     console.log("Successfully uploaded data to myBucket/myKey: ", data);
+    next(data);
   }
-});
+}, next);
 
 module.exports = s3;
