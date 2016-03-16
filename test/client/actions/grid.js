@@ -1,8 +1,8 @@
-import { assert, expect } from 'chai'
+import { expect } from 'chai'
 import * as actions from '../../../client/actions/grid'
 
 export const GridActions = () => {
-  it('should create an action to request grid data', (done) => {
+  it('should create a GRID_REQUEST action to fetch grid data', (done) => {
     const tags = ['pink', 'cats']
     expect(actions.requestGridData(tags)).to.deep.equal({
       type: actions.GRID_REQUEST,
@@ -15,7 +15,7 @@ export const GridActions = () => {
     done()
   })
 
-  it('should create an action to receive grid data', (done) => {
+  it('should create a GRID_SUCCESS action to receive grid data', (done) => {
     const data = {
       grid: ['1'],
       media: {
@@ -50,11 +50,11 @@ export const GridActions = () => {
     done()
   })
 
-  it('should create an action to catch errors when data retrieval fails', (done) => {
+  it('should create a GRID_FAILURE action to catch errors', (done) => {
     const error = new Error('Grid Failure')
     expect(actions.catchGridData(error)).to.deep.equal({
       type: actions.GRID_FAILURE,
-      payload: error,
+      error,
       meta: {
         fetching: false,
         success: false
