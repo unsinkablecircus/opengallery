@@ -1,26 +1,69 @@
+const db = require('../db/database.js');
 // require some user model here
 // require Q or bluebird
-var jwt = require('jwt-simple');
-var helpers = require('../config/helpers');
-var moment = require('moment');
-// when token will expire
-var expires = moment().add(1, 'days').valueOf();
+const jwt = require('jwt-simple');
+const moment = require('moment');
+
+const helpers = require('../config/helpers');
+const comparePassword = helpers.comparePassword;
+const hashPassword = helpers.hashPassword; 
+
+const expires = moment().add(1, 'days').valueOf();
 
 module.exports = {
-  signIn: function (req, res, next) {
-    // get username and password from req.body
-    // look up user in database
-    // use a compare/bcrypt function to check PW
-      // if match:
-        // jwt.encode(user, 'secret');
+  signUp: function (req, res, next) {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    db.raw(`SELECT * FROM users WHERE username = '${username}'`)
+    .then( (user) => {
+      if ( user.rows.length > 0 ) {
+        return res.status(500).send({ error: 'User Already Exists' });
+      } else {
+        return hashPassword(password);
+      }
+    })
+    .then( (hashedPW) => {
+        return db.raw(`INSERT INTO users (username, password) VALUES ('${username}', '${hashedPW}')`)
+    })
+    .then( (user) => {
+      // generate a token
+      console.log('user', user);
+      res.send(user);
+    })
+    .catch((err) => {
+      console.log('err', err);
+      res.status(500).send({error: err});
+    })
   },
 
-  signUp: function (req, res, next) {
-    // get username and password from req.body
-    // check db to see if username/pw is valid
-      // if valid:
-        // add to db
-        // jwt.encode(user, 'secret');
-        // send back the token to user
+  signIn: function (req, res, next) {
+    const username = req.body.username;
+    const password = req.body.password;
+    db.raw(`SELECT * FROM users WHERE username = '${username}'`)
+    .then( (user) => {
+      var user = user.rows[0];
+      return comparePassword(password, user.password);
+    })
+    .then( (isMatch) => {
+      if ( isMatch ) {
+        res.send({match: true});
+      } else {
+        res.send({match: false});
+      }
+    })
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
