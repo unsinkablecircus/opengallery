@@ -1,14 +1,16 @@
 const Promise = require('bluebird')
-const PG = Promise.promisifyAll(require('./../db/database'))
+const pg = require('./../db/database')
+const s3 = require('./../s3/s3')
 const bodyParser = require('body-parser')
 
 const Media = require('../models/media')
 
-//controller handles routes
+//model handles db manipulation
 
 exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
   var photoAll = req.body.photo;
+  var 
   uploadToPG(photoData, function(){
     uploadToS3(photo, function(){
       updatePGid(photoId)
@@ -16,51 +18,40 @@ exports.uploadPhoto = function (req, res) {
   })
 };
 
-uploadToPG = function (req, res, next) {
-  var results = [];
+uploadToPG = function (photoData, res, next) {
   // Grab data from http request
+  /* example data
   var data = {
-    // user: req.body.user,
-    // url_small: req.body.url_small,
-    // url_med: req.body.url_med,
-    // url_large: req.body.url_large,
-    // title: req.body.title,
-    // description: req.body.description
     user: 3,
     url_small: 'small.url',
     url_med: 'med.url',
     url_large: 'large.url',
-    title: 'myMedia',
+    title: 'myPicture',
     description: 'made with love'
   };
+  */
   // SQL Query > Insert Data
-  PG.raw(
+  pg.raw(
     `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description) 
     values(
-      ${data.user}, 
-      '${data.url_small}', 
-      '${data.url_med}', 
-      '${data.url_large}', 
-      '${data.title}', 
-      '${data.description}') 
+      ${photoData.user}, 
+      '${photoData.url_small}', 
+      '${photoData.url_med}', 
+      '${photoData.url_large}', 
+      '${photoData.title}', 
+      '${photoData.description}') 
     RETURNING id`
   ).then(function(data) {
     console.log(data);
-    // client.raw()
+    res.json(data)
   })
   .catch(function(err) {
     console.log(err);
   });
-
-  // After all data is returned, close connection and return results
-  // query.on('end', function() {
-  //   done();
-  //   return res.json(results);
-  // });
 };
 
-//test function
-uploadToPG();
+// test function
+// uploadToPG();
 
 uploadToS3 = function (req, res, next) {
   
