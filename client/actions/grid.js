@@ -5,7 +5,7 @@ export const GRID_FAILURE = 'GRID_FAILURE'
 export function requestGridData(tags) {
   return {
     type: GRID_REQUEST,
-    payload: tags
+    payload: tags,
     meta: {
       fetching: true,
       success: false
@@ -27,7 +27,7 @@ export function receiveGridData(data) {
 export function catchGridData(error) {
   return {
     type: GRID_FAILURE,
-    payload: error,
+    error,
     meta: {
       fetching: false,
       success: false

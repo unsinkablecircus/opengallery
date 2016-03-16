@@ -1,5 +1,9 @@
 import { GridActions } from './actions/grid'
+import { GridReducers } from './reducers/grid'
 
-describe('Actions', () => {
-  describe('Grid Actions', GridActions)
+describe('CLIENT TESTS', () => {
+  describe('Grid', () => {
+    describe('Actions', GridActions)
+    describe('Reducers', GridReducers)
+  })
 })
