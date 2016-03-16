@@ -1,9 +1,9 @@
-const pg import ('../db/database')
-const s3 import ('../s3/s3')
-const bodyParser import ('body-parser')
-const Promise import ('bluebird')
+const pg = require('../db/database')
+const s3 = require('../s3/s3')
+const bodyParser = require('body-parser')
+const Promise = require('bluebird')
 
-const Media import ('../models/media')
+const Media = require('../models/media')
 
 
 
