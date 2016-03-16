@@ -6,9 +6,7 @@ import TextField from 'material-ui/lib/text-field'
 
 import { connect } from 'react-redux'
 
-
 const Signup = ({
-  loggedIn,
   showSigninModal,
   onSigninModalClick,
   onSigninSubmit
@@ -25,7 +23,7 @@ const Signup = ({
     <FlatButton
       label="Submit"
       primary={true}
-      onTouchTap={ () => {console.log(username); onSigninModalClick(); } }
+      onTouchTap={ onSigninModalClick }
     />,
   ];
   return (
@@ -43,39 +41,7 @@ const Signup = ({
   );
 }
 
-
-
-const mapStateToProps = (state) => {
-  // return object with the relevant state. related to DATA
-  return {
-    loggedIn: state.Auth.loggedIn,
-    showSigninModal: state.Auth.showSigninModal
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  // return object with the props that depend on a dispatch action. related to BEHAVIOR
-  return {
-    onSigninModalClick: () => {
-      // refactor to extract these actions
-      dispatch({
-        type: 'TOGGLE_SIGNIN_MODAL'
-      })
-    },
-    // this will be called when you hear back from an ajax request.
-    onSigninSubmit: () => {
-      dispatch({
-        type: 'TOGGLE_LOGGEDIN'
-      })
-    }
-  }
-}
-
-const SignupModal = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Signup);
-
-export default SignupModal;
+export default Signup;
 
 
 

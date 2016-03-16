@@ -53,7 +53,7 @@ let Nav = ({
             <IconButton tooltip='Discover'>
               <DiscoverIcon color='#303030'/>
             </IconButton>
-            <FlatButton onClick={ () => {dispatch({type:'TOGGLE_SIGNIN_MODAL'})} }> Signin </FlatButton>
+            <FlatButton onClick={ () => {dispatch({type:'TOGGLE_SIGNIN_MODAL'})} }> Sign Up </FlatButton>
           </div>
         }
         iconElementRight={

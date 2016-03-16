@@ -60,7 +60,6 @@ const reducer = combineReducers({
 const store = createStore(reducer)
 const history = syncHistoryWithStore(browserHistory, store)
 
-
 ReactDOM.render(
   <div>
     <Provider store = {store}>
@@ -70,4 +69,4 @@ ReactDOM.render(
     </Provider>
   </div>,
   document.getElementById('app')
-)
+);
