@@ -39,7 +39,9 @@ uploadToPG = function (req, res, next) {
     }
     // SQL Query > Insert Data
     client.query(
-      "INSERT INTO media(user, url_small, url_med, url_large, title, description) values($1, $2, $3, $4, $5, $6)", 
+      `INSERT INTO media(user, url_small, url_med, url_large, title, description) 
+      values({$1}, {$2}, {$3}, {$4}, {$5}, {$6}) 
+      RETURNING id`, 
       [
         data.user, 
         data.url_small, 
