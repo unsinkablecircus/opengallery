@@ -24,38 +24,12 @@ import ReactDOM from 'react-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 
 import App from './components/App'
+import reducers from './reducers/index'
 
-var initialState = {
-  loggedIn: false,
-  showSigninModal: false
-}
-
-
-// define a reducer that handles whether user is logged in or not.
-// will be refactored.
-const Auth = (state=initialState, action) => {
-  switch (action.type) {
-    case 'TOGGLE_LOGGEDIN':
-    // can't use ...state spread operator. Probably an issue with babel?
-      return Object.assign({}, state, {
-          loggedIn: !state.loggedIn
-      });
-    case 'TOGGLE_SIGNIN_MODAL':
-      return Object.assign({}, state, {
-          showSigninModal: !state.showSigninModal,
-      });
-    default:
-      return state;
-  }
-}
 
 // code below will be abstracted into a reducers file
 // remember: only the relevant part of the state gets passed to Auth or routing.
 // as in, Auth only receives Auth, routing only receives routing.
-const reducer = combineReducers({
-  Auth,
-  routing: routerReducer
-});
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducers);
