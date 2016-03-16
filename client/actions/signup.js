@@ -7,27 +7,33 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 function requestSignup(creds) {
   return {
     type: SIGNUP_REQUEST,
-    isFetching: true,
-    isAuthenticated: false,
-    creds
+    payload: {
+      isFetching: true,
+      isAuthenticated: false,
+      creds
+    }
   }
 };
 
 function receiveSignup(user) {
   return {
     type: SIGNUP_SUCCESS,
-    isFetching: false,
-    isAuthenticated: true,
-    id_token: user.id_token
+    payload: {
+      isFetching: false,
+      isAuthenticated: true,
+      id_token: user.id_token
+    }
   }
 };
 
-function SignupError(message) {
+function signupError(message) {
   return {
     type: SIGNUP_FAILURE,
-    isFetching: false,
-    isAuthenticated: false,
-    message
+    payload: {
+      isFetching: false,
+      isAuthenticated: false,
+      message
+    }
   }
 };
 
@@ -44,13 +50,19 @@ export function SignupUser(creds) {
   return dispatch => {
     // We dispatch requestSignup to kickoff the call to the API
     dispatch(requestSignup(creds))
-    // return a promise to wait for
-    return fetch('http://localhost:8000/api/user/signIn', config)
+
+    return fetch('http://localhost:8000/api/user/signUp', config)
       .then(response => {
+        if ( !response.ok ) {
+          dispatch(signupError(response.error));
+          return Promise.reject(user);
+        }
         return response.json();
       })
       .then( (data) => {
-        console.log(data);
+        console.log(data.message);
+
+        // console.log('data', data);
       })
       // .then(({ user, response }) =>  {
       //   if (!response.ok) {
