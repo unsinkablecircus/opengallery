@@ -2,6 +2,7 @@ const Promise = require('bluebird')
 const pg = require('./../db/database')
 const s3 = require('./../s3/s3')
 const bodyParser = require('body-parser')
+const Jimp = require("jimp")
 
 const Media = require('../models/media')
 
@@ -13,6 +14,7 @@ exports.uploadPhoto = function (req, res) {
   var photoInfo = req.body.photoInfo;
   var photoRaw = req.body.photoRaw;
   uploadToPG(photoData, function(id){
+    var url = 
     uploadToS3(photo, function(url){
       updatePGid(photoId);
     })
@@ -53,7 +55,7 @@ uploadToPG = function (photoData, res, next) {
 // test function
 // uploadToPG();
 
-uploadToS3 = function (photo) {
+uploadToS3 = function (photosArr, id) {
   /*
   var params = {
     Bucket: 'opengallery', // required 
@@ -62,18 +64,33 @@ uploadToS3 = function (photo) {
     Body: 'TEST_BODY'
   };
   */
-  s3.putObject(params, function(err, url) {
+  var photoIdsArr = [];
+
+  new Promise = function(resolve, reject) {
+    s3.putObject(params, function small(err, url) {
+
+    }).
+    catch(function(err) {
+
+    })
+    .
+  }
+  s3.putObject(params, function med(err, url) {
+
+  })
+  s3.putObject(params, function large(err, url) {
 
   })
 };
 
-updatePGid = function (id) {
+updatePGid = function (photoIdsArr) {
+  //array order is small, med, large
   pg.raw(
     `UPDATE media (url_small, url_medium, url_large)
     values(
-      '${}',
-      '${}',
-      '${}',
+      '${photosIdArr[0]}',
+      '${photosIdArr[1]}',
+      '${photosIdArr[2]}',
     )
     `
   )
