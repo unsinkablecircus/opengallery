@@ -23,14 +23,14 @@ exports.uploadPhoto = function (req, res) {
 uploadToPG = function (req, res, next) {};
 
 //need to promisify
-uploadToS3 = function (req, res, next) {
+uploadToS3 = function (photo, url, next) {
   
   /*
   var params = {
     Bucket: 'opengallery', // required 
     Key: 'TEST_KEY', // required
     ACL: 'public-read',
-    Body: 'TEST_BODY'
+    Body: 'TEST_BODY' //new Buffer('...') || 'STRING_VALUE' || streamObject,
   };
   */
   s3.putObject(params, function(url) {
