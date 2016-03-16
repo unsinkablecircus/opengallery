@@ -6,21 +6,53 @@ const jimp = require('jimp')
 
 const Media = require('../models/media')
 
-
-
-//controller handles routes
-//invoke functions which write to PG
+//controller handles function delegation
 
 exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
-  var photoAll = req.body.photo;
-  var photoInfo = req.body.photoInfo;
-  // var photoRaw = req.body.photoRaw;
-  //
-  Media.uploadToPG(photoInfo, function(id){
-    var url = //unsinkkableCircus url + id + size
-    Media.uploadToS3(photo, function(url){
-      Media.updatePGid(photoId);
-    })
-  })
+  var photo = separateData(req.body);
+  Media.uploadToPG(photo.metaData, function(id){
+    let resizedPhotos = resizePhoto(photo.photoRaw);
+    //parse url
+    Promise.map(/*
+     map each photo in resizedPhotos to s3 upload function
+     var urlExtension = id + key;
+     Media.uploadToS3(photo, function(urlExtension){
+     });
+    */)
+    .then(() => {
+      let url = '// http://d14shq3s3khz77.cloudfront.net/' + urlExtension;
+      Media.updatePGid(url) //defined above
+      .then(() => {
+        res.status(201).send();
+      })
+      .catch((err) => {
+        console.log('error updating URLs to PG db', err);
+      });
+    }).catch((err) => {
+      console.log('error uploading images to s3 db', err)
+    });
+  });
+  
 };
+
+separateData (data) => {
+  //
+  let photoData = {
+    metaData: data.photoInfo,
+    raw: data.photoRaw
+  }
+  return photoData
+}
+
+resizePhoto (photo) => {
+  let photoObj = {
+    small: '',
+    medium: '',
+    large: ''
+  }
+  //use jimp to resize original photo
+    // convert each photo to buffer
+    // assign each photo buffer to corresponding property
+  return photoObj;
+}
