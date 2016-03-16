@@ -10,10 +10,11 @@ const Media = require('../models/media')
 exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
   var photoAll = req.body.photo;
-  var 
-  uploadToPG(photoData, function(){
-    uploadToS3(photo, function(){
-      updatePGid(photoId)
+  var photoInfo = req.body.photoInfo;
+  var photoRaw = req.body.photoRaw;
+  uploadToPG(photoData, function(id){
+    uploadToS3(photo, function(url){
+      updatePGid(photoId);
     })
   })
 };
@@ -35,26 +36,24 @@ uploadToPG = function (photoData, res, next) {
     `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description) 
     values(
       ${photoData.user}, 
-      '${photoData.url_small}', 
-      '${photoData.url_med}', 
-      '${photoData.url_large}', 
+      'null', //${photoData.url_small}
+      'null', //${photoData.url_med}
+      'null', //${photoData.url_large}
       '${photoData.title}', 
       '${photoData.description}') 
     RETURNING id`
   ).then(function(data) {
-    console.log(data);
-    res.json(data)
+    next(data)
   })
   .catch(function(err) {
-    console.log(err);
+    next(err);
   });
 };
 
 // test function
 // uploadToPG();
 
-uploadToS3 = function (req, res, next) {
-  
+uploadToS3 = function (photo) {
   /*
   var params = {
     Bucket: 'opengallery', // required 
@@ -63,9 +62,21 @@ uploadToS3 = function (req, res, next) {
     Body: 'TEST_BODY'
   };
   */
-  s3.putObject(params, function(url) {
+  s3.putObject(params, function(err, url) {
 
   })
 };
 
-updatePGid = function (req, res, next) {};
+updatePGid = function (id) {
+  pg.raw(
+    `UPDATE media (url_small, url_medium, url_large)
+    values(
+      '${}',
+      '${}',
+      '${}',
+    )
+    `
+  )
+  .then()
+  .catch();
+};
