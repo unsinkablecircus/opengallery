@@ -8,6 +8,8 @@ var expires = moment().add(1, 'days').valueOf();
 
 module.exports = {
   signIn: function (req, res, next) {
+    console.log('post to signin detected');
+    res.send({name: 'greetings'});
     // get username and password from req.body
     // look up user in database
     // use a compare/bcrypt function to check PW

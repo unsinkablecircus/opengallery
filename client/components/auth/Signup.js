@@ -25,8 +25,7 @@ const Signup = ({
       primary={true}
       onTouchTap={ () => { 
         const creds = {username: username.getValue(), password: password.getValue()};
-        console.log('creds', creds);
-        // onSigninSubmit(creds) 
+        onSigninSubmit(creds);
       }}
     />,
   ];

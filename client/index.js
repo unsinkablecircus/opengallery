@@ -20,10 +20,10 @@ import thunkMiddleware from 'redux-thunk'
 // import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, combineReducers } from 'redux'
-// import Reducers from './reducers'
-import App from './components/App'
 
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+
+import App from './components/App'
 
 var initialState = {
   loggedIn: false,
@@ -57,8 +57,9 @@ const reducer = combineReducers({
   routing: routerReducer
 });
 
-const store = createStore(reducer)
-const history = syncHistoryWithStore(browserHistory, store)
+let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
+const store = createStoreWithMiddleware(reducers);
+const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
   <div>
