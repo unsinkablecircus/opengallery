@@ -1,4 +1,4 @@
-var helpers = require('./helpers');
+const helpers = require('./helpers.js');
 
 var User = require('../controllers/users');
 var Media = require('../controllers/media.js');
