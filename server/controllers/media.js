@@ -17,8 +17,8 @@ exports.uploadPhoto = function (req, res) {
     Promise.map(/*
      map each photo in resizedPhotos to s3 upload function
      var urlExtension = id + key;
-     Media.uploadToS3(photo, function(urlExtension){
-     });
+     Media.uploadToS3(photo, urlExtension){
+     }
     */)
     .then(() => {
       let url = '// http://d14shq3s3khz77.cloudfront.net/' + urlExtension;
