@@ -10,20 +10,20 @@ const grid = (state, action) => {
       return Object.assign({}, state, {
         isFetchingMedia: action.meta.fetching,
         errorFetchingMedia: '',
-        {...action.payload}
+        ...action.payload
       })
     case GRID_FAILURE:
       return Object.assign({}, state, {
         isFetchingMedia: action.meta.fetching,
-        errorFetchingMedia: action.payload
+        errorFetchingMedia: action.error
       })
     default:
       return {
         isFetchingMedia: false,
         errorFetchingMedia: '',
-        grid: action.grid,
-        media: action.media,
-        feedback: action.feedback
+        grid: [],
+        media: {},
+        feedback: {}
       }
   }
 }
