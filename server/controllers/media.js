@@ -15,7 +15,7 @@ exports.uploadPhoto = function (req, res) {
     let resizedPhotos = resizePhoto(photo.photoRaw);
     //parse url
     Promise.map(/*
-     map each photo in resizedPhotos to s3 upload function
+     map each photo and key in resizedPhotos to s3 upload function
      var urlExtension = id + key;
      Media.uploadToS3(photo, urlExtension){
      }
