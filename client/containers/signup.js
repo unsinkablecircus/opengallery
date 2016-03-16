@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import Signup from '../components/auth/Signup'
 
+
 const mapStateToProps = (state) => {
   // return object with the relevant state. related to DATA
   return {
@@ -18,10 +19,11 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     // this will be called when you hear back from an ajax request.
-    onSigninSubmit: () => {
-      dispatch({
-        type: 'TOGGLE_LOGGEDIN'
-      })
+    onSigninSubmit: (creds) => {
+      console.log ('creds', creds);
+      // dispatch({
+      //   type: 'TOGGLE_LOGGEDIN'
+      // })
     }
   }
 }

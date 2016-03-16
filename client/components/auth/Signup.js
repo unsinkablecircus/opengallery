@@ -23,7 +23,11 @@ const Signup = ({
     <FlatButton
       label="Submit"
       primary={true}
-      onTouchTap={ onSigninModalClick }
+      onTouchTap={ () => { 
+        const creds = {username: username.getValue(), password: password.getValue()};
+        console.log('creds', creds);
+        // onSigninSubmit(creds) 
+      }}
     />,
   ];
   return (
@@ -34,8 +38,9 @@ const Signup = ({
         modal={true}
         open={ showSigninModal }
       >
-        <TextField ref= { (node) => {username = node} } hintText='username'/><br />
-        <TextField hintText='password'/>
+        <TextField ref= { (node) => {username = node} } hintText='username'/> 
+        <br />
+        <TextField ref= { (node) => {password = node} } hintText='password'/>
       </Dialog>
     </div>
   );
