@@ -56,7 +56,7 @@ exports.uploadToS3 = function (photoId, photo) {
   }) //if using promises on invocation, cb is unnecessary
 };
 
-exports.updatePGid = function (photoURLsArr) {
+exports.updatePGid = function (photosURLsArr) {
   //array order is small, med, large
   pg.raw(
     `UPDATE media (url_small, url_medium, url_large)
