@@ -1,7 +1,7 @@
 import { grid as initialState } from '../../test/initialState'
 import { GRID_FILTER, GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
 
-const grid = (state, action) => {
+const grid = (state = initialState, action) => {
   switch (action.type) {
     case GRID_FILTER:
       return Object.assign({}, state, {
@@ -25,7 +25,7 @@ const grid = (state, action) => {
         error: action.error
       })
     default:
-      return initialState
+      return state
   }
 }
 
