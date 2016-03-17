@@ -49,13 +49,12 @@ exports.uploadToS3 = function (photoId, photo) {
 };
 
 exports.updatePGid = function (photosURLsArr) {
-  //array order is small, med, large
+  //array order is med, large
   pg.raw(
-    `UPDATE media (url_small, url_medium, url_large)
+    `UPDATE media (url_medium, url_large)
     values(
       '${photosURLsArr[0]}',
-      '${photosURLsArr[1]}',
-      '${photosURLsArr[2]}',
+      '${photosURLsArr[1]}'
     )
     `
   )
