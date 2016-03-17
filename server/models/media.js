@@ -69,6 +69,7 @@ exports.updatePGid = function (photosURLsArr) {
   )
 };
 
+//example s3 function
 let listBuckets = function() {
   s3.listBuckets(function(err, data) {
     if (err) { console.log("Error:", err); }
