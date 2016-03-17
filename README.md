@@ -29,8 +29,8 @@
   //     MEDIA     //
   ///////////////////
 
-  currentFeedTags: [], // represents current tags used to filter the feed
-  currentTile: 'media_id_01'
+  tags: [], // represents current tags used to filter the feed
+  tile: Number, // represents current index in grid array
   isFetchingMedia: false,
   errorFetchingMedia: '',
   grid: [
@@ -50,6 +50,9 @@
       url_sm: String,
       url_md: String,
       url_lg: String,
+      width: Number,
+      height: Number,
+      isLandscape: Boolean,
       feedback: [
         String, // 'feedback_id_01'
         String, // 'feedback_id_02'
@@ -75,13 +78,11 @@
   //     MODALS     //
   ////////////////////
 
-  modals: {
-    signIn: false,
-    signUp: false,
-    uploadTile: false,
-    gallery: false,
-    map: false
-  },
+  displaySignIn: false,
+  displaySignUp: false,
+  displayUploadTile: false,
+  displayGallery: false,
+  displayMap: false,
 
   ///////////////////
   //     FORMS     //
