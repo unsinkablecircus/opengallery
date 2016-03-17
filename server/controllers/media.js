@@ -10,19 +10,20 @@ const Media = require('../models/media')
 
 exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
-  var photo = separateData(req.body);
+  let photo = separateData(req.body);
+  let urlsArr = [];
   Media.uploadToPG(photo.metaData, function(id){
     let resizedPhotos = resizePhoto(photo.photoRaw);
     //parse url
     Promise.map(/*
-     map each photo and key in resizedPhotos to s3 upload function
-     var urlExtension = id + key;
-     Media.uploadToS3(photo, urlExtension){
-     }
+      map each photo and key in resizedPhotos to s3 upload function
+      var urlExtension = id + key;
+      urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtension);
+      Media.uploadToS3(photo, urlExtension){
+      }
     */)
     .then(() => {
-      let url = '// http://d14shq3s3khz77.cloudfront.net/' + urlExtension;
-      Media.updatePGid(url) //defined above
+      Media.updatePGid(urlsArr) //initiated above
       .then(() => {
         res.status(201).send();
       })
