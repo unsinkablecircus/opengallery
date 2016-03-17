@@ -63,7 +63,7 @@ export const initialState = {
       width: 800,
       height: 600,
       showHiRes: false,
-      feedback: [1, 2, 3, 4, 5]
+      feedback: [[1, 10], [2, 20], [3, 30], [4, 40], [5, 50]]
     },
     '2': {
       mediaId: 2,
@@ -78,7 +78,7 @@ export const initialState = {
       width: 800,
       height: 600,
       showHiRes: false,
-      feedback: [6, 7, 8, 9, 10]
+      feedback: [[6, 10], [7, 20], [8, 30], [9, 40], [10, 50]]
     },
     '3': {
       mediaId: 3,
@@ -93,7 +93,7 @@ export const initialState = {
       width: 800,
       height: 600,
       showHiRes: false,
-      feedback: [1, 3, 5, 7, 9]
+      feedback: [[1, 10], [3, 20], [5, 30], [7, 40], [9, 50]]
     },
     '4': {
       mediaId: 4,
@@ -108,7 +108,7 @@ export const initialState = {
       width: 800,
       height: 600,
       showHiRes: false,
-      feedback: [2, 4, 6, 8, 10]
+      feedback: [[2, 10], [4, 20], [6, 30], [8, 40], [10, 50]]
     },
     '5': {
       mediaId: 5,
@@ -123,7 +123,7 @@ export const initialState = {
       width: 800,
       height: 600,
       showHiRes: false,
-      feedback: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      feedback: [[1, 10], [3, 20], [5, 30], [7, 40], [9, 50]]
     },
     '6': {
       mediaId: 6,
@@ -138,7 +138,7 @@ export const initialState = {
       width: 800,
       height: 600,
       showHiRes: false,
-      feedback: [9, 8, 7, 6, 5]
+      feedback: [[2, 10], [4, 20], [6, 30], [8, 40], [10, 50], [9, 10], [8, 20]]
     },
     '7': {
       mediaId: 7,
@@ -153,7 +153,7 @@ export const initialState = {
       width: 800,
       height: 600,
       showHiRes: false,
-      feedback: [4, 7, 10]
+      feedback: [[4, 20], [7, 30], [10, 40]]
     },
     '8': {
       mediaId: 8,
@@ -168,7 +168,7 @@ export const initialState = {
       width: 800,
       height: 600,
       showHiRes: false,
-      feedback: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+      feedback: [[6, 20], [9, 30], [3, 40], [1, 50]]
     }
   },
 
@@ -178,47 +178,17 @@ export const initialState = {
 
   feedback: {
     displayFeeback: false,
-    data: {
-      '1': {
-        hashtag: 'beautiful',
-        count: 50
-      },
-      '2': {
-        hashtag: 'cool',
-        count: 40
-      },
-      '3': {
-        hashtag: 'awesome',
-        count: 30
-      },
-      '4': {
-        hashtag: 'weird',
-        count: 20
-      },
-      '5': {
-        hashtag: 'trippy',
-        count: 10
-      },
-      '6': {
-        hashtag: 'nice',
-        count: 55
-      },
-      '7': {
-        hashtag: 'great',
-        count: 45
-      },
-      '8': {
-        hashtag: 'adorbs',
-        count: 35
-      },
-      '9': {
-        hashtag: 'love',
-        count: 25
-      },
-      '10': {
-        hashtag: 'dig',
-        count: 15
-      }
+    hashtags: {
+      '1': 'beautiful',
+      '2': 'cool',
+      '3': 'awesome',
+      '4': 'weird',
+      '5': 'trippy',
+      '6': 'nice',
+      '7': 'great',
+      '8': 'adorbs',
+      '9': 'love',
+      '10': 'dig'
     }
   }
 }
