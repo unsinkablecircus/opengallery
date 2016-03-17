@@ -1,14 +1,15 @@
 import 'babel-polyfill'
-import { Route, Router, browserHistory } from 'react-router'
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import { Provider } from 'react-redux'
-import getRoutes from './routes'
-import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import createLogger from 'redux-logger'
+
+import { Route, Router, browserHistory } from 'react-router'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import getRoutes from './routes'
 
 import App from './components/App'
 import reducers from './reducers/index'
