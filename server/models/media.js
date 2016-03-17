@@ -49,11 +49,11 @@ exports.uploadToS3 = function (photoId, photo) {
   };
   s3.putObject(params, function(err, data) {
     if (err) {
-    console.log("Error uploading data: ", err);
-  } else {
-    console.log("Successfully uploaded data to myBucket/myKey: ", data);
-  }
-  })
+      console.log("Error uploading data: ", err);
+    } else {
+      console.log("Successfully uploaded data to myBucket/myKey: ", data);
+    }
+  }) //if using promises on invocation, cb is unnecessary
 };
 
 exports.updatePGid = function (photoURLsArr) {
@@ -67,4 +67,16 @@ exports.updatePGid = function (photoURLsArr) {
     )
     `
   )
+};
+
+let listBuckets = function() {
+  s3.listBuckets(function(err, data) {
+    if (err) { console.log("Error:", err); }
+    else {
+      for (var index in data.Buckets) {
+        var bucket = data.Buckets[index];
+        console.log("Bucket: ", bucket.Name, ' : ', bucket.CreationDate);
+      }
+    }
+  });
 };
