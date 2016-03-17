@@ -1,6 +1,6 @@
-var helpers = require('./helpers.js');
+var helpers = require('./helpers');
 
-var User = require('../controllers/users.js');
+var User = require('../controllers/users');
 
 module.exports = function (app, express) {
   app.post('/api/user/signIn', User.signIn);

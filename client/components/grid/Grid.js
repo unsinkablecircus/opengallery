@@ -26,8 +26,8 @@ const Grid = ({isFetchingMedia, errorFetchingMedia, grid, media, feedback, loadG
       cols={3}
       style={styles.grid}
     >
-      {images.map(image => (
-        <GridTile img={image}/>
+      {images.map((image, key) => (
+        <GridTile key={key} img={image}/>
       ))}
     </GridList>
   )
