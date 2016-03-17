@@ -1,6 +1,5 @@
 const Promise = require('bluebird')
 const pg = require('./../db/database')
-const bodyParser = require('body-parser')
 const AWS = require('aws-sdk');
 
 // load AWS credentials
