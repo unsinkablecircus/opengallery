@@ -10,17 +10,21 @@ exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
   var photo = separateData(req.body);
   var urlsArr = [];
-  Media.uploadToPG(photo.metaData, function(id){
-    var resizedPhotos = resizePhoto(photo.photoRaw);
-    //parse url
-    Promise.map(/*
-      // if small image, write to PG
-      // else write to s3
-      map each photo and key in resizedPhotos to s3 upload function
-      var urlExtension = id + key;
-      urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtension);
-      Media.uploadToS3(photo, urlExtension)
-    */)
+  // clone photos and turn into buffers for upload
+  var resizedPhotos = resizePhoto(photo.s3upload);
+  // update PG upload object to include small photo buffer
+  photo.PGupload.url_small = resizedPhotos.small;
+  //take out small image from 
+  delete resizedPhotos.small;
+  Media.uploadToPG(photo.PGupload, function(id){
+    Promise.map(
+      //map each photo and key in resizedPhotos to s3 upload function
+      function(photo, key){
+        var urlExtension = id + key;
+        urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtension);
+        Media.uploadToS3(photo, urlExtension);
+      }
+    )
     .then(() => {
       Media.updatePGid(urlsArr) //initiated above
       .then(() => {
@@ -33,24 +37,23 @@ exports.uploadPhoto = function (req, res) {
       console.log('error uploading images to s3 db', err)
     });
   });
-  
 };
 
 const separateData = (data) => {
-  //
+  //not sure how req.body will come in
   var photoData = {
-    metaData: data.photoInfo,
-    raw: data.photoRaw
+    PGupload: data.photoInfo,
+    s3upload: data.photoRaw
   }
   return photoData
 }
 
 const resizePhoto = (photo) => {
-  var photoArr = [
-    {small: ''},
-    {medium: ''},
-    {large: ''}
-  ]
+  var photoObj = {
+    small: '',
+    medium: '',
+    large: ''
+  }
 
   //use jimp to resize original photo
   Jimp.read(photo, function (err, image) {
@@ -63,7 +66,7 @@ const resizePhoto = (photo) => {
       cloneAndManipulate(large, readImage);
     }
   });
-  return photoArr;
+  return photoObj;
 }
 
 const cloneAndManipulate = (size, image) => {
@@ -78,14 +81,14 @@ const cloneAndManipulate = (size, image) => {
   if (size === 'large') {
     side = 40;
   }
-  photoArr[size] = image.clone()
+  photoObj[size] = image.clone()
     .resize(side, Jimp.AUTO, Jimp.RESIZE_BEZIER)
     // convert each photo to buffer
     .getBuffer( Jimp.MIME_JPEG, function(err, bufferImg) {
       if (err) {
         console.log(`Error writing ${size} image: `, err);
       } else {
-        photoArr[size] = bufferImg;
+        photoObj[size] = bufferImg;
       }
     }
   );
