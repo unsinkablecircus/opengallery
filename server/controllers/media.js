@@ -14,6 +14,8 @@ exports.uploadPhoto = function (req, res) {
     var resizedPhotos = resizePhoto(photo.photoRaw);
     //parse url
     Promise.map(/*
+      // if small image, write to PG
+      // else write to s3
       map each photo and key in resizedPhotos to s3 upload function
       var urlExtension = id + key;
       urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtension);
