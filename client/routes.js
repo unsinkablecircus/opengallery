@@ -7,8 +7,11 @@ import User from './components/user/User';
 
 export default function getRoutes() {
   return (
-    <Route path='/' component={App}>
-      <Route path='profile' component={User}/>
-    </Route>
+    <div>
+      <Route path='/' component={App}>
+      </Route>
+      <Route path='/profile/:username' component={User}>
+      </Route>
+    </div>
   )
 }
