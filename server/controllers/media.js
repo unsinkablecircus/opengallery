@@ -17,12 +17,12 @@ exports.uploadPhoto = function (req, res) {
   //take out small image from 
   delete resizedPhotos.small;
   Media.uploadToPG(photo.PGupload, function(id){
-    Promise.map(
+    Promise.map(resizedPhotos,
       //map each photo and key in resizedPhotos to s3 upload function
       function(photo, key){
         var urlExtension = id + key;
         urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtension);
-        Media.uploadToS3(photo, urlExtension);
+        return Media.uploadToS3(photo, urlExtension);
       }
     )
     .then(() => {
