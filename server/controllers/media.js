@@ -67,9 +67,9 @@ resizePhoto (photo) => {
 
 cloneAndManipulate (size) => {
   // seemingly useful functions
-  // readImage.quality( n ); // set the quality of saved JPEG, 0 - 100
-  // readImage.resize(250, 250, Jimp.RESIZE_BEZIER);
-  // readImage.getBuffer( mime, cb ); // Node-style callback wil be fired with result
+    // readImage.quality( n ); // set the quality of saved JPEG, 0 - 100
+    // readImage.resize(250, 250, Jimp.RESIZE_BEZIER);
+    // readImage.getBuffer( mime, cb ); // Node-style callback wil be fired with result
   photoArr[size] = readImage.clone()
     .resize(###, ###, Jimp.RESIZE_BEZIER)
     // convert each photo to buffer
