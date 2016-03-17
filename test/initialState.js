@@ -1,4 +1,4 @@
-{
+export const initialState = {
   /////////////////////
   //     SESSION     //
   /////////////////////
@@ -15,7 +15,7 @@
 
   user: {
     uid: 1,
-    username: 'username'
+    username: 'username',
     name: 'User Name',
     email: 'user@email.com',
     facebook: 'facebook',
@@ -39,7 +39,7 @@
   //////////////////
 
   grid: {
-    isFetching: false,
+    fetching: false,
     error: '',
     filter: [],
     tiles: [1, 2, 3, 4, 5, 6, 7, 8]
