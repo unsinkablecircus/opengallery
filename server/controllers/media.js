@@ -26,7 +26,7 @@ exports.uploadPhoto = function (req, res) {
       }
     )
     .then(() => {
-      Media.updatePGid(urlsArr) //initiated above
+      Media.updatePGid(urlsArr) // urlsArr initiated above
       .then(() => {
         res.status(201).send();
       })
