@@ -1,31 +1,40 @@
+export const GRID_FILTER = 'GRID_FILTER'
 export const GRID_REQUEST = 'GRID_REQUEST'
 export const GRID_SUCCESS = 'GRID_SUCCESS'
 export const GRID_FAILURE = 'GRID_FAILURE'
 
-export function requestGridData(tags) {
+export function filterGridData(tags) {
+  return {
+    type: GRID_FILTER,
+    payload: tags
+  }
+}
+
+export function requestGridData() {
   return {
     type: GRID_REQUEST,
-    fetching: true,
-    success: false,
-    tags
+    payload: true
   }
 }
 
 export function receiveGridData(data) {
   return {
     type: GRID_SUCCESS,
-    fetching: false,
-    success: true,
-    data
+    payload: data,
+    error: '',
+    meta: {
+      fetching: false
+    }
   }
 }
 
 export function catchGridData(error) {
   return {
     type: GRID_FAILURE,
-    fetching: false,
-    success: false,
-    error
+    error,
+    meta: {
+      fetching: false
+    }
   }
 }
 

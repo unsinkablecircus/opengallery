@@ -7,22 +7,50 @@
 
 ```
 {
+  /////////////////////
+  //     SESSION     //
+  /////////////////////
+
+  session: {
+    loggedIn: false,
+    showSignInModal: false
+  },
+
+
   //////////////////
   //     USER     //
   //////////////////
 
   user: {
-    uid: String // 'user_id_01'
-    username: String
-    name: String,
-    email: String,
-    password: String,
-    phone: String,
-    facebook: String,
-    twitter: String,
-    avatar: String,
-    media: String,
-    about: String
+    uid: 1,
+    username: 'username',
+    name: 'User Name',
+    email: 'user@email.com',
+    facebook: 'facebook',
+    twitter: 'twitter',
+    avatar: 'http://placehold.it/300x300',
+    media: 'Media',
+    about: 'About'
+  },
+
+  /////////////////////
+  //     GALLERY     //
+  /////////////////////
+
+  gallery: {
+    tile: 0,
+    showGallery: false
+  },
+
+  //////////////////
+  //     GRID     //
+  //////////////////
+
+  grid: {
+    fetching: false,
+    error: '',
+    filter: [],
+    tiles: [1, 2, 3, 4, 5, 6, 7, 8]
   },
 {
   ///////////////
@@ -40,59 +68,49 @@
   //     MEDIA     //
   ///////////////////
 
-  currentFeedTags: [], // represents current tags used to filter the feed
-  currentTile: 'media_id_01'
-  isFetchingMedia: false,
-  errorFetchingMedia: '',
-  grid: [
-    String, // 'media_id_01'
-    String, // 'media_id_02'
-    ...
-  ],
-
   media: {
-    'media_id_01': {
-      userId: String, // 'user_id_01'
-      userFeedbackId: String, // 'feedback_id_01'
-      media: String,
-      title: String,
-      description: String,
-      tags: [Strings],
-      url_sm: String,
-      url_md: String,
-      url_lg: String,
-      feedback: [
-        String, // 'feedback_id_01'
-        String, // 'feedback_id_02'
-        ...
-      ]
+    '1': {
+      mediaId: 1,
+      userFeedbackId: 1,
+      media: 'Media 1',
+      title: 'Title 1',
+      description: 'Description 1',
+      tags: [],
+      url_sm: 'https://placehold.it/30x30',
+      url_md: 'https://placehold.it/400x300',
+      url_lg: 'https://placehold.it/800x600',
+      width: 800,
+      height: 600,
+      showHiRes: false,
+      feedback: [1, 2, 3, 4, 5]
     },
     ...
   },
 
+  //////////////////////
+  //     FEEDBACK     //
+  //////////////////////
+
   feedback: {
-    'feedback_id_01': {
-      hashtag: String,
-      count: Number
-    },
-    'feedback_id_02': {
-      hashtag: String,
-      count: Number
-    },
-    ...
+    displayFeeback: false,
+    data: {
+      '1': {
+        hashtag: 'beautiful',
+        count: 50
+      },
+      ...
+    }
   }
 
   ////////////////////
   //     MODALS     //
   ////////////////////
 
-  modals: {
-    signIn: false,
-    signUp: false,
-    uploadTile: false,
-    gallery: false,
-    map: false
-  },
+  displaySignIn: false,
+  displaySignUp: false,
+  displayUploadTile: false,
+  displayGallery: false,
+  displayMap: false,
 
   ///////////////////
   //     FORMS     //
