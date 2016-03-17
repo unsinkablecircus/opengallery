@@ -52,12 +52,27 @@ exports.updatePGid = function (photosURLsArr) {
   //array order is med, large
   pg.raw(
     `UPDATE media (url_medium, url_large)
-    values(
-      '${photosURLsArr[0]}',
-      '${photosURLsArr[1]}'
-    )
+      values(
+        '${photosURLsArr[0]}',
+        '${photosURLsArr[1]}'
+      )
     `
   )
+};
+
+exports.retrievePhotosFromPG = function (cb) {
+  // SQL Query > Insert Data
+  pg.raw(
+    `SELECT * FROM media
+    LIMIT 20
+    `
+  )
+  .then(function(data) {
+    cb(null, data)
+  })
+  .catch(function(err) {
+    cb(err, null);
+  });
 };
 
 // example of connecting to postgresql database below (will move to models later):
