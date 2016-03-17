@@ -9,7 +9,7 @@ var credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
 AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-west-1'});
 
-// require middleware/routes
+// require routes
 require('./config/middleware.js')(app, express);
 require('./config/router.js')(app, express);
 
