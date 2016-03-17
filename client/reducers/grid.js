@@ -1,30 +1,31 @@
-import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
+import { grid as initialState } from '../../test/initialState'
+import { GRID_FILTER, GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
 
 const grid = (state, action) => {
   switch (action.type) {
+    case GRID_FILTER:
+      return Object.assign({}, state, {
+        filter: action.payload
+      })
     case GRID_REQUEST:
       return Object.assign({}, state, {
-        isFetchingMedia: action.meta.fetching
+        fetching: action.payload
       })
     case GRID_SUCCESS:
       return Object.assign({}, state, {
-        isFetchingMedia: action.meta.fetching,
-        errorFetchingMedia: '',
-        ...action.payload
+        fetching: action.meta.fetching,
+        error: action.error,
+        tiles: action.payload.map(media => {
+          return media.id
+        })
       })
     case GRID_FAILURE:
       return Object.assign({}, state, {
-        isFetchingMedia: action.meta.fetching,
-        errorFetchingMedia: action.error
+        fetching: action.meta.fetching,
+        error: action.error
       })
     default:
-      return {
-        isFetchingMedia: false,
-        errorFetchingMedia: '',
-        grid: [],
-        media: {},
-        feedback: {}
-      }
+      return initialState
   }
 }
 
