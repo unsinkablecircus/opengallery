@@ -33,11 +33,10 @@ export const GridComponent = () => {
     done()
   })
 
-  xit('should have GridTile child components', (done) => {
+  it('should have GridTile child components', (done) => {
     let gridTile = output.props.children[0]
-
     expect(gridTile.type).to.equal(GridTile)
-    expect(gridTile.props.key).to.equal(0)
+    expect(gridTile.key).to.equal('0')
     done()
   })
 }
