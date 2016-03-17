@@ -4,11 +4,7 @@ import Grid from '../components/grid/Grid'
 
 const mapStateToProps = (state) => {
   return {
-    isFetchingMedia: state.isFetchingMedia,
-    errorFetchingMedia: state.errorFetchingMedia,
-    grid: state.grid,
-    media: state.media,
-    feedback: state.feedback
+    ...state
   }
 }
 
