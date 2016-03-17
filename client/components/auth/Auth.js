@@ -28,6 +28,7 @@ const Auth = ({
     />,
   ];
 
+  // define some components here, rendered depending on state
   const p = <p onClick={toggleSigninOrSignupLink}> Not a member? Sign up here! </p>;
   const p2 = <p onClick={toggleSigninOrSignupLink}> Already a member? Sign in here! </p>;
   const errorMessage = <p> {error} </p>;
