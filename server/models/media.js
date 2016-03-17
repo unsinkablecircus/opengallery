@@ -1,8 +1,14 @@
 const Promise = require('bluebird')
 const pg = require('./../db/database')
 const bodyParser = require('body-parser')
-const s3 = new AWS.S3();
+const AWS = require('aws-sdk');
 
+// load AWS credentials
+const credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
+AWS.config.credentials = credentials;
+AWS.config.update({region: 'us-west-1'});
+
+const s3 = new AWS.S3();
 const Media = require('../models/media')
 
 //model handles db manipulation
