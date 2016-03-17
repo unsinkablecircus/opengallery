@@ -1,14 +1,16 @@
 import { connect } from 'react-redux'
-import Auth from '../components/auth/Signup' 
+import Auth from '../components/auth/Auth' 
 import { SignupUser } from '../actions/signup' 
 import { SigninUser } from '../actions/signin'
 
 const mapStateToProps = (state) => {
   // return object with the relevant state. related to DATA
+  console.log('state', state);
   return {
     isAuthenticated: state.auth.isAuthenticated,
-    // this is used to toggle between either the Signin or Signup forms.
     showSigninAndNotSignup: state.auth.showSigninAndNotSignup,
+    error: state.auth.error
+
   }
 }
 

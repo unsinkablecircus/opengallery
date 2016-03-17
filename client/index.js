@@ -1,23 +1,9 @@
-// <<<<<<< e083be82756a39ec4b14ace3b2190f8c82d1a8e9
-// import 'babel-polyfill'
-// import React from 'react'
-// import reducers from './reducers/index'
-// import App from './components/App'
-
-// let store = createStore(reducers)
-
-// render(
-//   <Provider store={store}>
-//     <App/>
-//   </Provider>,
-// =======
-
+import 'babel-polyfill'
 import { Route, Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import { Provider } from 'react-redux'
 import getRoutes from './routes'
 import thunkMiddleware from 'redux-thunk'
-// import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 

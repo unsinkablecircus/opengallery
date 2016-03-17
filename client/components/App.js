@@ -1,7 +1,7 @@
 import React from 'react'
 import Nav from '../containers/nav'
 import Grid from '../containers/grid'
-import Auth from '../containers/signup'
+import Auth from '../containers/auth'
 
 import injectTapEventPlugin from'react-tap-event-plugin'
 injectTapEventPlugin()

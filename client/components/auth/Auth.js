@@ -8,11 +8,11 @@ import { connect } from 'react-redux'
 
 const Auth = ({
   isAuthenticated,
-  onSigninModalClick,
   onSigninSubmit,
   onSignupSubmit,
   showSigninAndNotSignup,
-  toggleSigninOrSignupLink
+  toggleSigninOrSignupLink,
+  error
 }) => {
   let username;
   let password;
@@ -32,6 +32,7 @@ const Auth = ({
 
   const p = <p onClick={toggleSigninOrSignupLink}> Not a member? Sign up here! </p>;
   const p2 = <p onClick={toggleSigninOrSignupLink}> Already a member? Sign in here! </p>;
+  const errorMessage = <p> {error} </p>;
 
   return (
     <div>
@@ -43,8 +44,9 @@ const Auth = ({
       >
         <TextField ref= { (node) => {username = node} } hintText='username'/> 
         <br />
-        <TextField ref= { (node) => {password = node} } hintText='password'/>
+        <TextField type='password' ref= { (node) => {password = node} } hintText='password'/>
         { showSigninAndNotSignup ? p : p2 }
+        { error !== '' ? errorMessage : null }
       </Dialog>
     </div>
   );
