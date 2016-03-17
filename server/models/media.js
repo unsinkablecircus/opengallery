@@ -49,9 +49,9 @@ exports.uploadToS3 = function (photoId, photo) {
   };
   s3.putObject(params, function(err, data) {
     if (err) {
-      console.log("Error uploading data: ", err);
+      console.log("Error uploading photo: ", photoId, err);
     } else {
-      console.log("Successfully uploaded data to myBucket/myKey: ", data);
+      console.log("Successfully uploaded photo to opengallery", data);
     }
   }) //if using promises on invocation, cb is unnecessary
 };
