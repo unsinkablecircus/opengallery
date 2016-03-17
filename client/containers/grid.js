@@ -21,6 +21,4 @@ const container = connect(
   mapDispatchToProps
 )(Grid)
 
-
-// consider renaming this grid -DW
 export default container
