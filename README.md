@@ -24,7 +24,18 @@
     media: String,
     about: String
   },
+{
+  ///////////////
+  //   AUTH    //
+  ///////////////
+  auth: {
+    isAuthenticated: Boolean,
+    isFetching: Boolean,
+    error: ''
+  }
 
+
+},
   ///////////////////
   //     MEDIA     //
   ///////////////////

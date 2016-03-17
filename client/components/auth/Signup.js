@@ -6,46 +6,55 @@ import TextField from 'material-ui/lib/text-field'
 
 import { connect } from 'react-redux'
 
-const Signup = ({
-  showSigninModal,
+const Auth = ({
+  isAuthenticated,
   onSigninModalClick,
-  onSigninSubmit
+  onSigninSubmit,
+  onSignupSubmit,
+  showSigninAndNotSignup,
+  toggleSigninOrSignupLink
 }) => {
   let username;
   let password;
 
+  // on initial rendering this first value is undefined, so set it to true.
+
   const actions = [
-    <FlatButton
-      label="Cancel"
-      secondary={true}
-      onTouchTap={ onSigninModalClick }
-    />,
     <FlatButton
       label="Submit"
       primary={true}
       onTouchTap={ () => { 
         const creds = {username: username.getValue(), password: password.getValue()};
-        onSigninSubmit(creds);
+        showSigninAndNotSignup ? onSigninSubmit(creds) : onSignupSubmit(creds);
       }}
     />,
   ];
+
+  const p = <p onClick={toggleSigninOrSignupLink}> Not a member? Sign up here! </p>;
+  const p2 = <p onClick={toggleSigninOrSignupLink}> Already a member? Sign in here! </p>;
+
   return (
     <div>
       <Dialog
-        title="Sign Up"
+        title= { showSigninAndNotSignup ? 'Sign in' : 'Sign up'}
         actions={actions}
         modal={true}
-        open={ showSigninModal }
+        open={ !isAuthenticated }
       >
         <TextField ref= { (node) => {username = node} } hintText='username'/> 
         <br />
         <TextField ref= { (node) => {password = node} } hintText='password'/>
+        { showSigninAndNotSignup ? p : p2 }
       </Dialog>
     </div>
   );
 }
 
-export default Signup;
+export default Auth;
+
+
+
+
 
 
 

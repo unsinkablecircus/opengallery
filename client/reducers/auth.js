@@ -1,40 +1,39 @@
 
-// reducer for loginUser
-
-// const loginReducer = (state, action) => {
-//   switch (action.type) {
-//     case "LOGIN_REQUEST":
-//       return Object.assign({}, state, {
-//         isFetching: true,
-//         isAuthenticated: true,
-//         user: action 
-//       })
-//     case "LOGIN_SUCCESS":
-//     case "LOGIN_FAILURE":
-//     case "LOGOUT SUCCESS":
-
-
-
-
-//   }
-// }
-
 var initialState = {
-  loggedIn: false,
-  showSigninModal: false
+  isAuthenticated: localStorage.getItem('id_token') ? true : false,
+  isFetching: false,
+  error: '',
+  showSigninAndNotSignup: true
 }
+
 
 const auth = (state=initialState, action) => {
   switch (action.type) {
-    case 'TOGGLE_LOGGEDIN':
-    // can't use ...state spread operator. Probably an issue with babel?
+    case 'AUTH_REQUEST':
       return Object.assign({}, state, {
-          loggedIn: !state.loggedIn
-      });
-    case 'TOGGLE_SIGNIN_MODAL':
+        isFetching: true,
+      })
+    case 'AUTH_SUCCESS':
       return Object.assign({}, state, {
-          showSigninModal: !state.showSigninModal,
-      });
+        isFetching: false,
+        isAuthenticated: true,
+        error: ''
+      })
+    case 'AUTH_FAILURE':
+      return Object.assign({}, state, {
+        isFetching: false,
+        isAuthenticated: false,
+        error: action.payload.message
+      })
+    case 'LOGOUT':
+      return Object.assign({}, state, {
+        isAuthenticated: false
+      })
+    case 'TOGGLE_SIGNIN_OR_SIGNUP_LINK':
+      return Object.assign({}, state, {
+        showSigninAndNotSignup: !state.showSigninAndNotSignup
+      })
+
     default:
       return state;
   }

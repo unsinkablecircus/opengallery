@@ -9,27 +9,30 @@ const comparePassword = helpers.comparePassword;
 const hashPassword = helpers.hashPassword; 
 
 const expires = moment().add(1, 'days').valueOf();
+const secret = 'shhhSecret';
 
 module.exports = {
   signUp: function (req, res, next) {
     const username = req.body.username;
     const password = req.body.password;
-
+    console.log(username, password);
     db.raw(`SELECT * FROM users WHERE username = '${username}'`)
     .then( (user) => {
+      console.log(user.rows);
       if ( user.rows.length > 0 ) {
-        return res.status(500).send({ error: 'User Already Exists' });
+        res.status(500).send({ error: 'User Already Exists' });
       } else {
-        return hashPassword(password);
+        return hashPassword(password)
+        .then( (hashedPW) => {
+          return db.raw(`INSERT INTO users (username, password) VALUES ('${username}', '${hashedPW}')`)
+        })
+        .then( (user) => {
+          console.log('after insert', user);
+          // generate a token from the username and send it back
+          var token = jwt.encode({iss: username, exp: expires}, secret);
+          res.send({token: token});
+        })
       }
-    })
-    .then( (hashedPW) => {
-        return db.raw(`INSERT INTO users (username, password) VALUES ('${username}', '${hashedPW}')`)
-    })
-    .then( (user) => {
-      // generate a token
-      console.log('user', user);
-      res.send(user);
     })
     .catch((err) => {
       console.log('err', err);
@@ -43,6 +46,7 @@ module.exports = {
     db.raw(`SELECT * FROM users WHERE username = '${username}'`)
     .then( (user) => {
       var user = user.rows[0];
+      console.log(user);
       return comparePassword(password, user.password);
     })
     .then( (isMatch) => {

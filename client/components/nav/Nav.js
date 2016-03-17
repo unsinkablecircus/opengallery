@@ -23,7 +23,8 @@ const darkMuiTheme = getMuiTheme(darkBaseTheme)
 //
 
 let Nav = ({
-  dispatch
+  isAuth,
+  onLogoutClick
 }) => {
   const styles = {
     nav: {
@@ -53,7 +54,7 @@ let Nav = ({
             <IconButton tooltip='Discover'>
               <DiscoverIcon color='#303030'/>
             </IconButton>
-            <FlatButton onClick={ () => {dispatch({type:'TOGGLE_SIGNIN_MODAL'})} }> Sign Up </FlatButton>
+            { isAuth ? <FlatButton onClick={ onLogoutClick }> logout </FlatButton> : null }
           </div>
         }
         iconElementRight={
@@ -75,6 +76,5 @@ let Nav = ({
 
 // by default, if no params are passed into connect, it does not subscribe to store,
 // and it only passes on the dispatch function to the presentational component.
-Nav = connect()(Nav);
 
 export default Nav;

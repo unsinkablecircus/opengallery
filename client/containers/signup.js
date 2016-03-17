@@ -1,11 +1,14 @@
 import { connect } from 'react-redux'
-import Signup from '../components/auth/Signup' // presentational component
-import { SignupUser } from '../actions/signup' // the action
+import Auth from '../components/auth/Signup' 
+import { SignupUser } from '../actions/signup' 
+import { SigninUser } from '../actions/signin'
 
 const mapStateToProps = (state) => {
   // return object with the relevant state. related to DATA
   return {
-    showSigninModal: state.modal.signIn
+    isAuthenticated: state.auth.isAuthenticated,
+    // this is used to toggle between either the Signin or Signup forms.
+    showSigninAndNotSignup: state.auth.showSigninAndNotSignup,
   }
 }
 
@@ -20,9 +23,14 @@ const mapDispatchToProps = (dispatch) => {
     },
     // this will be called when you hear back from an ajax request.
     onSigninSubmit: (creds) => {
-      dispatch(SignupUser(creds))
-      .then( () => {
-        console.log('done');
+      dispatch(SigninUser(creds));
+    },
+    onSignupSubmit: (creds) => {
+      dispatch(SignupUser(creds));
+    },
+    toggleSigninOrSignupLink: () => {
+      dispatch({
+        type: 'TOGGLE_SIGNIN_OR_SIGNUP_LINK'
       })
     }
   }
@@ -32,6 +40,6 @@ const mapDispatchToProps = (dispatch) => {
 const container = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Signup);
+)(Auth);
 
 export default container;
