@@ -1,4 +1,3 @@
-const pg = require('../db/database')
 const Promise = require('bluebird')
 const jimp = require('jimp')
 
@@ -22,7 +21,7 @@ exports.uploadPhoto = function (req, res) {
       function(photo, key){
         var urlExtension = id + key;
         urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtension);
-        return Media.uploadToS3(photo, urlExtension);
+        return Media.uploadToS3(urlExtension, photo);
       }
     )
     .then(() => {
