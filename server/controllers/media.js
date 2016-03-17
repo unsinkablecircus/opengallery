@@ -4,6 +4,11 @@ const jimp = require('jimp')
 const Media = require('../models/media')
 
 //controller handles function delegation
+exports.getPhotos = function (req, res) {
+  Media.retrievePhotosFromPG(function(photos){
+    res.json(photos);
+  })
+}
 
 exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
