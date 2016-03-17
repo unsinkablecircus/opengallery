@@ -1,5 +1,4 @@
 const pg = require('../db/database')
-const s3 = require('../s3/s3')
 const Promise = require('bluebird')
 const jimp = require('jimp')
 
@@ -9,10 +8,10 @@ const Media = require('../models/media')
 
 exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
-  let photo = separateData(req.body);
-  let urlsArr = [];
+  var photo = separateData(req.body);
+  var urlsArr = [];
   Media.uploadToPG(photo.metaData, function(id){
-    let resizedPhotos = resizePhoto(photo.photoRaw);
+    var resizedPhotos = resizePhoto(photo.photoRaw);
     //parse url
     Promise.map(/*
       map each photo and key in resizedPhotos to s3 upload function
@@ -35,43 +34,50 @@ exports.uploadPhoto = function (req, res) {
   
 };
 
-separateData (data) => {
+const separateData = (data) => {
   //
-  let photoData = {
+  var photoData = {
     metaData: data.photoInfo,
     raw: data.photoRaw
   }
   return photoData
 }
 
-resizePhoto (photo) => {
-  let photoArr = [
+const resizePhoto = (photo) => {
+  var photoArr = [
     {small: ''},
     {medium: ''},
     {large: ''}
   ]
 
   //use jimp to resize original photo
-  Jimp.read(photo, function (err, readImage) {
+  Jimp.read(photo, function (err, image) {
     if (err) {
       console.log('Error reading image: ', err);
     } else {
       // do stuff with the image (if no exception)
-      cloneAndManipulate(small);
-      cloneAndManipulate(medium);
-      cloneAndManipulate(large);
+      cloneAndManipulate(small, readImage);
+      cloneAndManipulate(medium, readImage);
+      cloneAndManipulate(large, readImage);
     }
   });
   return photoArr;
 }
 
-cloneAndManipulate (size) => {
-  // seemingly useful functions
-    // readImage.quality( n ); // set the quality of saved JPEG, 0 - 100
-    // readImage.resize(250, 250, Jimp.RESIZE_BEZIER);
-    // readImage.getBuffer( mime, cb ); // Node-style callback wil be fired with result
-  photoArr[size] = readImage.clone()
-    .resize(###, ###, Jimp.RESIZE_BEZIER)
+const cloneAndManipulate = (size, image) => {
+  //side is one dimension of photo
+  var side = 0;
+  if (size === 'small') {
+    side = 40;
+  }
+  if (size === 'medium') {
+    side = 40;
+  }
+  if (size === 'large') {
+    side = 40;
+  }
+  photoArr[size] = image.clone()
+    .resize(side, Jimp.AUTO, Jimp.RESIZE_BEZIER)
     // convert each photo to buffer
     .getBuffer( Jimp.MIME_JPEG, function(err, bufferImg) {
       if (err) {

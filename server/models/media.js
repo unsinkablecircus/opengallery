@@ -13,16 +13,6 @@ const Media = require('../models/media')
 //model handles db manipulation
 
 exports.uploadToPG = function (photoData, cb) {
-  /* example data
-  var data = {
-    user: 3,
-    url_small: 'null',
-    url_med: 'null',
-    url_large: 'null',
-    title: 'myPicture',
-    description: 'made with love'
-  };
-  */
   // SQL Query > Insert Data
   pg.raw(
     `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description) 
@@ -41,9 +31,6 @@ exports.uploadToPG = function (photoData, cb) {
     cb(err, null);
   });
 };
-
-// test function
-// uploadToPG();
 
 exports.uploadToS3 = function (photoId, photo) {
   var params = {
@@ -109,7 +96,7 @@ s3.putObject(params, function(err, data) {
 */
 
 //example s3 function
-let listBuckets = function() {
+var listBuckets = function() {
   s3.listBuckets(function(err, data) {
     if (err) { console.log("Error:", err); }
     else {
