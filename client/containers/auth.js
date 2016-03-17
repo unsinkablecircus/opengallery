@@ -5,7 +5,6 @@ import { SigninUser } from '../actions/signin'
 
 const mapStateToProps = (state) => {
   // return object with the relevant state. related to DATA
-  console.log('state', state);
   return {
     isAuthenticated: state.auth.isAuthenticated,
     showSigninAndNotSignup: state.auth.showSigninAndNotSignup,

@@ -9,9 +9,7 @@ export function SigninUser(creds) {
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
     body: `username=${creds.username}&password=${creds.password}`
   }
-  // this action creator returns a function. Thunk middleware will know what to do when this is patched into a dispatch function later on.
   return dispatch => {
-    // We dispatch requestLogin to kickoff the call to the API
     dispatch(authRequest())
     return fetch('http://localhost:8000/api/user/signIn', config)
       .then(response =>

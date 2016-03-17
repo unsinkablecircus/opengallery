@@ -16,7 +16,7 @@ export function SignupUser(creds) {
     return fetch('http://localhost:8000/api/user/signUp', config)
       .then( response => {
         if ( !response.ok ) {
-          dispatch(authError('Incorrect username and/or password'));
+          dispatch(authError('User already exists'));
           return Promise.reject('incorrect username or password');
         }
         return response.json();

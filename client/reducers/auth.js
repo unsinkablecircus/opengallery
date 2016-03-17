@@ -1,4 +1,3 @@
-
 var initialState = {
   isAuthenticated: localStorage.getItem('id_token') ? true : false,
   isFetching: false,
@@ -6,7 +5,7 @@ var initialState = {
   showSigninAndNotSignup: true
 }
 
-
+// reducer that handles authentication
 const auth = (state=initialState, action) => {
   switch (action.type) {
     case 'AUTH_REQUEST':
@@ -41,3 +40,5 @@ const auth = (state=initialState, action) => {
 
 
 export default auth
+
+

@@ -17,8 +17,6 @@ const Auth = ({
   let username;
   let password;
 
-  // on initial rendering this first value is undefined, so set it to true.
-
   const actions = [
     <FlatButton
       label="Submit"

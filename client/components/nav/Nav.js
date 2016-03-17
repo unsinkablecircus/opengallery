@@ -54,7 +54,6 @@ let Nav = ({
             <IconButton tooltip='Discover'>
               <DiscoverIcon color='#303030'/>
             </IconButton>
-            { isAuth ? <FlatButton onClick={ onLogoutClick }> logout </FlatButton> : null }
           </div>
         }
         iconElementRight={
@@ -66,7 +65,7 @@ let Nav = ({
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
             <MenuItem primaryText='Profile'/>
-            <MenuItem primaryText='Sign Out'/>
+            <MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/>
           </IconMenu>
         }
       />
