@@ -9,5 +9,9 @@ module.exports = function (app, express) {
 
   app.get('/api/media/', Media.getPhotos);
   app.post('/api/media/upload', Media.uploadPhoto);
-};
 
+  // With react router, serer needs to serve up files
+  app.get('*', function (request, response){
+    response.sendFile('index.html', {"root": "public"})
+  })
+};
