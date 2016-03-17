@@ -1,7 +1,7 @@
-import { grid as initialState } from '../../test/initialState'
+import { initialState } from '../../test/initialState'
 import { GRID_FILTER, GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
 
-const grid = (state = initialState, action) => {
+const grid = (state = initialState.grid, action) => {
   switch (action.type) {
     case GRID_FILTER:
       return Object.assign({}, state, {
@@ -15,9 +15,7 @@ const grid = (state = initialState, action) => {
       return Object.assign({}, state, {
         fetching: action.meta.fetching,
         error: action.error,
-        tiles: action.payload.map(media => {
-          return media.id
-        })
+        tiles: action.payload
       })
     case GRID_FAILURE:
       return Object.assign({}, state, {
