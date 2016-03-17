@@ -1,6 +1,5 @@
 const pg = require('../db/database')
 const s3 = require('../s3/s3')
-const bodyParser = require('body-parser')
 const Promise = require('bluebird')
 const jimp = require('jimp')
 
@@ -19,8 +18,7 @@ exports.uploadPhoto = function (req, res) {
       map each photo and key in resizedPhotos to s3 upload function
       var urlExtension = id + key;
       urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtension);
-      Media.uploadToS3(photo, urlExtension){
-      }
+      Media.uploadToS3(photo, urlExtension)
     */)
     .then(() => {
       Media.updatePGid(urlsArr) //initiated above
@@ -47,13 +45,42 @@ separateData (data) => {
 }
 
 resizePhoto (photo) => {
-  let photoObj = {
-    small: '',
-    medium: '',
-    large: ''
-  }
+  let photoArr = [
+    {small: ''},
+    {medium: ''},
+    {large: ''}
+  ]
+
   //use jimp to resize original photo
-    // convert each photo to buffer
-    // assign each photo buffer to corresponding property
-  return photoObj;
+  Jimp.read(photo, function (err, readImage) {
+    if (err) {
+      console.log('Error reading image: ', err);
+    } else {
+      // do stuff with the image (if no exception)
+      cloneAndManipulate(small);
+      cloneAndManipulate(medium);
+      cloneAndManipulate(large);
+    }
+  });
+  return photoArr;
 }
+
+cloneAndManipulate (size) => {
+  // seemingly useful functions
+  // readImage.quality( n ); // set the quality of saved JPEG, 0 - 100
+  // readImage.resize(250, 250, Jimp.RESIZE_BEZIER);
+  // readImage.getBuffer( mime, cb ); // Node-style callback wil be fired with result
+  photoArr[size] = readImage.clone()
+    .resize(###, ###, Jimp.RESIZE_BEZIER)
+    // convert each photo to buffer
+    .getBuffer( Jimp.MIME_JPEG, function(err, bufferImg) {
+      if (err) {
+        console.log(`Error writing ${size} image: `, err);
+      } else {
+        photoArr[size] = bufferImg;
+      }
+    }
+  );
+}
+
+
