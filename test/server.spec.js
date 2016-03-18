@@ -64,4 +64,71 @@ describe('', function() {
     });
   });
 
+  describe('Media Controller: ', function() {
+    it('Should have a function called uploadPhoto', function(done) {
+      })
+    });
+    it('Should have a function called getPhotos', function(done) {
+      });
+    });
+  })
+
+  describe('Media Model: ', function() {
+    //Unit Tests
+    it('Should have a function called uploadToPG', function(done) {
+      })
+    });
+    it('Should have a function called uploadToS3', function(done) {
+      })
+    });
+    it('Should have a function called updatePGid', function(done) {
+      })
+    });
+    it('Should have a function called retrievePhotosFromPG', function(done) {
+      })
+    });
+    
+    //Integration Tests
+    it('Should retrieve photos information from PostgreSQL', function(done) {
+      //retrievePhotosFromPG
+      })
+      .then(function(){
+      })
+      .catch((err) => {
+        expect(err).to.be.null;
+        done();
+      });
+    });
+    it('Should update photos urls to PostgreSQL', function(done) {
+      //updatePGid
+      })
+      .then(function(){
+      })
+      .catch((err) => {
+        expect(err).to.be.null;
+        done();
+      });
+    });
+    it('Should upload medium and large photos to S3', function(done) {
+      //uploadToS3
+      })
+      .then(function(){
+      })
+      .catch((err) => {
+        expect(err).to.be.null;
+        done();
+      });
+    });
+    it('Should upload photo metaData to PostgreSQL', function(done) {
+      //uploadToS3
+      })
+      .then(function(){
+      })
+      .catch((err) => {
+        expect(err).to.be.null;
+        done();
+      });
+    });
+  })
+
 });
