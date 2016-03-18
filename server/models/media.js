@@ -8,7 +8,7 @@ AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-west-1'});
 
 const s3 = new AWS.S3();
-const Media = require('../models/media')
+// const Media = require('../models/media')
 
 //model handles db manipulation
 
@@ -34,9 +34,15 @@ exports.uploadToS3 = function (photoId, photo) {
     ACL: 'public-read',
     Body: photo
   };
-  return new Promise(function(reject, resolve) {
-    s3.putObject(params);
-  }); //if using promises on invocation, cb is unnecessary
+  return new Promise(function(resolve, reject) {
+    s3.putObject(params, function(err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });  //if using promises on invocation, cb is unnecessary
 };
 
 exports.updatePGid = function (photosURLsArr, id) {
@@ -50,14 +56,7 @@ exports.updatePGid = function (photosURLsArr, id) {
       )
       WHERE (id = ${id})
     `
-  )      
-  .then(function(data) {
-    console.log("Successfully updated id: " + id + " medium and large urls");
-    return data;
-  })
-  .catch(function(err) {
-    console.log("Error uploading metaData to PG", err);
-  });
+  );
 };
 
 exports.retrievePhotosFromPG = function () {
