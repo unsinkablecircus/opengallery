@@ -28,7 +28,7 @@
   float: left;
   padding: 15px;
   flex: 1;
-  justify-content: center; }
+  text-align: center; }
   @media (min-width: 450px) {
     .user-left {
       flex: 1; } }
@@ -61,6 +61,25 @@
       flex: 3; } }
 
 .user-avatar {
-  justify-content: center; }
+  text-align: center;
+  margin-bottom: 15px; }
+
+.user-row {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  flex-wrap: nowrap;
+  align-items: center; }
+
+.user-icon {
+  margin-right: 15px;
+  flex: 1; }
+
+.user-field {
+  flex: 6; }
 
 /*# sourceMappingURL=main.css.map*/
