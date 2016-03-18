@@ -10,28 +10,6 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import TextField from 'material-ui/lib/text-field';
 
-const styles = {
-  left: {
-    width: 290,
-    height: '100vh',
-    overflowY: 'auto',
-    paddingTop: 68,
-    float: 'left',
-    padding: '5 15'
-  },
-  right: {
-    width: 400,
-    height: '100vh',
-    overflowY: 'auto',
-    paddingTop: 68,
-    float: 'left',
-    padding: '5 15'
-  },
-  profile: {
-    
-  },
-}
-
 const User = () => {
   return (
     <div id="user-component">
