@@ -46,11 +46,11 @@ let Nav = ({
         style={styles.nav}
         iconElementLeft={
           <div>
-            <FlatButton
+            <Link to={'/'}><FlatButton
               label='Open Gallery'
               backgroundColor='#0097a7'
               style={styles.title}
-            />
+            /></Link>
             <IconButton tooltip='Create'>
               <CreateIcon color='#303030'/>
             </IconButton>
