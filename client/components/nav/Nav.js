@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 
 import AppBar from 'material-ui/lib/app-bar'
 import CreateIcon from 'material-ui/lib/svg-icons/image/palette'
@@ -27,7 +28,8 @@ let Nav = ({
 }) => {
   const styles = {
     nav: {
-      position: 'fixed'
+      position: 'fixed',
+      top: 0
     },
     title: {
       color: 'white',
@@ -63,7 +65,7 @@ let Nav = ({
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
-            <MenuItem primaryText='Profile'/>
+            <Link to={`/profile/evanchen`}><MenuItem primaryText='Profile'/></Link>
             <MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/>
           </IconMenu>
         }

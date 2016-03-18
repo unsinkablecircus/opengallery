@@ -1,0 +1,105 @@
+#user-component {
+  width: 100vw;
+}
+
+.user-columns-container {
+  margin-top: 65px;
+  width: 100vw;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+
+  @include respond-to('xsmall') {
+    flex-direction: row;
+  };
+
+  @include respond-to('small') {
+    flex-direction: row;
+  };
+
+  @include respond-to('medium') {
+    flex-direction: row;
+  };
+
+  @include respond-to('large') {
+    flex-direction: row;
+  };
+}
+
+.user-left {
+  border: 1px solid #ccc; 
+  float: left;
+  padding: 15px; 
+  flex: 1;
+  text-align: center;
+
+  @include respond-to('xsmall') {
+    flex: 1;
+  };
+
+  @include respond-to('small') {
+    flex: 2;
+  };
+
+  @include respond-to('medium') {
+    flex: 1;
+  };
+
+  @include respond-to('large') {
+    flex: 1;
+  };
+}
+
+.user-right {
+  border: 1px solid #ccc; 
+  padding: 15px; 
+  float: left;
+  flex: 1;
+
+  @include respond-to('xsmall') {
+    flex: 1;
+  };
+
+  @include respond-to('small') {
+    flex: 1;
+  };
+
+  @include respond-to('medium') {
+    flex: 2;
+  };
+
+  @include respond-to('large') {
+    flex: 3;
+  };
+}
+
+.user-avatar {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.user-details {
+}
+
+.user-row {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.user-icon {
+  margin-right: 15px;
+  flex: 1;
+}
+
+.user-field {
+  flex: 6;
+}

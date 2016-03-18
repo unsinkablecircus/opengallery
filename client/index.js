@@ -34,6 +34,9 @@ const storageMiddleware = storage.createMiddleware(engine, ['@@router/LOCATION_C
 const logger = createLogger();
 const createStoreWithMiddleware = applyMiddleware(thunk, storageMiddleware, logger)(createStore)
 const store = createStoreWithMiddleware(reducer)
+
+require('./stylesheets/main.scss');
+
 const history = syncHistoryWithStore(browserHistory, store);
 
 // load will rehydrate the state, based on the previously saved state.
