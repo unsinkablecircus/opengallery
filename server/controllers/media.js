@@ -20,22 +20,30 @@ const cloneAndManipulate = (size, image) => {
     side = 40;
   }
   if (size === 'medium') {
-    side = 40;
+    side = 200;
   }
   if (size === 'large') {
-    side = 40;
+    side = 600;
   }
-  photoObj[size] = image.clone()
-    .resize(side, Jimp.AUTO, Jimp.RESIZE_BEZIER)
-    // convert each photo to buffer
-    .getBuffer( Jimp.MIME_JPEG, function(err, bufferImg) {
+  photoObj[size] = image
+    .clone()
+    .read(photoObj[size], function(err, image) {
       if (err) {
-        console.log(`Error writing ${size} image: `, err);
+        console.log(`Error reading image`, err);
       } else {
-        photoObj[size] = bufferImg;
+        image.resize(side, Jimp.AUTO, Jimp.RESIZE_BEZIER)
+        .getBuffer( jimp.MIME_JPEG, 
+          // convert each photo to buffer
+          function(err, bufferImg) {
+            if (err) {
+              console.log(`Error writing ${size} image: `, err);
+            } else {
+              photoObj[size] = bufferImg;
+            }
+          }
+        );
       }
-    }
-  );
+    });
 }
 
 const resizePhoto = (photo) => {
