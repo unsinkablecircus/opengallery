@@ -2,6 +2,7 @@ var initialState = {
   isAuthenticated: localStorage.getItem('id_token') ? true : false,
   isFetching: false,
   error: '',
+  username: '',
   showSigninAndNotSignup: true
 }
 
@@ -13,6 +14,7 @@ const auth = (state=initialState, action) => {
         isFetching: true,
       })
     case 'AUTH_SUCCESS':
+    console.log('username', action.payload.user);
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,

@@ -4,7 +4,7 @@ import { authReceive, authRequest, authError } from './authActions'
 // creds contains username and password
 export function SigninUser(creds) {
 
-  let config = {
+  const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
     body: `username=${creds.username}&password=${creds.password}`
@@ -19,10 +19,10 @@ export function SigninUser(creds) {
         if ( !data.match ) {
           dispatch(authError('Incorrect username or password'));
         } else {
+          localStorage.setItem('id_token', data.token);
           dispatch(authReceive());
         }
       })
       .catch(err => console.log("Error: ", err))
   }
 }
-

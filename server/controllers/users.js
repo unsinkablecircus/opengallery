@@ -31,7 +31,7 @@ module.exports = {
         })
         .then( (user) => {
           // generate a token from the username and send it back
-          var token = jwt.encode({iss: username, exp: expires}, secret);
+          const token = jwt.encode({iss: username, exp: expires}, secret);
           res.send({token: token});
         })
       }
@@ -54,7 +54,8 @@ module.exports = {
     .then( (isMatch) => {
       // isMatch is a boolean value describing whether entered PW matches saved PW
       if ( isMatch ) {
-        res.send({match: true});
+        const token = jwt.encode({iss: username, exp: expires}, secret);
+        res.send({match: true, token: token});
       } else {
         res.send({match: false});
       }

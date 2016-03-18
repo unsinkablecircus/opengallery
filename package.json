@@ -41,6 +41,8 @@
     "react-tap-event-plugin": "^0.2.2",
     "redux": "^3.3.1",
     "redux-devtools": "^3.1.1",
+    "redux-storage": "^4.0.0",
+    "redux-storage-engine-localstorage": "^1.0.1",
     "redux-thunk": "^2.0.1"
   },
   "devDependencies": {
