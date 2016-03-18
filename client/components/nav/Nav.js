@@ -19,11 +19,11 @@ import { connect } from 'react-redux'
 const darkMuiTheme = getMuiTheme(darkBaseTheme)
 
 // refactored to utilize the container / presentational component model
-// Nav is now a functional component that has no need for state.
-//
+// Note: Nav now has a container, which manages the state
 
 let Nav = ({
-  dispatch
+  isAuth,
+  onLogoutClick
 }) => {
   const styles = {
     nav: {
@@ -53,7 +53,6 @@ let Nav = ({
             <IconButton tooltip='Discover'>
               <DiscoverIcon color='#303030'/>
             </IconButton>
-            <FlatButton onClick={ () => {dispatch({type:'TOGGLE_SIGNIN_MODAL'})} }> Sign Up </FlatButton>
           </div>
         }
         iconElementRight={
@@ -65,16 +64,12 @@ let Nav = ({
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
             <MenuItem primaryText='Profile'/>
-            <MenuItem primaryText='Sign Out'/>
+            <MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/>
           </IconMenu>
         }
       />
    </MuiThemeProvider>
   )
 }
-
-// by default, if no params are passed into connect, it does not subscribe to store,
-// and it only passes on the dispatch function to the presentational component.
-Nav = connect()(Nav);
 
 export default Nav;

@@ -1,7 +1,7 @@
 import React from 'react'
-import Nav from './nav/Nav'
+import Nav from '../containers/nav'
 import Grid from '../containers/grid'
-import Signup from '../containers/signup'
+import Auth from '../containers/auth'
 
 import injectTapEventPlugin from'react-tap-event-plugin'
 injectTapEventPlugin()
@@ -13,9 +13,9 @@ export default class App extends React.Component {
   render () {
     return (
       <div>
-        <Signup/>
-        <Nav/>
+        <Nav />
         <Grid/>
+        <Auth />
       </div>
     )
   }

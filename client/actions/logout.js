@@ -1,30 +1,11 @@
 
-
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
-export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
-
-function requestLogout() {
-  return {
-    type: LOGOUT_REQUEST,
-    isFetching: true,
-    isAuthenticated: true
+const logout = {
+    type: "LOGOUT"
   }
-}
-
-function receiveLogout() {
-  return {
-    type: LOGOUT_SUCCESS,
-    isFetching: false,
-    isAuthenticated: false
-  }
-}
 
 // Logs the user out
 export function logoutUser() {
-  return dispatch => {
-    dispatch(requestLogout())
-    localStorage.removeItem('id_token')
-    dispatch(receiveLogout())
-  } 
+  // kill the token, return action
+  localStorage.removeItem('id_token');
+  return logout;
 }
