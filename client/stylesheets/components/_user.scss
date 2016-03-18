@@ -1,33 +1,49 @@
+#user-component {
+  
+}
+
+.user-columns-container {
+  margin-top: 65px;
+  height: 200px;
+  padding: 10px;
+}
+
 .user-left {
-  height: '100vh';
   padding: '5 15';
+  border: 1px solid #ccc; 
+  float: left;
 
   @include respond-to('small') {
-    background-color: blue;
+    padding: 1.25em; 
+    margin: .5em;
   };
 
   @include respond-to('medium') {
-    background-color: red;
+    padding: 1.25em; 
+    margin: .5em;
   };
 
   @include respond-to('large') {
-    background-color: green;
+    width: 40em;
   };
 }
 
 .user-right {
-  height: '100vh';
   padding: '5 15';
+  border: 1px solid #ccc; 
+  float: left;
 
   @include respond-to('small') {
-    background-color: blue;
+    padding: 1.25em; 
+    margin: .5em;
   };
 
   @include respond-to('medium') {
-    background-color: red;
+    padding: 1.25em; 
+    margin: .5em;
   };
 
   @include respond-to('large') {
-    background-color: green;
+    margin-left: 40em;
   };
 }

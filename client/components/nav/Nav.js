@@ -28,7 +28,8 @@ let Nav = ({
 }) => {
   const styles = {
     nav: {
-      position: 'fixed'
+      position: 'fixed',
+      top: 0
     },
     title: {
       color: 'white',

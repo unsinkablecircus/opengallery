@@ -22,8 +22,8 @@ module.exports = {
         exclude: [/node_modules/, /typings/]
       },
       {
-          test: /\.scss$/,
-          loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
       }
     ]
   },

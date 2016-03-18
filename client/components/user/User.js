@@ -14,32 +14,27 @@ const User = () => {
   return (
     <div id="user-component">
       <Nav/>
-      <section class="user-left">
-        <List>
-          <ListItem
-            disabled={true}
-            leftAvatar={
-              <Avatar size={150} src="http://i.giphy.com/6RwY3KrjXVY7m.gif" />
-            }
-          >
-          </ListItem>
-          <ListItem>
-            Username
-          </ListItem>
-        </List>
-        <TextField
-          hintText="Hint Text"
-        /><br/>
-        <br/>
-        <TextField
-          hintText="The hint text can be as long as you want, it will wrap."
-        /><br/>
-      </section>
-      <section class="user-right">
-        <TextField
-          hintText="The hint text can be as long as you want, it will wrap."
-        /><br/>
-      </section>
+      <div className="user-columns-container">
+        <section className="user-left">
+          <Avatar size={200} src="http://i.giphy.com/6RwY3KrjXVY7m.gif" />
+          <List>
+            <ListItem>
+              Username
+            </ListItem>
+          </List>
+          <TextField
+            hintText="Hint Text"
+          /><br/>
+          <br/>
+          <TextField
+            hintText="The hint text can be as long as you want, it will wrap."
+          /><br/>
+          HELLOHELLOHELLO
+        </section>
+        <section className="user-right">
+          <Grid/>
+        </section>
+      </div>
     </div>
   )
 }

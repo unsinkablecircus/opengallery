@@ -1,27 +1,38 @@
+.user-columns-container {
+  margin-top: 65px;
+  height: 200px;
+  padding: 10px; }
+
 .user-left {
-  height: '100vh';
-  padding: '5 15'; }
+  padding: '5 15';
+  border: 1px solid #ccc;
+  float: left; }
   @media (min-width: 767px) {
     .user-left {
-      background-color: blue; } }
+      padding: 1.25em;
+      margin: .5em; } }
   @media (min-width: 992px) {
     .user-left {
-      background-color: red; } }
+      padding: 1.25em;
+      margin: .5em; } }
   @media (min-width: 1200px) {
     .user-left {
-      background-color: green; } }
+      width: 40em; } }
 
 .user-right {
-  height: '100vh';
-  padding: '5 15'; }
+  padding: '5 15';
+  border: 1px solid #ccc;
+  float: left; }
   @media (min-width: 767px) {
     .user-right {
-      background-color: blue; } }
+      padding: 1.25em;
+      margin: .5em; } }
   @media (min-width: 992px) {
     .user-right {
-      background-color: red; } }
+      padding: 1.25em;
+      margin: .5em; } }
   @media (min-width: 1200px) {
     .user-right {
-      background-color: green; } }
+      margin-left: 40em; } }
 
 /*# sourceMappingURL=main.css.map*/
