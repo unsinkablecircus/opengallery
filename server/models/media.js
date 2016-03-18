@@ -12,19 +12,26 @@ const Media = require('../models/media')
 
 //model handles db manipulation
 
-exports.uploadToPG = function (photoData) {
+exports.uploadToPG = function (photoData, cb) {
   // SQL Query > Insert Data
   pg.raw(
     `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description) 
     values(
       ${photoData.user}, 
-      'null', //${photoData.url_small}
-      'null', //${photoData.url_med}
-      'null', //${photoData.url_large}
+      '${photoData.url_small}',
+      'null',
+      'null',
       '${photoData.title}', 
       '${photoData.description}') 
     RETURNING id`
   )
+  .then(function(data){
+    console.log("Successfully uploaded data to PG";
+    cb(null, data);
+  })
+  .catch((err) => {
+    console.log("Error uploading data to PostgreSQL", err);
+  });
 };
 
 exports.uploadToS3 = function (photoId, photo) {
@@ -36,10 +43,10 @@ exports.uploadToS3 = function (photoId, photo) {
   };
   s3.putObject(params, function(err, data) {
     if (err) {
-      console.log("Error uploading photo: ", photoId, err);
+      console.log("Error uploading photo: ", err);
     } else {
       console.log("Successfully uploaded photo to opengallery", data);
-      return photoId;
+      return data;
     }
   }) //if using promises on invocation, cb is unnecessary
 };
@@ -55,7 +62,13 @@ exports.updatePGid = function (photosURLsArr, id) {
       )
       WHERE (id = ${id})
     `
-  )
+  )      
+  .then(function(data) {
+    return data;
+  })
+  .catch(function(err) {
+    console.log("Error uploading metaData to PG", err);
+  });
 };
 
 exports.retrievePhotosFromPG = function () {

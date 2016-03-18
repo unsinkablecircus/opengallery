@@ -93,19 +93,13 @@ describe('', function() {
     
     //Writing to DB Tests
     it('Should retrieve photos information from PostgreSQL', function() {
-      mediaModel.retrievePhotosFromPG()
-      .then(function(){
-        done();
-      })
-      .catch((err) => {
-        expect(err).to.be.null;
-        done  ();
-      });
+      expect(mediaModel.retrievePhotosFromPG()).to.be.a('number');
+
     });
 
     it('Should upload photo metaData to PostgreSQL', function() {
       var sampleData = {
-        user: 1,
+        user: 3,
         url_small: 'url789_small',
         url_med: 'url789_medium',
         url_large: 'url789_large',
@@ -113,13 +107,10 @@ describe('', function() {
         description: 'ImFancy'
       };
 
-      mediaModel.uploadToPG(sampleData)
-      .then(function(data) {
-        done();
-      })
-      .catch(function(err) {
-        console.log("Error uploading metaData to PG", err);
-      });
+      expect(mediaModel.uploadToPG(sampleData, function(data) {
+        return data.rowCount.to.equal(1);
+      }))
+
     });
 
     it('Should upload a string to S3 and return a string', function() {
