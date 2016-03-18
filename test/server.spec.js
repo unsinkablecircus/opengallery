@@ -7,7 +7,6 @@ var express = require('express');
 var app = require('../server/server.js');
 var db = require('../server/db/database.js');
 var AWS = require('aws-sdk');
-var jimp = require('jimp');
 
 var mediaModel = require('../server/models/media');
 var mediaController = require('../server/controllers/media');
