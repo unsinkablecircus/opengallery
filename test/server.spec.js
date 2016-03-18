@@ -19,7 +19,7 @@ AWS.config.update({region: 'us-west-1'});
 
 describe('', function() {
 
-  describe('PostgreSQL Database: ', function() {
+  xdescribe('PostgreSQL Database: ', function() {
     it('Should have all the tables', function(done) {
       db.raw("SELECT table_name FROM information_schema.tables WHERE table_schema='public';")
         .then((res) => {
@@ -113,7 +113,7 @@ describe('', function() {
       })
     });
 
-    it('Should upload photo metaData to PostgreSQL', function() {
+    it('Should upload photo metaData to PostgreSQL', function(done) {
       var sampleData = {
         user: 3,
         url_small: 'url789_small',
@@ -127,50 +127,64 @@ describe('', function() {
       .then(function(data){
         console.log("Successfully uploaded data to PG");
         expect(data.rowCount).to.equal(1);
+        done();
       })
       .catch((err) => {
         console.log("Error uploading data to PostgreSQL", err);
+        done();
       });
     });
 
-    it('Should upload a string to S3 and return a string', function() {
-      expect(mediaModel.uploadToS3(1, "TEST_STRING", 
-        function(err, data) {
-          if(err) {
-            console.log(err);
-          } else {
-            return data;
-          }
-      })).to.be.a('string');
+    it('Should upload a string to S3 and return a string', function(done) {
+      mediaModel.uploadToS3(40, "TEST_STRING")
+      .then(function(data) {
+        console.log("Successfully uploaded string to s3", data);
+        expect(data).to.be.a('string');
+        done();
+      })
+      .catch(function(err) {
+        console.log("Error uploading photo to S3", err);
+        expect(err).to.be.null;
+        done();
+      });
     });
 
-    it('Should upload a photo to S3', function() {
-      // var photoBuff = '';
-      // jimp.read(('./circus.jpg'), function(err, image) {
-      //   if (err) {
-      //     console.log("error reading image", err);
-      //   } else {
-      //     image.getBuffer( jimp.MIME_JPEG, function(err, bufferImg) {
-      //       if (err) {
-      //         console.log('You didn\'t set up your test correctly!', err);
-      //       } else {
-      //         photoBuff = bufferImg;
-      //       }
-      //     })
-      //   }
-      // });
-      // mediaModel.uploadToS3(1, photoBuff);
-      // .then(function(photoId){
-      //   expect(photoId).to.be.a('string');
-      // })
-      // .catch((err) => {
-      //   expect(err).to.be.null;
-      //   ();
-      // });
+    it('Should upload a photo to S3', function(done) {
+      var photoBuff = '';
+      jimp.read(('./circus.jpg'), function(err, image) {
+        if (err) {
+          console.log("error reading image", err);
+        } else {
+          image.getBuffer( jimp.MIME_JPEG, function(err, bufferImg) {
+            if (err) {
+              console.log('You didn\'t set up your test correctly!', err);
+            } else {
+              photoBuff = bufferImg;
+            }
+          })
+        }
+      });
+      mediaModel.uploadToS3(40, photoBuff)
+      .then(function(photoId){
+        expect(photoId).to.be.a('string');
+        done();
+      })
+      .catch((err) => {
+        expect(err).to.be.null;
+        done();
+      });
     });
 
     it('Should update photos urls to PostgreSQL', function() {
-      expmediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
+      mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
+      .then(function(data) {
+        console.log("Successfully updated id: " + id + " medium and large urls", data);
+        expect(data);
+      })
+      .catch(function(err) {
+        console.log("Error uploading metaData to PG", err);
+        expect(err).to.be.null;
+      });
     });
   });
 
