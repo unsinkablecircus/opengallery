@@ -103,12 +103,10 @@ describe('', function() {
         }
       })
       .then(function (data) {
-        console.log("Successfully retrieved photos from PostgreSQL");
         expect(data).to.have.property('rowCount');
         done();
       })
       .catch(function (err) {
-        console.log("Error retrieving photo data from PostgreSQL", err);
         done();
       })
     });
@@ -125,12 +123,10 @@ describe('', function() {
 
       mediaModel.uploadToPG(sampleData)
       .then(function(data){
-        console.log("Successfully uploaded data to PG");
         expect(data.rowCount).to.equal(1);
         done();
       })
       .catch((err) => {
-        console.log("Error uploading data to PostgreSQL", err);
         done();
       });
     });
@@ -138,12 +134,10 @@ describe('', function() {
     it('Should upload a string to S3 and return a string', function(done) {
       mediaModel.uploadToS3(22, "TEST_STRING")
       .then(function(data) {
-        console.log("Successfully uploaded string to s3", data.ETag);
         expect(data.ETag).to.be.a('string');
         done();
       })
       .catch(function(err) {
-        console.log("Error uploading photo to S3 in test", err);
         expect(err).to.be.null;
         done();
       });
@@ -151,22 +145,8 @@ describe('', function() {
 
     it('Should convert a photo to buffer and upload it to S3', function(done) {
       var photoBuff = ('./circus.jpg');
-      // jimp.read(('./circus.jpg'), function(err, image) {
-      //   if (err) {
-      //     console.log("error reading image", err);
-      //   } else {
-      //     image.getBuffer( jimp.MIME_JPEG, function(err, bufferImg) {
-      //       if (err) {
-      //         console.log('You didn\'t set up your test correctly!', err);
-      //       } else {
-      //         photoBuff = bufferImg;
-      //       }
-      //     })
-      //   }
-      // });
       mediaModel.uploadToS3(40, photoBuff)
       .then(function(photoId){
-        console.log("Successfully uploaded photo to S3", photoId.ETag);
         expect(photoId.ETag).to.be.a('string');
         done();
       })
@@ -179,11 +159,9 @@ describe('', function() {
     it('Should update photos urls to PostgreSQL', function() {
       mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
       .then(function(data) {
-        console.log("Successfully updated id: " + id + " medium and large urls", data);
         expect(data);
       })
       .catch(function(err) {
-        console.log("Error uploading metaData to PG", err);
         expect(err).to.be.null;
       });
     });
