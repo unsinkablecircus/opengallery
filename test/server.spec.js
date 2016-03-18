@@ -92,9 +92,25 @@ describe('', function() {
     });
     
     //Writing to DB Tests
-    it('Should retrieve photos information from PostgreSQL', function() {
-      expect(mediaModel.retrievePhotosFromPG()).to.be.a('number');
-
+    //THIS TEST WORKS
+    it('Should retrieve photos information from PostgreSQL', function(done) {
+      mediaModel.retrievePhotosFromPG(
+        function(err, data) {
+        if (err) {
+          console.log(err);
+        } else {
+          return data
+        }
+      })
+      .then(function (data) {
+        console.log("Successfully retrieved photos from PostgreSQL");
+        expect(data).to.have.property('rowCount');
+        done();
+      })
+      .catch(function (err) {
+        console.log("Error retrieving photo data from PostgreSQL", err);
+        done();
+      })
     });
 
     it('Should upload photo metaData to PostgreSQL', function() {
@@ -108,13 +124,20 @@ describe('', function() {
       };
 
       expect(mediaModel.uploadToPG(sampleData, function(data) {
-        return data.rowCount.to.equal(1);
-      }))
+        return data;
+      })).rowCount.to.equal(1)
 
     });
 
     it('Should upload a string to S3 and return a string', function() {
-      expect(mediaModel.uploadToS3(1, "TEST_STRING")).to.be.a('string');
+      expect(mediaModel.uploadToS3(1, "TEST_STRING", 
+        function(err, data) {
+          if(err) {
+            console.log(err);
+          } else {
+            return data;
+          }
+      })).to.be.a('string');
     });
 
     it('Should upload a photo to S3', function() {
@@ -143,14 +166,7 @@ describe('', function() {
     });
 
     it('Should update photos urls to PostgreSQL', function() {
-      mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
-      .then(function(){
-        done();
-      })
-      .catch((err) => {
-        expect(err).to.be.null;
-        done();
-      });
+      expmediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
     });
   });
 
