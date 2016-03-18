@@ -48,14 +48,16 @@ exports.uploadToS3 = function (photoId, photo) {
   }) //if using promises on invocation, cb is unnecessary
 };
 
-exports.updatePGid = function (photosURLsArr) {
+exports.updatePGid = function (photosURLsArr, id) {
   //array order is med, large
+  //identify which record to update
   pg.raw(
     `UPDATE media (url_medium, url_large)
       values(
         '${photosURLsArr[0]}',
         '${photosURLsArr[1]}'
       )
+      WHERE (id = ${id})
     `
   )
 };
