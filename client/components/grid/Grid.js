@@ -5,7 +5,7 @@ import GridList from 'material-ui/lib/grid-list/grid-list'
 
 const styles = {
   grid: {
-    position: 'absolute',
+    position: 'relative',
     width: '100vw',
     height: '100vh',
     overflowY: 'auto',

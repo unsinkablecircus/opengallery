@@ -1,49 +1,88 @@
 #user-component {
-  
+  width: 100vw;
 }
 
 .user-columns-container {
   margin-top: 65px;
-  height: 200px;
-  padding: 10px;
-}
+  width: 100vw;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
 
-.user-left {
-  padding: '5 15';
-  border: 1px solid #ccc; 
-  float: left;
+  @include respond-to('xsmall') {
+    flex-direction: row;
+  };
 
   @include respond-to('small') {
-    padding: 1.25em; 
-    margin: .5em;
+    flex-direction: row;
   };
 
   @include respond-to('medium') {
-    padding: 1.25em; 
-    margin: .5em;
+    flex-direction: row;
   };
 
   @include respond-to('large') {
-    width: 40em;
+    flex-direction: row;
+  };
+}
+
+.user-left {
+  border: 1px solid #ccc; 
+  float: left;
+  padding: 15px; 
+  flex: 1;
+  justify-content: center;
+
+  @include respond-to('xsmall') {
+    // width: 100vw;
+    flex: 1;
+  };
+
+  @include respond-to('small') {
+    // width: 300px;
+    flex: 2;
+  };
+
+  @include respond-to('medium') {
+    // width: 300px;    
+    flex: 1;
+  };
+
+  @include respond-to('large') {
+    // width: 300px;
+    flex: 1;
   };
 }
 
 .user-right {
-  padding: '5 15';
   border: 1px solid #ccc; 
+  padding: 15px; 
   float: left;
+  flex: 1;
+
+  @include respond-to('xsmall') {
+    // width: 100vw;
+    flex: 1;
+  };
 
   @include respond-to('small') {
-    padding: 1.25em; 
-    margin: .5em;
+    flex: 1;
   };
 
   @include respond-to('medium') {
-    padding: 1.25em; 
-    margin: .5em;
+    // width: 700px;
+    flex: 2;
   };
 
   @include respond-to('large') {
-    margin-left: 40em;
+    // width: 950px;
+    flex: 3;
   };
+}
+
+.user-avatar {
+  justify-content: center;
 }
