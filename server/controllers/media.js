@@ -3,6 +3,61 @@ const jimp = require('jimp')
 
 const Media = require('../models/media')
 
+//helper functions
+const separateData = (data) => {
+  //not sure how req.body will come in
+  var photoData = {
+    PGupload: data.photoInfo,
+    s3upload: data.photoRaw
+  }
+  return photoData
+}
+
+const cloneAndManipulate = (size, image) => {
+  //side is one dimension of photo
+  var side = 0;
+  if (size === 'small') {
+    side = 40;
+  }
+  if (size === 'medium') {
+    side = 40;
+  }
+  if (size === 'large') {
+    side = 40;
+  }
+  photoObj[size] = image.clone()
+    .resize(side, Jimp.AUTO, Jimp.RESIZE_BEZIER)
+    // convert each photo to buffer
+    .getBuffer( Jimp.MIME_JPEG, function(err, bufferImg) {
+      if (err) {
+        console.log(`Error writing ${size} image: `, err);
+      } else {
+        photoObj[size] = bufferImg;
+      }
+    }
+  );
+}
+
+const resizePhoto = (photo) => {
+  var photoObj = {
+    small: '',
+    medium: '',
+    large: ''
+  }
+
+  //use jimp to resize original photo
+  Jimp.read(photo, function (err, image) {
+    if (err) {
+      console.log('Error reading image: ', err);
+    } else {
+      // do stuff with the image (if no exception)
+      cloneAndManipulate(small, readImage);
+      cloneAndManipulate(medium, readImage);
+      cloneAndManipulate(large, readImage);
+    }
+  });
+  return photoObj;
+}
 //controller handles function delegation
 exports.getPhotos = function (req, res) {
   Media.retrievePhotosFromPG(function(photos){
@@ -43,59 +98,8 @@ exports.uploadPhoto = function (req, res) {
   });
 };
 
-const separateData = (data) => {
-  //not sure how req.body will come in
-  var photoData = {
-    PGupload: data.photoInfo,
-    s3upload: data.photoRaw
-  }
-  return photoData
-}
 
-const resizePhoto = (photo) => {
-  var photoObj = {
-    small: '',
-    medium: '',
-    large: ''
-  }
 
-  //use jimp to resize original photo
-  Jimp.read(photo, function (err, image) {
-    if (err) {
-      console.log('Error reading image: ', err);
-    } else {
-      // do stuff with the image (if no exception)
-      cloneAndManipulate(small, readImage);
-      cloneAndManipulate(medium, readImage);
-      cloneAndManipulate(large, readImage);
-    }
-  });
-  return photoObj;
-}
 
-const cloneAndManipulate = (size, image) => {
-  //side is one dimension of photo
-  var side = 0;
-  if (size === 'small') {
-    side = 40;
-  }
-  if (size === 'medium') {
-    side = 40;
-  }
-  if (size === 'large') {
-    side = 40;
-  }
-  photoObj[size] = image.clone()
-    .resize(side, Jimp.AUTO, Jimp.RESIZE_BEZIER)
-    // convert each photo to buffer
-    .getBuffer( Jimp.MIME_JPEG, function(err, bufferImg) {
-      if (err) {
-        console.log(`Error writing ${size} image: `, err);
-      } else {
-        photoObj[size] = bufferImg;
-      }
-    }
-  );
-}
 
 
