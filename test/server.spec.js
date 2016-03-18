@@ -123,10 +123,14 @@ describe('', function() {
         description: 'ImFancy'
       };
 
-      expect(mediaModel.uploadToPG(sampleData, function(data) {
-        return data;
-      })).rowCount.to.equal(1)
-
+      mediaModel.uploadToPG(sampleData)
+      .then(function(data){
+        console.log("Successfully uploaded data to PG");
+        expect(data.rowCount).to.equal(1);
+      })
+      .catch((err) => {
+        console.log("Error uploading data to PostgreSQL", err);
+      });
     });
 
     it('Should upload a string to S3 and return a string', function() {

@@ -12,7 +12,7 @@ const Media = require('../models/media')
 
 //model handles db manipulation
 
-exports.uploadToPG = function (photoData, cb) {
+exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
   return pg.raw(
     `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description) 
@@ -24,14 +24,7 @@ exports.uploadToPG = function (photoData, cb) {
       '${photoData.title}', 
       '${photoData.description}') 
     RETURNING id`
-  )
-  .then(function(data){
-    console.log("Successfully uploaded data to PG");
-    cb(null, data);
-  })
-  .catch((err) => {
-    console.log("Error uploading data to PostgreSQL", err);
-  });
+  );
 };
 
 exports.uploadToS3 = function (photoId, photo, cb) {
