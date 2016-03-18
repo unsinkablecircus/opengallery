@@ -29,8 +29,8 @@ exports.uploadPhoto = function (req, res) {
         return Media.uploadToS3(urlExtension, photo);
       }
     )
-    .then(() => {
-      Media.updatePGid(urlsArr, id) // urlsArr initiated above
+    .then((photoId) => {
+      Media.updatePGid(urlsArr, photoId) // urlsArr initiated above
       .then(() => {
         res.status(201).send();
       })

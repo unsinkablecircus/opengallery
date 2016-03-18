@@ -12,7 +12,7 @@ const Media = require('../models/media')
 
 //model handles db manipulation
 
-exports.uploadToPG = function (photoData, cb) {
+exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
   pg.raw(
     `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description) 
@@ -24,18 +24,13 @@ exports.uploadToPG = function (photoData, cb) {
       '${photoData.title}', 
       '${photoData.description}') 
     RETURNING id`
-  ).then(function(data) {
-    cb(null, data)
-  })
-  .catch(function(err) {
-    cb(err, null);
-  });
+  )
 };
 
 exports.uploadToS3 = function (photoId, photo) {
   var params = {
     Bucket: 'opengallery', // required 
-    Key: photoId, // required
+    Key: photoId.toString(), // required
     ACL: 'public-read',
     Body: photo
   };
@@ -44,6 +39,7 @@ exports.uploadToS3 = function (photoId, photo) {
       console.log("Error uploading photo: ", photoId, err);
     } else {
       console.log("Successfully uploaded photo to opengallery", data);
+      return photoId;
     }
   }) //if using promises on invocation, cb is unnecessary
 };
@@ -62,19 +58,14 @@ exports.updatePGid = function (photosURLsArr, id) {
   )
 };
 
-exports.retrievePhotosFromPG = function (cb) {
+exports.retrievePhotosFromPG = function () {
   // SQL Query > Insert Data
   pg.raw(
     `SELECT * FROM media
     LIMIT 20
+    RETURNING *
     `
   )
-  .then(function(data) {
-    cb(null, data)
-  })
-  .catch(function(err) {
-    cb(err, null);
-  });
 };
 
 // example of connecting to postgresql database below (will move to models later):
