@@ -4,7 +4,6 @@ import { storeUserData } from './user';
 
 // creds contains username and password
 export function SigninUser(creds) {
-
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },

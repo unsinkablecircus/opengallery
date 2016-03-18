@@ -28,11 +28,13 @@ const auth = (state=initialState, action) => {
       })
     case 'LOGOUT':
       return Object.assign({}, state, {
-        isAuthenticated: false
+        isAuthenticated: false,
+        error: ''
       })
     case 'TOGGLE_SIGNIN_OR_SIGNUP_LINK':
       return Object.assign({}, state, {
-        showSigninAndNotSignup: !state.showSigninAndNotSignup
+        showSigninAndNotSignup: !state.showSigninAndNotSignup,
+        error: ''
       })
 
     default:

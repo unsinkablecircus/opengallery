@@ -13,7 +13,6 @@ export function SignupUser(creds) {
   return dispatch => {
     // We dispatch requestSignup to kickoff the call to the API
     dispatch(authRequest())
-
     return fetch('http://localhost:8000/api/user/signUp', config)
       .then( response => {
         if ( !response.ok ) {
