@@ -9,6 +9,9 @@ var app = require('../server/server.js');
 var db = require('../server/db/database.js');
 var AWS = require('aws-sdk');
 
+var mediaModel = require('../server/models/media');
+var mediaController = require('../server/controllers/media');
+
 // load AWS credentials
 var credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
 AWS.config.credentials = credentials;
