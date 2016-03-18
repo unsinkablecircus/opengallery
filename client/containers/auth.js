@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     onSubmit: (creds, signinNotSignup) => {
+      // form validation, by checking the number of fields that were filled out
       if ( Object.keys(creds).length < 2 && signinNotSignup || Object.keys(creds).length < 5 && !signinNotSignup ) {
         return dispatch(authError('Please fill out all fields'));
       }

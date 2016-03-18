@@ -20,6 +20,7 @@ const Auth = ({
       label="Submit"
       primary={true}
       onTouchTap={ () => {
+        // generate an object with the values from the input forms
         let creds = {};
         for (let key in info) {
           if ( info[key].getValue() !== "" ) {
