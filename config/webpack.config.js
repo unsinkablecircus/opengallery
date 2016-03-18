@@ -12,7 +12,6 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    // you can now require('style') instead of require('style.scss')
     extensions: ['', '.js', '.json', '.scss']
   },
   module: {
@@ -22,10 +21,6 @@ module.exports = {
         loader: 'babel-loader',
         exclude: [/node_modules/, /typings/]
       },
-      // {
-      //   test: /\.scss$/,
-      //   loaders: ["style", "css", "sass"]
-      // }
       {
           test: /\.scss$/,
           loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
@@ -33,6 +28,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("main.css") // what should this be?
+    new ExtractTextPlugin("main.css")
   ]
 };

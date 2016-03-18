@@ -1,13 +1,33 @@
-.user-left: {
-  width: 290;
+.user-left {
   height: '100vh';
-  float: 'left';
-  padding: '5 15'
+  padding: '5 15';
+
+  @include respond-to('small') {
+    background-color: blue;
+  };
+
+  @include respond-to('medium') {
+    background-color: red;
+  };
+
+  @include respond-to('large') {
+    background-color: green;
+  };
 }
 
-.user-right: {
-  width: 400;
+.user-right {
   height: '100vh';
-  float: 'left';
-  padding: '5 15'
+  padding: '5 15';
+
+  @include respond-to('small') {
+    background-color: blue;
+  };
+
+  @include respond-to('medium') {
+    background-color: red;
+  };
+
+  @include respond-to('large') {
+    background-color: green;
+  };
 }

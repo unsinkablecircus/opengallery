@@ -1,8 +1,27 @@
-.foo {
-  padding: 2em;
-  opacity: 0.5; }
+.user-left {
+  height: '100vh';
+  padding: '5 15'; }
+  @media (min-width: 767px) {
+    .user-left {
+      background-color: blue; } }
+  @media (min-width: 992px) {
+    .user-left {
+      background-color: red; } }
+  @media (min-width: 1200px) {
+    .user-left {
+      background-color: green; } }
 
-.john {
-  padding: 2em; }
+.user-right {
+  height: '100vh';
+  padding: '5 15'; }
+  @media (min-width: 767px) {
+    .user-right {
+      background-color: blue; } }
+  @media (min-width: 992px) {
+    .user-right {
+      background-color: red; } }
+  @media (min-width: 1200px) {
+    .user-right {
+      background-color: green; } }
 
 /*# sourceMappingURL=main.css.map*/
