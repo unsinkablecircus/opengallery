@@ -20,7 +20,7 @@ const s3 = new AWS.S3();
 
 describe('', function() {
 
-  xdescribe('PostgreSQL Database: ', function() {
+  describe('PostgreSQL Database: ', function() {
     it('Should have all the tables', function(done) {
       db.raw("SELECT table_name FROM information_schema.tables WHERE table_schema='public';")
         .then((res) => {
