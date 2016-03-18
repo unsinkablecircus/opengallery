@@ -149,8 +149,8 @@ describe('', function() {
       });
     });
 
-    it('Should upload a photo to S3', function(done) {
-      // var photoBuff = '';
+    it('Should convert a photo to buffer and upload it to S3', function(done) {
+      var photoBuff = ('./circus.jpg');
       // jimp.read(('./circus.jpg'), function(err, image) {
       //   if (err) {
       //     console.log("error reading image", err);
@@ -164,15 +164,16 @@ describe('', function() {
       //     })
       //   }
       // });
-      // mediaModel.uploadToS3(40, photoBuff)
-      // .then(function(photoId){
-      //   expect(photoId).to.be.a('string');
-      //   done();
-      // })
-      // .catch((err) => {
-      //   expect(err).to.be.null;
-      //   done();
-      // });
+      mediaModel.uploadToS3(40, photoBuff)
+      .then(function(photoId){
+        console.log("Successfully uploaded photo to S3", photoId.ETag);
+        expect(photoId.ETag).to.be.a('string');
+        done();
+      })
+      .catch((err) => {
+        expect(err).to.be.null;
+        done();
+      });
     });
 
     it('Should update photos urls to PostgreSQL', function() {
