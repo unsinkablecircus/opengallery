@@ -156,13 +156,15 @@ describe('', function() {
       });
     });
 
-    it('Should update photos urls to PostgreSQL', function() {
+    it('Should update photos urls to PostgreSQL', function(done) {
       mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
       .then(function(data) {
         expect(data);
+        done();
       })
       .catch(function(err) {
         expect(err).to.be.null;
+        done();
       });
     });
   });
