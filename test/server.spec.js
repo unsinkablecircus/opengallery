@@ -10,6 +10,7 @@ var AWS = require('aws-sdk');
 
 var mediaModel = require('../server/models/media');
 var mediaController = require('../server/controllers/media');
+var stubs = require('./Stubs');
 
 // load AWS credentials
 var credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
@@ -64,22 +65,6 @@ describe('', function() {
           expect(err).to.be.null;
           done();
         });
-    });
-  });
-
-  describe('Media Controller: ', function() {
-    it('Should have a function called uploadPhoto', function() {
-      expect(mediaController.uploadPhoto).to.be.a('function');
-    });
-    it('Should have a function called getPhotos', function() {
-      expect(mediaController.getPhotos).to.be.a('function');
-    });
-    //new tests: need sinon to stub requests/responses
-    it('Should upload metaData to PostgreSQL, clone and manipulate photo, update PostgreSQL with new urls, and send back a 201 with the uploadPhoto function', function() {
-      expect(mediaController.uploadPhoto).to.be.a('function');
-    });
-    it('Should have a function called getPhotos', function() {
-      expect(mediaController.getPhotos).to.be.a('function');
     });
   });
 
@@ -172,6 +157,26 @@ describe('', function() {
         expect(err).to.be.null;
         done();
       });
+    });
+  });
+
+  describe('Media Controller: ', function() {
+    it('Should have a function called uploadPhoto', function() {
+      expect(mediaController.uploadPhoto).to.be.a('function');
+    });
+    it('Should have a function called getPhotos', function() {
+      expect(mediaController.getPhotos).to.be.a('function');
+    });
+    //new tests: need sinon to stub requests/responses
+    it(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
+      update PostgreSQL with new urls, 
+      and send back a 201 with the uploadPhoto function`, function() {
+      var req = new stubs.request('/classes/room1', 'GET');
+      var res = new stubs.response();
+      // expect(mediaController.uploadPhoto).to.be.a('function');
+    });
+    it('Should have a function called getPhotos', function() {
+      expect(mediaController.getPhotos).to.be.a('function');
     });
   });
 
