@@ -14,7 +14,7 @@ const s3 = new AWS.S3();
 
 exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
-  var data = pg.raw(
+  return pg.raw(
     `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description) 
     values(
       ${photoData.user}, 
@@ -26,8 +26,6 @@ exports.uploadToPG = function (photoData) {
     ) 
     RETURNING id`
   );
-  pg.destroy();
-  return data;
 };
 
 exports.uploadToS3 = function (photoId, photo) {
@@ -52,21 +50,20 @@ exports.updatePGid = function (photosURLsArr, id) {
   //array order is med, large
   //identify which record to update
   // return 
-  var data = pg.raw(
+  return pg.raw(
     `UPDATE media 
     SET 
       url_medium = '${photosURLsArr[0]}', 
       url_large = '${photosURLsArr[1]}'
     WHERE id = ${id}
+    RETURNING *
+    WHERE id = ${id}
     `
   );
-  pg.destroy();
-  return data;
 };
 
 exports.retrievePhotosFromPG = function () {
   // SQL Query > Insert Data
-  var photos;
   return pg.raw(
     `SELECT * FROM media
     LIMIT 20
