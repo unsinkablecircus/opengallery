@@ -74,6 +74,13 @@ describe('', function() {
     it('Should have a function called getPhotos', function() {
       expect(mediaController.getPhotos).to.be.a('function');
     });
+    //new tests: need sinon to stub requests/responses
+    it('Should upload metaData to PostgreSQL, clone and manipulate photo, update PostgreSQL with new urls, and send back a 201 with the uploadPhoto function', function() {
+      expect(mediaController.uploadPhoto).to.be.a('function');
+    });
+    it('Should have a function called getPhotos', function() {
+      expect(mediaController.getPhotos).to.be.a('function');
+    });
   });
 
   describe('Media Model: ', function() {
