@@ -20,7 +20,7 @@ const s3 = new AWS.S3();
 
 describe('Back End', function() {
   describe('Server: ', function() {
-    describe('GET media', function(done){
+    xdescribe('GET media', function(done){
 
       it('responds with a 200 (OK)', function() {
 
@@ -68,14 +68,14 @@ describe('Back End', function() {
        
       });
 
-      xit(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
+      it(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
         update PostgreSQL with new urls, 
         and send back a 201 with the uploadPhoto function`, function(done) {
 
           request(app)
             .gost('/api/media')
             .send(sampleData)
-            // .expect(201, done);
+            .expect(201, done);
 
       });
 
@@ -159,7 +159,7 @@ describe('Back End', function() {
     });
     
     //Writing to DB Tests
-    it('Should retrieve photos information from PostgreSQL', function(done) {
+    xit('Should retrieve photos information from PostgreSQL', function(done) {
       
       mediaModel.retrievePhotosFromPG()
       .then(function (data) {
@@ -222,11 +222,18 @@ describe('Back End', function() {
     xit('Should update photos urls to PostgreSQL', function(done) {
       mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
       .then(function(data) {
-        expect(data);
+        // for (var i = 0; i < data._parsers.length; i--) {
+        //   var resData = data._parsers[i][0](data.fields[0][i]);
+        //   console.log(resData);
+        // };
+        // console.log("Updated URLS and return record: ", data);
+        expect(data).to.be.a('object');
+        db.destroy();
         done();
       })
       .catch(function(err) {
         expect(err).to.be.null;
+        db.destroy();
         done();
       });
     });

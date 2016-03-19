@@ -57,7 +57,6 @@ exports.updatePGid = function (photosURLsArr, id) {
       url_large = '${photosURLsArr[1]}'
     WHERE id = ${id}
     RETURNING *
-    WHERE id = ${id}
     `
   );
 };

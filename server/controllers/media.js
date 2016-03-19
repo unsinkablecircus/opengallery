@@ -79,35 +79,48 @@ exports.getPhotos = function (req, res) {
 exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
   var photo = separateData(req.body);
-  var urlsArr = [];
   // clone photos and turn into buffers for upload
   var resizedPhotos = resizePhoto(photo.s3upload);
   // update PG upload object to include small photo buffer
   photo.PGupload.url_small = resizedPhotos.small;
-  //take out small image from 
-  // delete resizedPhotos.small;
-  Media.uploadToPG(photo.PGupload, function(id){
+  var responseObject = {
+    id: null,
+    user_id: photo.PGupload.userId,
+    url_small: resizedPhotos.small,
+    url_med: '',
+    url_large'',
+    title: photo.PGupload.title,
+    description: photo.PGupload.description
+  };
+  Media.uploadToPG(photo.PGupload)
+  .then((id) => {
+    responseObject.id = id;
     var urlExtLarge = id + 'large';
     var urlExtMedium = id + 'medium';
-    urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
-    urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
+    responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
+    responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
 
     new Promise.all(
       Media.uploadToS3(urlExtLarge, resizedPhotos.large),
       Media.uploadToS3(urlExtMedium, resizedPhotos.medium)
     )
     .then(() => {
-      Media.updatePGid(urlsArr, id) // urlsArr initiated above
+      Media.updatePGid([responseObject.url_med, responseObject.url_med], id) // urlsArr initiated above
       .then(() => {
-        res.status(201).send();
+        res.status(201).json(responseObject);
       })
       .catch((err) => {
         console.log('error updating URLs to PG db', err);
       });
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.log('error uploading images to s3 db', err)
     });
+  })
+  .catch((err) => {
+    console.log('Error uploading metaData to PostgreSQL', err);
   });
+  
 };
 
 
