@@ -1,22 +1,21 @@
 import React from 'react'
-import Nav from '../containers/nav'
-import Grid from '../containers/grid'
+
 import Auth from '../containers/auth'
+import Gallery from '../containers/gallery'
+import Grid from '../containers/grid'
+import Nav from '../containers/nav'
 
 import injectTapEventPlugin from'react-tap-event-plugin'
 injectTapEventPlugin()
 
-// modals
+const App = ({ displayGallery }) => (
+  <div>
+    {console.log("In App: displayGallery = ", displayGallery)}
+    <Auth/>
+    { displayGallery ? <Gallery/> : '' }
+    <Nav/>
+    <Grid/>
+  </div>
+)
 
-export default class App extends React.Component {
-
-  render () {
-    return (
-      <div>
-        <Nav />
-        <Grid/>
-        <Auth />
-      </div>
-    )
-  }
-}
+export default App

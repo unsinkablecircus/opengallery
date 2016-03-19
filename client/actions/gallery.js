@@ -1,6 +1,6 @@
 export const SHOW_NEXT = 'SHOW_NEXT'
 export const SHOW_PREV = 'SHOW_PREV'
-export const TOGGLE_MAP = 'TOGGLE_MAP'
+export const TOGGLE_GALLERY = 'TOGGLE_GALLERY'
 
 export function showNextTile() {
   return {
@@ -14,8 +14,9 @@ export function showPrevTile() {
   }
 }
 
-export function toggleMap() {
+export function toggleGallery(tile) {
   return {
-    type: TOGGLE_MAP
+    type: TOGGLE_GALLERY,
+    payload: tile
   }
 }

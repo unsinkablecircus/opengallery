@@ -3,23 +3,24 @@
 
 ## Redux
 
-#### Root State Object
+#### Default State Object
 
 ```
 {
-  /////////////////////
-  //     SESSION     //
-  /////////////////////
+  /*-----------------*/
+  /*     SESSION     */
+  /*-----------------*/
 
-  session: {
-    loggedIn: false,
-    showSignInModal: false
+  auth: {
+    isAuthenticated: false,
+    isFetching: false,
+    error: ''
   },
 
 
-  //////////////////
-  //     USER     //
-  //////////////////
+  /*--------------*/
+  /*     USER     */
+  /*--------------*/
 
   user: {
     uid: 1,
@@ -33,24 +34,24 @@
     about: 'About'
   },
 
-  /////////////////////
-  //     GALLERY     //
-  /////////////////////
+  /*----------------*/
+  /*     STATUS     */
+  /*----------------*/
 
-  gallery: {
-    tile: 0,
-    showGallery: false
+  status: {
+    fetching: false,
+    error: ''
   },
 
-  //////////////////
-  //     GRID     //
-  //////////////////
+  /*--------------*/
+  /*     VIEW     */
+  /*--------------*/
 
-  grid: {
-    fetching: false,
-    error: '',
-    filter: [],
-    tiles: [1, 2, 3, 4, 5, 6, 7, 8]
+  view: {
+    displayGallery: false,
+    displaySignIn: false,
+    displaySignUp: false,
+    displayWordmap: false
   },
 {
   ///////////////
@@ -63,84 +64,48 @@
   }
 
 
-},
-  ///////////////////
-  //     MEDIA     //
-  ///////////////////
+  /*---------------*/
+  /*     MEDIA     */
+  /*---------------*/
 
   media: {
-    '1': {
-      mediaId: 1,
-      userFeedbackId: 1,
-      media: 'Media 1',
-      title: 'Title 1',
-      description: 'Description 1',
-      tags: [],
-      url_sm: 'https://placehold.it/30x30',
-      url_md: 'https://placehold.it/400x300',
-      url_lg: 'https://placehold.it/800x600',
-      width: 800,
-      height: 600,
-      showHiRes: false,
-      feedback: [1, 2, 3, 4, 5]
-    },
-    ...
-  },
+    tile: 0,
+    grid: [1, 2, 3, 4, 5, 6, 7, 8],
+    filter: [],
 
-  //////////////////////
-  //     FEEDBACK     //
-  //////////////////////
+    /*--------------*/
+    /*     DATA     */
+    /*--------------*/
 
-  feedback: {
-    displayFeeback: false,
     data: {
       '1': {
-        hashtag: 'beautiful',
-        count: 50
+        mediaId: 1,
+        userFeedbackId: 1,
+        media: 'Media 1',
+        title: 'Title 1',
+        description: 'Description 1',
+        tags: [],
+        url_sm: 'https://placehold.it/30x30',
+        url_md: 'https://placehold.it/400x300',
+        url_lg: 'https://placehold.it/800x600',
+        width: 800,
+        height: 600,
+        showHiRes: false,
+        feedback: [[1, 10], [2, 20], [3, 30], [4, 40], [5, 50]]
       },
+      '2': {...},
+      ...
+    },
+
+    /*--------------------*/
+    /*     DICTIONARY     */
+    /*--------------------*/
+
+    dictionary: {
+      '1': 'beautiful',
+      '2': 'cool',
       ...
     }
-  }
-
-  ////////////////////
-  //     MODALS     //
-  ////////////////////
-
-  displaySignIn: false,
-  displaySignUp: false,
-  displayUploadTile: false,
-  displayGallery: false,
-  displayMap: false,
-
-  ///////////////////
-  //     FORMS     //
-  ///////////////////
-
-  formSignin: {
-    isValid: false,
-    login: String, // username or email
-    password: String
-  },
-
-  formSignup: {
-    isValid: false,
-    username: String,
-    email: String,
-    password: String,
-    phone: String,
-    facebook: String,
-    twitter: String,
-    avatar: String,
-    media: String,
-    about: String
-  },
-
-  formUploadTile: {
-    isValid: false,
-    filepath: String,
-    title: String,
-    description: String,
-    tags: [String, String, ...]
   }
 }
 ```
