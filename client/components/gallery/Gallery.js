@@ -1,45 +1,77 @@
 import React from 'react'
-import {Motion, spring} from '../../src/react-motion'
+import { Motion, spring } from 'react-motion'
 
 const config = {stiffness: 170, damping: 26}
 
-const Gallery = ({tile, tags, grid, media, feedback}) => {
-  const tileWidth = media[grid[tile]].width
-  const tileHeight = media[grid[tile]].height
-  const tilePhoto = media[grid[tile]].photo
+export default class Gallery extends React.Component {
+  componentDidMount () {
+    document.addEventListener('keydown', this.navigateGallery)
+    // disable scrolling
+  }
 
-  const widths = media.map(({width as w, height as h}) => tileHeight / w * h)
+  componentWillUnmount () {
+    document.removeEventListener('keydown', this.navigateGallery)
+    // enable scrolling
+  }
 
-  const start = widths.slice(0, currPhoto)
-  .reduce((sum, width) => sum - width, 0);
+  navigateGallery = ({ keyCode }) => {
+    // Add debounce function
+    if (keyCode === 27 || keyCode > 36 && keyCode < 41) {
+      const { nextTile, prevTile, hideGallery } = this.props
+      switch (keyCode) {
+        case 37: // left arrow
+          prevTile()
+          break
+        case 39: // right arrow
+          nextTile()
+          break
+        case 27: // esc key
+          hideGallery(0)
+          break
+        default:
+        return
+      }
+    }
+  }
 
-  let dimensions = []
-  media.reduce((left, null, i) => {
-    dimensions.push({
-      left: spring(left, config),
-      height: spring(tileHeight, config),
-      width: spring(widths[i], config),
-    })
-    return left + widths[i]
-  }, start)
+  render () {
+    const { tile, grid, filter, data } = this.props
+    console.log('INSIDE Gallery! tile', tile)
+    const tileWidth = data[grid[tile]].width
+    const tileHeight = data[grid[tile]].height
+    const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
 
-  return (
-    <div id="gallery-component">
-      <Motion style={{height: spring(height), width: spring(width)}}>
-        {container =>
-          <div className="gallery-tile" style={container}>
-            {configs.map((style, i) =>
-              <Motion key={i} style={style}>
-                {style =>
-                  <img className="gallery-photo" src={photo} style={style}/>
-                }
-              </Motion>
-            )}
-          </div>
-        }
-      </Motion>
-    </div>
-  )
+    const widths = grid.map(i => tileHeight / data[i].height * data[i].width)
+
+    const start = widths.slice(0, tile)
+    .reduce((sum, width) => sum - width, 0);
+
+    let dimensions = []
+    grid.reduce((left, undefined, i) => {
+      dimensions.push({
+        left: spring(left, config),
+        height: spring(tileHeight, config),
+        width: spring(widths[i], config),
+      })
+      return left + widths[i]
+    }, start)
+
+    return (
+      <div id="gallery-component">
+        <Motion style={{height: spring(tileHeight), width: spring(tileWidth)}}>
+          {container =>
+            <div className="gallery-tile" style={container}>
+              {dimensions.map((style, i) =>
+                <Motion key={data[grid[i]].mediaId} style={style}>
+                  {style =>
+                    <img className="gallery-photo" src={data[grid[i]].url_lg} style={style}/>
+                  }
+                </Motion>
+              )}
+            </div>
+          }
+        </Motion>
+      </div>
+    )
+  }
 }
-
-export default Gallery
