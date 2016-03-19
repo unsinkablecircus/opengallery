@@ -41,6 +41,7 @@ let Nav = ({
   return (
     <MuiThemeProvider muiTheme={darkMuiTheme}>
       <AppBar
+        id="nav-component"
         style={styles.nav}
         iconElementLeft={
           <div>
@@ -74,4 +75,4 @@ let Nav = ({
   )
 }
 
-export default Nav;
+export default Nav
