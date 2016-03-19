@@ -1,13 +1,13 @@
 import { GridActions } from './actions/grid'
 import { GalleryActions } from './actions/gallery'
 
-import { MediaReducers } from './reducers/media'
-import { StatusReducers } from './reducers/status'
-import { ViewReducers } from './reducers/view'
+import { MediaReducer } from './reducers/media'
+import { StatusReducer } from './reducers/status'
+import { ViewReducer } from './reducers/view'
 
 import { GridComponent } from './components/grid'
 // import { GridTileComponent } from './components/gridTile'
-import { GalleryComponent } from './components/grid'
+// import { GalleryComponent } from './components/gallery'
 // import { GalleryTileComponent } from './components/gridTile'
 // import { TileComponent } from './components/tile'
 // import { WordmapComponent } from './components/wordmap'
@@ -19,17 +19,17 @@ describe('CLIENT TESTS', () => {
   })
 
   describe('├─ Reducers', () => {
-    describe('├─ Media', MediaReducers)
-    describe('├─ Status', StatusReducers)
-    describe('├─ View', ViewReducers)
+    describe('├─ Media', MediaReducer)
+    describe('├─ Status', StatusReducer)
+    describe('├─ View', ViewReducer)
   })
 
   describe('├─  Components', () => {
-    // describe('├─ Grid', GridComponent)
-    // describe('├─ GridTile', GridComponent)
-    // describe('├─ Gallery', GalleryComponent)
-    // describe('├─ GalleryTile', GalleryComponent)
-    // describe('├─ Tile', TileComponent)
-    // describe('├─ Wordmapt', WordmapComponent)
+    xdescribe('├─ Grid', GridComponent)
+    xdescribe('├─ GridTile', () => {it('should test GridTile component', () => {})})
+    xdescribe('├─ Gallery', () => {it('should test Gallery component', () => {})})
+    xdescribe('├─ GalleryTile', () => {it('should test GalleryTile component', () => {})})
+    xdescribe('├─ Tile', () => {it('should test Tile component', () => {})})
+    xdescribe('├─ Wordmap', () => {it('should test Wordmap component', () => {})})
   })
 })
