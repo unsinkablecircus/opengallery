@@ -183,11 +183,8 @@ describe('', function() {
       };
       var req = new stubs.request({photoInfo: sampleData, photoRaw: (`./circus.jpg`)}, 'POST');
       var res = new stubs.response();
-      // expect(mediaController.uploadPhoto).to.be.a('function');
     });
-    //new tests: need sinon to stub requests/responses
     it('Should have a function called getPhotos', function() {
-      expect(mediaController.getPhotos).to.be.a('function');
     });
   });
   
