@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import * grid from '../actions/grid'
-import * gallery from '../actions/gallery'
+import * as grid from '../actions/grid'
+import * as gallery from '../actions/gallery'
 import Grid from '../components/grid/Grid'
 
 const mapStateToProps = (state) => {
