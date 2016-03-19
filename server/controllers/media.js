@@ -65,9 +65,15 @@ const resizePhoto = (photo) => {
 }
 //controller handles function delegation
 exports.getPhotos = function (req, res) {
-  Media.retrievePhotosFromPG(function(photos){
-    res.json(photos);
+  // console.log("Get all photos response", 
+  Media.retrievePhotosFromPG()
+  .then((photos) => {
+    res.status(200).json(photos);
   })
+  .catch((err) => {
+    res.status(404).send();
+  });
+  // );
 }
 
 exports.uploadPhoto = function (req, res) {

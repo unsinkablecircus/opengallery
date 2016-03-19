@@ -10,11 +10,11 @@ AWS.config.update({region: 'us-west-1'});
 const s3 = new AWS.S3();
 // const Media = require('../models/media')
 
-//model handles db manipulation
+//model handles pg manipulation
 
 exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
-  return pg.raw(
+  var data = pg.raw(
     `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description) 
     values(
       ${photoData.user}, 
@@ -22,9 +22,12 @@ exports.uploadToPG = function (photoData) {
       'null',
       'null',
       '${photoData.title}', 
-      '${photoData.description}') 
+      '${photoData.description}'
+    ) 
     RETURNING id`
   );
+  pg.destroy();
+  return data;
 };
 
 exports.uploadToS3 = function (photoId, photo) {
@@ -48,7 +51,8 @@ exports.uploadToS3 = function (photoId, photo) {
 exports.updatePGid = function (photosURLsArr, id) {
   //array order is med, large
   //identify which record to update
-  return pg.raw(
+  // return 
+  var data = pg.raw(
     `UPDATE media 
     SET 
       url_medium = '${photosURLsArr[0]}', 
@@ -56,15 +60,41 @@ exports.updatePGid = function (photosURLsArr, id) {
     WHERE id = ${id}
     `
   );
+  pg.destroy();
+  return data;
 };
 
 exports.retrievePhotosFromPG = function () {
   // SQL Query > Insert Data
+  var photos;
   return pg.raw(
     `SELECT * FROM media
     LIMIT 20
     `
-  );
+  )
+  // .then((data) => {
+  //   console.log("inside media models 'then' invocation", data);
+  //   photos = data;
+  // })
+  // .then(() => {
+  //   pg.destroy();
+  // })
+  // .then(() => {
+  //   console.log('destroyed.')
+  // })
+  // .catch((err) => {
+  //   console.log('error: line 84 of media model', err);
+  // });
+
+  // return photos;
+  // pg.destroy()
+  // .then(function(){
+  //   return data;
+    
+  // })
+  // .catch(function(err) {
+  //   console.log("error destroying PG connection", err);
+  // })
 };
 
 // example of connecting to postgresql database below (will move to models later):

@@ -6,7 +6,7 @@ import { GridReducers } from './reducers/grid'
 import { GalleryActions } from './actions/gallery'
 import { GalleryReducers } from './reducers/gallery'
 
-describe('CLIENT TESTS', () => {
+xdescribe('CLIENT TESTS', () => {
   describe('Grid', () => {
     describe('Component', GridComponent)
     describe('Actions', GridActions)

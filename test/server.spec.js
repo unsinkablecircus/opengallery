@@ -30,18 +30,19 @@ describe('Back End', function() {
        
       });
 
-      it('Returns an object', function(done) {
-
-        request(app)
+      it('Responds with a rows property on body containing the data', function(done) {
+          request(app)
           .get('/api/media')
-          .expect(200)
           .expect(function(res) {
-            console.log("Response: ",res);
-            expect(res.body).to.be.a('object');
+            expect(res.body).to.have.property('rows');
           })
           .end(function(err, res) {
-            console.log(err);
-            if (err) {return done(err);}
+            if (err) {
+              console.log("Error requesting data: ", err);
+              expect(err).to.be.null;
+              return done(err);
+            }
+            done();
           });
 
       });
@@ -142,43 +143,38 @@ describe('Back End', function() {
     });
   });
 
-  describe('Media Model: ', function() {
+  xdescribe('Media Model: ', function() {
     //Unit Tests
-    it('Should have a function called uploadToPG', function() {
+    xit('Should have a function called uploadToPG', function() {
       expect(mediaModel.uploadToPG).to.be.a('function');
     });
-    it('Should have a function called uploadToS3', function() {
+    xit('Should have a function called uploadToS3', function() {
       expect(mediaModel.uploadToS3).to.be.a('function');
     });
-    it('Should have a function called updatePGid', function() {
+    xit('Should have a function called updatePGid', function() {
       expect(mediaModel.updatePGid).to.be.a('function');
     });
-    it('Should have a function called retrievePhotosFromPG', function() {
+    xit('Should have a function called retrievePhotosFromPG', function() {
       expect(mediaModel.retrievePhotosFromPG).to.be.a('function');
     });
     
     //Writing to DB Tests
     it('Should retrieve photos information from PostgreSQL', function(done) {
-      mediaModel.retrievePhotosFromPG(
-        function(err, data) {
-        if (err) {
-          console.log(err);
-        } else {
-          return data
-        }
-      })
+      
+      mediaModel.retrievePhotosFromPG()
       .then(function (data) {
         expect(data).to.have.property('rowCount');
-        db.destroy();
+        db.destroy()
         done();
       })
       .catch(function (err) {
+        expect(err).to.be.null;
         db.destroy();
         done();
       })
     });
 
-    it('Should upload photo metaData to PostgreSQL', function(done) {
+    xit('Should upload photo metaData to PostgreSQL', function(done) {
       var sampleData = {
         user: 3,
         url_small: 'url789_small',
@@ -191,60 +187,52 @@ describe('Back End', function() {
       mediaModel.uploadToPG(sampleData)
       .then(function(data){
         expect(data.rowCount).to.equal(1);
-        db.destroy();
         done();
       })
       .catch((err) => {
-        db.destroy();
         done();
       });
     });
 
-    it('Should upload a string to S3 and return a string', function(done) {
+    xit('Should upload a string to S3 and return a string', function(done) {
       mediaModel.uploadToS3(22, "TEST_STRING")
       .then(function(data) {
         expect(data.ETag).to.be.a('string');
-        db.destroy();
         done();
       })
       .catch(function(err) {
         expect(err).to.be.null;
-        db.destroy();
         done();
       });
     });
 
-    it('Should upload a photo buffer to S3', function(done) {
+    xit('Should upload a photo buffer to S3', function(done) {
       var photoBuff = ('./circus.jpg');
       mediaModel.uploadToS3(40, photoBuff)
       .then(function(photoId){
         expect(photoId.ETag).to.be.a('string');
-        db.destroy();
         done();
       })
       .catch((err) => {
         expect(err).to.be.null;
-        db.destroy();
         done();
       });
     });
 
-    it('Should update photos urls to PostgreSQL', function(done) {
+    xit('Should update photos urls to PostgreSQL', function(done) {
       mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
       .then(function(data) {
         expect(data);
-        db.destroy();
         done();
       })
       .catch(function(err) {
         expect(err).to.be.null;
-        db.destroy();
         done();
       });
     });
   });
 
-  describe('Media Controller: ', function() {
+  xdescribe('Media Controller: ', function() {
     it('Should have a function called uploadPhoto', function() {
       expect(mediaController.uploadPhoto).to.be.a('function');
     });
