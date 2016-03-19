@@ -11,6 +11,7 @@ var AWS = require('aws-sdk');
 var mediaModel = require('../server/models/media');
 var mediaController = require('../server/controllers/media');
 var stubs = require('./Stubs');
+var server = require('../server/server');
 
 // load AWS credentials
 var credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
@@ -182,7 +183,26 @@ describe('BackEnd', function() {
   });
 
   describe('Server: ', function() {
-    it(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
+    it(`POST api/media/upload should send a response object`, function() {
+      var sampleData = {
+        user: 5,
+        url_small: 'null',
+        url_med: 'null',
+        url_large: 'null',
+        title: 'JohnsBar',
+        description: 'Huh'
+      };
+      var req = new stubs.request('api/media/upload' 'POST', {photoInfo: sampleData, photoRaw: (`./circus.jpg`)});
+      var res = new stubs.response();
+
+      server(req, res);
+      
+      var parsedBody = JSON.parse(res._data);
+      expect(parsedBody).to.be.an('object');
+      expect(res._ended).to.equal(true);
+    });
+
+    xit(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
       update PostgreSQL with new urls, 
       and send back a 201 with the uploadPhoto function`, function() {
       var sampleData = {
@@ -195,8 +215,22 @@ describe('BackEnd', function() {
       };
       var req = new stubs.request('api/media/upload' 'POST', {photoInfo: sampleData, photoRaw: (`./circus.jpg`)});
       var res = new stubs.response();
+
+      server(req, res);
+
+      var parsedBody = JSON.parse(res._data);
+      expect(parsedBody).to.be.an('object');
+      expect(res._ended).to.equal(true);
     });
-    it('Should have a function called getPhotos', function() {
+    it('GET api/media should should return an object', function() {
+      var req = new stubs.request('api/media/', 'GET');
+      var res = new stubs.response();
+
+      server(req, res);
+      
+      var parsedBody = JSON.parse(res._data);
+      expect(parsedBody).to.be.an('object');
+      expect(res._ended).to.equal(true);
     });
   });
   
