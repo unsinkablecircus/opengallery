@@ -1,5 +1,6 @@
-import fetch from 'isomorphic-fetch'
-import { authReceive, authRequest, authError } from './authActions'
+import fetch from 'isomorphic-fetch';
+import { authReceive, authRequest, authError } from './authActions';
+import { storeUserData } from './user';
 
 // creds contains username and password
 export function SigninUser(creds) {
@@ -16,13 +17,12 @@ export function SigninUser(creds) {
         response.json()
       )
       .then((data) =>  {
-        console.log('data: ', data);
         if ( !data.match ) {
           dispatch(authError('Incorrect username or password'));
         } else {
           localStorage.setItem('id_token', data.token);
           dispatch(authReceive());
-          // dispatch to User reducer with user data
+          dispatch(storeUserData(data));
         }
       })
       .catch(err => console.log("Error: ", err))

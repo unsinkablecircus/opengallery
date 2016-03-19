@@ -45,10 +45,12 @@ module.exports = {
   signIn: function (req, res, next) {
     const username = req.body.username;
     const password = req.body.password;
+    var id;
     // fetch the user and compare the password
     db.raw(`SELECT * FROM users WHERE username = '${username}'`)
     .then( (user) => {
       var user = user.rows[0];
+      id = user.id;
       return comparePassword(password, user.password);
     })
     .then( (isMatch) => {
