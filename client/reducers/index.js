@@ -1,17 +1,18 @@
-import { combineReducers } from 'redux';
-import grid from './grid';
+import { combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux'
 
-import { routerReducer } from 'react-router-redux';
-import auth from './auth';
-import modal from './modal';
-import user from './user';
+import auth from './auth'
+import media from './media'
+import status from './status'
+import view from './view'
+import user from './user'
 
-// this combines all of the reduces in the reducers directory.
 const reducers = combineReducers({
   auth,
-  grid,
-  modal,
   user,
+  status,
+  view,
+  media,
   routing: routerReducer
 })
 
