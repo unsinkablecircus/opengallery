@@ -49,12 +49,11 @@ exports.updatePGid = function (photosURLsArr, id) {
   //array order is med, large
   //identify which record to update
   return pg.raw(
-    `UPDATE media (url_medium, url_large)
-      values(
-        '${photosURLsArr[0]}',
-        '${photosURLsArr[1]}'
-      )
-      WHERE (id = ${id})
+    `UPDATE media 
+    SET 
+      url_medium = '${photosURLsArr[0]}', 
+      url_large = '${photosURLsArr[1]}'
+    WHERE id = ${id}
     `
   );
 };
