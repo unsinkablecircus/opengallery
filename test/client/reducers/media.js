@@ -12,6 +12,14 @@ export const MediaReducers = () => {
   })
 
   describe('├─ Grid', () => {
+    it('should handle a GRID_FILTER action that changes the filter state', () => {
+      let tags = ['pink', 'cats']
+      let action = grid.filterGridData(tags)
+      expect(reducer(state, action)).to.deep.equal(Object.assign({}, state, {
+        filter: tags
+      }))
+    })
+
     it('should handle a GRID_SUCCESS action that changes the grid, data, and dictionary states', () => {
       let action = grid.receiveGridData({
         grid: state.grid,
@@ -20,24 +28,10 @@ export const MediaReducers = () => {
       })
       expect(reducer(state, action)).to.deep.equal(state)
     })
-
-    it('should handle a GRID_FILTER action that changes the filter state', () => {
-      let tags = ['pink', 'cats']
-      let action = grid.filterGridData(tags)
-      expect(reducer(state, action)).to.deep.equal(Object.assign({}, state, {
-        filter: tags
-      }))
-    })
   })
 
   describe('├─ Gallery', () => {
     beforeEach(() => { state = initialState.media })
-
-    it('should handle a TOGGLE_GALLERY action that sets the tile state', (done) => {
-      let action = gallery.toggleGallery(2)
-      expect(reducer(state, action)).to.have.property('tile', 2)
-      done()
-    })
 
     it('should handle a SHOW_NEXT action that increments the tile state', (done) => {
       let action = gallery.showNextTile()
@@ -58,6 +52,12 @@ export const MediaReducers = () => {
       tile = state.tile = 0
       expect(reducer(state, action)).to.have.property('tile', tile)
       expect(reducer(state, action)).to.not.have.property('tile', tile - 1)
+      done()
+    })
+
+    it('should handle a TOGGLE_GALLERY action that sets the tile state', (done) => {
+      let action = gallery.toggleGallery(2)
+      expect(reducer(state, action)).to.have.property('tile', 2)
       done()
     })
   })
