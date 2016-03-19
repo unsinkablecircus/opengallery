@@ -17,13 +17,10 @@ const cloneAndManipulate = (size, image) => {
   //side is one dimension of photo
   var side = 0;
   if (size === 'small') {
-    side = 40;
+    side = 25;
   }
   if (size === 'medium') {
-    side = 200;
-  }
-  if (size === 'large') {
-    side = 600;
+    side = 800;
   }
   photoObj[size] = image
     .clone()
@@ -31,7 +28,7 @@ const cloneAndManipulate = (size, image) => {
       if (err) {
         console.log(`Error reading image`, err);
       } else {
-        image.resize(side, Jimp.AUTO, Jimp.RESIZE_BEZIER)
+        image.resize(Jimp.AUTO, side, Jimp.RESIZE_BEZIER)
         .getBuffer( jimp.MIME_JPEG, 
           // convert each photo to buffer
           function(err, bufferImg) {
@@ -61,7 +58,7 @@ const resizePhoto = (photo) => {
       // do stuff with the image (if no exception)
       cloneAndManipulate(small, readImage);
       cloneAndManipulate(medium, readImage);
-      cloneAndManipulate(large, readImage);
+      // cloneAndManipulate(large, readImage);
     }
   });
   return photoObj;
@@ -82,18 +79,19 @@ exports.uploadPhoto = function (req, res) {
   // update PG upload object to include small photo buffer
   photo.PGupload.url_small = resizedPhotos.small;
   //take out small image from 
-  delete resizedPhotos.small;
+  // delete resizedPhotos.small;
   Media.uploadToPG(photo.PGupload, function(id){
-    Promise.map(resizedPhotos,
-      //map each photo and key in resizedPhotos to s3 upload function
-      function(photo, key){
-        var urlExtension = id + key;
-        urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtension);
-        return Media.uploadToS3(urlExtension, photo);
-      }
+    var urlExtLarge = id + 'large';
+    var urlExtMedium = id + 'medium';
+    urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
+    urlsArr.push('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
+
+    new Promise.all(
+      Media.uploadToS3(urlExtLarge, resizedPhotos.large),
+      Media.uploadToS3(urlExtMedium, resizedPhotos.medium)
     )
-    .then((photoId) => {
-      Media.updatePGid(urlsArr, photoId) // urlsArr initiated above
+    .then(() => {
+      Media.updatePGid(urlsArr, id) // urlsArr initiated above
       .then(() => {
         res.status(201).send();
       })
