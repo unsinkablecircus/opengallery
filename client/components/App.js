@@ -11,7 +11,7 @@ injectTapEventPlugin()
 const App = ({ displayGallery }) => (
   <div>
     {console.log("In App: displayGallery = ", displayGallery)}
-    <Signup/>
+    <Auth/>
     { displayGallery ? <Gallery/> : '' }
     <Nav/>
     <Grid/>
