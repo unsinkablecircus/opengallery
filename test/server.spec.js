@@ -18,7 +18,7 @@ AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-west-1'});
 const s3 = new AWS.S3();
 
-describe('', function() {
+describe('BackEnd', function() {
 
   describe('PostgreSQL Database: ', function() {
     it('Should have all the tables', function(done) {
@@ -193,7 +193,7 @@ describe('', function() {
         title: 'JohnsBar',
         description: 'Huh'
       };
-      var req = new stubs.request({photoInfo: sampleData, photoRaw: (`./circus.jpg`)}, 'POST');
+      var req = new stubs.request('api/media/upload' 'POST', {photoInfo: sampleData, photoRaw: (`./circus.jpg`)});
       var res = new stubs.response();
     });
     it('Should have a function called getPhotos', function() {
