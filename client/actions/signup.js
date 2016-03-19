@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { authReceive, authRequest, authError } from './authActions'
+import { storeUserData } from './user';
 
 // creds contains username and password
 export function SignupUser(creds) {
@@ -24,6 +25,7 @@ export function SignupUser(creds) {
       .then( (data) => {
         dispatch(authReceive());
         localStorage.setItem('id_token', data.token);
+        dispatch(storeUserData(data));
         console.log('you are now a member of open gallery!');
       })
       .catch( err => console.log("Error: ", err) )

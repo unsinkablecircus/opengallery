@@ -15,6 +15,7 @@ module.exports = {
   signUp: function (req, res, next) {
     const username = req.body.username;
     const password = req.body.password;
+    var id;
     console.log(username, password);
     // check if user exists already. if so, send back an error
     db.raw(`SELECT * FROM users WHERE username = '${username}'`)
@@ -27,12 +28,13 @@ module.exports = {
         .then( (hashedPW) => {
           // create the user
           console.log('hashed pw', hashedPW);
-          return db.raw(`INSERT INTO users (username, password) VALUES ('${username}', '${hashedPW}')`)
+          return db.raw(`INSERT INTO users (username, password) VALUES ('${username}', '${hashedPW}') RETURNING id, username`)
         })
         .then( (user) => {
           // generate a token from the username and send it back
+          id = user.rows[0].id;
           const token = jwt.encode({iss: username, exp: expires}, secret);
-          res.send({token: token});
+          res.send({token: token, userId: id, username: username});
         })
       }
     })
