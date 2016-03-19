@@ -3,21 +3,21 @@ export const GRID_REQUEST = 'GRID_REQUEST'
 export const GRID_SUCCESS = 'GRID_SUCCESS'
 export const GRID_FAILURE = 'GRID_FAILURE'
 
-export function filterGridData(tags) {
+export function filterData(tags) {
   return {
     type: GRID_FILTER,
     payload: tags
   }
 }
 
-export function requestGridData() {
+export function requestData() {
   return {
     type: GRID_REQUEST,
     payload: true
   }
 }
 
-export function receiveGridData(data) {
+export function receiveData(data) {
   return {
     type: GRID_SUCCESS,
     payload: data,
@@ -28,7 +28,7 @@ export function receiveGridData(data) {
   }
 }
 
-export function catchGridData(error) {
+export function catchData(error) {
   return {
     type: GRID_FAILURE,
     error,
@@ -38,7 +38,7 @@ export function catchGridData(error) {
   }
 }
 
-export function loadGrid(tags) {
+export function loadData(tags) {
   let params = {
     method: 'GET',
     query: { tags: tags.join('+') },
@@ -46,19 +46,18 @@ export function loadGrid(tags) {
   }
 
   return dispatch => {
-    // Dispatch requestGridData to kickoff the call to network API
-    dispatch(requestGridData(tags))
+    dispatch(requestData(tags))
 
     return fetch('/api/media', params)
     .then(response => {
       if (response.status >= 400) {
-        dispatch(catchGridData(data.message))
+        dispatch(catchData(data.message))
         return Promise.reject(data)
       }
       return response.json()
     })
     .then(function(gridData) {
-      dispatch(receiveGridData(gridData))
+      dispatch(receiveData(gridData))
     })
     .catch(err => {
       console.error(`Network failure prevented data retrieval: ${err}`)
