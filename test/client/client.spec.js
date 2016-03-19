@@ -1,21 +1,35 @@
-import { GridComponent } from './components/grid'
 import { GridActions } from './actions/grid'
-import { GridReducers } from './reducers/grid'
-
-// import { GalleryComponent } from './components/gallery'
 import { GalleryActions } from './actions/gallery'
-import { GalleryReducers } from './reducers/gallery'
+
+import { MediaReducers } from './reducers/media'
+import { StatusReducers } from './reducers/status'
+import { ViewReducers } from './reducers/view'
+
+import { GridComponent } from './components/grid'
+// import { GridTileComponent } from './components/gridTile'
+import { GalleryComponent } from './components/grid'
+// import { GalleryTileComponent } from './components/gridTile'
+// import { TileComponent } from './components/tile'
+// import { WordmapComponent } from './components/wordmap'
 
 describe('CLIENT TESTS', () => {
-  describe('Grid', () => {
-    describe('Component', GridComponent)
-    describe('Actions', GridActions)
-    describe('Reducers', GridReducers)
+  describe('├─ Actions', () => {
+    describe('├─ Grid', GridActions)
+    describe('├─ Gallery', GalleryActions)
   })
 
-  describe('Gallery', () => {
-    // describe('Component', GalleryComponent)
-    describe('Actions', GalleryActions)
-    describe('Reducers', GalleryReducers)
+  describe('├─ Reducers', () => {
+    describe('├─ Media', MediaReducers)
+    describe('├─ Status', StatusReducers)
+    describe('├─ View', ViewReducers)
+  })
+
+  describe('├─  Components', () => {
+    // describe('├─ Grid', GridComponent)
+    // describe('├─ GridTile', GridComponent)
+    // describe('├─ Gallery', GalleryComponent)
+    // describe('├─ GalleryTile', GalleryComponent)
+    // describe('├─ Tile', TileComponent)
+    // describe('├─ Wordmapt', WordmapComponent)
   })
 })
