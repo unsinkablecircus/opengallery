@@ -8,15 +8,15 @@ const status = (state = initialState.status, action) => {
         fetching: action.payload,
         error: ''
       })
-    case GRID_FAILURE:
-      return Object.assign({}, state, {
-        fetching: action.payload,
-        error: action.error
-      })
     case GRID_SUCCESS:
       return Object.assign({}, state, {
-        fetching: action.payload,
+        fetching: action.meta.fetching,
         error: ''
+      })
+    case GRID_FAILURE:
+      return Object.assign({}, state, {
+        fetching: action.meta.fetching,
+        error: action.error
       })
     default:
       return state
