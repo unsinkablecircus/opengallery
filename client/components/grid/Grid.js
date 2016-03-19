@@ -11,11 +11,6 @@ const styles = {
   }
 }
 
-const images = []
-for (var i = 285; i >= 1; i--) {
-  images.push(`http://gratisography.com/pictures/${i}_1.jpg`)
-}
-
 const Grid = ({ tile, grid, filter, data, loadGrid, toggleGallery }) => (
   <GridList
     id="grid-component"
