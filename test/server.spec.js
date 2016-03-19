@@ -1,18 +1,22 @@
 // var request = require('supertest');
-var express = require('express');
-
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 var should = require('chai').should();
 
+var express = require('express');
 var app = require('../server/server.js');
 var db = require('../server/db/database.js');
 var AWS = require('aws-sdk');
+
+var mediaModel = require('../server/models/media');
+var mediaController = require('../server/controllers/media');
+var stubs = require('./Stubs');
 
 // load AWS credentials
 var credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
 AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-west-1'});
+const s3 = new AWS.S3();
 
 describe('', function() {
 
@@ -64,4 +68,124 @@ describe('', function() {
     });
   });
 
+  describe('Media Model: ', function() {
+    //Unit Tests
+    it('Should have a function called uploadToPG', function() {
+      expect(mediaModel.uploadToPG).to.be.a('function');
+    });
+    it('Should have a function called uploadToS3', function() {
+      expect(mediaModel.uploadToS3).to.be.a('function');
+    });
+    it('Should have a function called updatePGid', function() {
+      expect(mediaModel.updatePGid).to.be.a('function');
+    });
+    it('Should have a function called retrievePhotosFromPG', function() {
+      expect(mediaModel.retrievePhotosFromPG).to.be.a('function');
+    });
+    
+    //Writing to DB Tests
+    it('Should retrieve photos information from PostgreSQL', function(done) {
+      mediaModel.retrievePhotosFromPG(
+        function(err, data) {
+        if (err) {
+          console.log(err);
+        } else {
+          return data
+        }
+      })
+      .then(function (data) {
+        expect(data).to.have.property('rowCount');
+        done();
+      })
+      .catch(function (err) {
+        done();
+      })
+    });
+
+    it('Should upload photo metaData to PostgreSQL', function(done) {
+      var sampleData = {
+        user: 3,
+        url_small: 'url789_small',
+        url_med: 'url789_medium',
+        url_large: 'url789_large',
+        title: 'MegansPhoto',
+        description: 'ImFancy'
+      };
+
+      mediaModel.uploadToPG(sampleData)
+      .then(function(data){
+        expect(data.rowCount).to.equal(1);
+        done();
+      })
+      .catch((err) => {
+        done();
+      });
+    });
+
+    it('Should upload a string to S3 and return a string', function(done) {
+      mediaModel.uploadToS3(22, "TEST_STRING")
+      .then(function(data) {
+        expect(data.ETag).to.be.a('string');
+        done();
+      })
+      .catch(function(err) {
+        expect(err).to.be.null;
+        done();
+      });
+    });
+
+    it('Should convert a photo to buffer and upload it to S3', function(done) {
+      var photoBuff = ('./circus.jpg');
+      mediaModel.uploadToS3(40, photoBuff)
+      .then(function(photoId){
+        expect(photoId.ETag).to.be.a('string');
+        done();
+      })
+      .catch((err) => {
+        expect(err).to.be.null;
+        done();
+      });
+    });
+
+    it('Should update photos urls to PostgreSQL', function(done) {
+      mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
+      .then(function(data) {
+        expect(data);
+        done();
+      })
+      .catch(function(err) {
+        expect(err).to.be.null;
+        done();
+      });
+    });
+  });
+
+  describe('Media Controller: ', function() {
+    it('Should have a function called uploadPhoto', function() {
+      expect(mediaController.uploadPhoto).to.be.a('function');
+    });
+    it('Should have a function called getPhotos', function() {
+      expect(mediaController.getPhotos).to.be.a('function');
+    });
+  });
+
+  describe('Server: ', function() {
+    it(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
+      update PostgreSQL with new urls, 
+      and send back a 201 with the uploadPhoto function`, function() {
+      var sampleData = {
+        user: 5,
+        url_small: 'null',
+        url_med: 'null',
+        url_large: 'null',
+        title: 'JohnsBar',
+        description: 'Huh'
+      };
+      var req = new stubs.request({photoInfo: sampleData, photoRaw: (`./circus.jpg`)}, 'POST');
+      var res = new stubs.response();
+    });
+    it('Should have a function called getPhotos', function() {
+    });
+  });
+  
 });
