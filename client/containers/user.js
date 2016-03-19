@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import User from '../components/user/User';
-import { SignupUser } from '../actions/user';
 
 const mapStateToProps = (state) => {
   return {
@@ -10,8 +9,19 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    switchEditMode: (editMode) => {
+      dispatch({
+        type: 'SWITCH_EDIT_MODE'
+      });
+    }
+  }
+}
+
 const container = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(User);
 
 export default container;

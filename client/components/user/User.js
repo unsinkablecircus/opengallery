@@ -21,12 +21,13 @@ import Colors from 'material-ui/lib/styles/colors';
 const User = ({
   userId,
   username,
-  editMode
+  editMode,
+  switchEditMode
 }) => {
   return (
     <div id="user-component">
       <Nav/>
-      <div className="user-columns-container">
+      <div className="user-columns-container">2
         <section className="user-left">
           <div className="user-details">
             <Avatar 
@@ -36,26 +37,22 @@ const User = ({
             />
             <FlatButton
               label="Edit Profile"
-              linkButton={true}
-              href="http://localhost:8000/profile/evanchen"
               secondary={true}
               icon={<Edit color={Colors.red500} className="user-icon" />}
+              onTouchTap={switchEditMode(editMode)}
             />
-            {userId}
-            {username}
-            {editMode}
             <div className="user-row">
               <Person color={Colors.red500} className="user-icon" />
               <TextField
-                disabled={true}
-                defaultValue="Disabled Value"
-                className="user-field"
+                disabled={editMode ? true : false}
+                defaultValue={username}
+                className="username"
               />
             </div>
             <div className="user-row">
               <Email color={Colors.red500} className="user-icon" />
               <TextField
-                disabled={true}
+                disabled={editMode ? true : false}
                 defaultValue="Disabled Value"
                 className="user-field"
               />
@@ -63,7 +60,7 @@ const User = ({
             <div className="user-row">
               <Phone color={Colors.red500} className="user-icon" />
               <TextField
-                disabled={true}
+                disabled={editMode ? true : false}
                 defaultValue="Disabled Value"
                 className="user-field"
               />
@@ -71,7 +68,7 @@ const User = ({
             <div className="user-row">
               <AddPhoto color={Colors.red500} className="user-icon" />
               <TextField
-                disabled={true}
+                disabled={editMode ? true : false}
                 defaultValue="Disabled Value"
                 className="user-field"
               />

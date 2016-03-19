@@ -1,4 +1,4 @@
-var initialState = {
+const initialState = {
   userId: null,
   username: null,
   editMode: false
@@ -11,6 +11,10 @@ const user = (state=initialState, action) => {
         userId: action.payload.userId,
         username: action.payload.username
       })
+    case 'SWITCH_EDIT_MODE':
+      return Object.assign({}, state, {
+        editMode: !state.user.editMode
+      }) 
     default:
       return state;
   }

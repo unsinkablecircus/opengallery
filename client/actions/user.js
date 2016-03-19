@@ -11,20 +11,10 @@ export function storeUserData(data) {
   }
 };
 
-export function editMode() {
-  return {
-    type: 'EDIT_MODE',
-    payload: {
-      
-    }
-  }
-};
-
 export function switchEditMode() {
   return {
     type: 'SWITCH_EDIT_MODE',
     payload: {
-      
     }
   }
 };
