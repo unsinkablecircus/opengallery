@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import Nav from '../nav/Nav';
-import Grid from '../grid/Grid'
+import Grid from '../grid/Grid';
 
 import Avatar from 'material-ui/lib/avatar';
 import List from 'material-ui/lib/lists/list';
@@ -18,7 +18,13 @@ import AddPhoto from 'material-ui/lib/svg-icons/image/add-a-photo';
 import Person from 'material-ui/lib/svg-icons/social/person';
 import Colors from 'material-ui/lib/styles/colors';
 
-const User = () => {
+import { connect } from 'react-redux';
+
+const User = ({
+  userId,
+  username,
+  editMode
+}) => {
   return (
     <div id="user-component">
       <Nav/>
@@ -36,7 +42,9 @@ const User = () => {
             secondary={true}
             icon={<Edit color={Colors.red500} className="user-icon" />}
           />
-
+          {userId}
+          {username}
+          {editMode}
           <div className="user-details">
             <div className="user-row">
               <Person color={Colors.red500} className="user-icon" />

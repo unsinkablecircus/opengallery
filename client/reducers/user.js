@@ -2,7 +2,7 @@ var initialState = {
   userId: null,
   username: null,
   editMode: false
-}
+};
 
 const user = (state=initialState, action) => {
   switch (action.type) {
