@@ -20,7 +20,7 @@ const s3 = new AWS.S3();
 
 describe('Back End', function() {
   describe('Server: ', function() {
-    describe('GET media', function(){
+    describe('GET media', function(done){
 
       it('responds with a 200 (OK)', function() {
 
@@ -30,53 +30,54 @@ describe('Back End', function() {
        
       });
 
-      it('Returns an object', function() {
+      it('Returns an object', function(done) {
 
         request(app)
-            .get('/api/media')
-            .expect(200, done);
+          .get('/api/media')
+          .expect(200)
+          .expect(function(res) {
+            console.log("Response: ",res);
+            expect(res.body).to.be.a('object');
+          })
+          .end(function(err, res) {
+            console.log(err);
+            if (err) {return done(err);}
+          });
 
-        });
       });
-
-    xit(`POST api/media/upload should send a response object`, function() {
-      var sampleData = {
-        user: 5,
-        url_small: 'null',
-        url_med: 'null',
-        url_large: 'null',
-        title: 'JohnsBar',
-        description: 'Huh'
-      };
-      var req = new stubs.request('/api/media/upload', 'POST', {photoInfo: sampleData, photoRaw: (`./circus.jpg`)});
-      var res = new stubs.response();
-
-      server(req, res);
-      
-      var parsedBody = JSON.parse(res._data);
-      expect(parsedBody).to.be.an('object');
-      expect(res._ended).to.equal(true);
     });
 
-    xit(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
-      update PostgreSQL with new urls, 
-      and send back a 201 with the uploadPhoto function`, function() {
-      var sampleData = {
-        user: 5,
-        url_small: 'null',
-        url_med: 'null',
-        url_large: 'null',
-        title: 'JohnsBar',
-        description: 'Huh'
-      };
-      var req = new stubs.request('/api/media/upload', 'POST', {photoInfo: sampleData, photoRaw: (`./circus.jpg`)});
-      var res = new stubs.response();
+    var sampleData = {
+      user: 5,
+      url_small: 'null',
+      url_med: 'null',
+      url_large: 'null',
+      title: 'JohnsBar',
+      description: 'Huh'
+    };
 
-      server(req, res);
+    describe('POST media', function(done){
 
-      var parsedBody = JSON.parse(res._data);
-      expect(parsedBody).to.be.an('object');
-      expect(res._ended).to.equal(true);
+      it('responds with a 201 (Created) when photo data is posted', function() {
+
+        request(app)
+          .post('/api/media/upload')
+          .send(sampleData)
+          .expect(201, done);
+       
+      });
+
+      xit(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
+        update PostgreSQL with new urls, 
+        and send back a 201 with the uploadPhoto function`, function(done) {
+
+          request(app)
+            .gost('/api/media')
+            .send(sampleData)
+            // .expect(201, done);
+
+      });
+
     });
  
   });
@@ -141,7 +142,7 @@ describe('Back End', function() {
     });
   });
 
-  xdescribe('Media Model: ', function() {
+  describe('Media Model: ', function() {
     //Unit Tests
     it('Should have a function called uploadToPG', function() {
       expect(mediaModel.uploadToPG).to.be.a('function');
@@ -168,11 +169,11 @@ describe('Back End', function() {
       })
       .then(function (data) {
         expect(data).to.have.property('rowCount');
-        knex.destroy();
+        db.destroy();
         done();
       })
       .catch(function (err) {
-        knex.destroy();
+        db.destroy();
         done();
       })
     });
@@ -190,11 +191,11 @@ describe('Back End', function() {
       mediaModel.uploadToPG(sampleData)
       .then(function(data){
         expect(data.rowCount).to.equal(1);
-        knex.destroy();
+        db.destroy();
         done();
       })
       .catch((err) => {
-        knex.destroy();
+        db.destroy();
         done();
       });
     });
@@ -203,27 +204,27 @@ describe('Back End', function() {
       mediaModel.uploadToS3(22, "TEST_STRING")
       .then(function(data) {
         expect(data.ETag).to.be.a('string');
-        knex.destroy();
+        db.destroy();
         done();
       })
       .catch(function(err) {
         expect(err).to.be.null;
-        knex.destroy();
+        db.destroy();
         done();
       });
     });
 
-    it('Should convert a photo to buffer and upload it to S3', function(done) {
+    it('Should upload a photo buffer to S3', function(done) {
       var photoBuff = ('./circus.jpg');
       mediaModel.uploadToS3(40, photoBuff)
       .then(function(photoId){
         expect(photoId.ETag).to.be.a('string');
-        knex.destroy();
+        db.destroy();
         done();
       })
       .catch((err) => {
         expect(err).to.be.null;
-        knex.destroy();
+        db.destroy();
         done();
       });
     });
@@ -232,18 +233,18 @@ describe('Back End', function() {
       mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
       .then(function(data) {
         expect(data);
-        knex.destroy();
+        db.destroy();
         done();
       })
       .catch(function(err) {
         expect(err).to.be.null;
-        knex.destroy();
+        db.destroy();
         done();
       });
     });
   });
 
-  xdescribe('Media Controller: ', function() {
+  describe('Media Controller: ', function() {
     it('Should have a function called uploadPhoto', function() {
       expect(mediaController.uploadPhoto).to.be.a('function');
     });
