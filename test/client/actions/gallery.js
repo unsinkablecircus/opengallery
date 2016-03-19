@@ -3,21 +3,21 @@ import * as gallery from '../../../client/actions/gallery'
 
 export const GalleryActions = () => {
   it('should create a SHOW_NEXT action', (done) => {
-    expect(gallery.showNextTile()).to.deep.equal({
+    expect(gallery.nextTile()).to.deep.equal({
       type: gallery.SHOW_NEXT
     })
     done()
   })
 
   it('should create a SHOW_PREV action', (done) => {
-    expect(gallery.showPrevTile()).to.deep.equal({
+    expect(gallery.prevTile()).to.deep.equal({
       type: gallery.SHOW_PREV
     })
     done()
   })
 
   it('should create a TOGGLE_GALLERY action', (done) => {
-    expect(gallery.toggleGallery(1)).to.deep.equal({
+    expect(gallery.toggleView(1)).to.deep.equal({
       type: gallery.TOGGLE_GALLERY,
       payload: 1,
     })
