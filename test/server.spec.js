@@ -34,10 +34,14 @@ describe('', function() {
             { table_name: 'media_hashtags' }
           ]);
           expect(res.rows.length).to.equal(7);
+          db.destroy(); // is this right?
+        })
+        .then(() => {
           done();
         })
         .catch((err) => {
           expect(err).to.be.null;
+          db.destroy();
           done();
         });
     });
@@ -49,20 +53,24 @@ describe('', function() {
             .then((res) => {
               db.raw("DROP table items;")
               .then((res) => {
+                db.destroy();
                 done();
               })
               .catch((err) => {
                 expect(err).to.be.null;
+                db.destroy();
                 done();
               })
             })
             .catch((err) => {
               expect(err).to.be.null;
+              db.destroy();
               done();
             })
         })
         .catch((err) => {
           expect(err).to.be.null;
+          db.destroy();
           done();
         });
     });

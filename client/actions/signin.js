@@ -16,11 +16,13 @@ export function SigninUser(creds) {
         response.json()
       )
       .then((data) =>  {
+        console.log('data: ', data);
         if ( !data.match ) {
           dispatch(authError('Incorrect username or password'));
         } else {
           localStorage.setItem('id_token', data.token);
           dispatch(authReceive());
+          // dispatch to User reducer with user data
         }
       })
       .catch(err => console.log("Error: ", err))

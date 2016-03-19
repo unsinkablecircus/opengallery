@@ -55,7 +55,7 @@ module.exports = {
       // isMatch is a boolean value describing whether entered PW matches saved PW
       if ( isMatch ) {
         const token = jwt.encode({iss: username, exp: expires}, secret);
-        res.send({match: true, token: token});
+        res.send({match: true, token: token, userId: id, username: username});
       } else {
         res.send({match: false});
       }
