@@ -2,16 +2,15 @@
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 var should = require('chai').should();
+var request = require('supertest');
 
-var express = require('express');
-var app = require('../server/server.js');
-var db = require('../server/db/database.js');
 var AWS = require('aws-sdk');
+var express = require('express');
+var db = require('../server/db/database.js');
 
+var app = require('../server/server.js');
 var mediaModel = require('../server/models/media');
 var mediaController = require('../server/controllers/media');
-var stubs = require('./Stubs');
-var server = require('../server/server');
 
 // load AWS credentials
 var credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
@@ -19,9 +18,70 @@ AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-west-1'});
 const s3 = new AWS.S3();
 
-describe('BackEnd', function() {
+describe('Back End', function() {
+  describe('Server: ', function() {
+    describe('GET media', function(){
 
-  describe('PostgreSQL Database: ', function() {
+      it('responds with a 200 (OK)', function() {
+
+        request(app)
+          .get('/api/media')
+          .expect(200, done);
+       
+      });
+
+      it('Returns an object', function() {
+
+        request(app)
+            .get('/api/media')
+            .expect(200, done);
+
+        });
+      });
+
+    xit(`POST api/media/upload should send a response object`, function() {
+      var sampleData = {
+        user: 5,
+        url_small: 'null',
+        url_med: 'null',
+        url_large: 'null',
+        title: 'JohnsBar',
+        description: 'Huh'
+      };
+      var req = new stubs.request('/api/media/upload', 'POST', {photoInfo: sampleData, photoRaw: (`./circus.jpg`)});
+      var res = new stubs.response();
+
+      server(req, res);
+      
+      var parsedBody = JSON.parse(res._data);
+      expect(parsedBody).to.be.an('object');
+      expect(res._ended).to.equal(true);
+    });
+
+    xit(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
+      update PostgreSQL with new urls, 
+      and send back a 201 with the uploadPhoto function`, function() {
+      var sampleData = {
+        user: 5,
+        url_small: 'null',
+        url_med: 'null',
+        url_large: 'null',
+        title: 'JohnsBar',
+        description: 'Huh'
+      };
+      var req = new stubs.request('/api/media/upload', 'POST', {photoInfo: sampleData, photoRaw: (`./circus.jpg`)});
+      var res = new stubs.response();
+
+      server(req, res);
+
+      var parsedBody = JSON.parse(res._data);
+      expect(parsedBody).to.be.an('object');
+      expect(res._ended).to.equal(true);
+    });
+ 
+  });
+
+  xdescribe('PostgreSQL Database: ', function() {
     it('Should have all the tables', function(done) {
       db.raw("SELECT table_name FROM information_schema.tables WHERE table_schema='public';")
         .then((res) => {
@@ -81,7 +141,7 @@ describe('BackEnd', function() {
     });
   });
 
-  describe('Media Model: ', function() {
+  xdescribe('Media Model: ', function() {
     //Unit Tests
     it('Should have a function called uploadToPG', function() {
       expect(mediaModel.uploadToPG).to.be.a('function');
@@ -108,9 +168,11 @@ describe('BackEnd', function() {
       })
       .then(function (data) {
         expect(data).to.have.property('rowCount');
+        knex.destroy();
         done();
       })
       .catch(function (err) {
+        knex.destroy();
         done();
       })
     });
@@ -128,9 +190,11 @@ describe('BackEnd', function() {
       mediaModel.uploadToPG(sampleData)
       .then(function(data){
         expect(data.rowCount).to.equal(1);
+        knex.destroy();
         done();
       })
       .catch((err) => {
+        knex.destroy();
         done();
       });
     });
@@ -139,10 +203,12 @@ describe('BackEnd', function() {
       mediaModel.uploadToS3(22, "TEST_STRING")
       .then(function(data) {
         expect(data.ETag).to.be.a('string');
+        knex.destroy();
         done();
       })
       .catch(function(err) {
         expect(err).to.be.null;
+        knex.destroy();
         done();
       });
     });
@@ -152,10 +218,12 @@ describe('BackEnd', function() {
       mediaModel.uploadToS3(40, photoBuff)
       .then(function(photoId){
         expect(photoId.ETag).to.be.a('string');
+        knex.destroy();
         done();
       })
       .catch((err) => {
         expect(err).to.be.null;
+        knex.destroy();
         done();
       });
     });
@@ -164,73 +232,23 @@ describe('BackEnd', function() {
       mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
       .then(function(data) {
         expect(data);
+        knex.destroy();
         done();
       })
       .catch(function(err) {
         expect(err).to.be.null;
+        knex.destroy();
         done();
       });
     });
   });
 
-  describe('Media Controller: ', function() {
+  xdescribe('Media Controller: ', function() {
     it('Should have a function called uploadPhoto', function() {
       expect(mediaController.uploadPhoto).to.be.a('function');
     });
     it('Should have a function called getPhotos', function() {
       expect(mediaController.getPhotos).to.be.a('function');
-    });
-  });
-
-  describe('Server: ', function() {
-    it(`POST api/media/upload should send a response object`, function() {
-      var sampleData = {
-        user: 5,
-        url_small: 'null',
-        url_med: 'null',
-        url_large: 'null',
-        title: 'JohnsBar',
-        description: 'Huh'
-      };
-      var req = new stubs.request('api/media/upload' 'POST', {photoInfo: sampleData, photoRaw: (`./circus.jpg`)});
-      var res = new stubs.response();
-
-      server(req, res);
-      
-      var parsedBody = JSON.parse(res._data);
-      expect(parsedBody).to.be.an('object');
-      expect(res._ended).to.equal(true);
-    });
-
-    xit(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
-      update PostgreSQL with new urls, 
-      and send back a 201 with the uploadPhoto function`, function() {
-      var sampleData = {
-        user: 5,
-        url_small: 'null',
-        url_med: 'null',
-        url_large: 'null',
-        title: 'JohnsBar',
-        description: 'Huh'
-      };
-      var req = new stubs.request('api/media/upload' 'POST', {photoInfo: sampleData, photoRaw: (`./circus.jpg`)});
-      var res = new stubs.response();
-
-      server(req, res);
-
-      var parsedBody = JSON.parse(res._data);
-      expect(parsedBody).to.be.an('object');
-      expect(res._ended).to.equal(true);
-    });
-    it('GET api/media should should return an object', function() {
-      var req = new stubs.request('api/media/', 'GET');
-      var res = new stubs.response();
-
-      server(req, res);
-      
-      var parsedBody = JSON.parse(res._data);
-      expect(parsedBody).to.be.an('object');
-      expect(res._ended).to.equal(true);
     });
   });
   
