@@ -1,9 +1,8 @@
-import React from 'react';
-import {Route} from 'react-router';
-import App from './components/App';
-import User from './components/user/User';
+import React from 'react'
+import {Route} from 'react-router'
 
-// import component modules as needed
+import App from './containers/App'
+import User from './components/user/User'
 
 export default function getRoutes() {
   return (
