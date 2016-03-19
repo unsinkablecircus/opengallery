@@ -41,7 +41,7 @@
   };
 
   @include respond-to('small') {
-    flex: 2;
+    flex: 1;
   };
 
   @include respond-to('medium') {
@@ -64,7 +64,7 @@
   };
 
   @include respond-to('small') {
-    flex: 1;
+    flex: 2;
   };
 
   @include respond-to('medium') {
@@ -82,6 +82,15 @@
 }
 
 .user-details {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 .user-row {

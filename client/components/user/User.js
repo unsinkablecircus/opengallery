@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { createStore } from 'redux';
-import Nav from '../nav/Nav';
-import Grid from '../grid/Grid';
+import Nav from '../../containers/nav';
+import Grid from '../../containers/grid';
 
 import Avatar from 'material-ui/lib/avatar';
 import List from 'material-ui/lib/lists/list';
@@ -18,8 +18,6 @@ import AddPhoto from 'material-ui/lib/svg-icons/image/add-a-photo';
 import Person from 'material-ui/lib/svg-icons/social/person';
 import Colors from 'material-ui/lib/styles/colors';
 
-import { connect } from 'react-redux';
-
 const User = ({
   userId,
   username,
@@ -30,22 +28,22 @@ const User = ({
       <Nav/>
       <div className="user-columns-container">
         <section className="user-left">
-          <Avatar 
-            size={200} 
-            src="http://i.giphy.com/6RwY3KrjXVY7m.gif"
-            className="user-avatar"
-          />
-          <FlatButton
-            label="Edit Profile"
-            linkButton={true}
-            href="http://localhost:8000/profile/evanchen"
-            secondary={true}
-            icon={<Edit color={Colors.red500} className="user-icon" />}
-          />
-          {userId}
-          {username}
-          {editMode}
           <div className="user-details">
+            <Avatar 
+              size={200} 
+              src="http://i.giphy.com/6RwY3KrjXVY7m.gif"
+              className="user-avatar"
+            />
+            <FlatButton
+              label="Edit Profile"
+              linkButton={true}
+              href="http://localhost:8000/profile/evanchen"
+              secondary={true}
+              icon={<Edit color={Colors.red500} className="user-icon" />}
+            />
+            {userId}
+            {username}
+            {editMode}
             <div className="user-row">
               <Person color={Colors.red500} className="user-icon" />
               <TextField
