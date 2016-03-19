@@ -5,11 +5,9 @@ import GridList from 'material-ui/lib/grid-list/grid-list'
 
 const styles = {
   grid: {
-    position: 'relative',
-    width: '100vw',
-    height: '100vh',
-    overflowY: 'auto',
-    paddingTop: 68
+    position: 'absolute',
+    top: 70,
+    width: '100%'
   }
 }
 
@@ -18,19 +16,18 @@ for (var i = 285; i >= 1; i--) {
   images.push(`http://gratisography.com/pictures/${i}_1.jpg`)
 }
 
-const Grid = ({isFetchingMedia, errorFetchingMedia, grid, media, feedback, loadGrid}) => {
-  return (
-    <GridList
-      cellHeight={300}
-      padding={15}
-      cols={3}
-      style={styles.grid}
-    >
-      {images.map((image, key) => (
-        <GridTile key={key} img={image}/>
-      ))}
-    </GridList>
-  )
-}
+const Grid = ({ tile, grid, filter, data, loadGrid, toggleGallery }) => (
+  <GridList
+    id="grid-component"
+    cellHeight={300}
+    padding={15}
+    cols={3}
+    style={styles.grid}
+  >
+    {grid.map((id, key) => (
+      <GridTile key={key} tile={key} img={data[grid[key]].url_lg} toggleGallery={toggleGallery}/>
+    ))}
+  </GridList>
+)
 
 export default Grid
