@@ -14,7 +14,6 @@ const auth = (state=initialState, action) => {
         isFetching: true,
       })
     case 'AUTH_SUCCESS':
-    console.log('username', action.payload.user);
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,

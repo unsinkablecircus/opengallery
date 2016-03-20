@@ -1,0 +1,15 @@
+.gridList {
+  margin-top: 64px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gridTile {
+  margin: 2.5px;
+  flex: auto;
+  width: 533px;
+  height: 400px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
