@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import User from '../components/user/User';
+// import { switchEditMode } from '../actions/user'
 
 const mapStateToProps = (state) => {
   return {
@@ -11,10 +12,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    switchEditMode: (editMode) => {
+    switchEditMode: () => {
+      // dispatch(switchEditMode(editMode));
       dispatch({
         type: 'SWITCH_EDIT_MODE'
-      });
+      })
     }
   }
 }

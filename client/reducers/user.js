@@ -13,7 +13,7 @@ const user = (state=initialState, action) => {
       })
     case 'SWITCH_EDIT_MODE':
       return Object.assign({}, state, {
-        editMode: !state.user.editMode
+        editMode: !state.editMode
       }) 
     default:
       return state;
@@ -21,3 +21,7 @@ const user = (state=initialState, action) => {
 };
 
 export default user;
+
+// Warning: setState(...): Cannot update during an existing state transition 
+// (such as within `render`). Render methods should be a pure function of props 
+// and state

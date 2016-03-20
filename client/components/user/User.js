@@ -10,12 +10,11 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
-import Settings from 'material-ui/lib/svg-icons/action/settings';
 import Email from 'material-ui/lib/svg-icons/communication/email';
-import Phone from 'material-ui/lib/svg-icons/communication/phone';
 import Edit from 'material-ui/lib/svg-icons/editor/mode-edit';
 import AddPhoto from 'material-ui/lib/svg-icons/image/add-a-photo';
 import Person from 'material-ui/lib/svg-icons/social/person';
+import Website from 'material-ui/lib/svg-icons/social/public';
 import Colors from 'material-ui/lib/styles/colors';
 
 const User = ({
@@ -27,7 +26,7 @@ const User = ({
   return (
     <div id="user-component">
       <Nav/>
-      <div className="user-columns-container">2
+      <div className="user-columns-container">
         <section className="user-left">
           <div className="user-details">
             <Avatar 
@@ -36,41 +35,36 @@ const User = ({
               className="user-avatar"
             />
             <FlatButton
-              label="Edit Profile"
+              label={editMode ? 'Save Changes' : 'Edit Profile'}
               secondary={true}
-              icon={<Edit color={Colors.red500} className="user-icon" />}
-              onTouchTap={switchEditMode(editMode)}
+              icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />}
+              onTouchTap={switchEditMode}
             />
             <div className="user-row">
-              <Person color={Colors.red500} className="user-icon" />
+              <Person color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={editMode ? true : false}
+                disabled={editMode ? false : true}
                 defaultValue={username}
-                className="username"
+                className="user-field"
+                underlineShow={editMode ? true : false}
               />
             </div>
             <div className="user-row">
-              <Email color={Colors.red500} className="user-icon" />
+              <Email color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={editMode ? true : false}
+                disabled={editMode ? false : true}
                 defaultValue="Disabled Value"
                 className="user-field"
+                underlineShow={editMode ? true : false}
               />
             </div>
             <div className="user-row">
-              <Phone color={Colors.red500} className="user-icon" />
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={editMode ? true : false}
+                disabled={editMode ? false : true}
                 defaultValue="Disabled Value"
                 className="user-field"
-              />
-            </div>
-            <div className="user-row">
-              <AddPhoto color={Colors.red500} className="user-icon" />
-              <TextField
-                disabled={editMode ? true : false}
-                defaultValue="Disabled Value"
-                className="user-field"
+                underlineShow={editMode ? true : false}
               />
             </div>
           </div>

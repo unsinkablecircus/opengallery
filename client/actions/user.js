@@ -11,13 +11,14 @@ export function storeUserData(data) {
   }
 };
 
-export function switchEditMode() {
-  return {
-    type: 'SWITCH_EDIT_MODE',
-    payload: {
-    }
-  }
-};
+// export function switchEditMode(editMode) {
+//   return {
+//     type: 'SWITCH_EDIT_MODE',
+//     payload: {
+//       editMode: !editMode
+//     }
+//   }
+// };
 
 export function updateRequest() {
   return {
