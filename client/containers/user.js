@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import User from '../components/user/User';
-// import { switchEditMode } from '../actions/user'
 
 const mapStateToProps = (state) => {
   return {
     userId: state.user.userId,
     username: state.user.username,
+    email: state.user.email,
+    website: state.user.website,
     editMode: state.user.editMode
   }
 }

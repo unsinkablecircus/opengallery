@@ -6,7 +6,9 @@ export function storeUserData(data) {
     type: 'STORE_USER_DATA',
     payload: {
       userId: data.userId,
-      username: data.username
+      username: data.username,
+      email: data.email,
+      website: data.website
     }
   }
 };

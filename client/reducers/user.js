@@ -1,6 +1,8 @@
 const initialState = {
   userId: null,
   username: null,
+  email: null,
+  website: null,
   editMode: false
 };
 

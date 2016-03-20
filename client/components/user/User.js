@@ -20,6 +20,8 @@ import Colors from 'material-ui/lib/styles/colors';
 const User = ({
   userId,
   username,
+  email,
+  website,
   editMode,
   switchEditMode
 }) => {
@@ -53,7 +55,7 @@ const User = ({
               <Email color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
                 disabled={editMode ? false : true}
-                defaultValue="Disabled Value"
+                defaultValue={email ? email : 'No Email Listed'}
                 className="user-field"
                 underlineShow={editMode ? true : false}
               />
@@ -62,7 +64,7 @@ const User = ({
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
                 disabled={editMode ? false : true}
-                defaultValue="Disabled Value"
+                defaultValue={website ? website : 'No Website Listed'}
                 className="user-field"
                 underlineShow={editMode ? true : false}
               />

@@ -16,6 +16,8 @@ module.exports = {
     const username = req.body.username;
     const password = req.body.password;
     var id;
+    var email;
+    var website;
     console.log(username, password);
     // check if user exists already. if so, send back an error
     db.raw(`SELECT * FROM users WHERE username = '${username}'`)
@@ -33,8 +35,10 @@ module.exports = {
         .then( (user) => {
           // generate a token from the username and send it back
           id = user.rows[0].id;
+          email = users.rows[0].email;
+          website = users.rows[0].website;
           const token = jwt.encode({iss: username, exp: expires}, secret);
-          res.send({token: token, userId: id, username: username});
+          res.send({token: token, userId: id, username: username, email: email, website: website});
         })
       }
     })
@@ -48,6 +52,8 @@ module.exports = {
     const username = req.body.username;
     const password = req.body.password;
     var id;
+    var email;
+    var website;
     // fetch the user and compare the password
     db.raw(`SELECT * FROM users WHERE username = '${username}'`)
     .then( (user) => {
@@ -59,7 +65,9 @@ module.exports = {
       // isMatch is a boolean value describing whether entered PW matches saved PW
       if ( isMatch ) {
         const token = jwt.encode({iss: username, exp: expires}, secret);
-        res.send({match: true, token: token, userId: id, username: username});
+        email = users.rows[0].email;
+        website = users.rows[0].website;
+        res.send({match: true, token: token, userId: id, username: username, email: email, website: website});
       } else {
         res.send({match: false});
       }
