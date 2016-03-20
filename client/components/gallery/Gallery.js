@@ -68,11 +68,7 @@ export default class Gallery extends React.Component {
               {dimensions.map((style, i) =>
                 <Motion key={data[grid[i]].mediaId} style={style}>
                   {style =>
-                    <GalleryTile
-                      img={data[grid[i]].url_lg}
-                      title={data[grid[i]].title}
-                      desc={data[grid[i]].description}
-                      style={style}/>
+                    <GalleryTile data={data[grid[i]]} style={style}/>
                   }
                 </Motion>
               )}
