@@ -1,0 +1,23 @@
+#gallery-component
+  +display(flex)
+  position: relative
+  width: 100vw
+  height: 100vh
+  background: $dimmer-color
+  align-items: center
+  z-index: 1105
+
+  .gallery-tile
+    position: relative
+    overflow: hidden
+    margin: auto
+    box-sizing: border-box
+    box-shadow: $box-shadow
+    +user-select(none)
+
+    .gallery-photo
+      position: absolute
+
+  & + #nav-component + #grid-component,
+  & + #nav-component
+    +filter(blur(6px))
