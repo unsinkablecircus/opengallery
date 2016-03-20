@@ -1,11 +1,10 @@
 import fetch from 'isomorphic-fetch'
-// import { authReceive, authRequest, authError } from './authActions'
 
 export function storeUserData(data) {
   return {
     type: 'STORE_USER_DATA',
     payload: {
-      userId: data.userId,
+      id: data.id,
       username: data.username,
       email: data.email,
       website: data.website
@@ -13,21 +12,12 @@ export function storeUserData(data) {
   }
 };
 
-// export function switchEditMode(editMode) {
-//   return {
-//     type: 'SWITCH_EDIT_MODE',
-//     payload: {
-//       editMode: !editMode
-//     }
-//   }
-// };
-
 export function updateRequest() {
   return {
     type: 'UPDATE_REQUEST',
     payload: {
       isFetching: true,
-      isAuthenticated: false,
+      isUpdated: false,
     }
   }
 };
@@ -37,7 +27,7 @@ export function updateReceive() {
     type: 'UPDATE_SUCCESS',
     payload: {
       isFetching: false,
-      isAuthenticated: true,
+      isUpdated: true,
     }
   }
 };
@@ -47,36 +37,37 @@ export function updateError(message) {
     type: 'UPDATE_FAILURE',
     payload: {
       isFetching: false,
-      isAuthenticated: false,
+      isUpdated: false,
       message
     }
   }
 };
 
-// // creds contains username and password
-// export function SigninUser(creds) {
-
-//   const config = {
-//     method: 'POST',
-//     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-//     body: 
-//   }
-//   return dispatch => {
-//     dispatch(authRequest())
-//     return fetch('http://localhost:8000/api/user/signIn', config)
-//       .then(response =>
-//         response.json()
-//       )
-//       .then((data) =>  {
-//         console.log('data: ', data);
-//         if ( !data.match ) {
-//           dispatch(authError('Incorrect username or password'));
-//         } else {
-//           localStorage.setItem('id_token', data.token);
-//           dispatch(authReceive());
-//           // dispatch to User reducer with user data
-//         }
-//       })
-//       .catch(err => console.log("Error: ", err))
-//   }
-// }
+export function SaveChanges(data) {
+  const config = {
+    method: 'POST',
+    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+    body: `id=${data.id}&username=${data.username}&email=${data.email}&website=${data.website}`
+  }
+  return dispatch => {
+    dispatch(updateRequest());
+    return fetch('http://localhost:8000/api/user/saveChanges', config)
+      .then((response) => {
+        if ( !response.ok ) {
+          dispatch(updateError('Error updating data'));
+          return Promise.reject('Error updating data');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        dispatch(updateReceive());
+        dispatch(storeUserData(data));
+        dispatch({
+          type: 'SWITCH_EDIT_MODE'
+        })
+      })
+      .catch(err => {
+        console.log("Error: ", err)
+      });
+  }
+}

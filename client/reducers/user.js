@@ -1,5 +1,5 @@
 const initialState = {
-  userId: null,
+  id: null,
   username: null,
   email: null,
   website: null,
@@ -10,13 +10,19 @@ const user = (state=initialState, action) => {
   switch (action.type) {
     case 'STORE_USER_DATA':
       return Object.assign({}, state, {
-        userId: action.payload.userId,
-        username: action.payload.username
+        id: action.payload.id,
+        username: action.payload.username,
+        email: action.payload.email,
+        website: action.payload.website
       })
     case 'SWITCH_EDIT_MODE':
       return Object.assign({}, state, {
         editMode: !state.editMode
-      }) 
+      })
+    // case 'SAVE_CHANGES':
+    //   return Object.assign({}, state, {
+    //     editMode: true
+    //   })
     default:
       return state;
   }

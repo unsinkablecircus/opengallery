@@ -38,7 +38,7 @@ module.exports = {
           email = users.rows[0].email;
           website = users.rows[0].website;
           const token = jwt.encode({iss: username, exp: expires}, secret);
-          res.send({token: token, userId: id, username: username, email: email, website: website});
+          res.send({token: token, id: id, username: username, email: email, website: website});
         })
       }
     })
@@ -59,18 +59,45 @@ module.exports = {
     .then( (user) => {
       var user = user.rows[0];
       id = user.id;
+      email = user.email;
+      website = user.website;
       return comparePassword(password, user.password);
     })
     .then( (isMatch) => {
       // isMatch is a boolean value describing whether entered PW matches saved PW
       if ( isMatch ) {
         const token = jwt.encode({iss: username, exp: expires}, secret);
-        email = users.rows[0].email;
-        website = users.rows[0].website;
-        res.send({match: true, token: token, userId: id, username: username, email: email, website: website});
+        res.send({match: true, token: token, id: id, username: username, email: email, website: website});
       } else {
         res.send({match: false});
       }
+    })
+    .catch((err) => {
+      console.log('err', err);
+      res.status(500).send({error: err});
+    })
+  },
+
+  saveChanges: function (req, res, next) {
+    db.raw(`UPDATE users 
+            SET username='${req.body.username}', 
+                email='${req.body.email}',
+                website='${req.body.website}'
+            WHERE id=${req.body.id}
+            RETURNING *;`)
+    .then ((user) => {
+      const data = user.rows[0];
+      console.log('data after update: ', data);
+      res.status(200).send({
+        id: data.id,
+        username: data.username,
+        email: data.email,
+        website: data.website
+      });
+    })
+    .catch((err) => {
+      console.log('err', err);
+      res.status(500).send({error: err});
     })
   }
 };

@@ -18,13 +18,21 @@ import Website from 'material-ui/lib/svg-icons/social/public';
 import Colors from 'material-ui/lib/styles/colors';
 
 const User = ({
-  userId,
+  id,
   username,
   email,
   website,
   editMode,
-  switchEditMode
+  switchEditMode,
+  saveChanges
 }) => {
+  let data = {
+    id: id,
+    username: username,
+    email: email,
+    website: website
+  };
+
   return (
     <div id="user-component">
       <Nav/>
@@ -40,7 +48,7 @@ const User = ({
               label={editMode ? 'Save Changes' : 'Edit Profile'}
               secondary={true}
               icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />}
-              onTouchTap={switchEditMode}
+              onTouchTap={editMode ? saveChanges.bind(null, data) : switchEditMode}
             />
             <div className="user-row">
               <Person color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
@@ -49,24 +57,29 @@ const User = ({
                 defaultValue={username}
                 className="user-field"
                 underlineShow={editMode ? true : false}
+                onChange={(event) => { data.username = event.target.value }}
               />
             </div>
             <div className="user-row">
               <Email color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
                 disabled={editMode ? false : true}
-                defaultValue={email ? email : 'No Email Listed'}
+                defaultValue={email ? email : ''}
+                hintText={email ? '' : 'No Email Listed'}
                 className="user-field"
                 underlineShow={editMode ? true : false}
+                onChange={(event) => { data.email = event.target.value }}
               />
             </div>
             <div className="user-row">
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
                 disabled={editMode ? false : true}
-                defaultValue={website ? website : 'No Website Listed'}
+                defaultValue={website ? website : ''}
+                hintText={website ? '' : 'No Website Listed'}
                 className="user-field"
                 underlineShow={editMode ? true : false}
+                onChange={(event) => { data.website = event.target.value }}
               />
             </div>
           </div>

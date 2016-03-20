@@ -7,6 +7,8 @@ module.exports = function (app, express) {
   app.post('/api/user/signIn', User.signIn);
   app.post('/api/user/signUp', User.signUp);
 
+  app.post('/api/user/saveChanges', User.saveChanges);
+
   app.get('/api/media/', Media.getPhotos);
   app.post('/api/media/upload', Media.uploadPhoto);
 
