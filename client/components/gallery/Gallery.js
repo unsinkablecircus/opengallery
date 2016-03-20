@@ -1,5 +1,6 @@
 import React from 'react'
 import { Motion, spring } from 'react-motion'
+import GalleryTile from './GalleryTile'
 
 const config = {stiffness: 170, damping: 26}
 
@@ -15,7 +16,7 @@ export default class Gallery extends React.Component {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
-    return nextState.view.displayGallery;
+    return nextProps.displayGallery;
   }
 
   navigateGallery = ({ keyCode }) => {
@@ -67,7 +68,11 @@ export default class Gallery extends React.Component {
               {dimensions.map((style, i) =>
                 <Motion key={data[grid[i]].mediaId} style={style}>
                   {style =>
-                    <img className="gallery-photo" src={data[grid[i]].url_lg} style={style}/>
+                    <GalleryTile
+                      img={data[grid[i]].url_lg}
+                      title={data[grid[i]].title}
+                      desc={data[grid[i]].description}
+                      style={style}/>
                   }
                 </Motion>
               )}
