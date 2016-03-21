@@ -1,5 +1,6 @@
-import fetch from 'isomorphic-fetch'
-import { authReceive, authRequest, authError } from './authActions'
+import fetch from 'isomorphic-fetch';
+import { authReceive, authRequest, authError } from './authActions';
+import { storeUserData } from './user';
 
 // creds contains username and password
 export function SigninUser(creds) {
@@ -10,7 +11,7 @@ export function SigninUser(creds) {
     body: `username=${creds.username}&password=${creds.password}`
   }
   return dispatch => {
-    dispatch(authRequest())
+    dispatch(authRequest());
     return fetch('http://localhost:8000/api/user/signIn', config)
       .then(response =>
         response.json()
@@ -21,6 +22,7 @@ export function SigninUser(creds) {
         } else {
           localStorage.setItem('id_token', data.token);
           dispatch(authReceive());
+          dispatch(storeUserData(data));
         }
       })
       .catch(err => console.log("Error: ", err))

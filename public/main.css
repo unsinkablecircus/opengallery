@@ -24,7 +24,6 @@
       flex-direction: row; } }
 
 .user-left {
-  border: 1px solid #ccc;
   float: left;
   padding: 15px;
   flex: 1;
@@ -34,7 +33,7 @@
       flex: 1; } }
   @media (min-width: 767px) {
     .user-left {
-      flex: 2; } }
+      flex: 1; } }
   @media (min-width: 992px) {
     .user-left {
       flex: 1; } }
@@ -43,7 +42,6 @@
       flex: 1; } }
 
 .user-right {
-  border: 1px solid #ccc;
   padding: 15px;
   float: left;
   flex: 1; }
@@ -52,7 +50,7 @@
       flex: 1; } }
   @media (min-width: 767px) {
     .user-right {
-      flex: 1; } }
+      flex: 2; } }
   @media (min-width: 992px) {
     .user-right {
       flex: 2; } }
@@ -63,6 +61,17 @@
 .user-avatar {
   text-align: center;
   margin-bottom: 15px; }
+
+.user-details {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex-wrap: nowrap;
+  align-items: center; }
 
 .user-row {
   display: -webkit-box;
@@ -80,6 +89,7 @@
   flex: 1; }
 
 .user-field {
+  margin-right: 15px;
   flex: 6; }
 
 /*# sourceMappingURL=main.css.map*/

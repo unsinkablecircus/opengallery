@@ -24,7 +24,8 @@ const darkMuiTheme = getMuiTheme(darkBaseTheme)
 
 let Nav = ({
   isAuth,
-  onLogoutClick
+  onLogoutClick,
+  username
 }) => {
   const styles = {
     nav: {
@@ -66,7 +67,8 @@ let Nav = ({
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
-            <Link to={`/profile/evanchen`}><MenuItem primaryText='Profile'/></Link>
+            <Link to={`/profile/${username}`}><MenuItem primaryText='Profile'/></Link>
+            <Link to={`/profile/${username}1`}><MenuItem primaryText='Different Profile'/></Link>
             <MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/>
           </IconMenu>
         }

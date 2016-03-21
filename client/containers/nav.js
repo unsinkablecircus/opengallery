@@ -2,11 +2,10 @@ import Nav from '../components/nav/Nav';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/logout';
 
-
-
 const mapStateToProps = (state) => {
   return {
-    isAuth: state.auth.isAuthenticated
+    isAuth: state.auth.isAuthenticated,
+    username: state.user.username
   }
 }
 

@@ -4,8 +4,6 @@ import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field'
 
-import { connect } from 'react-redux'
-
 const Auth = ({
   isAuthenticated,
   onSigninSubmit,
