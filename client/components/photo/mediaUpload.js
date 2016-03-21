@@ -1,8 +1,10 @@
 import React from 'react';
+import dropZone from 'react-dropzone'
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field'
+
 
 //on click => dispatch action: show photo upload
 //action: show photo upload => update state on model component (this?)
