@@ -78,40 +78,46 @@ exports.getPhotos = function (req, res) {
 
 exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
-  var photo = separateData(req.body);
+  // var photo = separateData(req.body);
+  console.log("Request files line 82 of media controllers: ", req.file);
+  // console.log("Photo after separateData function line 83 of media controllers: ", photo);
   // clone photos and turn into buffers for upload
-  var resizedPhotos = resizePhoto(photo.s3upload);
+  // var resizedPhotos = resizePhoto(photo.s3upload);
+  // console.log("resizedPhotos object-boolean line 86 of media controllers: ", !!resizedPhotos);
   // update PG upload object to include small photo buffer
-  photo.PGupload.url_small = resizedPhotos.small;
+  // photo.PGupload.url_small = resizedPhotos.small;
   var responseObject = {
     id: null,
-    user_id: photo.PGupload.userId,
-    url_small: resizedPhotos.small,
+    user_id: 5,
+    url_small: '', //resizedPhotos.small,
     url_med: '',
-    url_large'',
-    title: photo.PGupload.title,
-    description: photo.PGupload.description
+    url_large: '',
+    title: '', // photo.PGupload.title,
+    description: 'GOT IT' // photo.PGupload.description
   };
-  Media.uploadToPG(photo.PGupload)
+  Media.uploadToPG(req.body)
   .then((id) => {
+    console.log("Id returned from uploadToPG function line 100 of media controllers: ", id.rows[0].id);
+    var urlExtLarge = 'id.rows[0].id' + 'large';
+    // var urlExtMedium = id + 'medium';
     responseObject.id = id;
-    var urlExtLarge = id + 'large';
-    var urlExtMedium = id + 'medium';
-    responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
+    // responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
     responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
 
     new Promise.all(
-      Media.uploadToS3(urlExtLarge, resizedPhotos.large),
-      Media.uploadToS3(urlExtMedium, resizedPhotos.medium)
+      [Media.uploadToS3(urlExtLarge, req.file.buffer)] //,
+      // Media.uploadToS3(urlExtMedium, resizedPhotos.medium)
     )
     .then(() => {
-      Media.updatePGid([responseObject.url_med, responseObject.url_med], id) // urlsArr initiated above
-      .then(() => {
-        res.status(201).json(responseObject);
-      })
-      .catch((err) => {
-        console.log('error updating URLs to PG db', err);
-      });
+      console.log("uploadToS3 function successful line 112 of media controllers");
+      // Media.updatePGid([responseObject.url_med, responseObject.url_med], id) // urlsArr initiated above
+      // .then(() => {
+      //   console.log("So...close...right before sending response 115 of media controllers");
+      //   res.status(201).json(responseObject);
+      // })
+  //     .catch((err) => {
+  //       console.log('error updating URLs to PG db', err);
+  //     });
     })
     .catch((err) => {
       console.log('error uploading images to s3 db', err)
@@ -120,7 +126,7 @@ exports.uploadPhoto = function (req, res) {
   .catch((err) => {
     console.log('Error uploading metaData to PostgreSQL', err);
   });
-  
+
 };
 
 
