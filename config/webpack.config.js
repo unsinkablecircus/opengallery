@@ -2,6 +2,8 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+var bourbon = require('node-bourbon').includePaths.map(sassPath => "includePaths[]=" + sassPath).join('&');
+
 var outputPath = __dirname + './../public';
 
 module.exports = {
@@ -22,9 +24,7 @@ module.exports = {
         exclude: [/node_modules/, /typings/]
       },
       {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
-      }
+        test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass?sourceMap&' + bourbon) }
     ]
   },
   plugins: [
