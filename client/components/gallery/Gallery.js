@@ -41,8 +41,14 @@ export default class Gallery extends React.Component {
 
   render () {
     const { tile, grid, filter, data } = this.props
-    const tileWidth = data[grid[tile]].width
-    const tileHeight = data[grid[tile]].height
+
+    const windowWidth = window.innerWidth
+    const windowHeight = window.innerHeight
+    let tileWidth = data[grid[tile]].width
+
+    let tileHeight = data[grid[tile]].height
+    tileHeight = tileHeight > windowHeight ? (0.85 * windowHeight) : tileHeight
+
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
 
     const widths = grid.map(i => tileHeight / data[i].height * data[i].width)
@@ -50,9 +56,9 @@ export default class Gallery extends React.Component {
     const start = widths.slice(0, tile)
     .reduce((sum, width) => sum - width, 0);
 
-    let dimensions = []
+    let gallery = []
     grid.reduce((left, undefined, i) => {
-      dimensions.push({
+      gallery.push({
         left: spring(left, config),
         height: spring(tileHeight, config),
         width: spring(widths[i], config),
@@ -65,7 +71,7 @@ export default class Gallery extends React.Component {
         <Motion style={{height: spring(tileHeight), width: spring(tileWidth)}}>
           {container =>
             <div className="gallery-tile" style={container}>
-              {dimensions.map((style, i) =>
+              {gallery.map((style, i) =>
                 <Motion key={data[grid[i]].mediaId} style={style}>
                   {style =>
                     <GalleryTile data={data[grid[i]]} style={style}/>
