@@ -17,7 +17,7 @@ const upload = (state = initialState, action) => {
         isUploaded: false,
         message
       })
-    case /*'UPLOAD_FAILURE'*/:
+    case /*'UPLOAD_FAILURE' new actions here */:
       return Object.assign({}, state, {
         /* isUploading: false,
         isUploaded: false,
