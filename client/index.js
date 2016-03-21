@@ -45,6 +45,7 @@ require('./stylesheets/main.scss');
 // load will rehydrate the state, based on the previously saved state.
 // for example, on refresh, this script is re-run, and you need to rehydrate the state.
 const load = storage.createLoader(engine);
+load(store);
 
 ReactDOM.render(
   <div>
