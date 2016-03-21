@@ -39,10 +39,21 @@ const User = ({
     facebook_url: facebook_url,
     twitter_url: twitter_url
   };
+  let path = window.location.pathname.split('/')[2];
+  let self = (path === username);
+
+  let button;
+  if (self) {
+    button = <FlatButton
+                label={editMode ? 'Save Changes' : 'Edit Profile'}
+                secondary={true}
+                icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />}
+                onTouchTap={editMode ? saveChanges.bind(null, data) : switchEditMode}
+              />
+  }
 
   return (
     <div id="user-component">
-      <Nav/>
       <div className="user-columns-container">
         <section className="user-left">
           <div className="user-details">
@@ -51,74 +62,69 @@ const User = ({
               src="http://i.giphy.com/6RwY3KrjXVY7m.gif"
               className="user-avatar"
             />
-            <FlatButton
-              label={editMode ? 'Save Changes' : 'Edit Profile'}
-              secondary={true}
-              icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />}
-              onTouchTap={editMode ? saveChanges.bind(null, data) : switchEditMode}
-            />
+            {button}
             <div className="user-row">
-              <Person color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Person color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={editMode ? false : true}
-                defaultValue={username}
+                disabled={self && editMode ? false : true}
+                defaultValue={self ? username : path}
                 className="user-field"
-                underlineShow={editMode ? true : false}
+                underlineShow={self && editMode ? true : false}
                 onChange={(event) => { data.username = event.target.value }}
               />
             </div>
             <div className="user-row">
-              <Face color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Face color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={editMode ? false : true}
-                defaultValue={name ? name : ''}
-                hintText={name ? '' : 'No Name Listed'}
+                disabled={self && editMode ? false : true}
+                defaultValue={self && name ? name : ''}
+                hintText={self && name ? '' : 'No Name Listed'}
                 className="user-field"
-                underlineShow={editMode ? true : false}
+                underlineShow={self && editMode ? true : false}
                 onChange={(event) => { data.name = event.target.value }}
               />
             </div>
             <div className="user-row">
-              <Email color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Email color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={editMode ? false : true}
-                defaultValue={email ? email : ''}
-                hintText={email ? '' : 'No Email Listed'}
+                disabled={self && editMode ? false : true}
+                defaultValue={self && email ? email : ''}
+                hintText={self && email ? '' : 'No Email Listed'}
                 className="user-field"
-                underlineShow={editMode ? true : false}
+                underlineShow={self && editMode ? true : false}
                 onChange={(event) => { data.email = event.target.value }}
               />
             </div>
             <div className="user-row">
-              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Website color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={editMode ? false : true}
-                defaultValue={website ? website : ''}
-                hintText={website ? '' : 'No Website Listed'}
+                disabled={self && editMode ? false : true}
+                defaultValue={self && website ? website : ''}
+                hintText={self && website ? '' : 'No Website Listed'}
                 className="user-field"
-                underlineShow={editMode ? true : false}
+                underlineShow={self && editMode ? true : false}
                 onChange={(event) => { data.website = event.target.value }}
               />
             </div>
             <div className="user-row">
-              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Website color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={editMode ? false : true}
-                defaultValue={facebook_url ? facebook_url : ''}
-                hintText={facebook_url ? '' : 'No Facebook URL Listed'}
+                disabled={self && editMode ? false : true}
+                defaultValue={self && facebook_url ? facebook_url : ''}
+                hintText={self && facebook_url ? '' : 'No Facebook URL Listed'}
                 className="user-field"
-                underlineShow={editMode ? true : false}
+                underlineShow={self && editMode ? true : false}
                 onChange={(event) => { data.facebook_url = event.target.value }}
               />
             </div>
             <div className="user-row">
-              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Website color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={editMode ? false : true}
-                defaultValue={twitter_url ? twitter_url : ''}
-                hintText={twitter_url ? '' : 'No Twitter URL Listed'}
+                disabled={self && editMode ? false : true}
+                defaultValue={self && twitter_url ? twitter_url : ''}
+                hintText={self && twitter_url ? '' : 'No Twitter URL Listed'}
                 className="user-field"
-                underlineShow={editMode ? true : false}
+                underlineShow={self && editMode ? true : false}
                 onChange={(event) => { data.twitter_url = event.target.value }}
               />
             </div>

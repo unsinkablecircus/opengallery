@@ -11,7 +11,7 @@ export function SigninUser(creds) {
     body: `username=${creds.username}&password=${creds.password}`
   }
   return dispatch => {
-    dispatch(authRequest())
+    dispatch(authRequest());
     return fetch('http://localhost:8000/api/user/signIn', config)
       .then(response =>
         response.json()

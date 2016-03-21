@@ -25,17 +25,9 @@ const user = (state=initialState, action) => {
       return Object.assign({}, state, {
         editMode: !state.editMode
       })
-    // case 'SAVE_CHANGES':
-    //   return Object.assign({}, state, {
-    //     editMode: true
-    //   })
     default:
       return state;
   }
 };
 
 export default user;
-
-// Warning: setState(...): Cannot update during an existing state transition 
-// (such as within `render`). Render methods should be a pure function of props 
-// and state

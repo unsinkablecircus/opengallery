@@ -52,12 +52,16 @@ module.exports = {
     const username = req.body.username;
     const password = req.body.password;
     var id;
+    var name;
     var email;
     var website;
+    var facebook_url;
+    var twitter_url;
     // fetch the user and compare the password
     db.raw(`SELECT * FROM users WHERE username = '${username}'`)
     .then( (user) => {
       var user = user.rows[0];
+      console.log('user: ', user);
       id = user.id;
       name = user.name;
       email = user.email;
