@@ -1,4 +1,5 @@
 const helpers = require('./helpers.js');
+//https://github.com/expressjs/multer for image upload parsing
 var multer = require('multer');
 
 var User = require('../controllers/users');
