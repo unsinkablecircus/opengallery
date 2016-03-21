@@ -19,7 +19,7 @@ const Auth = ({
     <FlatButton
       label="Submit"
       primary={true}
-      onTouchTap={ () => { 
+      onTouchTap={ () => {
         const creds = {username: username.getValue(), password: password.getValue()};
         showSigninAndNotSignup ? onSigninSubmit(creds) : onSignupSubmit(creds);
       }}
@@ -39,7 +39,7 @@ const Auth = ({
         modal={true}
         open={ !isAuthenticated }
       >
-        <TextField ref= { (node) => {username = node} } hintText='username'/> 
+        <TextField ref= { (node) => {username = node} } hintText='username'/>
         <br />
         <TextField type='password' ref= { (node) => {password = node} } hintText='password'/>
         { showSigninAndNotSignup ? p : p2 }
@@ -50,14 +50,3 @@ const Auth = ({
 }
 
 export default Auth;
-
-
-
-
-
-
-
-
-
-
-
