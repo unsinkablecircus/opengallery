@@ -1,6 +1,6 @@
 export function uploadRequest() {
   return {
-    type: //'POST_REQUEST',
+    type: 'UPLOAD_REQUEST',
     payload: {
       isUploading: true,
       isUploaded: false,
