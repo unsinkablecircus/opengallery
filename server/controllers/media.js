@@ -79,7 +79,7 @@ exports.getPhotos = function (req, res) {
 exports.uploadPhoto = function (req, res) {
   //parse data to separate photodata from photo
   // var photo = separateData(req.body);
-  console.log("Request files line 82 of media controllers: ", req.file);
+  // console.log("Request files line 82 of media controllers: ", req.file);
   // console.log("Photo after separateData function line 83 of media controllers: ", photo);
   // clone photos and turn into buffers for upload
   // var resizedPhotos = resizePhoto(photo.s3upload);
@@ -97,10 +97,10 @@ exports.uploadPhoto = function (req, res) {
   };
   Media.uploadToPG(req.body)
   .then((id) => {
-    console.log("Id returned from uploadToPG function line 100 of media controllers: ", id.rows[0].id);
-    var urlExtLarge = 'id.rows[0].id' + 'large';
+    // console.log("Id returned from uploadToPG function line 100 of media controllers: ", id.rows[0].id);
+    var urlExtLarge = id.rows[0].id + 'large';
     // var urlExtMedium = id + 'medium';
-    responseObject.id = id;
+    responseObject.id = id.rows[0].id;
     // responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
     responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
 
@@ -109,15 +109,15 @@ exports.uploadPhoto = function (req, res) {
       // Media.uploadToS3(urlExtMedium, resizedPhotos.medium)
     )
     .then(() => {
-      console.log("uploadToS3 function successful line 112 of media controllers");
-      // Media.updatePGid([responseObject.url_med, responseObject.url_med], id) // urlsArr initiated above
-      // .then(() => {
-      //   console.log("So...close...right before sending response 115 of media controllers");
-      //   res.status(201).json(responseObject);
-      // })
-  //     .catch((err) => {
-  //       console.log('error updating URLs to PG db', err);
-  //     });
+      // console.log("uploadToS3 function successful line 112 of media controllers");
+      Media.updatePGid([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
+      .then(() => {
+        // console.log("So...close...right before sending response 115 of media controllers");
+        res.status(201).json(responseObject);
+      })
+      .catch((err) => {
+        console.log('error updating URLs to PG db', err);
+      });
     })
     .catch((err) => {
       console.log('error uploading images to s3 db', err)
