@@ -8,12 +8,13 @@ export function uploadRequest() {
   }
 };
 
-export function uploadSuccess(user) {
+export function uploadSuccess(url) {
   return {
     type: 'UPLOAD_SUCCESS',
     payload: {
       isUploading: false,
       isUploaded: true,
+      photoUrl: url,
     }
   }
 };
