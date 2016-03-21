@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider, connect } from 'react-redux';
 import { createStore } from 'redux';
-import Nav from '../../containers/nav';
 import Grid from '../../containers/grid';
 
 import Avatar from 'material-ui/lib/avatar';
