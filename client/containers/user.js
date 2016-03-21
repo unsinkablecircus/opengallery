@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import User from '../components/user/User';
-import { SaveChanges } from '../actions/user';
+import { SaveChanges, switchEditMode } from '../actions/user';
 
 const mapStateToProps = (state) => {
   return {
@@ -18,9 +18,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     switchEditMode: () => {
-      dispatch({
-        type: 'SWITCH_EDIT_MODE'
-      })
+      dispatch(switchEditMode());
     },
     saveChanges: (data) => {
       dispatch(SaveChanges(data));
