@@ -47,6 +47,12 @@ export function updateError(message) {
   }
 };
 
+export function switchEditMode() {
+  return {
+    type: 'SWITCH_EDIT_MODE'
+  }
+};
+
 export function SaveChanges(data) {
   const config = {
     method: 'POST',
