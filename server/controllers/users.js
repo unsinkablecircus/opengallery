@@ -59,15 +59,28 @@ module.exports = {
     .then( (user) => {
       var user = user.rows[0];
       id = user.id;
+      name = user.name;
       email = user.email;
       website = user.website;
+      facebook_url = user.facebook_url;
+      twitter_url = user.twitter_url;
       return comparePassword(password, user.password);
     })
     .then( (isMatch) => {
       // isMatch is a boolean value describing whether entered PW matches saved PW
       if ( isMatch ) {
         const token = jwt.encode({iss: username, exp: expires}, secret);
-        res.send({match: true, token: token, id: id, username: username, email: email, website: website});
+        res.send({
+          match: true, 
+          token: token, 
+          id: id, 
+          username: username,
+          name: name,
+          email: email, 
+          website: website,
+          facebook_url: facebook_url,
+          twitter_url: twitter_url
+        });
       } else {
         res.send({match: false});
       }
@@ -80,9 +93,12 @@ module.exports = {
 
   saveChanges: function (req, res, next) {
     db.raw(`UPDATE users 
-            SET username='${req.body.username}', 
+            SET username='${req.body.username}',
+                name='${req.body.name}',
                 email='${req.body.email}',
-                website='${req.body.website}'
+                website='${req.body.website}',
+                facebook_url='${req.body.facebook_url}',
+                twitter_url='${req.body.twitter_url}'
             WHERE id=${req.body.id}
             RETURNING *;`)
     .then ((user) => {
@@ -91,8 +107,11 @@ module.exports = {
       res.status(200).send({
         id: data.id,
         username: data.username,
+        name: data.name,
         email: data.email,
-        website: data.website
+        website: data.website,
+        facebook_url: data.facebook_url,
+        twitter_url: data.twitter_url
       });
     })
     .catch((err) => {

@@ -6,8 +6,11 @@ const mapStateToProps = (state) => {
   return {
     id: state.user.id,
     username: state.user.username,
+    name: state.user.name,
     email: state.user.email,
     website: state.user.website,
+    facebook_url: state.user.facebook_url,
+    twitter_url: state.user.twitter_url,
     editMode: state.user.editMode
   }
 }

@@ -6,8 +6,11 @@ export function storeUserData(data) {
     payload: {
       id: data.id,
       username: data.username,
+      name: data.name,
       email: data.email,
-      website: data.website
+      website: data.website,
+      facebook_url: data.facebook_url,
+      twitter_url: data.twitter_url
     }
   }
 };
@@ -47,7 +50,13 @@ export function SaveChanges(data) {
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `id=${data.id}&username=${data.username}&email=${data.email}&website=${data.website}`
+    body: `id=${data.id}
+           &username=${data.username}
+           &name=${data.name}
+           &email=${data.email}
+           &website=${data.website}
+           &facebook_url=${data.facebook_url}
+           &twitter_url=${data.twitter_url}`
   }
   return dispatch => {
     dispatch(updateRequest());
