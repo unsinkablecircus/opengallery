@@ -30,13 +30,7 @@ const User = ({
   saveChanges
 }) => {
   let data = {
-    id: id,
-    username: username,
-    name: name,
-    email: email,
-    website: website,
-    facebook_url: facebook_url,
-    twitter_url: twitter_url
+    id
   };
   let path = window.location.pathname.split('/')[2];
   let self = (path === username);
@@ -65,11 +59,10 @@ const User = ({
             <div className="user-row">
               <Person color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={self && editMode ? false : true}
+                disabled={true}
                 defaultValue={self ? username : path}
                 className="user-field"
-                underlineShow={self && editMode ? true : false}
-                onChange={(event) => { data.username = event.target.value }}
+                underlineShow={false}
               />
             </div>
             <div className="user-row">

@@ -1,6 +1,5 @@
 import React from 'react'
 import GridTile from './GridTile'
-import Gallery from '../../containers/gallery'
 
 import GridList from 'material-ui/lib/grid-list/grid-list'
 
@@ -12,9 +11,8 @@ const styles = {
   }
 }
 
-const Grid = ({ tile, grid, filter, data, loadGrid, toggleGallery, displayGallery }) => (
+const Grid = ({ tile, grid, filter, data, loadGrid, toggleGallery }) => (
   <div>
-    { displayGallery ? <Gallery/> : '' }
     <GridList
       id="grid-component"
       cellHeight={300}

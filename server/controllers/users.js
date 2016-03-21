@@ -91,13 +91,20 @@ module.exports = {
   },
 
   saveChanges: function (req, res, next) {
+    var data = {
+      name: req.body.name === 'undefined' ? '' : req.body.name,
+      email: req.body.email === 'undefined' ? '' : req.body.email,
+      website: req.body.website === 'undefined' ? '' : req.body.website,
+      facebook_url: req.body.facebook_url === 'undefined' ? '' : req.body.facebook_url,
+      twitter_url: req.body.twitter_url === 'undefined' ? '' : req.body.twitter_url
+    }
+
     db.raw(`UPDATE users 
-            SET username='${req.body.username}',
-                name='${req.body.name}',
-                email='${req.body.email}',
-                website='${req.body.website}',
-                facebook_url='${req.body.facebook_url}',
-                twitter_url='${req.body.twitter_url}'
+            SET name='${data.name}',
+                email='${data.email}',
+                website='${data.website}',
+                facebook_url='${data.facebook_url}',
+                twitter_url='${data.twitter_url}'
             WHERE id=${req.body.id}
             RETURNING *;`)
     .then ((user) => {

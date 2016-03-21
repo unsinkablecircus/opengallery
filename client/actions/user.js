@@ -51,7 +51,7 @@ export function SaveChanges(data) {
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `id=${data.id}&username=${data.username}&name=${data.name}&email=${data.email}&website=${data.website}&facebook_url=${data.facebook_url}&twitter_url=${data.twitter_url}`
+    body: `id=${data.id}&name=${data.name === 'undefined' ? null : data.name}&email=${data.email === 'undefined' ? null : data.email}&website=${data.website === 'undefined' ? null : data.website}&facebook_url=${data.facebook_url ? null : data.facebook_url}&twitter_url=${data.twitter_url ? null : data.twitter_url}`
   }
   return dispatch => {
     dispatch(updateRequest());
