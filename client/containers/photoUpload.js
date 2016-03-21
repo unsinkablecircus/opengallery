@@ -13,12 +13,24 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onUploadSubmit: (photo, metaData) => {
+    onDrop: (photo) => {
       dispatch(/**/)
+      // from dropZone example
+      // this.setState({
+      //   files: files
+      // });
     },
-    onUploadClick: () => {
+    onOpenClick: () => {
+      dispatch(/**/)
+      // from dropZone example
+      // this.refs.dropzone.open();
+    },
+    onUpload: (metaData) => {
+      dispatch: 
+    },
+    onToggleUpload: () => {
       dispatch({
-        type: 'TOGGLE_UPLOADPHOTO_MODAL'
+        type: 'TOGGLE_PHOTOUPLOAD_MODAL'
       })
     }
   }
