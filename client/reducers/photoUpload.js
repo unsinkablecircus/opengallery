@@ -1,4 +1,10 @@
-const initialState = {};
+const initialState = {
+  //TODO
+  isUploadModalOpen: false,
+  isUploading: false,
+  isDropOpen: false,
+  message
+};
 
 const upload = (state = initialState, action) => {
   switch (action.type) {
@@ -9,19 +15,20 @@ const upload = (state = initialState, action) => {
     case 'UPLOAD_SUCCESS':
       return Object.assign({}, state, {
         isUploading: false,
-        isUploaded: true
       })
     case 'UPLOAD_FAILURE':
       return Object.assign({}, state, {
         isUploading: false,
-        isUploaded: false,
         message
       })
-    case /*'UPLOAD_FAILURE' new actions here */:
+    case 'TOGGLE_PHOTOUPLOAD_MODAL':
       return Object.assign({}, state, {
-        /* isUploading: false,
-        isUploaded: false,
-        message */
+        isUploadModalOpen: !state.isUploadModalOpen,
+        message
+      })
+    case 'TOGGLE_FILES':
+      return Object.assign({}, state, {
+        isDropOpen: !state.isDropOpen,
       })
   }
 }
