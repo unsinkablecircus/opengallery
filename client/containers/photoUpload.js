@@ -41,11 +41,6 @@ const mapDispatchToProps = (dispatch) => {
     onUploadButtonClick: (photo, metaData) => {
       dispatch(uploadRequest(photo, metaData));
     },
-    onToggleUpload: () => {
-      dispatch({
-        type: 'TOGGLE_PHOTOUPLOAD_MODAL'
-      });
-    }
   }
 }
 
