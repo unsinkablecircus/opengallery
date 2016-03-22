@@ -12,7 +12,7 @@ const App = ({ children, displayGallery }) => {
   return (
     <div>
       <Auth/>
-      <PhotoUpload />
+      {/*<PhotoUpload /> */}
       { displayGallery ? <Gallery/> : '' }
       <Nav/>
       {children}
