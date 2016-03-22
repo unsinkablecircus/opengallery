@@ -1,14 +1,16 @@
-.gridList {
-  margin-top: 64px;
+#grid-component {
+  position: absolute;
+  top: 65px;
   display: flex;
   flex-wrap: wrap;
+  z-index: 1103;
 }
 
-.gridTile {
+.gridTile-component {
   margin: 2.5px;
   flex: auto;
   width: 433px;
-  height: 400px;
+  height: 40vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
