@@ -1,6 +1,6 @@
 #gallery-component
   +display(flex)
-  position: relative
+  position: fixed
   width: 100vw
   height: 100vh
   background: $dimmer-color
@@ -15,14 +15,8 @@
     box-shadow: $box-shadow
     +user-select(none)
 
-    .gallery-photo
+    .tile-component
       position: absolute
-      background-size: cover
-      background-repeat: no-repeat
-      overflow: hidden
-      +backface-visibility(hidden)
-      +transition(none)
-      +transition(background 0.125s ease-in)
 
       .overlay
         border-bottom: 100px solid yellow
