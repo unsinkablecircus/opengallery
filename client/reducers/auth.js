@@ -14,7 +14,6 @@ const auth = (state=initialState, action) => {
         isFetching: true,
       })
     case 'AUTH_SUCCESS':
-    console.log('username', action.payload.user);
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
@@ -27,12 +26,15 @@ const auth = (state=initialState, action) => {
         error: action.payload.message
       })
     case 'LOGOUT':
+      localStorage.clear();
       return Object.assign({}, state, {
-        isAuthenticated: false
+        isAuthenticated: false,
+        error: ''
       })
     case 'TOGGLE_SIGNIN_OR_SIGNUP_LINK':
       return Object.assign({}, state, {
-        showSigninAndNotSignup: !state.showSigninAndNotSignup
+        showSigninAndNotSignup: !state.showSigninAndNotSignup,
+        error: ''
       })
 
     default:

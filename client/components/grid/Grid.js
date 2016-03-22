@@ -3,26 +3,18 @@ import GridTile from './GridTile'
 
 import GridList from 'material-ui/lib/grid-list/grid-list'
 
-const styles = {
-  grid: {
-    position: 'absolute',
-    top: 70,
-    width: '100%'
-  }
-}
+const Grid = ({ tile, grid, filter, data, loadGrid, toggleGallery }) => {
 
-const Grid = ({ tile, grid, filter, data, loadGrid, toggleGallery }) => (
-  <GridList
-    id="grid-component"
-    cellHeight={300}
-    padding={15}
+  return (
+  <div
     cols={3}
-    style={styles.grid}
+    className='gridList'
   >
     {grid.map((id, key) => (
-      <GridTile key={key} tile={key} img={data[grid[key]].url_lg} toggleGallery={toggleGallery}/>
+      <GridTile  key={key} tile={key} img={data[grid[key]].url_lg} toggleGallery={toggleGallery}/>
     ))}
-  </GridList>
+  </div>
 )
+}
 
 export default Grid

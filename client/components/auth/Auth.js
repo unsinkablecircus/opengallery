@@ -10,25 +10,40 @@ const Auth = ({
   onSignupSubmit,
   showSigninAndNotSignup,
   toggleSigninOrSignupLink,
-  error
+  error,
+  onSubmit
 }) => {
-  let username;
-  let password;
+  let info = {};
 
   const actions = [
     <FlatButton
       label="Submit"
       primary={true}
       onTouchTap={ () => {
-        const creds = {username: username.getValue(), password: password.getValue()};
-        showSigninAndNotSignup ? onSigninSubmit(creds) : onSignupSubmit(creds);
+        // generate an object with the values from the input forms
+        let creds = {};
+        for (let key in info) {
+          if ( info[key].getValue() !== "" ) {
+            creds[key] = info[key].getValue();
+          }
+        }
+        onSubmit(creds, showSigninAndNotSignup);
       }}
     />,
   ];
 
   // define some components here, rendered depending on state
-  const p = <p onClick={toggleSigninOrSignupLink}> Not a member? Sign up here! </p>;
-  const p2 = <p onClick={toggleSigninOrSignupLink}> Already a member? Sign in here! </p>;
+  const signin = (
+    <p onClick={toggleSigninOrSignupLink}> Not a member? Sign up here! </p>
+  )
+  const signup = (
+    <div>
+      <TextField hintText='First Name' ref= { (node) => {info.firstName = node} }/> <br/>
+      <TextField hintText='Last Name' ref= { (node) => {info.lastName = node} }/> <br/>
+      <TextField hintText='Email' ref= { (node) => {info.email = node} }/>
+      <p onClick={toggleSigninOrSignupLink}> Already a member? Sign in here! </p>
+    </div>
+  )
   const errorMessage = <p> {error} </p>;
 
   return (
@@ -39,10 +54,10 @@ const Auth = ({
         modal={true}
         open={ !isAuthenticated }
       >
-        <TextField ref= { (node) => {username = node} } hintText='username'/>
+        <TextField ref= { (node) => {info.username = node} } hintText='Username'/> 
         <br />
-        <TextField type='password' ref= { (node) => {password = node} } hintText='password'/>
-        { showSigninAndNotSignup ? p : p2 }
+        <TextField type='password' ref= { (node) => {info.password = node} } hintText='password'/>
+        { showSigninAndNotSignup ? signin : signup }
         { error !== '' ? errorMessage : null }
       </Dialog>
     </div>

@@ -56,18 +56,17 @@ module.exports = {
     db.raw(`SELECT * FROM users WHERE username = '${username}'`)
     .then( (user) => {
       var user = user.rows[0];
-      console.log('user: ', user);
       id = user.id;
       name = user.name;
       email = user.email;
       website = user.website;
       facebook_url = user.facebook_url;
       twitter_url = user.twitter_url;
-      return comparePassword(password, user.password);
+      return comparePassword(password, user);
     })
-    .then( (isMatch) => {
+    .then( (data) => {
       // isMatch is a boolean value describing whether entered PW matches saved PW
-      if ( isMatch ) {
+      if ( data.isMatch ) {
         const token = jwt.encode({iss: username, exp: expires}, secret);
         res.send({
           match: true, 
@@ -85,7 +84,6 @@ module.exports = {
       }
     })
     .catch((err) => {
-      console.log('err', err);
       res.status(500).send({error: err});
     })
   },

@@ -29,6 +29,9 @@ const User = ({
   switchEditMode,
   saveChanges
 }) => {
+
+  console.log('rendering user');
+
   let data = {
     id
   };
@@ -52,7 +55,6 @@ const User = ({
           <div className="user-details">
             <Avatar 
               size={200} 
-              src="http://i.giphy.com/6RwY3KrjXVY7m.gif"
               className="user-avatar"
             />
             {button}

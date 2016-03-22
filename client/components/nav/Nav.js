@@ -41,16 +41,17 @@ let Nav = ({
 
   return (
     <MuiThemeProvider muiTheme={darkMuiTheme}>
+    
       <AppBar
         id="nav-component"
         style={styles.nav}
         iconElementLeft={
           <div>
-            <FlatButton
+            <Link to={'/'}><FlatButton
               label='Open Gallery'
               backgroundColor='#0097a7'
               style={styles.title}
-            />
+            /></Link>
             <IconButton tooltip='Create'>
               <CreateIcon color='#303030'/>
             </IconButton>
@@ -69,7 +70,7 @@ let Nav = ({
           >
             <Link to={`/profile/${username}`}><MenuItem primaryText='Profile'/></Link>
             <Link to={`/profile/${username}1`}><MenuItem primaryText='Different Profile'/></Link>
-            <MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/>
+            <Link to={'/'}><MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/></Link>
           </IconMenu>
         }
       />
@@ -77,4 +78,4 @@ let Nav = ({
   )
 }
 
-export default Nav
+export default Nav;

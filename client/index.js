@@ -19,6 +19,7 @@ import * as storage from 'redux-storage'
 import createEngine from 'redux-storage-engine-localstorage'
 
 
+require('./stylesheets/main.scss');
 // wraps the base reducer, such that it listens
 // for the load action and merge in the provided state
 const reducer = storage.reducer(reducers);
@@ -30,30 +31,35 @@ const engine = createEngine('my-save-key');
 // when you change/refresh pages. Without this, when refreshing, router fires off an action,
 // the state will be default/empty, the engine will save that state, and immediately reload
 // this blank state. Bad.
-const storageMiddleware = storage.createMiddleware(engine, ['@@router/LOCATION_CHANGE']);
+const storageMiddleware = storage.createMiddleware(engine, ['LOGOUT', '@@router/LOCATION_CHANGE']);
 
 // code below will be abstracted into a reducers file
 // remember: only the relevant part of the state gets passed to Auth or routing.
 // as in, Auth only receives Auth, routing only receives routing.
 const logger = createLogger({collapsed: true})
 const createStoreWithMiddleware = applyMiddleware(thunk, storageMiddleware, logger)(createStore)
-const store = createStoreWithMiddleware(reducer)
+
+const store = createStoreWithMiddleware(reducer);
+const load = storage.createLoader(engine);
 const history = syncHistoryWithStore(browserHistory, store);
 
-require('./stylesheets/main.scss');
+console.log('loading store');
+load(store)
+.then( () => { 
+  console.log('store is done loading') 
+  ReactDOM.render(
+    <div>
+      <Provider store = {store}>
+        <Router history={history}>
+          {getRoutes()}
+        </Router>
+      </Provider>
+    </div>,
+    document.getElementById('app')
+  );
+
+})
 
 // load will rehydrate the state, based on the previously saved state.
 // for example, on refresh, this script is re-run, and you need to rehydrate the state.
-const load = storage.createLoader(engine);
-load(store);
 
-ReactDOM.render(
-  <div>
-    <Provider store = {store}>
-      <Router history={history}>
-        {getRoutes()}
-      </Router>
-    </Provider>
-  </div>,
-  document.getElementById('app')
-);
