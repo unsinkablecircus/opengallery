@@ -2,15 +2,15 @@
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 var should = require('chai').should();
+var request = require('supertest');
 
-var express = require('express');
-var app = require('../server/server.js');
-var db = require('../server/db/database.js');
 var AWS = require('aws-sdk');
+var express = require('express');
+var db = require('../server/db/database.js');
 
+var app = require('../server/server.js');
 var mediaModel = require('../server/models/media');
 var mediaController = require('../server/controllers/media');
-var stubs = require('./Stubs');
 
 // load AWS credentials
 var credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
@@ -18,7 +18,98 @@ AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-west-1'});
 const s3 = new AWS.S3();
 
-describe('', function() {
+describe('Back End', function() {
+  describe('Server: ', function() {
+    describe('GET media', function(done){
+
+      it('responds with a 200 (OK)', function() {
+
+        request(app)
+          .get('/api/media')
+          .expect(200, done);
+       
+      });
+
+      it('Responds with a rows property on body containing the data', function(done) {
+          request(app)
+          .get('/api/media')
+          .expect(function(res) {
+            expect(res.body).to.have.property('rows');
+          })
+          .end(function(err, res) {
+            if (err) {
+              console.log("Error requesting data: ", err);
+              expect(err).to.be.null;
+              return done(err);
+            }
+            done();
+          });
+
+      });
+    });
+
+    var sampleData = {
+      "user": "5",
+      "url_small": 'null',
+      "url_med": 'null',
+      "url_large": 'null',
+      "title": 'JohnsBar',
+      "description": 'Huh'
+    };
+
+    describe('POST media', function(done){
+
+      it('responds with a 201 (Created) when photo data is posted', function() {
+
+        request(app)
+          .post('/api/media/upload')
+          .send(sampleData)
+          .expect(201, function(res) {
+            expect(res).to.be.a('object');
+            if (err) {
+              console.log("Error requesting data: ", err);
+              expect(err).to.be.null;
+            }
+          }, done)
+          // .end(function(res) {
+          //   // if (err) {
+          //   //   console.log("Error posting data: ", err);
+          //   //   expect(err).to.be.null;
+          //   //   return done(err);
+          //   // }
+          //   done();
+          // });
+       
+      });
+
+      it(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
+        update PostgreSQL with new urls, 
+        and send back a 201 with the uploadPhoto function`, function(done) {
+
+          request(app)
+            .post('/api/media/upload')
+            .field('user', 5)
+            .field('url_small', '5')
+            .field('url_med', '5')
+            .field('url_large', '5')
+            .field('title', '5')
+            .field('description', '5')
+            .attach('artImage', __dirname + '/circus.jpg')
+            // .send(sampleData)
+            .expect(201, function(err, res) {
+              if (err) {
+                console.log("Error requesting data: ", err);
+                expect(err).to.be.null;
+                return done(err);
+              }
+              done();
+            });
+
+      });
+
+    });
+ 
+  });
 
   describe('PostgreSQL Database: ', function() {
     it('Should have all the tables', function(done) {
@@ -97,19 +188,16 @@ describe('', function() {
     
     //Writing to DB Tests
     it('Should retrieve photos information from PostgreSQL', function(done) {
-      mediaModel.retrievePhotosFromPG(
-        function(err, data) {
-        if (err) {
-          console.log(err);
-        } else {
-          return data
-        }
-      })
+      
+      mediaModel.retrievePhotosFromPG()
       .then(function (data) {
         expect(data).to.have.property('rowCount');
+        db.destroy()
         done();
       })
       .catch(function (err) {
+        expect(err).to.be.null;
+        db.destroy();
         done();
       })
     });
@@ -146,8 +234,8 @@ describe('', function() {
       });
     });
 
-    it('Should convert a photo to buffer and upload it to S3', function(done) {
-      var photoBuff = ('./circus.jpg');
+    it('Should upload a photo buffer to S3', function(done) {
+      var photoBuff = (__dirname + './circus.jpg');
       mediaModel.uploadToS3(40, photoBuff)
       .then(function(photoId){
         expect(photoId.ETag).to.be.a('string');
@@ -160,14 +248,16 @@ describe('', function() {
     });
 
     it('Should update photos urls to PostgreSQL', function(done) {
-      mediaModel.updatePGid(['url123_medium', 'url123_large'], 1)
+      mediaModel.updatePGid(['url123_medium', 'url123_large'], 121)
       .then(function(data) {
-        expect(data);
+        expect(data).to.be.a('object');
+        // db.destroy();
         done();
       })
       .catch(function(err) {
-        expect(err).to.be.null;
-        done();
+        // expect(err).to.be.null;
+        // db.destroy();
+        done(err);
       });
     });
   });
@@ -178,25 +268,6 @@ describe('', function() {
     });
     it('Should have a function called getPhotos', function() {
       expect(mediaController.getPhotos).to.be.a('function');
-    });
-  });
-
-  describe('Server: ', function() {
-    it(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
-      update PostgreSQL with new urls, 
-      and send back a 201 with the uploadPhoto function`, function() {
-      var sampleData = {
-        user: 5,
-        url_small: 'null',
-        url_med: 'null',
-        url_large: 'null',
-        title: 'JohnsBar',
-        description: 'Huh'
-      };
-      var req = new stubs.request({photoInfo: sampleData, photoRaw: (`./circus.jpg`)}, 'POST');
-      var res = new stubs.response();
-    });
-    it('Should have a function called getPhotos', function() {
     });
   });
   

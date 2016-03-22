@@ -9,6 +9,10 @@ const connectionInfo = {
 const pg = require('knex')({
   client: 'pg',
   connection: connectionInfo,
+  pool: {
+    min: 2,
+    max: 20
+  },
   searchPath: 'knex,public'
 });
 
