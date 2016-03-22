@@ -19,8 +19,10 @@ const PhotoUpload = ({
   isUploadModalOpen
 }) => {
 
-  let title;
-  let description;
+  let metaData = {
+    title: '',
+    description: ''
+  };
 
   const actions = [
 
@@ -36,8 +38,8 @@ const PhotoUpload = ({
       >
         <TextField ref= { (node) => {username = node} } hintText='username'/> 
         <br />
-        <TextField type='title' ref= { (node) => {title = node} } hintText='title'/>
-        <TextField type='description' ref= { (node) => {description = node} } hintText='description'/>
+        <TextField type='title' ref= { (node) => {metaData.title = node} } hintText='title'/>
+        <TextField type='description' ref= { (node) => {metaData.description = node} } hintText='description'/>
         <Dropzone />
         { error !== '' ? errorMessage : null }
       </Dialog>
