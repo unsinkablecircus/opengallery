@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
-import { loadGrid } from '../actions/grid'
-import { toggleGallery } from '../actions/gallery'
+import * as grid from '../actions/grid'
+import * as gallery from '../actions/gallery'
 import Grid from '../components/grid/Grid'
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     tile: state.media.tile,
     grid: state.media.grid,
@@ -15,8 +15,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    loadGrid: () => { dispatch(loadGrid(ownProps.filter)) },
-    toggleGallery: (tile) => { dispatch(toggleGallery(tile)) }
+    loadGrid: () => { dispatch(grid.loadData(ownProps.filter)) },
+    toggleGallery: (tile) => { dispatch(gallery.toggleView(tile)) }
   }
 }
 

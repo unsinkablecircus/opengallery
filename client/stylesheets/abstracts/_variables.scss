@@ -1,3 +1,20 @@
+////////////////////
+//     COLORS     //
+////////////////////
+
+$dimmer-color: transparentize(#a2b5cd, 0.5);
+$shadow-color: transparentize(black, 0.88);
+
+/////////////////////
+//     SHADOWS     //
+/////////////////////
+
+$box-shadow: 0 1px 6px $shadow-color, 0 1px 4px $shadow-color;
+
+/////////////////////////
+//     BREAKPOINTS     //
+/////////////////////////
+
 $breakpoints: (
   'xsmall' : 450px,
   'small'  : 767px,

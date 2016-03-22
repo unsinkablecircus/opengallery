@@ -27,7 +27,7 @@ describe('Back End', function() {
         request(app)
           .get('/api/media')
           .expect(200, done);
-       
+
       });
 
       it('Responds with a rows property on body containing the data', function(done) {
@@ -79,11 +79,11 @@ describe('Back End', function() {
           //   // }
           //   done();
           // });
-       
+
       });
 
-      it(`Should upload metaData to PostgreSQL, clone and manipulate photo, 
-        update PostgreSQL with new urls, 
+      it(`Should upload metaData to PostgreSQL, clone and manipulate photo,
+        update PostgreSQL with new urls,
         and send back a 201 with the uploadPhoto function`, function(done) {
 
           request(app)
@@ -108,7 +108,7 @@ describe('Back End', function() {
       });
 
     });
- 
+
   });
 
   describe('PostgreSQL Database: ', function() {
@@ -185,10 +185,10 @@ describe('Back End', function() {
     it('Should have a function called retrievePhotosFromPG', function() {
       expect(mediaModel.retrievePhotosFromPG).to.be.a('function');
     });
-    
+
     //Writing to DB Tests
     it('Should retrieve photos information from PostgreSQL', function(done) {
-      
+
       mediaModel.retrievePhotosFromPG()
       .then(function (data) {
         expect(data).to.have.property('rowCount');
@@ -270,5 +270,4 @@ describe('Back End', function() {
       expect(mediaController.getPhotos).to.be.a('function');
     });
   });
-  
 });

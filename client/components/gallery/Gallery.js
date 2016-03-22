@@ -1,5 +1,6 @@
 import React from 'react'
 import { Motion, spring } from 'react-motion'
+import GalleryTile from './GalleryTile'
 
 const config = {stiffness: 170, damping: 26}
 
@@ -12,6 +13,10 @@ export default class Gallery extends React.Component {
   componentWillUnmount () {
     document.removeEventListener('keydown', this.navigateGallery)
     // enable scrolling
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    return nextProps.displayGallery;
   }
 
   navigateGallery = ({ keyCode }) => {
@@ -36,7 +41,6 @@ export default class Gallery extends React.Component {
 
   render () {
     const { tile, grid, filter, data } = this.props
-    console.log('INSIDE Gallery! tile', tile)
     const tileWidth = data[grid[tile]].width
     const tileHeight = data[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
@@ -46,9 +50,9 @@ export default class Gallery extends React.Component {
     const start = widths.slice(0, tile)
     .reduce((sum, width) => sum - width, 0);
 
-    let dimensions = []
+    let gallery = []
     grid.reduce((left, undefined, i) => {
-      dimensions.push({
+      gallery.push({
         left: spring(left, config),
         height: spring(tileHeight, config),
         width: spring(widths[i], config),
@@ -61,10 +65,10 @@ export default class Gallery extends React.Component {
         <Motion style={{height: spring(tileHeight), width: spring(tileWidth)}}>
           {container =>
             <div className="gallery-tile" style={container}>
-              {dimensions.map((style, i) =>
+              {gallery.map((style, i) =>
                 <Motion key={data[grid[i]].mediaId} style={style}>
                   {style =>
-                    <img className="gallery-photo" src={data[grid[i]].url_lg} style={style}/>
+                    <GalleryTile data={data[grid[i]]} style={style}/>
                   }
                 </Motion>
               )}

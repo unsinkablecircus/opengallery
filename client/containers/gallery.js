@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { showNextTile, showPrevTile, toggleGallery } from '../actions/gallery'
+import * as gallery from '../actions/gallery'
 import Gallery from '../components/gallery/Gallery'
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,9 +14,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    nextTile: () => { dispatch(showNextTile()) },
-    prevTile: () => { dispatch(showPrevTile()) },
-    hideGallery: (tile) => { dispatch(toggleGallery(tile)) }
+    nextTile: () => { dispatch(gallery.nextTile()) },
+    prevTile: () => { dispatch(gallery.prevTile()) },
+    hideGallery: (tile) => { dispatch(gallery.toggleView(tile)) }
   }
 }
 

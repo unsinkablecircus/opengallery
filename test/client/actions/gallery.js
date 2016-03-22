@@ -1,24 +1,25 @@
 import { expect } from 'chai'
-import * as actions from '../../../client/actions/gallery'
+import * as gallery from '../../../client/actions/gallery'
 
 export const GalleryActions = () => {
-  it('should create a SHOW_NEXT action to show next tile in gallery', (done) => {
-    expect(actions.showNextTile()).to.deep.equal({
-      type: actions.SHOW_NEXT
+  it('should create a SHOW_NEXT action', (done) => {
+    expect(gallery.nextTile()).to.deep.equal({
+      type: gallery.SHOW_NEXT
     })
     done()
   })
 
-  it('should create a SHOW_PREV action to show previous tile in gallery', (done) => {
-    expect(actions.showPrevTile()).to.deep.equal({
-      type: actions.SHOW_PREV
+  it('should create a SHOW_PREV action', (done) => {
+    expect(gallery.prevTile()).to.deep.equal({
+      type: gallery.SHOW_PREV
     })
     done()
   })
 
-  it('should create a TOGGLE_MAP action to toggle a D3 wordmap', (done) => {
-    expect(actions.toggleMap()).to.deep.equal({
-      type: actions.TOGGLE_MAP
+  it('should create a TOGGLE_GALLERY action', (done) => {
+    expect(gallery.toggleView(1)).to.deep.equal({
+      type: gallery.TOGGLE_GALLERY,
+      payload: 1,
     })
     done()
   })
