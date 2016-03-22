@@ -17,6 +17,18 @@ const status = (state = initialState.status, action) => {
       return Object.assign({}, state, {
         fetching: action.meta.fetching,
         error: action.error
+    case 'UPLOAD_REQUEST':
+      return Object.assign({}, state, {
+        isUploading: true
+      })
+    case 'UPLOAD_SUCCESS':
+      return Object.assign({}, state, {
+        isUploading: false,
+      })
+    case 'UPLOAD_FAILURE':
+      return Object.assign({}, state, {
+        isUploading: false,
+        message
       })
     default:
       return state

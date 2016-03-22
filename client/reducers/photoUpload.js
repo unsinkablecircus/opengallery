@@ -1,6 +1,5 @@
 const initialState = {
   //TODO
-  isUploadModalOpen: false,
   isUploading: false,
   isDropOpen: false,
   message
@@ -20,15 +19,6 @@ const upload = (state = initialState, action) => {
       return Object.assign({}, state, {
         isUploading: false,
         message
-      })
-    case 'TOGGLE_PHOTOUPLOAD_MODAL':
-      return Object.assign({}, state, {
-        isUploadModalOpen: !state.isUploadModalOpen,
-        message
-      })
-    case 'TOGGLE_FILES':
-      return Object.assign({}, state, {
-        isDropOpen: !state.isDropOpen,
       })
   }
 }
