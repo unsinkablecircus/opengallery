@@ -3,7 +3,8 @@ import App from '../components/App'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    displayGallery: state.view.displayGallery
+    displayGallery: state.view.displayGallery,
+    isUploadModalOpen: state.view.isUploadModalOpen
   }
 }
 
