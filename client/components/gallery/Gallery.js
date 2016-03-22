@@ -41,14 +41,8 @@ export default class Gallery extends React.Component {
 
   render () {
     const { tile, grid, filter, data } = this.props
-
-    const windowWidth = window.innerWidth
-    const windowHeight = window.innerHeight
-    let tileWidth = data[grid[tile]].width
-
-    let tileHeight = data[grid[tile]].height
-    tileHeight = tileHeight > windowHeight ? (0.85 * windowHeight) : tileHeight
-
+    const tileWidth = data[grid[tile]].width
+    const tileHeight = data[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
 
     const widths = grid.map(i => tileHeight / data[i].height * data[i].width)
