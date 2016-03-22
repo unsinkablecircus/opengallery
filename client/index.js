@@ -43,10 +43,8 @@ const store = createStoreWithMiddleware(reducer);
 const load = storage.createLoader(engine);
 const history = syncHistoryWithStore(browserHistory, store);
 
-console.log('loading store');
 load(store)
-.then( () => { 
-  console.log('store is done loading') 
+.then( () => {
   ReactDOM.render(
     <div>
       <Provider store = {store}>
@@ -57,9 +55,7 @@ load(store)
     </div>,
     document.getElementById('app')
   );
-
 })
 
 // load will rehydrate the state, based on the previously saved state.
 // for example, on refresh, this script is re-run, and you need to rehydrate the state.
-
