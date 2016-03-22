@@ -14,6 +14,10 @@ export default class Gallery extends React.Component {
     // enable scrolling
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    return nextState.view.displayGallery;
+  }
+
   navigateGallery = ({ keyCode }) => {
     // Add debounce function
     if (keyCode === 27 || keyCode > 36 && keyCode < 41) {
@@ -36,7 +40,6 @@ export default class Gallery extends React.Component {
 
   render () {
     const { tile, grid, filter, data } = this.props
-    console.log('INSIDE Gallery! tile', tile)
     const tileWidth = data[grid[tile]].width
     const tileHeight = data[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
