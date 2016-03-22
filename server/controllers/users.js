@@ -62,7 +62,7 @@ module.exports = {
       website = user.website;
       facebook_url = user.facebook_url;
       twitter_url = user.twitter_url;
-      return comparePassword(password, user.password);
+      return comparePassword(password, user);
     })
     .then( (data) => {
       // isMatch is a boolean value describing whether entered PW matches saved PW
@@ -79,13 +79,11 @@ module.exports = {
           facebook_url: facebook_url,
           twitter_url: twitter_url
         });
-        res.send({match: true, token: token, user: data.user});
       } else {
         res.send({match: false});
       }
     })
     .catch((err) => {
-      console.log('err', err);
       res.status(500).send({error: err});
     })
   },

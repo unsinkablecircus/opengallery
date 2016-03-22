@@ -4,10 +4,13 @@ var Promise = require('bluebird');
 var comparePassword = (candidatePassword, user) => {
   const savedPassword = user.password;
   return new Promise(function(resolve, reject) {
+    console.log('comparing pw...')
     bcrypt.compare(candidatePassword, savedPassword, function (err, isMatch) {
       if (err) {
+        console.log('error comparing pw');
         reject(err);
       } else {
+        console.log('isMatch:', isMatch);
         resolve({isMatch: isMatch, user: user});
       }
     });
