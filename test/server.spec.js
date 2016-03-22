@@ -270,24 +270,4 @@ describe('Back End', function() {
       expect(mediaController.getPhotos).to.be.a('function');
     });
   });
-
-  describe('Server: ', function() {
-    it(`Should upload metaData to PostgreSQL, clone and manipulate photo,
-      update PostgreSQL with new urls,
-      and send back a 201 with the uploadPhoto function`, function() {
-      var sampleData = {
-        user: 5,
-        url_small: 'null',
-        url_med: 'null',
-        url_large: 'null',
-        title: 'JohnsBar',
-        description: 'Huh'
-      };
-      var req = new stubs.request({photoInfo: sampleData, photoRaw: (`./circus.jpg`)}, 'POST');
-      var res = new stubs.response();
-    });
-    it('Should have a function called getPhotos', function() {
-    });
-  });
-
 });
