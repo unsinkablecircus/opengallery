@@ -4,6 +4,8 @@ import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field'
 
+import Dropzone from './dropZone'
+
 
 //on click => dispatch action: show photo upload
 //action: show photo upload => update state on model component (this?)
@@ -11,7 +13,37 @@ import TextField from 'material-ui/lib/text-field'
 // on http request for photoUpload endpoint, dispatch 'uploaded' action
 // 
 
+const PhotoUpload = ({
+  isDropOpen,
+  isUploaded,
+  isUploadModalOpen
+}) => {
 
+  let title;
+  let description;
+
+  const actions = [
+
+  ];
+
+  return (
+    <div>
+      <Dialog
+        title= { 'Upload Photo' }
+        actions={ actions }
+        modal={ true }
+        open={ isUploadModalOpen }
+      >
+        <TextField ref= { (node) => {username = node} } hintText='username'/> 
+        <br />
+        <TextField type='title' ref= { (node) => {title = node} } hintText='title'/>
+        <TextField type='description' ref= { (node) => {description = node} } hintText='description'/>
+        <Dropzone />
+        { error !== '' ? errorMessage : null }
+      </Dialog>
+    </div>
+  )
+}
 /*
 
 const Auth = ({
