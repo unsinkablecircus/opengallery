@@ -8,11 +8,11 @@ import Gallery from '../containers/gallery'
 import injectTapEventPlugin from'react-tap-event-plugin'
 injectTapEventPlugin()
 
-const App = ({ children, displayGallery }) => {
+const App = ({ children, displayGallery, isUploadModalOpen }) => {
   return (
     <div>
       <Auth/>
-      {/*<PhotoUpload /> */}
+      { isUploadModalOpen ? <PhotoUpload /> : '' }
       { displayGallery ? <Gallery/> : '' }
       <Nav/>
       {children}
