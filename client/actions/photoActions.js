@@ -1,9 +1,20 @@
+export function selectPhoto() {
+  return {
+    type: 'UPLOAD_MENU',
+    payload: {
+      isUploading: false,
+      isUploaded: false,
+      isDropOpen: true
+    }
+  }
+};
+
 export function uploadRequest() {
   return {
     type: 'UPLOAD_REQUEST',
     payload: {
       isUploading: true,
-      isUploaded: false,
+      isUploaded: false
     }
   }
 };
@@ -14,7 +25,7 @@ export function uploadSuccess(url) {
     payload: {
       isUploading: false,
       isUploaded: true,
-      photoUrl: url,
+      photoUrl: url
     }
   }
 };
