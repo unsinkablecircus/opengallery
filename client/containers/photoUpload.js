@@ -14,7 +14,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onDrop: (photo) => {
-      dispatch(/**/)
+      dispatch(/**/
+        type: 'UPLOAD_REQUEST'
+      )
       // from dropZone example
       // this.setState({
       //   files: files
@@ -25,7 +27,10 @@ const mapDispatchToProps = (dispatch) => {
       // from dropZone example
       // this.refs.dropzone.open();
     },
-    onUpload: (metaData) => {
+    onUploadSuccess: (response) => {
+      dispatch: 'UPLOAD_SUCCESS'
+    },
+    onUploadButtonClick: (metaData) => {
       dispatch: 
     },
     onToggleUpload: () => {
