@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import PhotoUpload from '../components/photo/PhotoUpload'
+import PhotoUpload from '..components/'
+import { UploadPhoto } from '../actions/upload'
 //import other actions from actions folder
 
 const mapStateToProps = (state) => {
@@ -14,30 +15,37 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDrop: (photo) => {
-      dispatch(/**/
-        type: 'UPLOAD_REQUEST'
-      )
+    onDrop: (photo, metaData) => {
+      dispatch(uploadRequest(photo, metaData));
       // from dropZone example
       // this.setState({
       //   files: files
       // });
     },
     onOpenClick: () => {
-      dispatch(/**/)
       // from dropZone example
+      dispatch({
+        type: 'TOGGLE_FILES'
+      });
       // this.refs.dropzone.open();
     },
     onUploadSuccess: (response) => {
-      dispatch: 'UPLOAD_SUCCESS'
+      dispatch({
+        type: 'UPLOAD_SUCCESS'
+      });
     },
-    onUploadButtonClick: (metaData) => {
-      dispatch: 
+    onUploadFailure: (error) => {
+      dispatch({
+        type: 'UPLOAD_FAILURE'
+      });
+    },
+    onUploadButtonClick: (photo, metaData) => {
+      dispatch(uploadRequest(photo, metaData));
     },
     onToggleUpload: () => {
       dispatch({
         type: 'TOGGLE_PHOTOUPLOAD_MODAL'
-      })
+      });
     }
   }
 }
