@@ -14,7 +14,7 @@ const App = ({ children, displayGallery, isUploadModalOpen }) => {
       <Auth/>
       { isUploadModalOpen ? <PhotoUpload /> : '' }
       { displayGallery ? <Gallery/> : '' }
-      <Nav/>
+      <Nav />
       {children}
     </div>
   )
