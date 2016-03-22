@@ -1,5 +1,6 @@
 import React from 'react'
 import { Motion, spring } from 'react-motion'
+import Tile from '../tile/Tile'
 import GalleryTile from './GalleryTile'
 
 const config = {stiffness: 170, damping: 26}
@@ -40,7 +41,7 @@ export default class Gallery extends React.Component {
   }
 
   render () {
-    const { tile, grid, filter, data } = this.props
+    const { tile, grid, filter, data, hideGallery } = this.props
     const tileWidth = data[grid[tile]].width
     const tileHeight = data[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
@@ -61,14 +62,14 @@ export default class Gallery extends React.Component {
     }, start)
 
     return (
-      <div id="gallery-component">
+      <div id="gallery-component" onClick={() => hideGallery(tile)}>
         <Motion style={{height: spring(tileHeight), width: spring(tileWidth)}}>
           {container =>
             <div className="gallery-tile" style={container}>
               {gallery.map((style, i) =>
                 <Motion key={data[grid[i]].mediaId} style={style}>
                   {style =>
-                    <GalleryTile data={data[grid[i]]} style={style}/>
+                    <Tile url={data[grid[i]].url_lg} data={data[grid[i]]} style={style} handleClick={() => hideGallery(tile)}/>
                   }
                 </Motion>
               )}
