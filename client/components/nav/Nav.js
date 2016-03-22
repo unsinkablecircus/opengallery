@@ -17,6 +17,8 @@ import getMuiTheme from 'material-ui/lib/styles/getMuiTheme'
 
 import { connect } from 'react-redux'
 
+import { browserHistory } from 'react-router'
+
 const darkMuiTheme = getMuiTheme(darkBaseTheme)
 
 // refactored to utilize the container / presentational component model
@@ -28,6 +30,8 @@ let Nav = ({
   onToggleUpload,
   username
 }) => {
+
+
   const styles = {
     nav: {
       position: 'fixed',
@@ -69,7 +73,11 @@ let Nav = ({
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
-            <Link to={`/profile/${username}`}><MenuItem primaryText='Profile'/></Link>
+            <Link to={`/profile/${username}`}>
+              <MenuItem 
+                primaryText='Profile'
+              />
+            </Link>
             <Link to={`/profile/${username}1`}><MenuItem primaryText='Different Profile'/></Link>
             <Link to={'/'}><MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/></Link>
           </IconMenu>
