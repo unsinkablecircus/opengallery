@@ -27,7 +27,7 @@ export default class GalleryTile extends React.Component {
     style.backgroundImage = this.state.photo
 
     return (
-      <div className="gallery-photo" style={style}>
+      <div className="galleryTile-component" style={style}>
         <div className="overlay"></div>
         <div className="corner-overlay-content">Info</div>
         <div className="overlay-content">
