@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
   return {
     isDropOpen: state.photo.isDropOpen,
     isUploaded: state.photo.isUploaded,
-    showPhotoInGalley: state.photo.showPhotoInGalley,
+    isUploadModalOpen: state.photo.isUploadModalOpen,
     error: state.photo.error
   }
 }
