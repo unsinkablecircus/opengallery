@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'TOGGLE_FILES'
       });
-      // this.refs.dropzone.open();
+      // this.refs.dropzone.open(); // also from dropZone example
     },
     onUploadSuccess: (response) => {
       dispatch({
