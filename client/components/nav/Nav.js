@@ -70,7 +70,7 @@ let Nav = ({
           >
             <Link to={`/profile/${username}`}><MenuItem primaryText='Profile'/></Link>
             <Link to={`/profile/${username}1`}><MenuItem primaryText='Different Profile'/></Link>
-            <MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/>
+            <Link to={'/'}><MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/></Link>
           </IconMenu>
         }
       />
