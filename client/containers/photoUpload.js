@@ -5,6 +5,7 @@ import PhotoUpload from '../components/photo/PhotoUpload'
 const mapStateToProps = (state) => {
   //update props with relevent states
   return {
+    isDropOpen: state.photo.isDropOpen,
     isUploaded: state.photo.isUploaded,
     showPhotoInGalley: state.photo.showPhotoInGalley,
     error: state.photo.error
