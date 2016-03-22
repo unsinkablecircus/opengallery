@@ -92,6 +92,20 @@
   margin-right: 15px;
   flex: 6; }
 
+.gridList {
+  margin-top: 64px;
+  display: flex;
+  flex-wrap: wrap; }
+
+.gridTile {
+  margin: 2.5px;
+  flex: auto;
+  width: 433px;
+  height: 400px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
 #gallery-component {
   display: -webkit-box;
   display: -moz-box;
@@ -182,19 +196,5 @@
   #gallery-component + #nav-component {
     -webkit-filter: blur(6px);
     filter: blur(6px); }
-
-.gridList {
-  margin-top: 64px;
-  display: flex;
-  flex-wrap: wrap; }
-
-.gridTile {
-  margin: 2.5px;
-  flex: auto;
-  width: 433px;
-  height: 400px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center; }
 
 /*# sourceMappingURL=main.css.map*/
