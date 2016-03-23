@@ -6,6 +6,12 @@ export function toggleUpload() {
   }
 };
 
+export function toggleDropWindowOpen() {
+  return {
+    type: 'TOGGLE_PHOTOUPLOAD_MODAL',
+  }
+};
+
 export function uploadRequest() {
   return {
     type: 'UPLOAD_REQUEST',
