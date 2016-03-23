@@ -1,10 +1,11 @@
+
 import React from 'react';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field'
 
-import Dropzone from './dropZone'
+import DropZone from './DropZone'
 
 
 //on click => dispatch action: show photo upload
@@ -16,36 +17,50 @@ import Dropzone from './dropZone'
 const PhotoUpload = ({
   isDropOpen,
   isUploaded,
-  isUploadModalOpen
+  isUploadModalOpen, 
+  error
 }) => {
 
   let metaData = {
     title: '',
     description: ''
   };
-
   const actions = [
-
+    <FlatButton
+      label="Submit"
+      primary={true}
+      onTouchTap={ () => {
+        // generate an object with the values from the input forms
+        let creds = {};
+        for (let key in info) {
+          if ( info[key].getValue() !== "" ) {
+            metaData[key] = info[key].getValue();
+          }
+        }
+        onSubmit(upladButtonClick(metaData));
+      }}/>
   ];
 
   return (
     <div>
       <Dialog
         title= { 'Upload Photo' }
-        actions={ actions }
+        actions = { actions }
         modal={ true }
         open={ isUploadModalOpen }
       >
-        <TextField ref= { (node) => {username = node} } hintText='username'/> 
+        <TextField ref= { (node) => {title = node} } hintText='title'/> 
         <br />
         <TextField type='title' ref= { (node) => {metaData.title = node} } hintText='title'/>
         <TextField type='description' ref= { (node) => {metaData.description = node} } hintText='description'/>
-        <Dropzone />
-        { error !== '' ? errorMessage : null }
+        <DropZone />
+        { error !== '' ? <p>errorMessage </p>: '' }
       </Dialog>
     </div>
   )
 }
+
+export default PhotoUpload;
 /*
 
 const Auth = ({

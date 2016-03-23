@@ -1,22 +1,23 @@
 import React from 'react';
-import dropZone from 'react-dropzone'
+import Dropzone from 'react-dropzone'
 
 const DropZone = ({
-  /*states*/
+  isDropOpen,
+  currentFileUploading
 }) => {
   const actions = [];
 
   return (
     <div>
-      <Dropzone ref="dropzone" onDrop={this.onDrop} >
+      <Dropzone ref="dropzone" onDrop={ uploadPhoto } >
         <div>Try dropping some files here, or click to select files to upload.</div>
       </Dropzone>
-      <button type="button" onClick={this.onOpenClick}>
+      <button type="button" onClick={ isDropOpen }>
           Open Dropzone
       </button>
-      {this.state.files ? <div>
-      <h2>Uploading {files.length} files...</h2>
-      <div>this.state.files.map((file) => <img src={file.preview} />)</div>
+      {currentFileUploading ? <div>
+      <h2>Uploading {currentFileUploading.length} files...</h2>
+      <div>currentFileUploading.map((file) => <img src={currentFileUploading.preview} />)</div>
       </div> : null}
     </div>
   );
