@@ -21,6 +21,12 @@ export function uploadRequest(file) {
   }
 };
 
+export function uploadCancel() {
+  return {
+    type: 'UPLOAD_CANCEL',
+  }
+};
+
 export function uploadSuccess(url) {
   return {
     type: 'UPLOAD_SUCCESS',
@@ -60,6 +66,7 @@ export function UploadPhoto(photo, userId) {
         return response.json();
       })
       .then((url) => {
+        console.log("uploadSuccess in upload actions", url);
         dispatch(uploadSuccess(url))
       })
       .catch((err) => {
