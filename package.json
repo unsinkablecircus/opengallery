@@ -7,7 +7,8 @@
     "build": "webpack --watch --config ./config/webpack.config.js",
     "dev": "webpack-dev-server --devtool source-map --progress --colors --hot --content-base public",
     "test": "mocha --compilers js:babel-register --recursive",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
