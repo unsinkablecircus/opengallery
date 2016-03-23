@@ -16,10 +16,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    uploadPhoto: (photo) => {
+    uploadPhoto: (photo, id) => {
       dispatch(uploadRequest());
       //needs to dispatch a current file state?
-      UploadPhoto(photo, null);
+      UploadPhoto(photo, id);
       // from dropZone example
       // this.setState({
       //   files: files
@@ -42,9 +42,9 @@ const mapDispatchToProps = (dispatch) => {
         type: 'UPLOAD_FAILURE'
       });
     },
-    onUploadButtonClick: (metaData) => {
+    onUploadButtonClick: (metaData, photoId) => {
       dispatch(uploadRequest());
-      UploadPhoto(null, metaData);
+      UploadMetaData(metaData, photoId);
     },
   }
 }

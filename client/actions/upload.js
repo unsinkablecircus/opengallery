@@ -32,12 +32,12 @@ export function uploadError(message) {
   }
 };
 
-export function UploadPhoto(photo, photoData) {
+export function UploadPhoto(photo, userId) {
 
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `username=${photoData.userId}&title=${photoData.title}&description=${photoData.description}`,
+    body: `user_Id=${userId}`,
     attach: photo
   }
 
@@ -63,3 +63,32 @@ export function UploadPhoto(photo, photoData) {
   }
 }
 
+export function UploadMetaData(photoData, photoId) {
+
+  const config = {
+    method: 'POST',
+    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+    body: `username=${photoData.userId}&title=${photoData.title}&description=${photoData.description}`
+  }
+
+  return (dispatch) => {
+    dispatch(uploadRequest())
+    return fetch('http://localhost:8000/api/media/upload', config)
+      .then((response) => {
+        if ( !response.ok ) {
+          dispatch(uploadError('Error uploading photo'))
+          return Promise.reject('Error uploading photo')
+        }
+        return response.json();
+      })
+      .then((url) => {
+        dispatch(uploadSuccess(url))
+      })
+      .catch((err) => {
+        if ( !url ) {
+          dispatch(authError('Error uploading photo; perhaps your photo was too large'));
+        }
+        console.log("Error uploading photo: ", err)
+      })
+  }
+}
