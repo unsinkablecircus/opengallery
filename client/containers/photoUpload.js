@@ -6,6 +6,7 @@ import { UploadPhoto, UploadMetaData } from '../actions/upload.js'
 const mapStateToProps = (state) => {
   //update props with relevent states
   return {
+    currentUser: state.user.id,
     isUploadModalOpen: state.view.isUploadModalOpen,
     isDropOpen: state.status.isDropOpen,
     currentFileUploading: state.status.currentFileUploading,
