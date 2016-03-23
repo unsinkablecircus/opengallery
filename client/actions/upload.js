@@ -1,5 +1,11 @@
 import fetch from 'isomorphic-fetch'
 
+export function toggleUpload() {
+  return {
+    type: 'TOGGLE_PHOTOUPLOAD_MODAL',
+  }
+};
+
 export function uploadRequest() {
   return {
     type: 'UPLOAD_REQUEST',
