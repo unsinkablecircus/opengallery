@@ -29,7 +29,7 @@ const Auth = ({
         }
         onSubmit(creds, showSigninAndNotSignup);
       }}
-    />,
+    />
   ];
 
   // define some components here, rendered depending on state
