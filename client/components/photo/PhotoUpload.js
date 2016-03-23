@@ -21,19 +21,18 @@ const PhotoUpload = ({
   isUploadModalOpen, 
   error
 }) => {
+  let title
+  let description
 
-  let metaData = {
-    user_Id: currentUser,
-    title: '',
-    description: ''
-  };
   const actions = [
+    <DropZone userId={currentUser} onDrop={onPhotoDrop}/>,
+    
     <FlatButton
       label="Submit"
       primary={true}
       onTouchTap={ () => {
         // generate an object with the values from the input forms
-        let creds = {};
+        let metaData = {};
         for (let key in info) {
           if ( info[key].getValue() !== "" ) {
             metaData[key] = info[key].getValue();
@@ -51,11 +50,9 @@ const PhotoUpload = ({
         modal={ true }
         open={ isUploadModalOpen }
       >
-        {//<DropZone />
-        }
-        <TextField ref= { (node) => {metaData.title = node} } hintText='title'/> 
+        <TextField type='title' ref= { (node) => {title = node} } hintText='title'/> 
         <br />
-        <TextField type='description' ref= { (node) => {metaData.description = node} } hintText='description'/>
+        <TextField type='description' ref= { (node) => {description = node} } hintText='description'/>
         { error !== '' ? <p>errorMessage </p>: '' }
       </Dialog>
     </div>

@@ -13,7 +13,7 @@ const DropZone = ({
         <div>Try dropping some files here, or click to select files to upload.</div>
       </Dropzone>
       <button type="button" onClick={ isDropOpen }>
-          Open Dropzone
+          Open
       </button>
       {currentFileUploading ? <div>
       <h2>Uploading {currentFileUploading.length} files...</h2>
