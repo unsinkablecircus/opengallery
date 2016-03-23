@@ -15,6 +15,7 @@ import DropZone from './DropZone'
 // 
 
 const PhotoUpload = ({
+  currentUser,
   isDropOpen,
   isUploaded,
   isUploadModalOpen, 
@@ -22,6 +23,7 @@ const PhotoUpload = ({
 }) => {
 
   let metaData = {
+    user_Id: currentUser,
     title: '',
     description: ''
   };
