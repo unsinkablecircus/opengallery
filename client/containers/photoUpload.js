@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
     isUploadModalOpen: state.view.isUploadModalOpen,
     currentFileUploading: state.status.currentFileUploading,
     isDropOpen: state.status.isDropOpen,
-    isUploaded: state.status.isUploaded,
+    isUploaded: state.status.isUploaded, //why?
     error: state.status.error
   }
 }
