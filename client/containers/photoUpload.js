@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PhotoUpload from '../components/photo/PhotoUpload'
-import { UploadPhoto, UploadMetaData } from '../actions/upload.js'
+import { toggleDropWindowOpen, uploadRequest, uploadSuccess, uploadError, UploadPhoto, UploadMetaData } from '../actions/upload.js'
 //import other actions from actions folder
 
 const mapStateToProps = (state) => {
@@ -8,8 +8,8 @@ const mapStateToProps = (state) => {
   return {
     currentUser: state.user.id,
     isUploadModalOpen: state.view.isUploadModalOpen,
-    isDropOpen: state.status.isDropOpen,
     currentFileUploading: state.status.currentFileUploading,
+    isDropOpen: state.status.isDropOpen,
     isUploaded: state.status.isUploaded,
     error: state.status.error
   }
@@ -28,20 +28,14 @@ const mapDispatchToProps = (dispatch) => {
     },
     onOpenClick: () => {
       // from dropZone example
-      dispatch({
-        type: 'TOGGLE_FILES'
-      });
+      dispatch(toggleDropWindowOpen());
       // this.refs.dropzone.open(); // also from dropZone example
     },
     onUploadSuccess: (response) => {
-      dispatch({
-        type: 'UPLOAD_SUCCESS'
-      });
+      dispatch(uploadSuccess(response));
     },
     onUploadFailure: (error) => {
-      dispatch({
-        type: 'UPLOAD_FAILURE'
-      });
+      dispatch(uploadError(error));
     },
     onUploadButtonClick: (metaData, photoId) => {
       dispatch(uploadRequest());
