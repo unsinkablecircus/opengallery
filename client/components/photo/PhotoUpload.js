@@ -49,11 +49,11 @@ const PhotoUpload = ({
         modal={ true }
         open={ isUploadModalOpen }
       >
-        <TextField ref= { (node) => {title = node} } hintText='title'/> 
+        {//<DropZone />
+        }
+        <TextField ref= { (node) => {metaData.title = node} } hintText='title'/> 
         <br />
-        <TextField type='title' ref= { (node) => {metaData.title = node} } hintText='title'/>
         <TextField type='description' ref= { (node) => {metaData.description = node} } hintText='description'/>
-        <DropZone />
         { error !== '' ? <p>errorMessage </p>: '' }
       </Dialog>
     </div>
