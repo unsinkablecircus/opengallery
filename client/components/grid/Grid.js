@@ -1,4 +1,5 @@
 import React from 'react'
+import Tile from '../tile/Tile'
 import GridTile from './GridTile'
 
 import GridList from 'material-ui/lib/grid-list/grid-list'
@@ -6,15 +7,12 @@ import GridList from 'material-ui/lib/grid-list/grid-list'
 const Grid = ({ tile, grid, filter, data, loadGrid, toggleGallery }) => {
 
   return (
-  <div
-    cols={3}
-    className='gridList'
-  >
-    {grid.map((id, key) => (
-      <GridTile  key={key} tile={key} img={data[grid[key]].url_lg} toggleGallery={toggleGallery}/>
-    ))}
-  </div>
-)
+    <div id="grid-component">
+      {grid.map((mediaId, index) => (
+        <Tile key={mediaId} tile={index} url={data[grid[index]].url_lg} data={data[grid[index]]} handleClick={toggleGallery}/>
+      ))}
+    </div>
+  )
 }
 
 export default Grid
