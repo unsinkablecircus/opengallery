@@ -20,16 +20,24 @@ const status = (state = initialState.status, action) => {
       })
     case 'UPLOAD_REQUEST':
       return Object.assign({}, state, {
-        isUploading: true
+        isUploading: true,
+        isUploaded: false
+        currentFileUploading: action.payload.file
       })
     case 'UPLOAD_SUCCESS':
       return Object.assign({}, state, {
         isUploading: false,
+        isUploaded: true
       })
     case 'UPLOAD_FAILURE':
       return Object.assign({}, state, {
         isUploading: false,
-        message
+        isUploaded: false,
+        message: action.payload.message
+      })
+    case 'TOGGLE_DROP_WINDOW':
+      return Object.assign({}, state, {
+        isDropOpen: !state.isDropOpen,
       })
     default:
       return state
