@@ -42,8 +42,9 @@ export function UploadPhoto(photo, userId) {
   }
 
   return (dispatch) => {
-    dispatch(uploadRequest())
-    return fetch('http://localhost:8000/api/media/upload', config)
+    {// dispatch(uploadRequest())
+    }
+    return fetch('http://localhost:8000/api/media/uploadPhoto', config)
       .then((response) => {
         if ( !response.ok ) {
           dispatch(uploadError('Error uploading photo'))
@@ -73,7 +74,8 @@ export function UploadMetaData(photoData, photoId) {
 
   return (dispatch) => {
     dispatch(uploadRequest())
-    return fetch('http://localhost:8000/api/media/upload', config)
+    let url = 'http://localhost:8000/api/media/' + photoId;
+    return fetch(url, config)
       .then((response) => {
         if ( !response.ok ) {
           dispatch(uploadError('Error uploading photo'))
