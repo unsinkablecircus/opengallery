@@ -12,12 +12,11 @@ export function toggleDropWindow() {
   }
 };
 
-export function uploadRequest() {
+export function uploadRequest(file) {
   return {
     type: 'UPLOAD_REQUEST',
     payload: {
-      isUploading: true,
-      isUploaded: false
+      file: file
     }
   }
 };
@@ -26,8 +25,6 @@ export function uploadSuccess(url) {
   return {
     type: 'UPLOAD_SUCCESS',
     payload: {
-      isUploading: false,
-      isUploaded: true,
       photoUrl: url
     }
   }
@@ -36,9 +33,7 @@ export function uploadSuccess(url) {
 export function uploadError(message) {
   return {
     type: 'UPLOAD_FAILURE',
-    payload: {
-      isUploading: false,
-      isUploaded: false,
+    payload:
       message: message
     }
   }
