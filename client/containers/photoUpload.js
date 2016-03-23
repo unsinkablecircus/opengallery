@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PhotoUpload from '../components/photo/PhotoUpload'
-import { UploadPhoto } from '../actions/upload.js'
+import { UploadPhoto, UploadMetaData } from '../actions/upload.js'
 //import other actions from actions folder
 
 const mapStateToProps = (state) => {
@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    uploadPhoto: (photo, id) => {
+    onPhotoDrop: (photo, id) => {
       dispatch(uploadRequest());
       //needs to dispatch a current file state?
       UploadPhoto(photo, id);
