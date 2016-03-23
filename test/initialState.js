@@ -33,9 +33,10 @@ export const initialState = {
   status: {
     fetching: false,
     error: '',
+    currentFileUploading: '',
     isUploading: false,
     isDropOpen: false,
-    message
+    message: ''
   },
 
   /*--------------*/
