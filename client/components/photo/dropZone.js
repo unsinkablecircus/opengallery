@@ -9,7 +9,7 @@ const DropZone = ({
 
   return (
     <div>
-      <Dropzone ref="dropzone" onDrop={ uploadPhoto } >
+      <Dropzone ref="dropzone" onDrop={ onPhotoDrop } >
         <div>Try dropping some files here, or click to select files to upload.</div>
       </Dropzone>
       <button type="button" onClick={ isDropOpen }>
