@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import * as gallery from '../../../client/actions/gallery'
+import * as upload from '../../../client/actions/upload'
 import reducer from '../../../client/reducers/view'
 import { initialState } from '../../initialState'
 
@@ -13,6 +14,12 @@ export const ViewReducer = () => {
   describe('├─ Gallery', () => {
     it('should handle a TOGGLE_GALLERY action that sets the displayGallery state', () => {
       expect(reducer(state, gallery.toggleView()))
+        .to.deep.have.property('displayGallery', true)
+    })
+  })
+  describe('├─ Upload', () => {
+    it('should handle a TOGGLE_PHOTOUPLOAD_MODAL action that sets the isUploadModalOpen state', () => {
+      expect(reducer(state, upload.toggleView()))
         .to.deep.have.property('displayGallery', true)
     })
   })
