@@ -8,19 +8,30 @@ const DropZone = ({
   isDropOpen,
   currentFileUploading
 }) => {
-  const actions = [];
+  const actions = [
+    
+    
+  ];
 
+  console.log('inside dropzone and the currentFileUploading is: ', currentFileUploading);
   return (
-    <div>
+    <div actions={ actions }>
+    {
+      //how to pass in current user?
+    }
       <Dropzone ref="dropzone" onDrop={ onPhotoDrop } >
-        <div>Try dropping some files here, or click to select files to upload.</div>
+        <div>Click inside or drop file to upload.</div>
       </Dropzone>
-      <FlatButton type="button" onClick={ isDropOpen }>
-          Open
+      <FlatButton label="Open" primary={true} type="button" onClick={ isDropOpen }>
+        Open
       </FlatButton>
       {currentFileUploading ? <div>
-      <h2>Uploading {currentFileUploading.length} files...</h2>
-      <div>currentFileUploading.map((file) => <img src={currentFileUploading.preview} />)</div>
+      <h2>Uploading {currentFileUploading.length} file...</h2>
+      <div>
+      {
+        currentFileUploading.map((file, index) => <img key={index} src={file.preview} />)
+      }
+      </div>
       </div> : null}
     </div>
   );

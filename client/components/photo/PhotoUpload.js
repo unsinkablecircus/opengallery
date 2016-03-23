@@ -55,11 +55,12 @@ const PhotoUpload = ({
         open={ isUploadModalOpen }
       >
         <DropZone 
-          userId={currentUser} 
+          currentUser={ currentUser }
           onPhotoDrop={ onPhotoDrop } 
           isDropOpen= { isDropOpen } 
           currentFileUploading= { currentFileUploading }/>
-
+        <br />
+        <br />
         <TextField ref= { (node) => {info.title = node} } hintText='title'/> 
         <br />
         <TextField ref= { (node) => {info.description = node} } hintText='description'/>
