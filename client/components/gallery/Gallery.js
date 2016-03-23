@@ -50,7 +50,7 @@ export default class Gallery extends React.Component {
   }
 
   render () {
-    const { tile, grid, data, dictionary, displayWordmap, hideGallery } = this.props
+    const { tile, grid, data, dictionary, displayWordmap, hideGallery, username } = this.props
     const tileWidth = data[grid[tile]].width
     const tileHeight = data[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
@@ -106,9 +106,9 @@ export default class Gallery extends React.Component {
           <FlatButton
             label='Submit'
             onTouchTap={ () => {
-              console.log(this.refs.feedbackInfo.value);
+              const inputValue = this.refs.feedbackInfo.value;
+              submitInput(username, tile, inputValue);
             }}
-
           />
         </div>
       </div>

@@ -21,8 +21,7 @@ export function toggleView(tile) {
   }
 }
 
-export function submitInput(info) {
-
+export function submitInput(username, tile, info) {
   const creds = {
     method: 'POST',
     headers: {'Content-Type': 'application/x-www-form-encoded'},

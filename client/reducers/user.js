@@ -14,7 +14,6 @@ let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-k
 const startingState = prevState ? prevState.user : initialState;
 
 const user = (state=startingState, action) => {
-  console.log(state);
   switch (action.type) {
     case 'STORE_USER_DATA':
       return Object.assign({}, state, {
