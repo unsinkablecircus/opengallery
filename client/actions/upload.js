@@ -33,7 +33,7 @@ export function uploadSuccess(url) {
 export function uploadError(message) {
   return {
     type: 'UPLOAD_FAILURE',
-    payload:
+    payload: {
       message: message
     }
   }
