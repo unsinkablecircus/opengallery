@@ -1,8 +1,6 @@
-
 import React from 'react';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
-import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field'
 
 import DropZone from './DropZone'
@@ -17,15 +15,21 @@ import DropZone from './DropZone'
 const PhotoUpload = ({
   currentUser,
   isDropOpen,
+  currentFileUploading,
   isUploaded,
   isUploadModalOpen, 
-  error
+  error,
+  onPhotoDrop,
+  onOpenClick,
+  onUploadSuccess,
+  onUploadFailure,
+  onUploadButtonClick
 }) => {
+  let info = {}
   let title
   let description
 
   const actions = [
-    <DropZone userId={currentUser} onDrop={onPhotoDrop}/>,
     
     <FlatButton
       label="Submit"
@@ -50,11 +54,18 @@ const PhotoUpload = ({
         modal={ true }
         open={ isUploadModalOpen }
       >
-        <TextField type='title' ref= { (node) => {title = node} } hintText='title'/> 
+        <DropZone 
+          userId={currentUser} 
+          onPhotoDrop={ onPhotoDrop } 
+          isDropOpen= { isDropOpen } 
+          currentFileUploading= { currentFileUploading }/>
+
+        <TextField ref= { (node) => {info.title = node} } hintText='title'/> 
         <br />
-        <TextField type='description' ref= { (node) => {description = node} } hintText='description'/>
+        <TextField ref= { (node) => {info.description = node} } hintText='description'/>
         { error !== '' ? <p>errorMessage </p>: '' }
       </Dialog>
+
     </div>
   )
 }
