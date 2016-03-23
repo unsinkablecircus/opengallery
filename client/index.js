@@ -17,7 +17,6 @@ require('./stylesheets/main.scss');
 
 import {loadStore, store, history} from './store'
 
-
 ReactDOM.render(
   <div>
     <Provider store = {store}>

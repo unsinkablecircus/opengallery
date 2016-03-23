@@ -7,7 +7,7 @@ var initialState = {
 }
 
 let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
-const startingState = prevState ? prevState.user : initialState;
+const startingState = prevState ? prevState.auth : initialState;
 
 
 const auth = (state=startingState, action) => {

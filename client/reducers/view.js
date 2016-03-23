@@ -2,6 +2,8 @@ import { initialState } from '../../test/initialState'
 import { TOGGLE_GALLERY } from '../actions/gallery'
 import { SHOW_WORDMAP, HIDE_WORDMAP } from '../actions/wordmap.actions'
 
+
+
 let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
 const startingState = prevState ? prevState.view : initialState.view;
 
