@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PhotoUpload from '../components/photo/PhotoUpload'
-import { toggleDropWindowOpen, uploadRequest, uploadSuccess, uploadError, UploadPhoto, UploadMetaData } from '../actions/upload.js'
+import { toggleDropWindow, uploadRequest, uploadSuccess, uploadError, UploadPhoto, UploadMetaData } from '../actions/upload.js'
 //import other actions from actions folder
 
 const mapStateToProps = (state) => {
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onOpenClick: () => {
       // from dropZone example
-      dispatch(toggleDropWindowOpen());
+      dispatch(toggleDropWindow());
       // this.refs.dropzone.open(); // also from dropZone example
     },
     onUploadSuccess: (response) => {

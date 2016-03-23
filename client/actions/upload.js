@@ -6,7 +6,7 @@ export function toggleUpload() {
   }
 };
 
-export function toggleDropWindowOpen() {
+export function toggleDropWindow() {
   return {
     type: 'TOGGLE_PHOTOUPLOAD_MODAL',
   }
