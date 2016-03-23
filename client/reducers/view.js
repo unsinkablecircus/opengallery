@@ -20,10 +20,6 @@ const view = (state = initialState.view, action) => {
       return Object.assign({}, state, {
         isUploadModalOpen: !state.isUploadModalOpen
       })
-    case 'TOGGLE_FILES':
-      return Object.assign({}, state, {
-        isDropOpen: !state.isDropOpen,
-      })
     default:
       return state
   }
