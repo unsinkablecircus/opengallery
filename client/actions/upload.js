@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch'
+
 export function uploadRequest() {
   return {
     type: 'UPLOAD_REQUEST',
@@ -25,33 +27,39 @@ export function uploadError(message) {
     payload: {
       isUploading: false,
       isUploaded: false,
-      message
+      message: message
     }
   }
 };
 
-export function UploadPhoto(photoData) {
+export function UploadPhoto(photo, photoData) {
 
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
     body: `username=${photoData.userId}&title=${photoData.title}&description=${photoData.description}`,
-    attach: '' //buffer string
+    attach: photo
   }
-  return dispatch => {
+
+  return (dispatch) => {
     dispatch(uploadRequest())
     return fetch('http://localhost:8000/api/media/upload', config)
-      .then(response =>
-        response.json()
-      )
-      .then((url) =>  
-        dispatch(uploadSuccess(url));
+      .then((response) => {
+        if ( !response.ok ) {
+          dispatch(uploadError('Error uploading photo'))
+          return Promise.reject('Error uploading photo')
+        }
+        return response.json();
       })
-      .catch(err => 
+      .then((url) => {
+        dispatch(uploadSuccess(url))
+      })
+      .catch((err) => {
         if ( !url ) {
           dispatch(authError('Error uploading photo; perhaps your photo was too large'));
         }
         console.log("Error uploading photo: ", err)
-      )
+      })
   }
 }
+
