@@ -4,6 +4,7 @@ import Auth from '../containers/auth'
 import Grid from '../containers/grid'
 import Nav from '../containers/nav'
 import Gallery from '../containers/gallery'
+import PhotoUpload from '../containers/photoUpload'
 
 import injectTapEventPlugin from'react-tap-event-plugin'
 injectTapEventPlugin()
