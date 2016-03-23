@@ -13,6 +13,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLogoutClick: () => {
       dispatch(logoutUser());
+    },
+    onToggleUpload: () => {
+      dispatch({
+        type: 'TOGGLE_PHOTOUPLOAD_MODAL'
+      });
     }
   }
 }
