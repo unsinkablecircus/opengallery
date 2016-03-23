@@ -25,6 +25,7 @@ const darkMuiTheme = getMuiTheme(darkBaseTheme)
 let Nav = ({
   isAuth,
   onLogoutClick,
+  onToggleUpload,
   username
 }) => {
   const styles = {
@@ -52,7 +53,7 @@ let Nav = ({
               backgroundColor='#0097a7'
               style={styles.title}
             /></Link>
-            <IconButton tooltip='Create'>
+            <IconButton tooltip='Create' onClick={ onToggleUpload }>
               <CreateIcon color='#303030'/>
             </IconButton>
             <IconButton tooltip='Discover'>
