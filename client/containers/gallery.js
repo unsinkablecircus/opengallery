@@ -20,8 +20,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     nextTile: () => { dispatch(gallery.nextTile()) },
     prevTile: () => { dispatch(gallery.prevTile()) },
     hideGallery: (tile) => { dispatch(gallery.toggleView(tile)) },
+<<<<<<< a78c0244cb927daa77df463d986c69cbddc19bd4
     showWordmap: () => { dispatch(wordmap.show()) },
     hideWordmap: () => { dispatch(wordmap.hide()) }
+=======
+    submitInput: (input) => { dispatch(gallery.submitInput(input)) }
+>>>>>>> Took off LOGOUT and LOCATION_CHANGE off the storageMiddleware blacklist. By removing LOCATION_CHANGE, routing works predictably.
   }
 }
 

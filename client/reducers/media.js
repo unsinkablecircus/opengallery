@@ -2,7 +2,10 @@ import { initialState } from '../../test/initialState'
 import { GRID_FILTER, GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
 import { SHOW_NEXT, SHOW_PREV, TOGGLE_GALLERY } from '../actions/gallery'
 
-const media = (state = initialState.media, action) => {
+let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+const startingState = prevState ? prevState.media : initialState.media;
+
+const media = (state = startingState, action) => {
   const len = state.grid.length
   const idx = state.tile
 

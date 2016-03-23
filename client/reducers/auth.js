@@ -6,8 +6,11 @@ var initialState = {
   showSigninAndNotSignup: true
 }
 
-// reducer that handles authentication
-const auth = (state=initialState, action) => {
+let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+const startingState = prevState ? prevState.user : initialState;
+
+
+const auth = (state=startingState, action) => {
   switch (action.type) {
     case 'AUTH_REQUEST':
       return Object.assign({}, state, {
@@ -26,6 +29,8 @@ const auth = (state=initialState, action) => {
         error: action.payload.message
       })
     case 'LOGOUT':
+      // clear the store
+      console.log('cleared storage');
       localStorage.clear();
       return Object.assign({}, state, {
         isAuthenticated: false,

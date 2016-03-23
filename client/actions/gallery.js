@@ -20,3 +20,30 @@ export function toggleView(tile) {
     payload: tile
   }
 }
+
+export function submitInput(info) {
+
+  const creds = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-encoded'},
+    body: `username=${info.username}&input=${info.input}`
+  }
+
+  return (dispatch) => {
+
+    fetch('http://localhost:8000/api/users/submitInput', config)
+    .then( response => {
+       response.json();
+    })
+    .then( data => {
+      // do something with the data
+      console.log('input submitted');
+    })
+    .catch( err => {
+      console.log('err', err);
+    })
+
+
+  }
+
+}

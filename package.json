@@ -55,7 +55,8 @@
     "redux-storage": "^4.0.0",
     "redux-storage-engine-localstorage": "^1.0.1",
     "redux-thunk": "^2.0.1",
-    "superagent": "^1.8.1"
+    "superagent": "^1.8.1",
+    "redux-thunk": "^2.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.7.2",

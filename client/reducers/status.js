@@ -1,7 +1,10 @@
 import { initialState } from '../../test/initialState'
 import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
 
-const status = (state = initialState.status, action) => {
+let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+const startingState = prevState ? prevState.status : initialState.status;
+
+const status = (state = startingState, action) => {
   switch (action.type) {
     case GRID_REQUEST:
       return Object.assign({}, state, {

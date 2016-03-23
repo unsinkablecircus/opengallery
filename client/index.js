@@ -3,7 +3,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
 import devTools from 'remote-redux-devtools'
 
 import { Route, Router, /*browserHistory*/ } from 'react-router'
@@ -18,6 +17,7 @@ require('./stylesheets/main.scss');
 
 import {loadStore, store, history} from './store'
 
+
 ReactDOM.render(
   <div>
     <Provider store = {store}>
@@ -28,4 +28,3 @@ ReactDOM.render(
   </div>,
   document.getElementById('app')
 );
-
