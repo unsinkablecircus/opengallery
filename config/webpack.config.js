@@ -1,16 +1,22 @@
-var path = require('path');
 var webpack = require('webpack');
+var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var bourbon = require('node-bourbon').includePaths.map(sassPath => "includePaths[]=" + sassPath).join('&');
-
-var outputPath = __dirname + './../public';
+var paths = {
+  entry: path.resolve(__dirname, '../client/index'),
+  output: path.resolve(__dirname, '../public'),
+  local: 'http://localhost:8000/',
+  hot: 'webpack-hot-middleware/client?path=/__webpack_hmr',
+  bourbon: require('node-bourbon').includePaths
+    .map(sassPath => "includePaths[]=" + sassPath).join('&')
+};
 
 module.exports = {
-  entry: "./client/index",
+  entry: [paths.hot, paths.entry],
   output: {
-      path: outputPath,
-      filename: "app.js"
+    path: paths.output,
+    publicPath: paths.local,
+    filename: 'app.js'
   },
   devtool: 'source-map',
   resolve: {
@@ -20,14 +26,20 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        loaders: ['react-hot', 'babel'],
         exclude: [/node_modules/, /typings/]
       },
       {
-        test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass?sourceMap&' + bourbon) }
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style',
+          'css?sourceMap!sass?sourceMap&' + paths.bourbon)
+      }
     ]
   },
   plugins: [
-    new ExtractTextPlugin("main.css")
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('main.css')
   ]
 };
