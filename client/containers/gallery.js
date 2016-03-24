@@ -11,8 +11,8 @@ const mapStateToProps = (state, ownProps) => {
     data: state.media.data,
     dictionary: state.media.dictionary,
     displayGallery: state.view.displayGallery,
-    displayWordmap: state.view.displayWordmap
-    username: state.user.username
+    displayWordmap: state.view.displayWordmap,
+    userId: state.user.id
   }
 }
 
@@ -22,9 +22,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     prevTile: () => { dispatch(gallery.prevTile()) },
     hideGallery: (tile) => { dispatch(gallery.toggleView(tile)) },
     showWordmap: () => { dispatch(wordmap.show()) },
-    hideWordmap: () => { dispatch(wordmap.hide()) }
-    // submitInput: (input) => { dispatch(gallery.submitInput(input)) }
-    // submitInput: (username, tile, input) => { dispatch(gallery.submitInput(username, tile, input)) }
+    hideWordmap: () => { dispatch(wordmap.hide()) },
+    submitInput: (userId, mediaId, input) => { dispatch(gallery.submitInput(userId, mediaId, input)) }
   }
 }
 

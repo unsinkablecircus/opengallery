@@ -4,6 +4,7 @@ var multer = require('multer');
 
 var User = require('../controllers/users');
 var Media = require('../controllers/media');
+var Feedback = require('../controllers/feedback');
 
 module.exports = function (app, express) {
 
@@ -15,6 +16,8 @@ module.exports = function (app, express) {
   app.get('/api/media/', Media.getPhotos);
   app.post('/api/media/upload', multer().single('artImage'), Media.uploadPhoto);
   // app.post('/api/media/edit', Media.updatePhoto);
+
+  app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 
   // With react router, server needs to serve up files
   app.get('*', function (request, response){

@@ -21,28 +21,25 @@ export function toggleView(tile) {
   }
 }
 
-export function submitInput(username, tile, info) {
-  const creds = {
+export function submitInput(userId, mediaId, feedback) {
+
+  const config = {
     method: 'POST',
-    headers: {'Content-Type': 'application/x-www-form-encoded'},
-    body: `username=${info.username}&input=${info.input}`
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: `userId=${userId}&feedback=${feedback}&mediaId=${mediaId}`
   }
 
   return (dispatch) => {
-
-    fetch('http://localhost:8000/api/users/submitInput', config)
-    .then( response => {
-       response.json();
-    })
+    fetch('http://localhost:8000/api/feedback/submitFeedback', config)
+    .then( response => (
+      response.json()
+    ))
     .then( data => {
       // do something with the data
-      console.log('input submitted');
+      console.log('data', data);
     })
     .catch( err => {
       console.log('err', err);
     })
-
-
   }
-
 }

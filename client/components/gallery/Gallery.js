@@ -50,7 +50,7 @@ export default class Gallery extends React.Component {
   }
 
   render () {
-    const { tile, grid, data, dictionary, displayWordmap, hideGallery, username } = this.props
+    const { tile, grid, data, dictionary, displayWordmap, hideGallery, userId } = this.props
     const tileWidth = data[grid[tile]].width
     const tileHeight = data[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
@@ -107,7 +107,7 @@ export default class Gallery extends React.Component {
             label='Submit'
             onTouchTap={ () => {
               const inputValue = this.refs.feedbackInfo.value;
-              submitInput(username, tile, inputValue);
+              submitInput(userId, grid[tile], inputValue);
             }}
           />
         </div>
