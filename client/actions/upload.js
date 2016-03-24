@@ -48,16 +48,6 @@ export function uploadError(message) {
 };
 
 export function UploadPhoto(photo, userId) {
-  console.log("Inside uploadPhoto function in upload action file with photo and userID: ", photo, userId);
-  var data = new FormData();
-  data.append('user', userId);
-  data.append('artImage', new Buffer(photo[0]));
-  // data.artImage = photo;
-  const config = {
-    method: 'POST',
-    headers: { 'Content-Type':'multipart/form-data' },
-    body: data
-  }
 
   return (dispatch) => {
     console.log("Return dispatch function");
