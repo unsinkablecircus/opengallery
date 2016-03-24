@@ -18,17 +18,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onPhotoDrop: (media, user) => {
-      console.log("Inside onPhotoDrop function in photoUpload container with photo: ", media, user);
+      // console.log("Inside onPhotoDrop function in photoUpload container with photo: ", media, user);
       dispatch(photo.uploadRequest(media));
-      //needs to dispatch a current file state?
       dispatch(photo.UploadPhoto(media, user));
-      // from dropZone example
-      // this.setState({
-      //   files: files
-      // });
     },
     onOpenClick: () => {
-      // from dropZone example
       console.log("Inside onOpenClick function in photoUpload container with photo: ", photo);
       dispatch(photo.toggleDropWindow());
       // this.refs.dropzone.open(); // also from dropZone example
@@ -45,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUploadButtonClick: (metaData, mediaId) => {
       dispatch(photo.uploadRequest());
-      photo.UploadMetaData(metaData, mediaId);
+      dispatch(photo.UploadMetaData(metaData, mediaId));
     },
   }
 }
