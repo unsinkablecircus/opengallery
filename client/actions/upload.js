@@ -71,7 +71,7 @@ export function UploadPhoto(photo, userId) {
       })
       .catch((err) => {
         if ( !photoId ) {
-          dispatch(authError('Error uploading photo; perhaps your photo was too large'));
+          dispatch(uploadError('Error uploading photo; perhaps your photo was too large'));
         }
         console.log("Error uploading photo: ", err)
       })
