@@ -28,19 +28,19 @@ const status = (state = initialState.status, action) => {
       return Object.assign({}, state, {
         isUploading: false,
         isUploaded: false,
-        currentFileUploading: null
+        currentFileUploading: ''
       })
     case 'UPLOAD_SUCCESS':
       return Object.assign({}, state, {
         isUploading: false,
         isUploaded: true,
-        currentFileUploading: null
+        currentFileUploading: ''
       })
     case 'UPLOAD_FAILURE':
       return Object.assign({}, state, {
         isUploading: false,
         isUploaded: false,
-        currentFileUploading: null,
+        currentFileUploading: '',
         message: action.payload.message
       })
     case 'TOGGLE_DROP_WINDOW':
