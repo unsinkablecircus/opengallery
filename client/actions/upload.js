@@ -28,11 +28,11 @@ export function uploadCancel() {
   }
 };
 
-export function uploadSuccess(url) {
+export function uploadSuccess(id) {
   return {
     type: 'UPLOAD_SUCCESS',
     payload: {
-      photoUrl: url
+      photoId: id
     }
   }
 };
@@ -83,12 +83,12 @@ export function UploadMetaData(photoData, photoId) {
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `username=${photoData.userId}&title=${photoData.title}&description=${photoData.description}`
+    body: `photoId=${photoId}&title=${photoData.title}&description=${photoData.description}`
   }
 
   return (dispatch) => {
     dispatch(uploadRequest())
-    let url = 'http://localhost:8000/api/media/' + photoId;
+    let url = 'http://localhost:8000/api/media/updatePhoto';
     return fetch(url, config)
       .then((response) => {
         if ( !response.ok ) {
@@ -97,13 +97,13 @@ export function UploadMetaData(photoData, photoId) {
         }
         return response.json();
       })
-      .then((url) => {
-        dispatch(uploadSuccess(url))
+      .then((res) => {
+        console.log("Successfully updated photo with metaData", res);
+        //update currentPhotoIdToUpdateData to empty string
+        dispatch(uploadSuccess(''));
       })
       .catch((err) => {
-        if ( !url ) {
-          dispatch(authError('Error uploading photo; perhaps your photo was too large'));
-        }
+        dispatch(uploadError('Error uploading photo; perhaps your photo was too large'));
         console.log("Error uploading photo: ", err)
       })
   }
