@@ -41,15 +41,8 @@ module.exports = {
           media_id = ${mediaId}
           )
         )
-
         RETURNING *
       `)
     )
   }
-
 }
-
-// if the user had commented on this picture before, then update the feedback
-  // if they have not, insert
-// when inserting into media_hashtags, check to see if an entry exists
-// with a given userId and mediaId
