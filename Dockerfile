@@ -1,15 +1,17 @@
 FROM node:argon
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN npm install webpack -g
 
-# Install app dependencies
-COPY package.json /usr/src/app/
+WORKDIR /tmp
+COPY package.json /tmp/
 RUN npm install
 
-# Bundle app source
-COPY . /usr/src/app
+WORKDIR /usr/src/app
+COPY . /usr/src/app/
+RUN cp -a /tmp/node_modules /usr/src/app/
+
+RUN npm run build
 
 EXPOSE 8000
+
 CMD [ "npm", "start" ]
