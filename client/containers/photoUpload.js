@@ -1,12 +1,13 @@
 import { connect } from 'react-redux'
 import PhotoUpload from '../components/photo/PhotoUpload'
-import { toggleDropWindow, uploadRequest, uploadSuccess, uploadError, UploadPhoto, UploadMetaData } from '../actions/upload.js'
+import * as photo from '../actions/upload.js'
 //import other actions from actions folder
 
 const mapStateToProps = (state) => {
   //update props with relevent states
   return {
     currentUser: state.user.id,
+    currentFileUploading: state.status.currentFileUploading,
     isUploadModalOpen: state.view.isUploadModalOpen,
     currentFileUploading: state.status.currentFileUploading,
     isDropOpen: state.status.isDropOpen,
@@ -17,11 +18,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPhotoDrop: (photo, user) => {
-      console.log("Inside onPhotoDrop function in photoUpload container with photo: ", photo, user);
-      dispatch(uploadRequest(photo));
+    onPhotoDrop: (media, user) => {
+      console.log("Inside onPhotoDrop function in photoUpload container with photo: ", media, user);
+      dispatch(photo.uploadRequest(media));
       //needs to dispatch a current file state?
-      UploadPhoto(photo, user);
+      photo.UploadPhoto(media, user);
       // from dropZone example
       // this.setState({
       //   files: files
@@ -30,21 +31,22 @@ const mapDispatchToProps = (dispatch) => {
     onOpenClick: () => {
       // from dropZone example
       console.log("Inside onOpenClick function in photoUpload container with photo: ", photo);
-      dispatch(toggleDropWindow());
+      dispatch(photo.toggleDropWindow());
       // this.refs.dropzone.open(); // also from dropZone example
     },
     onUploadSuccess: (response) => {
-      dispatch(uploadSuccess(response));
+      dispatch(photo.uploadSuccess(response));
     },
-    onUploadCancel: (response) => {
-      dispatch(uploadCancel(response));
+    onUploadCancel: () => {
+      console.log("Inside onUploadCancel function in photoUpload container");
+      dispatch(photo.uploadCancel());
     },
     onUploadFailure: (error) => {
-      dispatch(uploadError(error));
+      dispatch(photo.uploadError(error));
     },
-    onUploadButtonClick: (metaData, photoId) => {
-      dispatch(uploadRequest());
-      UploadMetaData(metaData, photoId);
+    onUploadButtonClick: (metaData, mediaId) => {
+      dispatch(photo.uploadRequest());
+      photo.UploadMetaData(metaData, mediaId);
     },
   }
 }
