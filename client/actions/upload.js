@@ -76,27 +76,6 @@ export function UploadPhoto(photo, userId) {
                 dispatch(uploadSuccess(res.body.id));
               }
             });
-    /*
-    return fetch('http://localhost:8000/api/media/upload', config)
-      .then((response) => {
-        console.log("Returned fetch request: ", response)
-        if ( !response.ok ) {
-          dispatch(uploadError(response.statusText))
-          return Promise.reject('Error uploading photo')
-        }
-        return response.json();
-      })
-      .then((photoId) => {
-        console.log("uploadSuccess in upload actions", photoId);
-        dispatch(uploadSuccess(photoId))
-      })
-      .catch((err) => {
-        if ( !photoId ) {
-          dispatch(uploadError('Error uploading photo; perhaps your photo was too large'));
-        }
-        console.log("Error uploading photo: ", err)
-      })
-    */
   }
 }
 
