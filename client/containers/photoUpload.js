@@ -7,11 +7,10 @@ const mapStateToProps = (state) => {
   //update props with relevent states
   return {
     currentUser: state.user.id,
-    currentFileUploading: state.status.currentFileUploading,
+    currentPhotoIdToUpdateData: state.status.currentPhotoIdToUpdateData,
     isUploadModalOpen: state.view.isUploadModalOpen,
     currentFileUploading: state.status.currentFileUploading,
     isDropOpen: state.status.isDropOpen,
-    isUploaded: state.status.isUploaded, //why?
     error: state.status.error
   }
 }
@@ -22,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
       console.log("Inside onPhotoDrop function in photoUpload container with photo: ", media, user);
       dispatch(photo.uploadRequest(media));
       //needs to dispatch a current file state?
-      photo.UploadPhoto(media, user);
+      dispatch(photo.UploadPhoto(media, user));
       // from dropZone example
       // this.setState({
       //   files: files
