@@ -34,6 +34,7 @@ export const initialState = {
     fetching: false,
     error: '',
     currentFileUploading: '',
+    currentPhotoIdToUpdateData: '',
     isUploading: false,
     isDropOpen: false,
     message: ''
