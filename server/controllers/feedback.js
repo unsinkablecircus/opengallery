@@ -6,14 +6,14 @@ module.exports = {
     var userId = req.body.userId;
     var mediaId = req.body.mediaId;
     var feedback = req.body.feedback.toLowerCase();
-    // res.send({foo: 'foobar'});
 
     media_hashTags.submitFeedback(userId, mediaId, feedback)
     .then( (data) => {
-      console.log('row', data.rows[0]);
-      res.send({row: data.rows[0]});
+      console.log('data', data.rows[0]);
+      res.send({mediaHashtagTotal: data.rows[0]});
     })
     .catch ( (err) => {
+      console.log('err', err);
       res.status(500).send({err: err})
     })
   }
