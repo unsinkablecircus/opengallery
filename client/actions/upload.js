@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import request from 'superagent'
 
 export function toggleUpload() {
   return {
@@ -47,20 +48,40 @@ export function uploadError(message) {
 };
 
 export function UploadPhoto(photo, userId) {
-  console.log("Iniside uploadPhoto function in upload action file with photo and userID: ", photo, userId);
+  console.log("Inside uploadPhoto function in upload action file with photo and userID: ", photo, userId);
+  var data = new FormData();
+  data.append('user', userId);
+  data.append('artImage', new Buffer(photo[0]));
+  // data.artImage = photo;
   const config = {
     method: 'POST',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `user_Id=${userId}`,
-    attach: photo
+    headers: { 'Content-Type':'multipart/form-data' },
+    body: data
   }
 
   return (dispatch) => {
+    console.log("Return dispatch function");
     dispatch(uploadRequest())
-    return fetch('http://localhost:8000/api/media/uploadPhoto', config)
+    
+    return request
+            .post('http://localhost:8000/api/media/upload')
+            .field('user', userId)
+            .attach('artImage', photo[0])
+            .end(function(err, res){
+              if (err) {
+                console.log('Oh no! error', error);
+                dispatch(uploadError(res.statusText));
+              } else {
+                alert('yay got ' + JSON.stringify(res.body));
+                dispatch(uploadSuccess(res.body.id));
+              }
+            });
+    /*
+    return fetch('http://localhost:8000/api/media/upload', config)
       .then((response) => {
+        console.log("Returned fetch request: ", response)
         if ( !response.ok ) {
-          dispatch(uploadError('Error uploading photo'))
+          dispatch(uploadError(response.statusText))
           return Promise.reject('Error uploading photo')
         }
         return response.json();
@@ -75,6 +96,7 @@ export function UploadPhoto(photo, userId) {
         }
         console.log("Error uploading photo: ", err)
       })
+    */
   }
 }
 
