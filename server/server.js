@@ -1,16 +1,23 @@
 var express = require('express');
-const path = require('path')
-
 var app = express();
 
-// require routes
-require('./config/middleware.js')(app, express);
-require('./config/router.js')(app, express);
+/* -------------------------- */
+/*     MIDDLEWARE & ROUTES    */
+/* -------------------------- */
 
-// listen to port
+require('./config/middleware')(app, express);
+require('./config/router')(app, express);
+
+/* -------------- */
+/*     SERVER     */
+/* -------------- */
+
 var port = Number(process.env.PORT || 8000);
 if(!module.parent){
-  app.listen(port, function() {
+  app.listen(port, function(err) {
+    if (err) {
+      console.error(`Node Server Error: ${err}`);
+    }
     console.log(`  🎨  Open Gallery | Node listening on port ${port}`);
   });
 }
