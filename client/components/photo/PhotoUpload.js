@@ -23,6 +23,7 @@ const PhotoUpload = ({
   onOpenClick,
   onUploadSuccess,
   onUploadFailure,
+  onUploadCancel,
   onUploadButtonClick
 }) => {
   let info = {}
@@ -42,7 +43,7 @@ const PhotoUpload = ({
             metaData[key] = info[key].getValue();
           }
         }
-        onSubmit(upladButtonClick(metaData));
+        onTouchTap(onUploadButtonClick(metaData));
       }}/>
   ];
 
@@ -56,8 +57,9 @@ const PhotoUpload = ({
       >
         <DropZone 
           currentUser={ currentUser }
+          onUploadCancel={ onUploadCancel }
           onPhotoDrop={ onPhotoDrop } 
-          isDropOpen= { isDropOpen } 
+          onOpenClick= { onOpenClick } 
           currentFileUploading= { currentFileUploading }/>
         <br />
         <br />
