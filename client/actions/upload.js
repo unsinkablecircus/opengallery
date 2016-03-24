@@ -22,6 +22,7 @@ export function uploadRequest(file) {
 };
 
 export function uploadCancel() {
+  console.log("Inside onUploadCancel function in upload actions");
   return {
     type: 'UPLOAD_CANCEL',
   }
@@ -46,7 +47,7 @@ export function uploadError(message) {
 };
 
 export function UploadPhoto(photo, userId) {
-
+  console.log("Iniside uploadPhoto function in upload action file with photo and userID: ", photo, userId);
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
@@ -55,8 +56,7 @@ export function UploadPhoto(photo, userId) {
   }
 
   return (dispatch) => {
-    {// dispatch(uploadRequest())
-    }
+    dispatch(uploadRequest())
     return fetch('http://localhost:8000/api/media/uploadPhoto', config)
       .then((response) => {
         if ( !response.ok ) {
@@ -65,12 +65,12 @@ export function UploadPhoto(photo, userId) {
         }
         return response.json();
       })
-      .then((url) => {
-        console.log("uploadSuccess in upload actions", url);
-        dispatch(uploadSuccess(url))
+      .then((photoId) => {
+        console.log("uploadSuccess in upload actions", photoId);
+        dispatch(uploadSuccess(photoId))
       })
       .catch((err) => {
-        if ( !url ) {
+        if ( !photoId ) {
           dispatch(authError('Error uploading photo; perhaps your photo was too large'));
         }
         console.log("Error uploading photo: ", err)
