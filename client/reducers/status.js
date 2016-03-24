@@ -34,6 +34,7 @@ const status = (state = initialState.status, action) => {
       return Object.assign({}, state, {
         isUploading: false,
         isUploaded: true,
+        currentPhotoIdToUpdateData: action.payload.photoId,
         currentFileUploading: ''
       })
     case 'UPLOAD_FAILURE':
