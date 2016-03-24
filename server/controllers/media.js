@@ -50,6 +50,7 @@ exports.getPhotos = function (req, res) {
 }
 
 exports.uploadPhoto = function (req, res) {
+
   var responseObject = {
     id: null,
     user_id: 5,
@@ -69,7 +70,6 @@ exports.uploadPhoto = function (req, res) {
     .then( mediumBuffer => {
       Media.uploadToPG(req.body)
       .then((id) => {
-        // console.log("Id returned from uploadToPG function line 100 of media controllers: ", id.rows[0].id);
         responseObject.id = id.rows[0].id;
         var urlExtMedium = responseObject.id + 'medium';
         var urlExtLarge = responseObject.id + 'large';
@@ -95,7 +95,6 @@ exports.uploadPhoto = function (req, res) {
       .catch((err) => {
         console.log('Error uploading metaData to PostgreSQL', err);
       });
-
     })
     .catch( err => {
       // check the type of error that was caught and display proper message
