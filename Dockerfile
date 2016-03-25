@@ -2,15 +2,11 @@ FROM node:argon
 
 RUN npm install webpack -g
 
-WORKDIR /tmp
-COPY package.json /tmp/
+COPY . /usr/src/app/
+WORKDIR /usr/src/app
 RUN npm install
 
-WORKDIR /usr/src/app
-COPY . /usr/src/app/
-RUN cp -a /tmp/node_modules /usr/src/app/
-
-RUN npm run build
+RUN npm run build-prod
 
 EXPOSE 8000
 

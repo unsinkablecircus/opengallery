@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon --harmony_destructuring --watch server server/server.js --ignore client",
     "build": "webpack --progress --colors --watch --config ./config/webpack.config.js",
+    "build-prod": "webpack --progress --colors --config ./config/webpack.config.js",
     "dev": "webpack-dev-server --devtool source-map --progress --colors --hot --content-base public",
     "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch"
