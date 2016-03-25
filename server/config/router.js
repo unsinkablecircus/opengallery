@@ -20,8 +20,8 @@ module.exports = function (app, express) {
 
   app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 
-  app.post('/api/meta/search', Meta.fetchTags)
-  app.post('/api/meta/create', Meta.addTags)
+  app.get('/api/meta', Meta.searchTags)
+  app.post('/api/meta', Meta.createTags)
 
   // With react router, server needs to serve up files
   app.get('*', function (request, response){
