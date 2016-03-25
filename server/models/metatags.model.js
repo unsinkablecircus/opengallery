@@ -1,7 +1,7 @@
 const pg = require('../db/database')
 const Promise = require('bluebird')
 
-exports.search = tags => {
+exports.fetch = tags => {
   if (Array.isArray(tags)) {
     return pg.raw(
       `BEGIN;
