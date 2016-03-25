@@ -80,7 +80,7 @@ exports.uploadPhoto = function (req, res) {
           Media.uploadToS3(urlExtLarge, req.file.buffer), Media.uploadToS3(urlExtMedium, mediumBuffer)
         ])
         .then((url) => {
-          Media.updatePGid([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
+          Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
           .then(() => {
             res.status(201).json(responseObject);
           })
