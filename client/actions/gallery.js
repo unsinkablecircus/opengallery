@@ -20,3 +20,26 @@ export function toggleView(tile) {
     payload: tile
   }
 }
+
+export function submitInput(userId, mediaId, feedback) {
+
+  const config = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: `userId=${userId}&feedback=${feedback}&mediaId=${mediaId}`
+  }
+
+  return (dispatch) => {
+    fetch('http://localhost:8000/api/feedback/submitFeedback', config)
+    .then( response => (
+      response.json()
+    ))
+    .then( data => {
+      // do something with the data
+      console.log('data', data);
+    })
+    .catch( err => {
+      console.log('err', err);
+    })
+  }
+}

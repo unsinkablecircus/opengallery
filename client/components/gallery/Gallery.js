@@ -4,6 +4,8 @@ import Tile from '../tile/Tile'
 import GalleryTile from './GalleryTile'
 import Wordmap from '../wordmap/Wordmap'
 
+import FlatButton from 'material-ui/lib/flat-button';
+
 const config = {stiffness: 170, damping: 26}
 
 export default class Gallery extends React.Component {
@@ -48,7 +50,7 @@ export default class Gallery extends React.Component {
   }
 
   render () {
-    const { tile, grid, data, dictionary, displayWordmap, hideGallery } = this.props
+    const { tile, grid, data, dictionary, displayWordmap, hideGallery, userId, submitInput } = this.props
     const tileWidth = data[grid[tile]].width
     const tileHeight = data[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
@@ -99,7 +101,18 @@ export default class Gallery extends React.Component {
             </div>
           }
         </Motion>
+        <div style={{zIndex: 2000, length: '150px', position: 'absolute', left: '45%', bottom: '10%'}}>
+          <input ref='feedbackInfo'/>
+          <FlatButton
+            label='Submit'
+            onTouchTap={ () => {
+              const inputValue = this.refs.feedbackInfo.value;
+              submitInput(userId, grid[tile], inputValue);
+            }}
+          />
+        </div>
       </div>
+
     )
   }
 }

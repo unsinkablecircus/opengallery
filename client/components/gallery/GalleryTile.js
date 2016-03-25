@@ -1,4 +1,6 @@
 import React from 'react'
+import TextField from 'material-ui/lib/text-field'
+import FlatButton from 'material-ui/lib/flat-button'
 
 const GalleryTile = ({ data }) => {
   return (
@@ -8,6 +10,7 @@ const GalleryTile = ({ data }) => {
       <div className="overlay-content">
         <h2>{data.title}</h2>
         <p>{data.description}</p>
+
       </div>
     </div>
   )

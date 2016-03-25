@@ -1,6 +1,4 @@
 const db = require('../db/database.js');
-// require some user model here
-// require Q or bluebird
 const jwt = require('jwt-simple');
 const moment = require('moment');
 
@@ -10,6 +8,7 @@ const hashPassword = helpers.hashPassword;
 
 const expires = moment().add(1, 'days').valueOf();
 const secret = 'shhhSecret';
+const users = require('../models/users');
 
 module.exports = {
   signUp: function (req, res, next) {
@@ -17,7 +16,7 @@ module.exports = {
     const password = req.body.password;
     var id;
     // check if user exists already. if so, send back an error
-    db.raw(`SELECT * FROM users WHERE username = '${username}'`)
+    users.findUser(username)
     .then( (user) => {
       if ( user.rows.length > 0 ) {
         res.status(500).send({ error: 'User Already Exists' });
@@ -26,8 +25,7 @@ module.exports = {
         return hashPassword(password)
         .then( (hashedPW) => {
           // create the user
-          console.log('hashed pw', hashedPW);
-          return db.raw(`INSERT INTO users (username, password) VALUES ('${username}', '${hashedPW}') RETURNING id, username`)
+          return users.createUser(username, hashedPW)
         })
         .then( (user) => {
           // generate a token from the username and send it back
@@ -53,7 +51,7 @@ module.exports = {
     var facebook_url;
     var twitter_url;
     // fetch the user and compare the password
-    db.raw(`SELECT * FROM users WHERE username = '${username}'`)
+    users.findUser(username)
     .then( (user) => {
       var user = user.rows[0];
       id = user.id;
@@ -96,15 +94,7 @@ module.exports = {
       facebook_url: req.body.facebook_url === 'undefined' ? '' : req.body.facebook_url,
       twitter_url: req.body.twitter_url === 'undefined' ? '' : req.body.twitter_url
     }
-
-    db.raw(`UPDATE users 
-            SET name='${data.name}',
-                email='${data.email}',
-                website='${data.website}',
-                facebook_url='${data.facebook_url}',
-                twitter_url='${data.twitter_url}'
-            WHERE id=${req.body.id}
-            RETURNING *;`)
+    users.updateUser(data.name, data.email, data.website, data.facebook_url, data.twitter_url, req.body.id)
     .then ((user) => {
       const data = user.rows[0];
       console.log('data after update: ', data);

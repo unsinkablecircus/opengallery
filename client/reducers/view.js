@@ -2,7 +2,12 @@ import { initialState } from '../../test/initialState'
 import { TOGGLE_GALLERY } from '../actions/gallery'
 import { SHOW_WORDMAP, HIDE_WORDMAP } from '../actions/wordmap.actions'
 
-const view = (state = initialState.view, action) => {
+
+
+let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+const startingState = prevState ? prevState.view : initialState.view;
+
+const view = (state = startingState, action) => {
   switch (action.type) {
     case TOGGLE_GALLERY:
       return Object.assign({}, state, {

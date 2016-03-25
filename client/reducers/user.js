@@ -1,4 +1,4 @@
-const initialState = {
+let initialState = {
   id: null,
   username: null,
   name: null,
@@ -9,7 +9,11 @@ const initialState = {
   editMode: false
 };
 
-const user = (state=initialState, action) => {
+
+let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+const startingState = prevState ? prevState.user : initialState;
+
+const user = (state=startingState, action) => {
   switch (action.type) {
     case 'STORE_USER_DATA':
       return Object.assign({}, state, {
