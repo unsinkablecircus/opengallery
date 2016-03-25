@@ -18,6 +18,8 @@ module.exports = function (app, express) {
   app.use(bodyParser.json());
 
   if (process.env.PRODUCTION !== 'production') {
+    console.log('process.env.PRODUCTION on middleware: ', process.env.PRODUCTION);
+    console.log('process.env.PORT on middleware: ', process.env.PORT);
     app.use(require('webpack-dev-middleware')(compiler, {
       inline: true,
       hot: true,
