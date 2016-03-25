@@ -18,7 +18,7 @@ module.exports = {
     publicPath: paths.local,
     filename: 'app.js'
   },
-  devtool: 'source-map',
+  devtool: 'eval-cheap-module-source-map',
   resolve: {
     extensions: ['', '.js', '.json', '.scss']
   },
