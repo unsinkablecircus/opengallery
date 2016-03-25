@@ -43,7 +43,7 @@ const PhotoUpload = ({
             metaData[key] = info[key].getValue();
           }
         }
-        onTouchTap(onUploadButtonClick(metaData));
+        onTouchTap(onUploadButtonClick(metaData, currentFileUploading));
       }}/>
   ];
 
@@ -59,8 +59,8 @@ const PhotoUpload = ({
           currentUser={ currentUser }
           onUploadCancel={ onUploadCancel }
           onPhotoDrop={ onPhotoDrop } 
-          onOpenClick= { onOpenClick } 
-          currentFileUploading= { currentFileUploading }/>
+          onOpenClick={ onOpenClick } 
+          currentFileUploading={ currentFileUploading }/>
         <br />
         <br />
         <TextField ref= { (node) => {info.title = node} } hintText='title'/> 
