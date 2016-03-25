@@ -1,6 +1,22 @@
 const pg = require('../db/database')
 const Promise = require('bluebird')
 
+exports.search = tags => {
+  if (Array.isArray(tags)) {
+    return pg.raw(
+      `BEGIN;
+      LOCK TABLE tags IN SHARE ROW EXCLUSIVE MODE;
+
+      SELECT * FROM tags
+      WHERE tag_text = ANY ('{${tags.join(',')}}'::text[]);
+
+      COMMIT;`
+    )
+  } else {
+    return Promise.reject(`Metatags query must be an array, not ${typeof tags}`)
+  }
+}
+
 exports.insert = tags => {
   if (Array.isArray(tags)) {
     return pg.raw(
