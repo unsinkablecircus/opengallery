@@ -50,7 +50,6 @@ export function uploadError(message) {
 export function UploadPhoto(photo, userId) {
 
   return (dispatch) => {
-    console.log("Return dispatch function");
     dispatch(uploadRequest())
     
     return request
@@ -59,8 +58,8 @@ export function UploadPhoto(photo, userId) {
             .attach('artImage', photo[0])
             .end(function(err, res){
               if (err) {
-                console.log('Oh no! error', error);
-                dispatch(uploadError(res.statusText));
+                console.log('Oh no! error', err);
+                dispatch(uploadError(err));
               } else {
                 alert('yay got ' + JSON.stringify(res.body));
                 dispatch(uploadSuccess(res.body.id));
@@ -71,6 +70,26 @@ export function UploadPhoto(photo, userId) {
 
 export function UploadMetaData(photoData, photoId) {
 
+  return (dispatch) =>
+    console.log("Inside UploadMetaData function")
+
+    return request
+            .post('http://localhost:8000/api/media/edit')
+            .field('title', '')
+            .field('description', '')
+            .field('metaTags', JSON.stringify([]))
+            .end(function(err, res) {
+              if (err) {
+                console.log('Oh no! error updating metaData!', err);
+                dispatch(uploadError(err));
+              } else {
+                alert('yay! great success!' + JSON.stringify(res.body));
+                dispatch(uploadSuccess());
+                //updateSuccess function instead of uploadSuccess
+              }
+            })
+
+/*
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
@@ -98,4 +117,5 @@ export function UploadMetaData(photoData, photoId) {
         console.log("Error uploading photo: ", err)
       })
   }
+  */
 }
