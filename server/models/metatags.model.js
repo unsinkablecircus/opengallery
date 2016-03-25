@@ -1,6 +1,6 @@
 const pg = require('../db/database')
 
-exports.uploadToPG = function (photoData) {
+exports.insert = function (tags) {
   return pg.raw(
     `BEGIN;
     LOCK TABLE tags IN SHARE ROW EXCLUSIVE MODE;
