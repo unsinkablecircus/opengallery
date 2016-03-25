@@ -3,5 +3,6 @@
 .editorconfig
 node_modules/
 public/
+!public/index.html
 *.log
 *.md
