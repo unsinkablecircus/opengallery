@@ -53,7 +53,7 @@ export function UploadPhoto(photo, userId) {
     dispatch(uploadRequest(photo))
     
     return request
-            .post(`http://${process.env.HOST}:8000/api/media/upload`)
+            .post(`http://${process.env.HOST || 'localhost'}:8000/api/media/upload`)
             .field('user', userId)
             .attach('artImage', photo[0])
             .end(function(err, res){
@@ -74,7 +74,7 @@ export function UploadMetaData(photoData, photoId) {
     console.log("Inside UploadMetaData function")
 
     return request
-            .post(`http://${process.env.HOST}:8000/api/media/edit`)
+            .post(`http://${process.env.HOST || 'localhost'}:8000/api/media/edit`)
             .field('title', '')
             .field('description', '')
             .field('metaTags', JSON.stringify([]))

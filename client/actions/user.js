@@ -61,7 +61,7 @@ export function SaveChanges(data) {
   }
   return dispatch => {
     dispatch(updateRequest());
-    return fetch(`http://${process.env.HOST}:8000/api/user/saveChanges`, config)
+    return fetch(`http://${process.env.HOST || 'localhost'}:8000/api/user/saveChanges`, config)
       .then((response) => {
         if ( !response.ok ) {
           dispatch(updateError('Error updating data'));
