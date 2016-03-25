@@ -15,7 +15,7 @@ import reducers from './reducers/index'
 require('./stylesheets/main.scss');
 
 
-import {loadStore, store, history} from './store'
+import {store, history} from './store'
 
 ReactDOM.render(
   <div>
