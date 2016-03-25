@@ -12,18 +12,14 @@ const s3 = new AWS.S3();
 
 //model handles pg manipulation
 
-exports.uploadToPG = function (photoData) {
+exports.uploadToPG = function (userId) {
   // SQL Query > Insert Data
   return pg.raw(
-    `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description)
+
+    `INSERT INTO media (user_id) 
     values(
-      ${photoData.user},
-      '${photoData.url_small}',
-      'null',
-      'null',
-      '${photoData.title}',
-      '${photoData.description}'
-    )
+      ${userId}
+    ) 
     RETURNING id`
   );
 };
@@ -43,10 +39,10 @@ exports.uploadToS3 = function (photoId, photo) {
         resolve(data);
       }
     });
-  });  //if using promises on invocation, cb is unnecessary
+  });
 };
 
-exports.updatePGid = function (photosURLsArr, id) {
+exports.updatePGphotoUrls = function (photosURLsArr, id) {
   //array order is med, large
   //identify which record to update
   // return
@@ -61,6 +57,21 @@ exports.updatePGid = function (photosURLsArr, id) {
   );
 };
 
+exports.updatePGmetaData = function (photoData, id) {
+  //array order is med, large
+  //identify which record to update
+  // return
+  return pg.raw(
+    `UPDATE media
+    SET
+      title = '${photoData.title}',
+      description = '${photoData.description}',
+    WHERE id = ${id}
+    RETURNING *
+    `
+  );
+};
+
 exports.retrievePhotosFromPG = function () {
   // SQL Query > Insert Data
   return pg.raw(
@@ -68,29 +79,7 @@ exports.retrievePhotosFromPG = function () {
     LIMIT 20
     `
   )
-  // .then((data) => {
-  //   console.log("inside media models 'then' invocation", data);
-  //   photos = data;
-  // })
-  // .then(() => {
-  //   pg.destroy();
-  // })
-  // .then(() => {
-  //   console.log('destroyed.')
-  // })
-  // .catch((err) => {
-  //   console.log('error: line 84 of media model', err);
-  // });
 
-  // return photos;
-  // pg.destroy()
-  // .then(function(){
-  //   return data;
-
-  // })
-  // .catch(function(err) {
-  //   console.log("error destroying PG connection", err);
-  // })
 };
 
 // example of connecting to postgresql database below (will move to models later):

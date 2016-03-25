@@ -1,4 +1,5 @@
 const helpers = require('./helpers.js');
+//https://github.com/expressjs/multer for image upload parsing
 var multer = require('multer');
 
 var User = require('../controllers/users');
@@ -13,6 +14,7 @@ module.exports = function (app, express) {
 
   app.get('/api/media/', Media.getPhotos);
   app.post('/api/media/upload', multer().single('artImage'), Media.uploadPhoto);
+  // app.post('/api/media/edit', Media.updatePhoto);
 
   // With react router, server needs to serve up files
   app.get('*', function (request, response){

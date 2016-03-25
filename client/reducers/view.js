@@ -16,6 +16,10 @@ const view = (state = initialState.view, action) => {
       return Object.assign({}, state, {
         displayWordmap: false
       })
+    case 'TOGGLE_PHOTOUPLOAD_MODAL':
+      return Object.assign({}, state, {
+        isUploadModalOpen: !state.isUploadModalOpen
+      })
     default:
       return state
   }

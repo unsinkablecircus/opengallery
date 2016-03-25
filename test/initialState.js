@@ -32,7 +32,12 @@ export const initialState = {
 
   status: {
     fetching: false,
-    error: ''
+    error: '',
+    currentFileUploading: '',
+    currentPhotoIdToUpdateData: '',
+    isUploading: false,
+    isDropOpen: false,
+    message: ''
   },
 
   /*--------------*/

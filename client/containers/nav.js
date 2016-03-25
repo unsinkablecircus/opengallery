@@ -1,6 +1,7 @@
 import Nav from '../components/nav/Nav';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authActions';
+import { toggleUpload } from '../actions/upload'
 
 const mapStateToProps = (state) => {
   return {
@@ -13,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLogoutClick: () => {
       dispatch(logoutUser());
+    },
+    onToggleUpload: () => {
+      dispatch(toggleUpload());
     }
   }
 }
