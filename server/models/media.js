@@ -15,22 +15,22 @@ const s3 = new AWS.S3();
 exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
   return pg.raw(
-    `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description) 
+    `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description)
     values(
-      ${photoData.user}, 
+      ${photoData.user},
       '${photoData.url_small}',
       'null',
       'null',
-      '${photoData.title}', 
+      '${photoData.title}',
       '${photoData.description}'
-    ) 
+    )
     RETURNING id`
   );
 };
 
 exports.uploadToS3 = function (photoId, photo) {
   var params = {
-    Bucket: 'opengallery', // required 
+    Bucket: 'opengallery', // required
     Key: photoId.toString(), // required
     ACL: 'public-read',
     Body: photo
@@ -49,11 +49,11 @@ exports.uploadToS3 = function (photoId, photo) {
 exports.updatePGid = function (photosURLsArr, id) {
   //array order is med, large
   //identify which record to update
-  // return 
+  // return
   return pg.raw(
-    `UPDATE media 
-    SET 
-      url_medium = '${photosURLsArr[0]}', 
+    `UPDATE media
+    SET
+      url_medium = '${photosURLsArr[0]}',
       url_large = '${photosURLsArr[1]}'
     WHERE id = ${id}
     RETURNING *
@@ -86,7 +86,7 @@ exports.retrievePhotosFromPG = function () {
   // pg.destroy()
   // .then(function(){
   //   return data;
-    
+
   // })
   // .catch(function(err) {
   //   console.log("error destroying PG connection", err);
@@ -113,7 +113,7 @@ s3.listBuckets(function(err, data) {
 });
 
 var params = {
-  Bucket: 'opengallery', // required 
+  Bucket: 'opengallery', // required
   Key: 'TEST_KEY', // required
   ACL: 'public-read',
   Body: 'TEST_BODY'

@@ -2,6 +2,7 @@ import React from 'react'
 import { Motion, spring } from 'react-motion'
 import Tile from '../tile/Tile'
 import GalleryTile from './GalleryTile'
+import Wordmap from '../wordmap/Wordmap'
 
 const config = {stiffness: 170, damping: 26}
 
@@ -23,13 +24,19 @@ export default class Gallery extends React.Component {
   navigateGallery = ({ keyCode }) => {
     // Add debounce function
     if (keyCode === 27 || keyCode > 36 && keyCode < 41) {
-      const { nextTile, prevTile, hideGallery } = this.props
+      const { nextTile, prevTile, hideGallery, showWordmap, hideWordmap } = this.props
       switch (keyCode) {
         case 37: // left arrow
           prevTile()
           break
+        case 38: // up arrow
+          showWordmap()
+          break
         case 39: // right arrow
           nextTile()
+          break
+        case 40: // down arrow
+          hideWordmap()
           break
         case 27: // esc key
           hideGallery(0)
@@ -41,7 +48,7 @@ export default class Gallery extends React.Component {
   }
 
   render () {
-    const { tile, grid, filter, data, hideGallery } = this.props
+    const { tile, grid, data, dictionary, displayWordmap, hideGallery } = this.props
     const tileWidth = data[grid[tile]].width
     const tileHeight = data[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
@@ -56,7 +63,7 @@ export default class Gallery extends React.Component {
       gallery.push({
         left: spring(left, config),
         height: spring(tileHeight, config),
-        width: spring(widths[i], config),
+        width: spring(widths[i], config)
       })
       return left + widths[i]
     }, start)
@@ -64,12 +71,28 @@ export default class Gallery extends React.Component {
     return (
       <div id="gallery-component" onClick={() => hideGallery(tile)}>
         <Motion style={{height: spring(tileHeight), width: spring(tileWidth)}}>
-          {container =>
+          { container =>
             <div className="gallery-tile" style={container}>
-              {gallery.map((style, i) =>
-                <Motion key={data[grid[i]].mediaId} style={style}>
-                  {style =>
-                    <Tile url={data[grid[i]].url_lg} data={data[grid[i]]} style={style} handleClick={() => hideGallery(tile)}/>
+              { gallery.map((style, i) =>
+                <Motion
+                  key={data[grid[i]].mediaId}
+                  style={style}
+                >
+                  { style =>
+                    <Tile
+                      style={style}
+                      url={data[grid[i]].url_lg}
+                      data={data[grid[i]]}
+                      handleClick={() => hideGallery(tile)}
+                    >
+                      <GalleryTile data={data[grid[i]]}/>
+                      { displayWordmap ? <Wordmap
+                        tile={tile}
+                        data={data[grid[i]]}
+                        dictionary={dictionary}
+                        displayWordmap={displayWordmap}
+                      /> : '' }
+                    </Tile>
                   }
                 </Motion>
               )}

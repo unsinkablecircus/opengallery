@@ -30,21 +30,20 @@ describe('Back End', function() {
 
       });
 
-      it('Responds with a rows property on body containing the data', function(done) {
-          request(app)
-          .get('/api/media')
-          .expect(function(res) {
-            expect(res.body).to.have.property('rows');
-          })
-          .end(function(err, res) {
-            if (err) {
-              console.log("Error requesting data: ", err);
-              expect(err).to.be.null;
-              return done(err);
-            }
-            done();
-          });
-
+      xit('Responds with a rows property on body containing the data', function(done) {
+        request(app)
+        .get('/api/media')
+        .expect(function(res) {
+          expect(res.body).to.have.property('rowCount', 20);
+        })
+        .end(function(err, res) {
+          if (err) {
+            console.log("Error requesting data: ", err);
+            expect(err).to.be.null;
+            return done(err);
+          }
+          done();
+        });
       });
     });
 
