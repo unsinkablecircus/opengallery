@@ -5,7 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var paths = {
   entry: path.resolve(__dirname, '../client/index'),
   output: path.resolve(__dirname, '../public'),
-  local: `http://${process.env.HOSTNAME}:${process.env.PORT}/`,
+  local: `http://${process.env.HOST}:${process.env.PORT}/`,
   bourbon: require('node-bourbon').includePaths
     .map(sassPath => "includePaths[]=" + sassPath).join('&')
 };
