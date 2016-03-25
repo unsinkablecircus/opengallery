@@ -8,7 +8,7 @@ exports.search = tags => {
       LOCK TABLE tags IN SHARE ROW EXCLUSIVE MODE;
 
       SELECT * FROM tags
-      WHERE tag_text = ANY ('{${tags.join(',')}}'::text[]);
+      WHERE tag_text ~* ANY ('{${tags.join(',')}}'::text[]);
 
       COMMIT;`
     )
