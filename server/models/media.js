@@ -42,7 +42,7 @@ exports.uploadToS3 = function (photoId, photo) {
   });
 };
 
-exports.updatePGid = function (photosURLsArr, id) {
+exports.updatePGphotoUrls = function (photosURLsArr, id) {
   //array order is med, large
   //identify which record to update
   // return
@@ -51,6 +51,21 @@ exports.updatePGid = function (photosURLsArr, id) {
     SET
       url_medium = '${photosURLsArr[0]}',
       url_large = '${photosURLsArr[1]}'
+    WHERE id = ${id}
+    RETURNING *
+    `
+  );
+};
+
+exports.updatePGmetaData = function (photoData, id) {
+  //array order is med, large
+  //identify which record to update
+  // return
+  return pg.raw(
+    `UPDATE media
+    SET
+      title = '${photoData.title}',
+      description = '${photoData.description}',
     WHERE id = ${id}
     RETURNING *
     `
