@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 import PhotoUpload from '../components/photo/PhotoUpload'
-import * as photo from '../actions/upload.js'
+import * as photo from '../actions/upload'
+
+import { toggleUpload } from '../actions/upload'
+
 //import other actions from actions folder
 
 const mapStateToProps = (state) => {
@@ -23,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(photo.UploadPhoto(media, user));
     },
     onOpenClick: () => {
-      console.log("Inside onOpenClick function in photoUpload container with photo: ", photo);
+      // console.log("Inside onOpenClick function in photoUpload container with photo: ", photo);
       dispatch(photo.toggleDropWindow());
       // this.refs.dropzone.open(); // also from dropZone example
     },
@@ -31,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(photo.uploadSuccess(response));
     },
     onUploadCancel: () => {
-      console.log("Inside onUploadCancel function in photoUpload container");
+      // console.log("Inside onUploadCancel function in photoUpload container");
       dispatch(photo.uploadCancel());
     },
     onUploadFailure: (error) => {
@@ -41,6 +44,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(photo.uploadRequest());
       dispatch(photo.UploadMetaData(metaData, mediaId));
     },
+    closeUploadModal: () => {
+      dispatch(toggleUpload());
+    }
   }
 }
 

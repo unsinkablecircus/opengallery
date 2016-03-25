@@ -20,7 +20,7 @@ const DropZone = ({
     <div>
       <FlatButton label="Open" primary={true} type="button" onTouchTap={ onOpenClick } />
       <FlatButton label="Cancel" primary={true} type="button" onTouchTap={ onUploadCancel } />
-      <Dropzone ref="dropzone" onDrop={ (photo) => { onPhotoDrop(photo, currentUser) } } >
+      <Dropzone onDrop={ (photo) => { onPhotoDrop(photo, currentUser) } } >
         <div>Click inside or drop file to upload.</div>
       </Dropzone>
       {currentFileUploading.length ? <div>
