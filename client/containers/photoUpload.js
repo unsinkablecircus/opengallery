@@ -22,7 +22,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onPhotoDrop: (media, user) => {
       // console.log("Inside onPhotoDrop function in photoUpload container with photo: ", media, user);
-      dispatch(photo.uploadRequest(media));
       dispatch(photo.UploadPhoto(media, user));
     },
     onOpenClick: () => {

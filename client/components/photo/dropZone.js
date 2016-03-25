@@ -9,7 +9,7 @@ const DropZone = ({
   onOpenClick,
   currentFileUploading
 }) => {
-  console.log('rerendering');
+  console.log('currentfileuploading in dropzone', currentFileUploading)
   const actions = [
     
   ];

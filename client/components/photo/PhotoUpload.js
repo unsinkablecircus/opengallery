@@ -51,6 +51,8 @@ const PhotoUpload = ({
       }}/>
   ];
 
+  console.log('currentFileUploading in photoupload', currentFileUploading)
+
   return (
     <div>
       <Dialog

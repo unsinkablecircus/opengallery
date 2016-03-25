@@ -50,7 +50,7 @@ export function uploadError(message) {
 export function UploadPhoto(photo, userId) {
 
   return (dispatch) => {
-    dispatch(uploadRequest())
+    dispatch(uploadRequest(photo))
     
     return request
             .post('http://localhost:8000/api/media/upload')
