@@ -7,7 +7,8 @@ import DropZone from './dropZone';
 
 const PhotoUpload = ({
   currentUser,
-  isUploadModalOpen, 
+  isUploadModalOpen,
+  isUploading,
   currentFileUploading,
   isDropOpen,
   error,
@@ -25,7 +26,7 @@ const PhotoUpload = ({
 
   const actions = [
     <FlatButton 
-      label='Cancel'
+      label='Close'
       primary={true}
       onTouchTap={closeUploadModal} />,
     <FlatButton
@@ -58,15 +59,14 @@ const PhotoUpload = ({
         <br />
         <TextField ref= { (node) => {info.tags = node} } hintText='tags'/>
         { error !== '' ? <p>errorMessage </p>: '' }
+        { isUploading ? <p>Your image is uploading!</p> : '' }
         <br />
         <DropZone 
           onPhotoDrop={ onPhotoDrop } 
           currentFileUploading={ currentFileUploading } 
           onOpenClick={ onOpenClick } />
         <br />
-        
       </Dialog>
-
     </div>
   )
 }
