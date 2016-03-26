@@ -43,7 +43,7 @@ export function SignupUser(creds) {
   return dispatch => {
     // We dispatch requestSignup to kickoff the call to the API
     dispatch(authRequest())
-    return fetch(`http://${window.location.hostname}:8000/api/user/signUp`, config)
+    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/user/signUp`, config)
       .then( response => {
         if ( !response.ok ) {
           console.log('bad response', response);
@@ -71,7 +71,7 @@ export function SigninUser(creds) {
   }
   return dispatch => {
     dispatch(authRequest());
-    return fetch(`http://${window.location.hostname}:8000/api/user/signIn`, config)
+    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/user/signIn`, config)
       .then(response =>
         response.json()
       )
