@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onPhotoDrop: (media) => {
       // console.log("Inside onPhotoDrop function in photoUpload container with photo: ", media, user);
-      dispatch(photo.photoSelect(media));
+      dispatch(photo.selectPhoto(media));
     },
     onOpenClick: () => {
       // console.log("Inside onOpenClick function in photoUpload container with photo: ", photo);
@@ -39,9 +39,9 @@ const mapDispatchToProps = (dispatch) => {
     onUploadFailure: (error) => {
       dispatch(photo.uploadError(error));
     },
-    onUploadButtonClick: (metaData, mediaId) => {
-      dispatch(photo.uploadRequest());
-      dispatch(photo.UploadMetaData(metaData, mediaId));
+    onUploadButtonClick: (data, media) => {
+      console.log("Inside onUploadButtonClick function");
+      dispatch(photo.uploadPhoto(data, media));
     },
     closeUploadModal: () => {
       dispatch(toggleUpload());
