@@ -79,28 +79,3 @@ export function uploadPhoto(data, photo) {
             });
   }
 }
-/*
-export function UploadMetaData(photoData, photoId) {
-
-  return (dispatch) =>
-    console.log("Inside UploadMetaData function")
-
-    return request
-            .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/edit`)
-            .field('title', '')
-            .field('description', '')
-            .field('metaTags', JSON.stringify([]))
-            .end(function(err, res) {
-              if (err) {
-                console.log('Oh no! error updating metaData!', err);
-                dispatch(uploadError(err));
-              } else {
-                console.log('done uploading');
-                alert('yay! great success!' + JSON.stringify(res.body));
-                dispatch(uploadSuccess(''));
-                //updateSuccess function instead of uploadSuccess
-                //dispatch(updateSuccess());
-              }
-            })
-}
-*/
