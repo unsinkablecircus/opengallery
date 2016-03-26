@@ -1,9 +1,9 @@
 import React from 'react';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
-import TextField from 'material-ui/lib/text-field'
+import TextField from 'material-ui/lib/text-field';
 
-import DropZone from './DropZone'
+import DropZone from './dropZone';
 
 
 //on click => dispatch action: show photo upload

@@ -1,15 +1,17 @@
 FROM node:argon
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN npm install webpack -g
+RUN npm install nodemon -g
 
-# Install app dependencies
-COPY package.json /usr/src/app/
+COPY . /usr/src/app/
+WORKDIR /usr/src/app
 RUN npm install
 
-# Bundle app source
-COPY . /usr/src/app
+RUN npm run build-prod
+
+ENV PRODUCTION=production
+ENV PORT=8000
 
 EXPOSE 8000
+
 CMD [ "npm", "start" ]

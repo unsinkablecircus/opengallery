@@ -61,7 +61,7 @@ export function SaveChanges(data) {
   console.log(config)
   return dispatch => {
     dispatch(updateRequest());
-    return fetch('http://localhost:8000/api/user/saveChanges', config)
+    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/user/saveChanges`, config)
       .then((response) => {
         if ( !response.ok ) {
           dispatch(updateError('Error updating data'));

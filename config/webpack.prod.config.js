@@ -5,20 +5,18 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var paths = {
   entry: path.resolve(__dirname, '../client/index'),
   output: path.resolve(__dirname, '../public'),
-  local: 'http://localhost:8000/',
-  hot: 'webpack-hot-middleware/client?path=/__webpack_hmr',
+  local: `http://${process.env.HOST}:${process.env.PORT}/`,
   bourbon: require('node-bourbon').includePaths
     .map(sassPath => "includePaths[]=" + sassPath).join('&')
 };
 
 module.exports = {
-  entry: [paths.hot, paths.entry],
+  entry: [paths.entry],
   output: {
     path: paths.output,
     publicPath: paths.local,
     filename: 'app.js'
   },
-  devtool: 'eval-cheap-module-source-map',
   resolve: {
     extensions: ['', '.js', '.json', '.scss']
   },
@@ -26,7 +24,7 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['babel'],
         exclude: [/node_modules/, /typings/]
       },
       {
@@ -37,9 +35,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('main.css')
   ]
 };
