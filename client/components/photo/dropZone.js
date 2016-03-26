@@ -3,34 +3,25 @@ import Dropzone from 'react-dropzone'
 import FlatButton from 'material-ui/lib/flat-button';
 
 const DropZone = ({
-  currentUser, 
-  onUploadCancel,
+  currentFileUploading,
   onPhotoDrop,
-  onOpenClick,
-  currentFileUploading
+  onOpenClick
 }) => {
   // console.log('currentfileuploading in dropzone', currentFileUploading)
-  const actions = [
-    
-  ];
-
-  let photoObject = {};
 
   return (
     <div>
       <FlatButton label="Open" primary={true} type="button" onTouchTap={ onOpenClick } />
-      <FlatButton label="Cancel" primary={true} type="button" onTouchTap={ onUploadCancel } />
       <Dropzone onDrop={ onPhotoDrop } >
         <div>Click inside or drop file to upload.</div>
       </Dropzone>
-      { /*currentFileUploading.length ? <div>
-      <h2>Uploading {currentFileUploading.length} file...</h2>
+      { currentFileUploading ? <div>
       <div>
       {
-        currentFileUploading.map((file, index) => <img key={index} src={file.preview} />)
+        currentFileUploading.map((file, index) => <img key={index} src={file.preview}  />)
       }
       </div>
-      </div> : null */}
+      </div> : null }
     </div>
   );
 }
