@@ -31,7 +31,7 @@ const status = (state = startingState, action) => {
       return Object.assign({}, state, {
         isUploading: true,
         isUploaded: false,
-        currentFileUploading: action.payload.file
+        currentFileUploading: ''
       })
     case 'PHOTO_SELECT':
       return Object.assign({}, state, {
