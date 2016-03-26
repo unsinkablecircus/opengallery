@@ -11,7 +11,6 @@ const DropZone = ({
 
   return (
     <div>
-      <FlatButton label="Open" primary={true} type="button" onTouchTap={ onOpenClick } />
       <Dropzone onDrop={ onPhotoDrop } >
         <div>Click inside or drop file to upload.</div>
       </Dropzone>
