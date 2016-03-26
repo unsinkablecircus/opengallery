@@ -18,7 +18,7 @@ create table users (
 create table media (
   id serial primary key,
   user_id integer references users (id),
-  url_small varchar(60),
+  url_small varchar(200000),
   url_medium varchar(60),
   url_large varchar(60),
   title varchar(60),
