@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authActions';
 import { toggleUpload } from '../actions/upload'
 
-import { engine } from '../store'
-
-import { sendSearch } from '../actions/searchActions'
 
 const mapStateToProps = (state) => {
   return {
@@ -17,17 +14,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onLogoutClick: () => {
-      console.log('engggiine', engine)
-      engine.save({})
-      .then( () => {
-        dispatch(logoutUser());
-      })
+      dispatch(logoutUser());
     },
     onToggleUpload: () => {
       dispatch(toggleUpload());
     },
     onSearchSubmit: searchInput => {
-      dispatch(sendSearch(searchInput));
+      console.log('searchinput: ', searchInput);
+      //dispatch( /*** SOME ACTION HERE *****/);
     }
   }
 }
