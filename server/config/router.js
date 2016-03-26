@@ -12,7 +12,7 @@ module.exports = function (app, express) {
   app.post('/api/user/signIn', Auth.signIn);
   app.post('/api/user/signUp', Auth.signUp);
 
-  app.get('/api/user', User.fetchMedia)
+  app.get('/api/user', User.loadProfile)
   app.post('/api/user/saveChanges', Auth.saveChanges);
 
   app.get('/api/media/', Media.getPhotos);
