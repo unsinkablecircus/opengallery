@@ -5,8 +5,8 @@ import { toggleUpload } from '../actions/upload'
 
 import { engine } from '../store'
 
+import { sendSearch } from '../actions/searchActions'
 
-console.log('engine', engine);
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuthenticated,
@@ -25,6 +25,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onToggleUpload: () => {
       dispatch(toggleUpload());
+    },
+    onSearchSubmit: searchInput => {
+      dispatch(sendSearch(searchInput));
     }
   }
 }

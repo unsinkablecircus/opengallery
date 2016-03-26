@@ -90,9 +90,11 @@ export default class Gallery extends React.Component {
                       <GalleryTile data={data[grid[i]]}/>
                       { displayWordmap ? <Wordmap
                         tile={tile}
-                        data={data[grid[i]]}
+                        media={data[grid[i]]}
                         dictionary={dictionary}
                         displayWordmap={displayWordmap}
+                        userId={userId}
+                        submitInput={submitInput}
                       /> : '' }
                     </Tile>
                   }
