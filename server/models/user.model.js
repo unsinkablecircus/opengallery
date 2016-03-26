@@ -18,7 +18,17 @@ exports.fetch = (user, artist) => {
               FROM users u
               WHERE u.id = m.user_id
             ) a
-          ) as artist
+          ) as artist,
+          (
+            SELECT array_to_json(array_agg(row_to_json(f)))
+            FROM (
+              SELECT h.id, h.hashtag_text, mht.total
+              FROM media_hashtag_totals mht
+              INNER JOIN hashtags h
+              ON (mht.hashtag_id = h.id)
+              WHERE mht.media_id = m.id
+            ) f
+          ) as feedback
         FROM media m
         INNER JOIN users u
         ON (m.user_id = u.id)
