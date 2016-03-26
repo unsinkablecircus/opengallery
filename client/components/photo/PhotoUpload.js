@@ -45,29 +45,32 @@ const PhotoUpload = ({
   ];
 
   return (
-    <div>
-      <Dialog
-        title= { 'Upload Photo' }
-        actions = { actions }
-        modal={ true }
-        open={ isUploadModalOpen }
-      >
+    <Dialog
+          title= { 'Upload Photo' }
+          actions = { actions }
+          modal={ true }
+          open={ isUploadModalOpen }
+        >
+      <div className="photo-upload-container">
+        <div className="photo-data-container">
+          <br />
+          <TextField ref= { (node) => {info.title = node} } hintText='title'/> 
+          <br />
+          <TextField ref= { (node) => {info.description = node} } hintText='description'/>
+          <br />
+          <TextField ref= { (node) => {info.tags = node} } hintText='tags'/>
+          { error !== '' ? <p>errorMessage </p>: '' }
+          { isUploading ? <p>Your image is uploading!</p> : '' }
+        </div>
+        <div className="drop-zone-container">
+          <DropZone 
+            onPhotoDrop={ onPhotoDrop } 
+            currentFileUploading={ currentFileUploading } 
+            onOpenClick={ onOpenClick } />
+        </div>
         <br />
-        <TextField ref= { (node) => {info.title = node} } hintText='title'/> 
-        <br />
-        <TextField ref= { (node) => {info.description = node} } hintText='description'/>
-        <br />
-        <TextField ref= { (node) => {info.tags = node} } hintText='tags'/>
-        { error !== '' ? <p>errorMessage </p>: '' }
-        { isUploading ? <p>Your image is uploading!</p> : '' }
-        <br />
-        <DropZone 
-          onPhotoDrop={ onPhotoDrop } 
-          currentFileUploading={ currentFileUploading } 
-          onOpenClick={ onOpenClick } />
-        <br />
-      </Dialog>
-    </div>
+      </div>
+    </Dialog>
   )
 }
 
