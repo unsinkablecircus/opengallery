@@ -1,0 +1,94 @@
+.photo-upload-container {
+  width: 100vw;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+
+  @include respond-to('xsmall') {
+    flex-direction: row;
+  };
+
+  @include respond-to('small') {
+    flex-direction: row;
+  };
+
+  @include respond-to('medium') {
+    flex-direction: row;
+  };
+
+  @include respond-to('large') {
+    flex-direction: row;
+  };
+}
+
+.photo-upload-container >
+.photo-data-container {
+  float: left;
+  width: 50%; 
+  flex: 1;
+
+  @include respond-to('xsmall') {
+    flex: 1;
+  };
+
+  @include respond-to('small') {
+    flex: 1;
+  };
+
+  @include respond-to('medium') {
+    flex: 1;
+  };
+
+  @include respond-to('large') {
+    flex: 1;
+  };
+}
+
+.photo-upload-container >
+.drop-zone-container {
+  width: 24rem
+  float: right; 
+  flex: 1;
+
+  @include respond-to('xsmall') {
+    flex: 1;
+  };
+
+  @include respond-to('small') {
+    flex: 2;
+  };
+
+  @include respond-to('medium') {
+    flex: 2;
+  };
+
+  @include respond-to('large') {
+    flex: 3;
+  };
+}
+
+.drop-zone-box {
+  display: right;
+  width: 205px;
+  float: right;
+  flex: 1;
+
+  @include respond-to('xsmall') {
+    flex: 1;
+  };
+
+  @include respond-to('small') {
+    flex: 2;
+  };
+
+  @include respond-to('medium') {
+    flex: 2;
+  };
+
+  @include respond-to('large') {
+    flex: 3;
+  };
+}
