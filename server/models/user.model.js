@@ -33,7 +33,8 @@ exports.fetch = (user, artist) => {
             SELECT mh.hashtag_id
             FROM media_hashtags mh
             WHERE mh.media_id = m.id
-            AND mh.user_id = ${artist}
+            AND mh.user_id = ${user}
+            LIMIT 1
           ) as user_feedback_id,
           (
             SELECT array_to_json(array_agg(row_to_json(f)))
