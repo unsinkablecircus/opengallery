@@ -30,28 +30,29 @@ const PhotoUpload = ({
   let info = {}
   let title
   let description
+  let tags
 
   const actions = [
     <FlatButton 
       label='Cancel'
-      onTouchTap={closeUploadModal}
-    />,
+      primary={true}
+      onTouchTap={closeUploadModal} />,
     <FlatButton
       label="Submit"
       primary={true}
       onTouchTap={ () => {
-        // generate an object with the values from the input forms
         let metaData = {};
+        metaData.userId = currentUser;
         for (let key in info) {
           if ( info[key].getValue() !== "" ) {
             metaData[key] = info[key].getValue();
           }
         }
-        onTouchTap(onUploadButtonClick(metaData, currentFileUploading));
-      }}/>
+        onUploadButtonClick(metaData, currentFileUploading);
+      }} />
   ];
 
-  console.log('currentFileUploading in photoupload', currentFileUploading)
+  // console.log('currentFileUploading in photoupload', currentFileUploading)
 
   return (
     <div>
@@ -61,18 +62,20 @@ const PhotoUpload = ({
         modal={ true }
         open={ isUploadModalOpen }
       >
-        <DropZone 
-          currentUser={ currentUser }
-          onUploadCancel={ onUploadCancel }
-          onPhotoDrop={ onPhotoDrop } 
-          onOpenClick={ onOpenClick } 
-          currentFileUploading={ currentFileUploading }/>
-        <br />
         <br />
         <TextField ref= { (node) => {info.title = node} } hintText='title'/> 
         <br />
         <TextField ref= { (node) => {info.description = node} } hintText='description'/>
+        <br />
+        <TextField ref= { (node) => {info.tags = node} } hintText='tags'/>
         { error !== '' ? <p>errorMessage </p>: '' }
+        <br />
+        <DropZone 
+          onPhotoDrop={ onPhotoDrop } 
+          currentFileUploading={ currentFileUploading } 
+          onOpenClick={ onOpenClick } />
+        <br />
+        
       </Dialog>
 
     </div>
