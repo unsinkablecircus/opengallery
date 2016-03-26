@@ -4,7 +4,18 @@ import GridTile from './GridTile';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 
-const Grid = ({ tile, grid, data, loadGrid, toggleGallery }) => {
+const Grid = ({ 
+  tile, 
+  grid, 
+  data, 
+  loadGrid, 
+  toggleGallery, 
+  id,
+  username,
+  loadMoreMedia
+}) => {
+  let artist = window.location.pathname.split('/')[2];
+  let self = (artist === username);
 
   return (
     <div id="grid-component">
@@ -14,7 +25,10 @@ const Grid = ({ tile, grid, data, loadGrid, toggleGallery }) => {
         ))}
       </div>
       <div className="button-load">
-        <RaisedButton label="Load More Images"/>
+        <RaisedButton 
+          label="Load More Images"
+          onMouseUp={loadMoreMedia.bind(null, id, artist)}
+        />
       </div>
     </div>
   )

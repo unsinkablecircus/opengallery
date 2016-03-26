@@ -94,16 +94,22 @@ export function loadData(tags) {
   }
 }
 
-export function loadMoreMedia() {
+export function loadMoreMedia(id, artist) {
   let params = {
     method: 'GET',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  };
+
+  if (artist) {
+    let endpoint = `/api/artist?user=${id}&artist=${artist}`;
+  } else {
+    let endpoint = `/api/media?user=${id}`;
   }
 
   return dispatch => {
     dispatch(requestMedia())
 
-    return fetch('/api/media/loadMore', params)
+    return fetch(endpoint, params) // need to get user from state
     .then(response => {
       if (response.status >= 400) {
         dispatch(catchMedia(data.message))

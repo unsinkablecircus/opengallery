@@ -9,7 +9,9 @@ const mapStateToProps = (state) => {
     grid: state.media.grid,
     filter: state.media.filter,
     data: state.media.data,
-    displayGallery: state.view.displayGallery
+    displayGallery: state.view.displayGallery,
+    id: state.user.id,
+    username: state.user.username
   }
 }
 
@@ -17,7 +19,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadGrid: () => { dispatch(grid.loadData(ownProps.filter)) },
     toggleGallery: (tile) => { dispatch(gallery.toggleView(tile)) },
-    loadMoreMedia: () => { dispatch(grid.loadMoreImages()) }
+    loadMoreMedia: (id, artist) => { 
+      dispatch(grid.loadMoreImages(id, artist)) 
+    }
   }
 }
 

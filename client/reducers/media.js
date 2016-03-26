@@ -17,7 +17,7 @@ const media = (state = startingState, action) => {
       return Object.assign({}, state, {
         grid: action.payload.grid,
         data: action.payload.data,
-        dictionary: action.payload.dictionary
+        index: action.payload.index
       })
     case GRID_FILTER:
       return Object.assign({}, state, {
@@ -34,10 +34,6 @@ const media = (state = startingState, action) => {
     case SHOW_PREV:
       return Object.assign({}, state, {
         tile: idx - 1 < 0 ? 0 : idx - 1
-      })
-    case LOAD_MORE_MEDIA_SUCCESS:
-      return Object.assign({}, state, {
-        //tbd
       })
     default:
       return state

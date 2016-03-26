@@ -25,7 +25,6 @@ const User = ({
   switchEditMode,
   saveChanges
 }) => {
-
   let path = window.location.pathname.split('/')[2];
   let isSelf = (path === selfUsername);
   let { id, name, username, email, facebook_url, twitter_url, avatar, media, about, website } = artist;
