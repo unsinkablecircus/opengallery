@@ -29,8 +29,6 @@ const auth = (state=startingState, action) => {
         error: action.payload.message
       })
     case 'LOGOUT':
-      // clear the store
-      console.log('cleared storage');
       localStorage.clear();
       return Object.assign({}, state, {
         isAuthenticated: false,

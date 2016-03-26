@@ -16,4 +16,4 @@ const createStoreWithMiddleware = applyMiddleware(thunk, storageMiddleware, logg
 const store = createStoreWithMiddleware(reducer);
 const history = syncHistoryWithStore(browserHistory, store);
 
-export {store, history}
+export {store, history, engine}

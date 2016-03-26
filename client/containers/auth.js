@@ -12,12 +12,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSigninModalClick: () => {
-      // refactor to extract these actions
-      dispatch({
-        type: 'TOGGLE_SIGNIN_MODAL'
-      })
-    },
     toggleSigninOrSignupLink: () => {
       dispatch({
         type: 'TOGGLE_SIGNIN_OR_SIGNUP_LINK'

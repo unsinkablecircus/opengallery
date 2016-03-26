@@ -1,7 +1,7 @@
 const helpers = require('./helpers.js');
 const multer = require('multer');
 
-const Auth = require('../controllers/users');
+const Auth = require('../controllers/auth.controller');
 const Feedback = require('../controllers/feedback');
 const Media = require('../controllers/media');
 const Meta = require('../controllers/metatags.controller');
@@ -15,12 +15,13 @@ module.exports = function (app, express) {
   app.get('/api/user', User.loadProfile)
   app.post('/api/user/saveChanges', Auth.saveChanges);
 
-  app.get('/api/media/', Media.getPhotos);
+  app.get('/api/media/', Media.getPhotos); 
   app.post('/api/media/upload', multer().single('artImage'), Media.uploadPhoto);
   // app.post('/api/media/edit', Media.updatePhoto);
 
-  app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 
+  app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
+  
   app.get('/api/metatags', Meta.searchTags)
   app.post('/api/metatags', Meta.createTags)
 

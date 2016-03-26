@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authActions';
 import { toggleUpload } from '../actions/upload'
 
+
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuthenticated,
@@ -17,10 +18,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     onToggleUpload: () => {
       dispatch(toggleUpload());
+    },
+    onSearchSubmit: searchInput => {
+      console.log('searchinput: ', searchInput);
+      //dispatch( /*** SOME ACTION HERE *****/);
     }
   }
 }
-
 // if the second parameter is left out, then it defaults to injecting dispatch only as the second arg
 const container = connect(mapStateToProps, mapDispatchToProps)(Nav);
 

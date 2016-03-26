@@ -11,12 +11,13 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert'
 import ProfileIcon from 'material-ui/lib/svg-icons/action/face'
 
+
 import darkBaseTheme from 'material-ui/lib/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider'
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme'
 
-import { connect } from 'react-redux'
 
+import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
 const darkMuiTheme = getMuiTheme(darkBaseTheme)
@@ -28,7 +29,8 @@ let Nav = ({
   isAuth,
   onLogoutClick,
   onToggleUpload,
-  username
+  username,
+  onSearchSubmit
 }) => {
 
 
@@ -43,6 +45,8 @@ let Nav = ({
       textTransform: 'capitalize'
     }
   }
+
+  let searchInput;
 
   return (
     <MuiThemeProvider muiTheme={darkMuiTheme}>
@@ -63,6 +67,15 @@ let Nav = ({
             <IconButton tooltip='Discover'>
               <DiscoverIcon color='#303030'/>
             </IconButton>
+            <input
+              style={{borderRadius: '3px', height: '30px', width: '500px', marginLeft: '20px', transform: 'translateY(-5px)', fontSize:'20px'}} 
+              ref={ (node) => {searchInput = node} }
+            />
+            <FlatButton 
+              style={{'marginLeft': '10px', fontSize:'20px'}}
+              label='Search'
+              onTouchTap={ () => {onSearchSubmit(searchInput.value)} }
+            />
           </div>
         }
         iconElementRight={

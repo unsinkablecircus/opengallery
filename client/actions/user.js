@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
 export function storeUserData(data) {
-  console.log('data from storeuserData on actions: ', data);
   return {
     type: 'STORE_USER_DATA',
     payload: {
@@ -57,8 +56,9 @@ export function SaveChanges(data) {
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `id=${data.id}&name=${data.name === 'undefined' ? null : data.name}&email=${data.email === 'undefined' ? null : data.email}&website=${data.website === 'undefined' ? null : data.website}&facebook_url=${data.facebook_url ? null : data.facebook_url}&twitter_url=${data.twitter_url ? null : data.twitter_url}`
+    body: `id=${data.id}&name=${data.name === 'undefined' ? null : data.name}&email=${data.email === 'undefined' ? null : data.email}&website=${data.website === 'undefined' ? null : data.website}&facebook_url=${data.facebook_url === 'undefined' ? null : data.facebook_url}&twitter_url=${data.twitter_url === 'undefined' ? null : data.twitter_url}`
   }
+  console.log(config)
   return dispatch => {
     dispatch(updateRequest());
     return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/user/saveChanges`, config)

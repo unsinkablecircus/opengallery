@@ -29,6 +29,9 @@ export function submitInput(userId, mediaId, feedback) {
     body: `userId=${userId}&feedback=${feedback}&mediaId=${mediaId}`
   }
 
+
+  console.log('config', config);
+
   return (dispatch) => {
     fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/feedback/submitFeedback`, config)
     .then( response => (

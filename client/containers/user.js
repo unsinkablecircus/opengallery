@@ -20,8 +20,10 @@ const mapDispatchToProps = (dispatch) => {
     switchEditMode: () => {
       dispatch(switchEditMode());
     },
-    saveChanges: (data) => {
-      dispatch(SaveChanges(data));
+    saveChanges: (values) => {
+
+      console.log('values', values);
+      dispatch(SaveChanges(values));
     }
   }
 }

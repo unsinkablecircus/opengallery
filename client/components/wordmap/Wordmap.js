@@ -16,13 +16,15 @@ const tooltipProps = [{
 
 export default class Wordmap extends React.Component {
   render () {
-    let { tile, data, dictionary } = this.props
-    let sentiment = data.feedback.map((hashtag, i) => ({
+    let { tile, media, dictionary, userId, submitInput } = this.props
+    let sentiment = media.feedback.map((hashtag, i) => ({
       _id: dictionary[hashtag[0]],
       value: hashtag[1],
       colorValue: i,
-      selected: hashtag[0] === data.userFeedbackId
+      selected: hashtag[0] === media.userFeedbackId
     }))
+
+    let mediaId = media.mediaId;
 
     return (
       <div className="wordmap-component">
@@ -31,7 +33,7 @@ export default class Wordmap extends React.Component {
           selectedColor="white"
           selectedTextColor="rgba(0, 0, 0, 0.75)"
           fixedDomain={{ min: -1, max: 1 }}
-          onClick={() => {}}
+          onClick={({_id}) => { submitInput(userId, mediaId, _id) }}
           legend={false}
           legendSpacing={0}
           tooltip={false}
