@@ -20,9 +20,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPhotoDrop: (media, user) => {
+    onPhotoDrop: (media) => {
       // console.log("Inside onPhotoDrop function in photoUpload container with photo: ", media, user);
-      dispatch(photo.UploadPhoto(media, user));
+      dispatch(photo.photoSelect(media));
     },
     onOpenClick: () => {
       // console.log("Inside onOpenClick function in photoUpload container with photo: ", photo);
