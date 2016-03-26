@@ -60,7 +60,6 @@ export function uploadPhoto(data, photo) {
 
   return (dispatch) => {
     dispatch(uploadRequest(photo))
-    console.log("Inside UploadPhoto function");
     return request
             .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/upload`)
             .field('user', data.userId)
