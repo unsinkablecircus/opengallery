@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
     currentUser: state.user.id,
     currentPhotoIdToUpdateData: state.status.currentPhotoIdToUpdateData,
     isUploadModalOpen: state.view.isUploadModalOpen,
+    isUploading: state.status.isUploading,
     currentFileUploading: state.status.currentFileUploading,
     isDropOpen: state.status.isDropOpen,
     error: state.status.error
