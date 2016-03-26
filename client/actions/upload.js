@@ -13,6 +13,15 @@ export function toggleDropWindow() {
   }
 };
 
+export function selectPhoto(file) {
+  return {
+    type: 'PHOTO_SELECT',
+    payload: {
+      file: file
+    }
+  }
+};
+
 export function uploadRequest(file) {
   return {
     type: 'UPLOAD_REQUEST',
