@@ -55,6 +55,9 @@ export function UploadPhoto(photo, userId) {
     return request
             .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/upload`)
             .field('user', userId)
+            .field('title', '')
+            .field('description', '')
+            .field('metaTags', JSON.stringify([]))
             .attach('artImage', photo[0])
             .end(function(err, res){
               if (err) {
@@ -67,7 +70,7 @@ export function UploadPhoto(photo, userId) {
             });
   }
 }
-
+/*
 export function UploadMetaData(photoData, photoId) {
 
   return (dispatch) =>
@@ -91,3 +94,4 @@ export function UploadMetaData(photoData, photoId) {
               }
             })
 }
+*/
