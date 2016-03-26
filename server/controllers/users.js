@@ -87,6 +87,7 @@ module.exports = {
   },
 
   saveChanges: function (req, res, next) {
+    console.log('data', req.body);
     var data = {
       name: req.body.name === 'undefined' ? '' : req.body.name,
       email: req.body.email === 'undefined' ? '' : req.body.email,

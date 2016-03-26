@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-
+import {reducer as formReducer} from 'redux-form';
 import auth from './auth'
 // import grid from './grid';
 import media from './media'
@@ -8,9 +8,11 @@ import view from './view'
 import user from './user'
 import { routerReducer } from 'react-router-redux';
 
+
+
 const reducers = combineReducers({
   auth,
-  // grid,
+  form: formReducer,
   user,
   status,
   view,

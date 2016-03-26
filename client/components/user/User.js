@@ -30,7 +30,6 @@ const User = ({
   saveChanges
 }) => {
 
-  console.log('rendering user');
 
   let data = {
     id
@@ -38,13 +37,24 @@ const User = ({
   let path = window.location.pathname.split('/')[2];
   let self = (path === username);
 
+  let refHolder = {};
+
+
   let button;
   if (self) {
     button = <FlatButton
                 label={editMode ? 'Save Changes' : 'Edit Profile'}
                 secondary={true}
-                icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />}
-                onTouchTap={editMode ? saveChanges.bind(null, data) : switchEditMode}
+                icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user_edit_save_button" />}
+                onTouchTap={ () => {
+                  const values = {};
+                  values.id = id;
+                  for ( var key in refHolder ) {
+                    values[key] = refHolder[key].getValue();
+                  }
+                  console.log(values);
+                  editMode ? saveChanges(values) : switchEditMode()
+                }}
               />
   }
 
@@ -57,6 +67,7 @@ const User = ({
               size={200} 
               className="user-avatar"
             />
+
             {button}
             <div className="user-row">
               <Person color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
@@ -72,10 +83,10 @@ const User = ({
               <TextField
                 disabled={self && editMode ? false : true}
                 defaultValue={self && name ? name : ''}
-                hintText={self && name ? '' : 'No Name Listed'}
+                hintText='name'
                 className="user-field"
                 underlineShow={self && editMode ? true : false}
-                onChange={(event) => { data.name = event.target.value }}
+                ref={ (node) => {refHolder.name = node}}
               />
             </div>
             <div className="user-row">
@@ -83,10 +94,11 @@ const User = ({
               <TextField
                 disabled={self && editMode ? false : true}
                 defaultValue={self && email ? email : ''}
-                hintText={self && email ? '' : 'No Email Listed'}
+                hintText='email'
+
                 className="user-field"
                 underlineShow={self && editMode ? true : false}
-                onChange={(event) => { data.email = event.target.value }}
+                ref={ (node) => {refHolder.email = node}}
               />
             </div>
             <div className="user-row">
@@ -94,10 +106,10 @@ const User = ({
               <TextField
                 disabled={self && editMode ? false : true}
                 defaultValue={self && website ? website : ''}
-                hintText={self && website ? '' : 'No Website Listed'}
                 className="user-field"
+                hintText='website'
                 underlineShow={self && editMode ? true : false}
-                onChange={(event) => { data.website = event.target.value }}
+                ref={ (node) => {refHolder.website = node}}
               />
             </div>
             <div className="user-row">
@@ -105,10 +117,10 @@ const User = ({
               <TextField
                 disabled={self && editMode ? false : true}
                 defaultValue={self && facebook_url ? facebook_url : ''}
-                hintText={self && facebook_url ? '' : 'No Facebook URL Listed'}
                 className="user-field"
+                hintText='facebook_url'
                 underlineShow={self && editMode ? true : false}
-                onChange={(event) => { data.facebook_url = event.target.value }}
+                ref={ (node) => {refHolder.facebook_url = node}}
               />
             </div>
             <div className="user-row">
@@ -116,10 +128,10 @@ const User = ({
               <TextField
                 disabled={self && editMode ? false : true}
                 defaultValue={self && twitter_url ? twitter_url : ''}
-                hintText={self && twitter_url ? '' : 'No Twitter URL Listed'}
                 className="user-field"
+                hintText='twitter_url'
                 underlineShow={self && editMode ? true : false}
-                onChange={(event) => { data.twitter_url = event.target.value }}
+                ref={ (node) => {refHolder.twitter_url = node}}
               />
             </div>
           </div>

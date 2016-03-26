@@ -83,6 +83,7 @@ export function UploadMetaData(photoData, photoId) {
                 console.log('Oh no! error updating metaData!', err);
                 dispatch(uploadError(err));
               } else {
+                console.log('done uploading');
                 alert('yay! great success!' + JSON.stringify(res.body));
                 dispatch(uploadSuccess(''));
                 //updateSuccess function instead of uploadSuccess
