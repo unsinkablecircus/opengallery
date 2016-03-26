@@ -5,25 +5,16 @@ import TextField from 'material-ui/lib/text-field';
 
 import DropZone from './dropZone';
 
-
-//on click => dispatch action: show photo upload
-//action: show photo upload => update state on model component (this?)
-// on drop (use drop zone) => dispatch 'isUploading' function (similar to authActions file)
-// on http request for photoUpload endpoint, dispatch 'uploaded' action
-// 
-
 const PhotoUpload = ({
   currentUser,
-  isDropOpen,
-  currentFileUploading,
-  isUploaded,
   isUploadModalOpen, 
+  currentFileUploading,
+  isDropOpen,
   error,
   onPhotoDrop,
   onOpenClick,
   onUploadSuccess,
   onUploadFailure,
-  onUploadCancel,
   onUploadButtonClick,
   closeUploadModal
 }) => {
@@ -51,8 +42,6 @@ const PhotoUpload = ({
         onUploadButtonClick(metaData, currentFileUploading);
       }} />
   ];
-
-  // console.log('currentFileUploading in photoupload', currentFileUploading)
 
   return (
     <div>
