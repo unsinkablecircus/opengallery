@@ -56,17 +56,17 @@ export function uploadError(message) {
   }
 };
 
-export function UploadPhoto(photo, userId) {
+export function uploadPhoto(data, photo) {
 
   return (dispatch) => {
     dispatch(uploadRequest(photo))
-    
+    console.log("Inside UploadPhoto function");
     return request
             .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/upload`)
-            .field('user', userId)
-            .field('title', '')
-            .field('description', '')
-            .field('metaTags', JSON.stringify([]))
+            .field('user', data.userId)
+            .field('title', data.title)
+            .field('description', data.description)
+            .field('metaTags', JSON.stringify(data.tags))
             .attach('artImage', photo[0])
             .end(function(err, res){
               if (err) {
