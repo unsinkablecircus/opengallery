@@ -20,6 +20,16 @@ exports.fetch = (user, artist) => {
             ) a
           ) as artist,
           (
+            SELECT array_agg(tags) as tags
+            FROM (
+              SELECT t.tag_text as tags
+              FROM media_tags mt
+              INNER JOIN tags t
+              ON (mt.tag_id = t.id)
+              WHERE mt.media_id = m.id
+            ) tags
+          ),
+          (
             SELECT mh.hashtag_id
             FROM media_hashtags mh
             WHERE mh.media_id = m.id
@@ -28,7 +38,7 @@ exports.fetch = (user, artist) => {
           (
             SELECT array_to_json(array_agg(row_to_json(f)))
             FROM (
-              SELECT h.id, h.hashtag_text, mht.total
+              SELECT h.id, h.hashtag_text as impression, mht.total as count
               FROM media_hashtag_totals mht
               INNER JOIN hashtags h
               ON (mht.hashtag_id = h.id)
