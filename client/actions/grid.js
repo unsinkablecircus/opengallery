@@ -38,6 +38,34 @@ export function catchData(error) {
   }
 }
 
+export function requestMedia() {
+  return {
+    type: LOAD_MORE_MEDIA_REQUEST,
+    payload: true
+  }
+}
+
+export function receiveMedia(data) {
+  return {
+    type: LOAD_MORE_MEDIA_SUCCESS,
+    payload: data,
+    error: '',
+    meta: {
+      fetching: false
+    }
+  }
+}
+
+export function catchMedia(error) {
+  return {
+    type: LOAD_MORE_MEDIA_FAILURE,
+    error,
+    meta: {
+      fetching: false
+    }
+  }
+}
+
 export function loadData(tags) {
   let params = {
     method: 'GET',
@@ -58,6 +86,33 @@ export function loadData(tags) {
     })
     .then(function(gridData) {
       dispatch(receiveData(gridData))
+    })
+    .catch(err => {
+      console.error(`Network failure prevented data retrieval: ${err}`)
+      throw new Error(`Network failure prevented data retrieval: ${err}`)
+    })
+  }
+}
+
+export function loadMoreMedia() {
+  let params = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+
+  return dispatch => {
+    dispatch(requestMedia())
+
+    return fetch('/api/media/loadMore', params)
+    .then(response => {
+      if (response.status >= 400) {
+        dispatch(catchMedia(data.message))
+        return Promise.reject(data)
+      }
+      return response.json()
+    })
+    .then(function(gridData) {
+      dispatch(receiveMedia(gridData))
     })
     .catch(err => {
       console.error(`Network failure prevented data retrieval: ${err}`)

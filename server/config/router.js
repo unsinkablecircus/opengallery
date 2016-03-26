@@ -20,7 +20,6 @@ module.exports = function (app, express) {
   app.post('/api/media/upload', multer().single('artImage'), Media.uploadPhoto);
   // app.post('/api/media/edit', Media.updatePhoto);
 
-
   app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 
   app.get('/api/vision', Vision.detectLabels)

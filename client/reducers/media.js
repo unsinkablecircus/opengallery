@@ -35,6 +35,10 @@ const media = (state = startingState, action) => {
       return Object.assign({}, state, {
         tile: idx - 1 < 0 ? 0 : idx - 1
       })
+    case LOAD_MORE_MEDIA_SUCCESS:
+      return Object.assign({}, state, {
+        //tbd
+      })
     default:
       return state
   }

@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadGrid: () => { dispatch(grid.loadData(ownProps.filter)) },
-    toggleGallery: (tile) => { dispatch(gallery.toggleView(tile)) }
+    toggleGallery: (tile) => { dispatch(gallery.toggleView(tile)) },
+    loadMoreMedia: () => { dispatch(grid.loadMoreImages()) }
   }
 }
 
