@@ -11,8 +11,6 @@ require('./config/router')(app, express);
 /* -------------- */
 /*     SERVER     */
 /* -------------- */
-console.log('process.env.PRODUCTION on main server: ', process.env.PRODUCTION);
-console.log('process.env.PORT on main server: ', process.env.PORT);
 
 var port = Number(process.env.PORT || 8000);
 if(!module.parent){
