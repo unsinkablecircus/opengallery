@@ -16,7 +16,7 @@ module.exports = function (app, express) {
   app.get('/api/artist', User.loadProfile)
   app.post('/api/user/saveChanges', Auth.saveChanges);
 
-  app.get('/api/media/', Media.getPhotos);
+  app.get('/api/media', Media.getPhotos); 
   app.post('/api/media/upload', multer().single('artImage'), Media.uploadPhoto);
   // app.post('/api/media/edit', Media.updatePhoto);
 

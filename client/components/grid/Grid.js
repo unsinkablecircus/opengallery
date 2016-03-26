@@ -12,10 +12,9 @@ const Grid = ({
   toggleGallery, 
   id,
   username,
-  loadMoreMedia
+  loadData
 }) => {
   let artist = window.location.pathname.split('/')[2];
-  let self = (artist === username);
 
   return (
     <div id="grid-component">
@@ -27,7 +26,7 @@ const Grid = ({
       <div className="button-load">
         <RaisedButton 
           label="Load More Images"
-          onMouseUp={loadMoreMedia.bind(null, id, artist)}
+          onMouseUp={loadData.bind(null, id, artist)}
         />
       </div>
     </div>

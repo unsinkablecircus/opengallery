@@ -16,12 +16,8 @@ const media = (state = startingState, action) => {
     case GRID_SUCCESS:
       return Object.assign({}, state, {
         grid: action.payload.grid,
-        data: action.payload.data,
-        index: action.payload.index
-      })
-    case GRID_FILTER:
-      return Object.assign({}, state, {
-        filter: action.payload
+        data: action.payload.data//,
+        // index: state.media.index + 1
       })
     case TOGGLE_GALLERY:
       return Object.assign({}, state, {
