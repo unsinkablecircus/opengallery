@@ -4,8 +4,10 @@ const Meta = require('../models/metatags.model')
 /*     GET /api/meta     */
 /*-----------------------*/
 exports.searchTags = (req, res) => {
-  // URL + '?tags=' + tags.join('?tags=')
-  Meta.fetch(req.query.tags)
+  // Change it so this controller is called from MEDIA?
+  // then you just give it a req.tags and a req.mediaId???
+  // or do we need this to be an endpoint ever?
+  Meta.fetch(req.query)
   .then( data => {
     res.status(200).json(data)
   })
