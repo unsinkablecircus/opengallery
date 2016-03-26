@@ -10,17 +10,17 @@ const DropZone = ({
   // console.log('currentfileuploading in dropzone', currentFileUploading)
 
   return (
-    <div>
-      <Dropzone onDrop={ onPhotoDrop } >
-        <div>Click inside or drop file to upload.</div>
-      </Dropzone>
+    <div className="drop-zone-box">
+      
       { currentFileUploading ? <div>
       <div>
       {
         currentFileUploading.map((file, index) => <img key={index} src={file.preview}  />)
       }
       </div>
-      </div> : null }
+      </div> : <Dropzone onDrop={ onPhotoDrop } >
+        <div>Click inside or drop file to upload.</div>
+      </Dropzone> }
     </div>
   );
 }
