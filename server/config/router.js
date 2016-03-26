@@ -1,18 +1,19 @@
 const helpers = require('./helpers.js');
-//https://github.com/expressjs/multer for image upload parsing
-var multer = require('multer');
+const multer = require('multer');
 
-var User = require('../controllers/users');
-var Media = require('../controllers/media');
-var Feedback = require('../controllers/feedback');
-var Meta = require('../controllers/metatags.controller');
+const Auth = require('../controllers/users');
+const Feedback = require('../controllers/feedback');
+const Media = require('../controllers/media');
+const Meta = require('../controllers/metatags.controller');
+const User = require('../controllers/user.controller');
 
 module.exports = function (app, express) {
 
-  app.post('/api/user/signIn', User.signIn);
-  app.post('/api/user/signUp', User.signUp);
+  app.post('/api/user/signIn', Auth.signIn);
+  app.post('/api/user/signUp', Auth.signUp);
 
-  app.post('/api/user/saveChanges', User.saveChanges);
+  app.get('/api/user', User.fetchMedia)
+  app.post('/api/user/saveChanges', Auth.saveChanges);
 
   app.get('/api/media/', Media.getPhotos);
   app.post('/api/media/upload', multer().single('artImage'), Media.uploadPhoto);
