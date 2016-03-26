@@ -37,12 +37,6 @@ const status = (state = startingState, action) => {
       return Object.assign({}, state, {
         currentFileUploading: action.payload.file
       })
-    case 'UPLOAD_CANCEL':
-      return Object.assign({}, state, {
-        isUploading: false,
-        isUploaded: false,
-        currentFileUploading: ''
-      })
     case 'UPLOAD_SUCCESS':
       return Object.assign({}, state, {
         isUploading: false,
