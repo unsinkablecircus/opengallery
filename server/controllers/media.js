@@ -6,7 +6,6 @@ const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
 
 const resizePhoto = ({ buffer, mimetype }, size, quality) => {
-  // mimetype = mimetype || 'image/bmp'
   return jimp.read(buffer)
   .then(image => {
     return new Promise(function(resolve, reject) {
@@ -42,11 +41,11 @@ exports.uploadPhoto = function (req, res) {
   var responseObject = {
     id: null,
     user_id: 5,
-    url_small: '', //resizedPhotos.small
+    url_small: '',
     url_med: '',
     url_large: '',
-    title: '', // photo.PGupload.title
-    description: 'GOT IT' // photo.PGupload.description
+    title: '',
+    description: 'GOT IT'
   }
 
   if (req.file) {
@@ -58,7 +57,6 @@ exports.uploadPhoto = function (req, res) {
     })
     .catch( err => {
       console.error(`Error resizing photo: ${err}`)
-      // reject(`Error resizing photo: ${err}`)
     })
     .then( mediumBuffer => {
       req.file.buffer_med = mediumBuffer;
@@ -81,14 +79,14 @@ exports.uploadPhoto = function (req, res) {
       ])
     })
     .catch((err) => {
-      console.log('error uploading images to s3 db', err)
+      console.log('Error uploading images to s3 db', err)
       res.status(404).json({"error": err});
     })
     .then((url) => {
       return Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
     })
     .catch((err) => {
-      console.log('error updating URLs to PG db', err);
+      console.log('Error updating URLs to PG db', err);
       res.status(404).json({"error": err});
     })
     .then(() => {
