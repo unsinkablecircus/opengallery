@@ -1,7 +1,7 @@
 var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
 
-var comparePassword = (candidatePassword, user) => {
+exports.Password = (candidatePassword, user) => {
   const savedPassword = user.password;
   return new Promise(function(resolve, reject) {
     console.log('comparing pw...')
@@ -17,8 +17,8 @@ var comparePassword = (candidatePassword, user) => {
   })
 }
 
-// takes PW, returns 
-var hashPassword = (password) => {
+// takes PW, returns
+exports.hashPassword = (password) => {
   return new Promise(function(resolve, reject) {
     bcrypt.hash(password, null, null, function (err, hash) {
       if (err) {
@@ -30,7 +30,7 @@ var hashPassword = (password) => {
   })
 }
 
-module.exports = {
-  comparePassword,
-  hashPassword
+exports.isInt = (val) => {
+  int = parseInt(val)
+  return Number(int) === int && int % 1 === 0
 }
