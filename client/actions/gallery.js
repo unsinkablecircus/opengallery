@@ -30,7 +30,7 @@ export function submitInput(userId, mediaId, feedback) {
   }
 
   return (dispatch) => {
-    fetch('http://localhost:8000/api/feedback/submitFeedback', config)
+    fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/feedback/submitFeedback`, config)
     .then( response => (
       response.json()
     ))
