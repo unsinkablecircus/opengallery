@@ -5,9 +5,12 @@ const fs = require('fs')
 const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
 
+const imageData = {};
 const resizePhoto = ({ buffer, mimetype }, size, quality) => {
   return jimp.read(buffer)
   .then(image => {
+    imageData.width = image.bitmap.width;
+    imageData.height = image.bitmap.height;
     return new Promise(function(resolve, reject) {
       image.clone().resize(size, jimp.AUTO, jimp.RESIZE_BEZIER).quality(quality)
       .getBuffer(mimetype, (err, buffer) => {
@@ -15,7 +18,7 @@ const resizePhoto = ({ buffer, mimetype }, size, quality) => {
           console.error(`Error parsing Jimp buffer to ${mimetype}: ${err}`)
           reject(`Error parsing Jimp buffer to ${mimetype}: ${err}`)
         } else {
-          resolve(buffer)
+          resolve(buffer);
         }
       })
     })
@@ -49,9 +52,14 @@ exports.uploadPhoto = function (req, res) {
   }
 
   if (req.file) {
-
     resizePhoto(req.file, 25, 0)
     .then( buffer => {
+      req.body.width = imageData.width;
+      req.body.height = imageData.height;
+      req.body.mimetype = req.file.mimetype;
+      req.body.url_small = new Buffer(buffer).toString('base64')
+      req.body.url_medium = '';
+      req.body.url_large = '';
       responseObject.url_small = new Buffer(buffer).toString('base64')
       return resizePhoto(req.file, 800, 100)
     })
@@ -60,7 +68,7 @@ exports.uploadPhoto = function (req, res) {
     })
     .then( mediumBuffer => {
       req.file.buffer_med = mediumBuffer;
-      return Media.uploadToPG(req.body.user)
+      return Media.uploadToPG(req.body)
     })
     .catch((err) => {
       console.log('Error uploading metaData to PostgreSQL', err);
