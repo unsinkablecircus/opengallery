@@ -17,7 +17,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    loadGrid: () => { dispatch(grid.loadData(ownProps.filter)) },
     toggleGallery: (tile) => { dispatch(gallery.toggleView(tile)) },
     loadData: (id, artist) => { 
       dispatch(grid.loadData(id, artist));

@@ -33,6 +33,21 @@ export function catchData(error) {
   }
 }
 
+export function updateArtist() {
+  return {
+    type: UPDATE_ARTIST,
+    payload: {
+      id,
+      username,
+      name,
+      email,
+      website,
+      facebook_url,
+      twitter_url,
+    }
+  }
+}
+
 export function loadData(id, artist) {
   let params = {
     method: 'GET',
@@ -79,6 +94,7 @@ export function loadData(id, artist) {
         };
       });
       dispatch(receiveData(grid, data));
+      dispatch(updateArtist());
     })
     .catch(err => {
       console.error(`Network failure prevented data retrieval: ${err}`)
