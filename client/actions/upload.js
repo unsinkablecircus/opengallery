@@ -22,6 +22,12 @@ export function selectPhoto(file) {
   }
 };
 
+export function removePhoto() {
+  return {
+    type: 'REMOVE_PHOTO'
+  }
+};
+
 export function uploadRequest(file) {
   return {
     type: 'UPLOAD_REQUEST',
