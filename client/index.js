@@ -14,7 +14,6 @@ import reducers from './reducers/index'
 
 require('./stylesheets/main.scss');
 
-
 import {store, history} from './store'
 
 ReactDOM.render(
