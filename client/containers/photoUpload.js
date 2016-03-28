@@ -21,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
     onPhotoDrop: (media) => {
       dispatch(photo.selectPhoto(media));
     },
+    onRemoveCurrentPhoto: () => {
+      dispatch(photo.removePhoto());
+    },
     onOpenClick: () => {
       dispatch(photo.toggleDropWindow());
     },
