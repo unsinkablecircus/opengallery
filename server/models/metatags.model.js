@@ -1,19 +1,34 @@
 const pg = require('../db/database')
+const query = require('../config/utilities/media.utility')
+const { isInt } = query
 const Promise = require('bluebird')
 
 exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
-  if (Array.isArray(tags)) {
+  if (Array.isArray(tags) && tags.length) {
     return pg.raw(`
-      SELECT array_to_json(array_agg(row_to_json(d))) AS data
-      FROM (
-        SELECT *
-        FROM tags tg
-        WHERE tg.tag_text ~* ANY ('{${ tags.join(',') }}'::text[])
-        OFFSET ${ 18 * page } LIMIT 18
-      ) d;
+      SELECT * FROM (
+        SELECT array_to_json(array_agg(row_to_json(some_tags))) AS data
+        FROM (
+          SELECT DISTINCT ON (m.id) ${ query.media(user) }
+          FROM ${ query.metatags}
+          WHERE t.tag_text ~* ANY ('{[${ tags.join(',') }}'::text[])
+          ORDER BY m.id
+          OFFSET ${ 18 * page } LIMIT 18
+        ) some_tags
+      ) page
     `)
   } else {
-    return Promise.reject(`Metatags query must be an array, not ${typeof tags}`)
+    return pg.raw(`
+      SELECT * FROM (
+        SELECT array_to_json(array_agg(row_to_json(some_tags))) AS data
+        FROM (
+          SELECT DISTINCT ON (m.id) ${ query.media(user) }
+          FROM ${ query.metatags}
+          ORDER BY m.id DESC
+          OFFSET ${ 18 * page } LIMIT 18
+        ) some_tags
+      ) page
+    `)
   }
 }
 
