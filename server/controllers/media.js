@@ -3,6 +3,7 @@ const jimp = require('jimp')
 const fs = require('fs')
 
 const Media = require('../models/media')
+const MetaTags = require('../models/metatags.model')
 
 //helper functions
 const separateData = (data) => {
@@ -35,18 +36,15 @@ const resizePhoto = ({ buffer, mimetype }, size, quality) => {
   })
 }
 
-//controller handles function delegation
 exports.getPhotos = function (req, res) {
-  Media.retrievePhotosFromPG()
-  .then((photos) => {
-    console.log("Success retrieving photos");
-
-    res.status(200).json(photos);
+  MetaTags.fetch(req.query)
+  .then( data => {
+    res.status(200).json(data)
   })
-  .catch((err) => {
-    console.log("Error retrieving photos", err);
-    res.status(404).send();
-  });
+  .catch( err => {
+    console.error(`[Error] Failed to query meta tags in PG: ${err}`)
+    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+  })
 }
 
 exports.uploadPhoto = function (req, res) {
