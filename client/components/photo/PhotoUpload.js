@@ -50,19 +50,21 @@ const PhotoUpload = ({
           actions = { actions }
           modal={ true }
           open={ isUploadModalOpen }
+          autoScrollBodyContent={ true }
         >
       <div className="photo-upload-container">
         <div className="photo-data-container">
           <br />
-          <TextField ref= { (node) => {info.title = node} } hintText='title'/> 
+          <TextField ref= { (node) => {info.title = node} } hintText='title' fullWidth={true}/> 
           <br />
-          <TextField ref= { (node) => {info.description = node} } hintText='description'/>
+          <TextField ref= { (node) => {info.description = node} } hintText='description' fullWidth={true}/>
           <br />
-          <TextField ref= { (node) => {info.tags = node} } hintText='tags'/>
-          { error !== '' ? <p>errorMessage </p>: '' }
-          { isUploading ? <p>Your image is uploading!</p> : '' }
+          <TextField ref= { (node) => {info.tags = node} } hintText='media tags' fullWidth={true}/>
         </div>
+        <br />
         <div className="drop-zone-container">
+          { error !== '' ? <p>errorMessage </p>: '' }
+          { isUploading ? <p>Your image is uploading...</p> : '' }
           <DropZone 
             onPhotoDrop={ onPhotoDrop } 
             currentFileUploading={ currentFileUploading } 
