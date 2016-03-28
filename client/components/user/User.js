@@ -17,38 +17,31 @@ import Face from 'material-ui/lib/svg-icons/social/mood';
 import Website from 'material-ui/lib/svg-icons/social/public';
 import Colors from 'material-ui/lib/styles/colors';
 
+
 const User = ({
-  id,
-  username,
-  name,
-  email,
-  website,
-  facebook_url,
-  twitter_url,
+  artist,
+  selfUsername,
   editMode,
   switchEditMode,
   saveChanges
 }) => {
 
-
-  let data = {
-    id
-  };
   let path = window.location.pathname.split('/')[2];
-  let self = (path === username);
-
+  let isSelf = (path === selfUsername);
+  let { id, name, username, email, facebook_url, twitter_url, avatar, media, about, website } = artist;
   let refHolder = {};
 
+  let data = { id: self.id };
 
   let button;
-  if (self) {
+  if ( isSelf ) {
     button = <FlatButton
                 label={editMode ? 'Save Changes' : 'Edit Profile'}
                 secondary={true}
                 icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user_edit_save_button" />}
                 onTouchTap={ () => {
                   const values = {};
-                  values.id = id;
+                  values.id = self.id;
                   for ( var key in refHolder ) {
                     values[key] = refHolder[key].getValue();
                   }
@@ -57,6 +50,7 @@ const User = ({
                 }}
               />
   }
+
 
   return (
     <div id="user-component">
@@ -67,71 +61,93 @@ const User = ({
               size={200} 
               className="user-avatar"
             />
-
             {button}
             <div className="user-row">
-              <Person color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Person color={ editMode ? Colors.red500 : Colors.blue500 } className="user-icon" />
               <TextField
                 disabled={true}
-                defaultValue={self ? username : path}
+                defaultValue={ username }
                 className="user-field"
                 underlineShow={false}
               />
             </div>
             <div className="user-row">
-              <Face color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Face color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={self && editMode ? false : true}
-                defaultValue={self && name ? name : ''}
+                disabled={isSelf && editMode ? false : true}
+                defaultValue={ name }
                 hintText='name'
                 className="user-field"
-                underlineShow={self && editMode ? true : false}
+                underlineShow={isSelf && editMode ? true : false}
                 ref={ (node) => {refHolder.name = node}}
               />
             </div>
             <div className="user-row">
-              <Email color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Email color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={self && editMode ? false : true}
-                defaultValue={self && email ? email : ''}
+                disabled={isSelf && editMode ? false : true}
+                defaultValue={ email }
                 hintText='email'
 
                 className="user-field"
-                underlineShow={self && editMode ? true : false}
+                underlineShow={isSelf && editMode ? true : false}
                 ref={ (node) => {refHolder.email = node}}
               />
             </div>
             <div className="user-row">
-              <Website color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={self && editMode ? false : true}
-                defaultValue={self && website ? website : ''}
+                disabled={isSelf && editMode ? false : true}
+                defaultValue={ website }
                 className="user-field"
                 hintText='website'
-                underlineShow={self && editMode ? true : false}
+                underlineShow={isSelf && editMode ? true : false}
                 ref={ (node) => {refHolder.website = node}}
               />
             </div>
             <div className="user-row">
-              <Website color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={self && editMode ? false : true}
-                defaultValue={self && facebook_url ? facebook_url : ''}
+                disabled={isSelf && editMode ? false : true}
+                defaultValue={ facebook_url }
                 className="user-field"
                 hintText='facebook_url'
-                underlineShow={self && editMode ? true : false}
+                underlineShow={isSelf && editMode ? true : false}
                 ref={ (node) => {refHolder.facebook_url = node}}
               />
             </div>
             <div className="user-row">
-              <Website color={self && editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
-                disabled={self && editMode ? false : true}
-                defaultValue={self && twitter_url ? twitter_url : ''}
+                disabled={isSelf && editMode ? false : true}
+                defaultValue={ twitter_url }
                 className="user-field"
                 hintText='twitter_url'
-                underlineShow={self && editMode ? true : false}
+                underlineShow={isSelf && editMode ? true : false}
                 ref={ (node) => {refHolder.twitter_url = node}}
+              />
+            </div>
+             <div className="user-row">
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <TextField
+                disabled={isSelf && editMode ? false : true}
+                defaultValue={ media }
+                className="user-field"
+                hintText='twitter_url'
+                underlineShow={isSelf && editMode ? true : false}
+                ref={ (node) => {refHolder.media = node}}
+              />
+            </div>
+             <div className="user-row">
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <TextField
+                disabled={isSelf && editMode ? false : true}
+                defaultValue={ about }
+                className="user-field"
+                hintText='twitter_url'
+                multiLine = { true }
+                underlineShow={isSelf && editMode ? true : false}
+                ref={ (node) => {refHolder.about = node}}
               />
             </div>
           </div>

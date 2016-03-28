@@ -7,7 +7,9 @@ export const initialState = {
   auth: {
     isAuthenticated: false,
     isFetching: false,
-    error: ''
+    error: '',
+    username: '',
+    showSigninAndNotSignup: true
   },
 
   /*--------------*/
@@ -15,12 +17,13 @@ export const initialState = {
   /*--------------*/
 
   user: {
-    uid: 1,
+    id: 1,
     username: 'username',
     name: 'User Name',
     email: 'user@email.com',
-    facebook: 'facebook',
-    twitter: 'twitter',
+    website: 'Website',
+    facebook_url: 'facebook',
+    twitter_url: 'twitter',
     avatar: 'http://placehold.it/300x300',
     media: 'Media',
     about: 'About'
@@ -31,15 +34,18 @@ export const initialState = {
   /*----------------*/
 
   artist: {
-    uid: 1,
+    id: 1,
     username: 'artistname',
     name: 'Artist Name',
     email: 'artist@email.com',
-    facebook: 'facebook',
-    twitter: 'twitter',
+    website: 'Website',
+    facebook_url: 'facebook',
+    twitter_url: 'twitter',
     avatar: 'http://placehold.it/300x300',
     media: 'Media',
-    about: 'About'
+    about: 'About',
+    total_photos: 0
+
   },
 
   /*----------------*/
@@ -48,6 +54,7 @@ export const initialState = {
 
   status: {
     fetching: false,
+    fetchingUserInfo: false,
     error: '',
     currentFileUploading: '',
     currentPhotoIdToUpdateData: '',

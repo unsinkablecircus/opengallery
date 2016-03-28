@@ -15,7 +15,7 @@ export function storeUserData(data) {
   }
 };
 
-export function updateRequest() {
+export function fetchingUserInfo() {
   return {
     type: 'UPDATE_REQUEST',
     payload: {
@@ -60,7 +60,8 @@ export function SaveChanges(data) {
   }
   console.log(config)
   return dispatch => {
-    dispatch(updateRequest());
+    dispatch(fetchingUserInfo())
+
     return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/user/saveChanges`, config)
       .then((response) => {
         if ( !response.ok ) {
@@ -81,3 +82,7 @@ export function SaveChanges(data) {
       });
   }
 }
+
+
+
+

@@ -1,13 +1,8 @@
-var initialState = {
-  isAuthenticated: localStorage.getItem('id_token') ? true : false,
-  isFetching: false,
-  error: '',
-  username: '',
-  showSigninAndNotSignup: true
-}
+import { initialState } from '../../test/initialState'
+
 
 let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
-const startingState = prevState ? prevState.auth : initialState;
+const startingState = prevState ? prevState.auth : initialState.auth;
 
 
 const auth = (state=startingState, action) => {
