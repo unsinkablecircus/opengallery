@@ -66,6 +66,7 @@ const PhotoUpload = ({
           { error !== '' ? <p>errorMessage </p>: '' }
           { isUploading ? <p>Your image is uploading...</p> : '' }
           <DropZone 
+            onRemoveCurrentPhoto={ onRemoveCurrentPhoto }
             onPhotoDrop={ onPhotoDrop } 
             currentFileUploading={ currentFileUploading } 
             onOpenClick={ onOpenClick } />
