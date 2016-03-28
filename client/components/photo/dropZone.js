@@ -8,16 +8,20 @@ const DropZone = ({
   onOpenClick
 }) => {
   // console.log('currentfileuploading in dropzone', currentFileUploading)
+const actions = [
+    <FlatButton 
+      label='Remove'
+      primary={true}
+      onTouchTap={} />
+  ];
 
   return (
     <div className="drop-zone-box">
       
       { currentFileUploading ? <div>
-      <div>
       {
-        currentFileUploading.map((file, index) => <img key={index} src={file.preview}  />)
+        currentFileUploading.map((file, index) => <div className="image-preview" style={{ backgroundImage: 'url("' + file.preview +'")' }} key={index} />)
       }
-      </div>
       </div> : <Dropzone onDrop={ onPhotoDrop } >
         <div>Click inside or drop file to upload.</div>
       </Dropzone> }
