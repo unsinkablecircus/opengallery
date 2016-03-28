@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 
 const DropZone = ({
   currentFileUploading,
+  onRemoveCurrentPhoto,
   onPhotoDrop,
   onOpenClick
 }) => {
@@ -12,7 +13,7 @@ const actions = [
     <FlatButton 
       label='Remove'
       primary={true}
-      onTouchTap={} />
+      onTouchTap={ onRemoveCurrentPhoto } />
   ];
 
   return (
