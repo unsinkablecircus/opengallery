@@ -11,11 +11,13 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
         FROM (
           SELECT DISTINCT ON (m.id) ${ query.media(user) }
           FROM ${ query.metatags}
-          WHERE t.tag_text ~* ANY ('{[${ tags.join(',') }}'::text[])
+          WHERE t.tag_text ~* ANY ('{${ tags.join(',') }}'::text[])
           ORDER BY m.id
           OFFSET ${ 18 * page } LIMIT 18
         ) some_tags
-      ) page
+      ) page;
+
+      ${ query.total_tags(tags) }
     `)
   } else {
     return pg.raw(`
@@ -24,10 +26,13 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
         FROM (
           SELECT DISTINCT ON (m.id) ${ query.media(user) }
           FROM ${ query.metatags}
+          WHERE t.tag_text NOTNULL
           ORDER BY m.id DESC
           OFFSET ${ 18 * page } LIMIT 18
         ) some_tags
-      ) page
+      ) page;
+
+      ${ query.total }
     `)
   }
 }
