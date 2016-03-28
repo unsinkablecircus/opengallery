@@ -73,3 +73,25 @@ exports.total_artist = (artist) => (`
     ON (m.user_id = u.id)
   WHERE m.user_id = u.id AND u.username = '${ artist }';
 `)
+
+exports.total_tags = (tags) => (`
+  SELECT COUNT(*) as total_records
+  FROM media m
+    INNER JOIN media_tags mt
+    ON (m.id = mt.media_id)
+    INNER JOIN tags t
+    ON (mt.tag_id = t.id)
+  WHERE t.tag_text ~* ANY ('{${ tags.join(',') }}'::text[])
+`)
+
+exports.total = (`
+  SELECT COUNT(*)
+  FROM (
+    SELECT DISTINCT m.id
+    FROM media m
+    INNER JOIN media_tags mt
+    ON (m.id = mt.media_id)
+    INNER JOIN tags t
+    ON (mt.tag_id = t.id)
+  ) AS total_records
+`)
