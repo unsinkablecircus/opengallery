@@ -29,8 +29,3 @@ exports.hashPassword = (password) => {
     });
   })
 }
-
-exports.isInt = (val) => {
-  int = parseInt(val)
-  return Number(int) === int && int % 1 === 0
-}
