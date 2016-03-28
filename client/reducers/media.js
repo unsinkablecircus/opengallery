@@ -1,5 +1,5 @@
 import { initialState } from '../../test/initialState'
-import { GRID_FILTER, GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
+import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE, CLEAR_MEDIA } from '../actions/grid'
 import { SHOW_NEXT, SHOW_PREV, TOGGLE_GALLERY } from '../actions/gallery'
 
 let startingState = initialState.media
@@ -18,6 +18,12 @@ const media = (state = startingState, action) => {
         grid: action.payload.grid,
         data: action.payload.data,
         page: state.page + 1
+      })
+    case CLEAR_MEDIA:
+      return Object.assign({}, state, {
+        grid: [],
+        data: [],
+        page: 0
       })
     case TOGGLE_GALLERY:
       return Object.assign({}, state, {
