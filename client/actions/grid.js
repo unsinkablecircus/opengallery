@@ -40,7 +40,7 @@ export function clearMedia() {
   }
 }
 
-export function updateArtist(artist) {
+export function updateArtist(artist, total_photos) {
   return {
     type: UPDATE_ARTIST,
     payload: {
@@ -53,7 +53,8 @@ export function updateArtist(artist) {
       twitter_url: artist.twitter,
       avatar: artist.avatar,
       media: artist.media,
-      about: artist.about
+      about: artist.about,
+      total_photos
     }
   }
 }
@@ -75,7 +76,7 @@ export function loadData(id, artist, page) {
     if (page === 0) {
       dispatch(clearMedia());
     }
-    
+
     dispatch(requestData())
 
     return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}${endpoint}`, params)
@@ -89,7 +90,7 @@ export function loadData(id, artist, page) {
     .then(function(data) {
       var grid = [];
       var data = {};
-      dispatch(updateArtist(data.rows[0].artist[0]));
+      dispatch(updateArtist(data.rows[0].artist[0]), res.rows[2].total_records);
 
       data.rows[1].data[0].forEach((image) => {
         grid.push(image.media_id);
@@ -110,6 +111,7 @@ export function loadData(id, artist, page) {
           feedback: image.feedback
         };
       });
+
       dispatch(receiveData(grid, data));
       dispatch(updateArtist());
     })

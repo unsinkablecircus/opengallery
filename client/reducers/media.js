@@ -15,8 +15,8 @@ const media = (state = startingState, action) => {
   switch (action.type) {
     case GRID_SUCCESS:
       return Object.assign({}, state, {
-        grid: action.payload.grid,
-        data: action.payload.data,
+        grid: state.grid.concat(action.payload.grid),
+        data: Object.assign({}, state.data, action.payload.data),
         page: state.page + 1
       })
     case CLEAR_MEDIA:

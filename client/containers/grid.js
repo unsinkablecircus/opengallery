@@ -12,7 +12,8 @@ const mapStateToProps = (state) => {
     displayGallery: state.view.displayGallery,
     id: state.user.id,
     username: state.user.username,
-    page: state.media.page
+    page: state.media.page,
+    // total_photos: state.artist.total_photos
   }
 }
 

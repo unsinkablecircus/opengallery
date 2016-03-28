@@ -21,7 +21,8 @@ export default class Grid extends React.Component {
       id, 
       username, 
       loadData,
-      page
+      page,
+      // total_photos
     } = this.props;
     let artist = window.location.pathname.split('/')[2];
 
@@ -33,10 +34,10 @@ export default class Grid extends React.Component {
           ))}
         </div>
         <div className="button-load">
-          <RaisedButton 
-            label="Load More Images"
-            onMouseUp={loadData.bind(null, id, artist, page)}
-          />
+          { grid.length < 45 
+            ? <RaisedButton label="Load More Images" onMouseUp={loadData.bind(null, id, artist, page)} /> 
+            : '' 
+          }
         </div>
       </div>
     )
