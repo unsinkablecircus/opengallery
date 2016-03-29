@@ -9,7 +9,8 @@ export default class Grid extends React.Component {
   }
 
   componentWillMount = () => {
-    this.props.loadData(this.props.id, this.props.artist, 0);
+    let artist = window.location.pathname.split('/')[2];
+    this.props.loadData(this.props.id, artist, 0);
   }
 
   render () {
@@ -22,9 +23,8 @@ export default class Grid extends React.Component {
       username, 
       loadData,
       page,
-      // total_photos
+      total_photos
     } = this.props;
-    let artist = window.location.pathname.split('/')[2];
 
     return (
       <div id="grid-component">
@@ -34,9 +34,9 @@ export default class Grid extends React.Component {
           ))}
         </div>
         <div className="button-load">
-          { grid.length < 45 
+          { grid.length < total_photos 
             ? <RaisedButton label="Load More Images" onMouseUp={loadData.bind(null, id, artist, page)} /> 
-            : '' 
+            : ''
           }
         </div>
       </div>

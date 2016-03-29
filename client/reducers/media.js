@@ -17,13 +17,16 @@ const media = (state = startingState, action) => {
       return Object.assign({}, state, {
         grid: state.grid.concat(action.payload.grid),
         data: Object.assign({}, state.data, action.payload.data),
-        page: state.page + 1
+        page: state.page + 1,
+        total_photos: action.payload.total_photos
       })
     case CLEAR_MEDIA:
       return Object.assign({}, state, {
         grid: [],
         data: [],
-        page: 0
+        page: 0,
+        total_photos: 0,
+        tile: 0
       })
     case TOGGLE_GALLERY:
       return Object.assign({}, state, {

@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
     id: state.user.id,
     username: state.user.username,
     page: state.media.page,
-    // total_photos: state.artist.total_photos
+    total_photos: state.media.total_photos
   }
 }
 
