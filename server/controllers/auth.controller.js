@@ -28,6 +28,7 @@ module.exports = {
           return users.createUser(username, hashedPW)
         })
         .then( (user) => {
+          console.log('userRRRR', user);
           // generate a token from the username and send it back
           id = user.rows[0].id;
           const token = jwt.encode({iss: username, exp: expires}, secret);
