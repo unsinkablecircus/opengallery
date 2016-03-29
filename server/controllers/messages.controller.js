@@ -14,9 +14,7 @@ module.exports = {
     const time = req.body.time;
     messagesModel.submitMessage(message, user1_id, user2_id, time)
     .then( (data) => {
-      console.log('data', data.rows);
-      console.log('submitted');
-      res.send({foo: 'bar'});
+      res.send({data: data.rows[0]});
     })
     .catch( (err) => {
       console.log('err', err);

@@ -23,7 +23,7 @@ module.exports = function (app, express) {
   app.delete('api/media/delete', Media.deletePhoto);
   // app.post('/api/media/edit', Media.updatePhoto);
 
-  app.post('/api/messages', Messages.submitMessage);
+  app.post('/api/message/submitMessage', Messages.submitMessage);
 
   app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 

@@ -9,6 +9,7 @@ class MessageFeed extends React.Component {
 
   componentWillMount() {
     // do a fetch to get the conversations
+    
   }
 
   render() {

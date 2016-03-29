@@ -1,10 +1,5 @@
 const db = require('./../db/database')
 
-
-
-
-
-
 module.exports = { 
   submitMessage: (message, user1_id, user2_id, time) => {
     console.log(message, user1_id, user2_id, time);
@@ -33,7 +28,8 @@ module.exports = {
              '${message}',
               ${user1_id},
               '${time}'
-            );
+            )
+          RETURNING *
     `)
   }
 }

@@ -9,6 +9,9 @@ import artist from './artist'
 import messageFeed from './messageFeed.reducer'
 import { routerReducer } from 'react-router-redux'
 
+
+console.log('msgfeed in index', messageFeed);
+
 const reducers = combineReducers({
   messageFeed,
   auth,

@@ -160,13 +160,21 @@ const User = ({
         <section className="user-right">
           <span
            style={{color: displayGridAndNotMessageFeed ? 'red' : 'black'}}
-           onClick={toggleShowGridAndNotMessageFeed}
+           onClick={ () => {
+            if ( !displayGridAndNotMessageFeed ) {
+              toggleShowGridAndNotMessageFeed()
+            }
+          }}
           >
            Show Grid
           </span>
           <span 
             style={{color: displayGridAndNotMessageFeed ? 'black' : 'red'}}
-            onClick={toggleShowGridAndNotMessageFeed}
+            onClick={ () => {
+              if ( displayGridAndNotMessageFeed ) {
+                toggleShowGridAndNotMessageFeed()
+              }
+            }}
           > 
             Show Message Feed 
           </span>
