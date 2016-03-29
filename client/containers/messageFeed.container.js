@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 
 
 console.log(MessageFeed);
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
   return {
-
+    messages: state.messageFeed.messages
   }
 }
 

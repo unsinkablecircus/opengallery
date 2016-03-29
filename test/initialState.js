@@ -17,7 +17,12 @@ export const initialState = {
   /*--------------*/
 
   messageFeed: {
-    messages: []
+    messages: [
+     'HELLO WORLD %danielwong%',
+     'HELLO AGAIN , WORLD %jojowong%', 
+     'YELLOW WORLD %danielwong%', 
+     'CELLO WORLD %danielwong%'
+    ]
   },
 
   user: {
@@ -76,7 +81,8 @@ export const initialState = {
     displaySignIn: false,
     displaySignUp: false,
     displayWordmap: false,
-    displayGridAndNotMessageFeed: true
+    displayGridAndNotMessageFeed: true,
+    displayMessageModal: false
   },
 
   /*---------------*/

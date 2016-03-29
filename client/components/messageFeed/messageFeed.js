@@ -1,10 +1,15 @@
 import React from 'react'
 
-const MessageFeed = () => {
-  console.log('MessageFEEED');
+const MessageFeed = ({
+  messages
+}) => {
+  console.log('messages', messages);
   return (
     <div>
-    <div> hello world </div>
+      { messages.map((message) => (
+        <div> {message} </div>
+      ))}
+
     </div>
   )
 }
