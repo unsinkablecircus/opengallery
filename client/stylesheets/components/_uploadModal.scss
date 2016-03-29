@@ -5,6 +5,8 @@
   display: -webkit-flex;
   display: flex;
   flex-direction: row;
+  align-items: top;
+  justify-content: space-around;
 
   @include respond-to('xsmall') {
     flex-direction: column;
@@ -47,8 +49,7 @@
 
 .photo-upload-container >
 .drop-zone-container {
-  display: right;
-  height: 25vh;
+  justify-content: flex-end;
   flex: 1;
 
   @include respond-to('xsmall') {
@@ -60,16 +61,16 @@
   };
 
   @include respond-to('medium') {
-    flex: 2;
+    flex: 1;
   };
 
   @include respond-to('large') {
-    flex: 2;
+    flex: 1;
   };
 }
 
 .drop-zone-box {
-  display: right;
+  justify-content: flex-end;
   height: 200px;
   flex: 1;
 }
@@ -78,5 +79,5 @@
   background-position: center center;
   background-size: contain;
   background-repeat: no-repeat;
-
+  height: 25vh;
 }
