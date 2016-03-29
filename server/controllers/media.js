@@ -115,3 +115,27 @@ exports.uploadPhoto = function (req, res) {
     })
   }
 };
+
+exports.updatePhoto = function (req, res) {
+  //parse request to find which fields need to be update
+  Media.updatePGmetaData(/*req.body, req.body.id*/)
+  .then( data => {
+    res.status(201).json(data)
+  })
+  .catch( err => {
+    console.error(`[Error] Failed to query meta tags in PG: ${err}`)
+    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+  })
+}
+
+exports.deletePhoto = function (req, res) {
+  //parse request to find which fields need to be update
+  Media.deletePhotoById(/*req.body, req.body.id*/)
+  .then( () => {
+    res.status(201)
+  })
+  .catch( err => {
+    console.error(`[Error] Failed to query meta tags in PG: ${err}`)
+    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+  })
+}
