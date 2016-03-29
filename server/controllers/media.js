@@ -1,6 +1,5 @@
 const Promise = require('bluebird')
 const jimp = require('jimp')
-const fs = require('fs')
 
 const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
@@ -12,7 +11,9 @@ const resizePhoto = ({ buffer, mimetype }, size, quality) => {
     imageData.width = image.bitmap.width;
     imageData.height = image.bitmap.height;
     return new Promise(function(resolve, reject) {
-      image.clone().resize(size, jimp.AUTO, jimp.RESIZE_BEZIER).quality(quality)
+      image.clone()
+      .resize(size, jimp.AUTO, jimp.RESIZE_BEZIER)
+      .quality(quality)
       .getBuffer(mimetype, (err, buffer) => {
         if (err) {
           console.error(`Error parsing Jimp buffer to ${mimetype}: ${err}`)
@@ -43,15 +44,13 @@ exports.getPhotos = function (req, res) {
 exports.uploadPhoto = function (req, res) {
   var responseObject = {
     id: null,
-    user_id: 5,
     url_small: '',
     url_med: '',
-    url_large: '',
-    title: '',
-    description: 'GOT IT'
+    url_large: ''
   }
 
   if (req.file) {
+    req.file.mimetype = 'image/jpeg';
     resizePhoto(req.file, 25, 0)
     .then( buffer => {
       req.body.width = imageData.width;
@@ -61,6 +60,7 @@ exports.uploadPhoto = function (req, res) {
       req.body.url_medium = '';
       req.body.url_large = '';
       responseObject.url_small = new Buffer(buffer).toString('base64')
+
       return resizePhoto(req.file, 800, 100)
     })
     .catch( err => {
@@ -71,7 +71,7 @@ exports.uploadPhoto = function (req, res) {
       return Media.uploadToPG(req.body)
     })
     .catch((err) => {
-      console.log('Error uploading metaData to PostgreSQL', err);
+      console.log('Error uploading images to PostgreSQL', err)
       res.status(404).json({"error": err});
     })
     .then((id) => {
