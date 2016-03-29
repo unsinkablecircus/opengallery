@@ -2,7 +2,6 @@ import messageModal from '../components/messageFeed/messageModal'
 import { connect } from 'react-redux'
 import  { toggleMessageModal, submitMessage } from '../actions/messageFeed.actions'
 
-
 const mapStateToProps = (state, props) => {
   return {
     messages: state.messageFeed.messages,

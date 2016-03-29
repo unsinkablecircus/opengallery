@@ -11,10 +11,14 @@ const messageFeed = (state=startingState, action) => {
     case 'SUBMIT_MESSAGE':
       // this should be called when you send in a message, so that it 
       // can be updated in real time.
-      return Objec.assign({}, state, action.paylaod)
+      return Object.assign({}, state, action.paylaod)
     case 'FETCH_MESSAGES':
       // this should be called when we get the messages back from the server
       return Object.assign({}, state, action.payload)
+    case 'SET_CURRENT_MESSAGE':
+      return Object.assign({}, state, {
+        currentMessage: action.payload
+      })
     default:
       return state;
 

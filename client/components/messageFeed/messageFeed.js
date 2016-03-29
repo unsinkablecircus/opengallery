@@ -1,4 +1,6 @@
 import React from 'react'
+import MessageModal from '../../containers/messageModal.container'
+
 
 const MessageFeed = ({
   messages,
@@ -10,12 +12,14 @@ const MessageFeed = ({
       { messages.map((message, index) => (
         <div 
           key={index}
-          onClick={toggleMessageModal}
+          onClick={ () => {
+            toggleMessageModal(index);
+          }}
         >
           {message}
         </div>
       ))}
-
+      <MessageModal foo={'bar'}/>
     </div>
   )
 }

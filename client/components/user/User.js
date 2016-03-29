@@ -175,7 +175,7 @@ const User = ({
         </section>
       </div>
 
-      <MessageModal />
+      <MessageModal foo={'bar'}/>
 
     </div>
   )

@@ -11,10 +11,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleMessageModal: () => {
-       dispatch({
+    toggleMessageModal: (index) => {
+      // toggle modal
+      dispatch({
         type: 'TOGGLE_MESSAGE_MODAL'
-      })
+      });
+      // change the current message on message state (integer)
+      dispatch({
+        type: 'SET_CURRENT_MESSAGE',
+        payload: index
+      });
     }
   }
 }

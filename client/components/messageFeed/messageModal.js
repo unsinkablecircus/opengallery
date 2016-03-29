@@ -8,6 +8,9 @@ const messageModal = ({
   messages,
   person_id,
   person_name,
+  props,
+  currentMessage,
+  index,
   displayMessageModal,
   toggleMessageModal,
   username,
@@ -86,6 +89,7 @@ const messageModal = ({
           hintText='Message'
           fullWidth={ true }
         />
+      <div> {index + ': ' + currentMessage} </div>
       </Dialog>
     </div>
   );

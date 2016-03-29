@@ -22,7 +22,8 @@ export const initialState = {
      'HELLO AGAIN , WORLD %jojowong%', 
      'YELLOW WORLD %danielwong%', 
      'CELLO WORLD %danielwong%'
-    ]
+    ],
+    currentMessage: 0
   },
 
   user: {
