@@ -2,10 +2,13 @@ import { initialState } from '../../test/initialState'
 import { TOGGLE_GALLERY } from '../actions/gallery'
 import { SHOW_WORDMAP, HIDE_WORDMAP } from '../actions/wordmap.actions'
 
-let startingState = initialState.view
-if (window) {
-  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined
-  startingState = prevState ? prevState.view : initialState.view
+let startingState = initialState.view;
+
+var isNode = new Function("try {return this===global;}catch(e){return false;}");
+
+if (isNode() !== true) {
+  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+  startingState = prevState ? prevState.view : initialState.view;
 }
 
 const view = (state = startingState, action) => {

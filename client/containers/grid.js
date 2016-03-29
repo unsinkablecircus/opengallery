@@ -1,7 +1,7 @@
-import { connect } from 'react-redux'
-import * as grid from '../actions/grid'
-import * as gallery from '../actions/gallery'
-import Grid from '../components/grid/Grid'
+import { connect } from 'react-redux';
+import * as grid from '../actions/grid';
+import * as gallery from '../actions/gallery';
+import Grid from '../components/grid/Grid';
 
 const mapStateToProps = (state) => {
   return {
@@ -9,14 +9,20 @@ const mapStateToProps = (state) => {
     grid: state.media.grid,
     filter: state.media.filter,
     data: state.media.data,
-    displayGallery: state.view.displayGallery
+    displayGallery: state.view.displayGallery,
+    id: state.user.id,
+    username: state.user.username,
+    page: state.media.page,
+    total_photos: state.media.total_photos
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    loadGrid: () => { dispatch(grid.loadData(ownProps.filter)) },
-    toggleGallery: (tile) => { dispatch(gallery.toggleView(tile)) }
+    toggleGallery: (tile) => { dispatch(gallery.toggleView(tile)) },
+    loadData: (id, artist, page) => { 
+      dispatch(grid.loadData(id, artist, page));
+    }
   }
 }
 

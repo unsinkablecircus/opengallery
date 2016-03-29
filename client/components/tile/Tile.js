@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default class Tile extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class Tile extends React.Component {
 
   render () {
     let { children, tile, handleClick } = this.props
-    let style = this.props.style ? Object.assign({}, this.props.style) : {}
+    let style = Object.assign({}, this.props.style)
     style.backgroundImage = this.state.photo
 
     return (

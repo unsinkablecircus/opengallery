@@ -1,7 +1,13 @@
 import { initialState } from '../../test/initialState'
 
-let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
-const startingState = prevState ? prevState.user : initialState.user;
+let startingState = initialState.user;
+
+var isNode = new Function("try {return this===global;}catch(e){return false;}");
+
+if (isNode() !== true) {
+  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+  startingState = prevState ? prevState.user : initialState.user;
+}
 
 const user = (state=startingState, action) => {
   switch (action.type) {

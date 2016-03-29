@@ -72,14 +72,12 @@ exports.updatePGmetaData = function (photoData, id) {
   );
 };
 
-exports.retrievePhotosFromPG = function () {
-  // SQL Query > Insert Data
+exports.retrievePhotos = function () {
   return pg.raw(
     `SELECT * FROM media
-    LIMIT 20
+    LIMIT 20;
     `
   )
-
 };
 
 // example of connecting to postgresql database below (will move to models later):

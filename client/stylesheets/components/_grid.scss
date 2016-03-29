@@ -1,0 +1,26 @@
+#grid-component {
+  position: absolute;
+  top: 65px;
+}
+
+.grid-section {
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 1099;
+}
+
+.tile-component {
+  flex: auto;
+  width: 433px;
+  height: 40vh;
+  margin: 2.5px;
+}
+
+.button-load {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 1099;
+  justify-content: center;
+  margin: 15px 0;
+}

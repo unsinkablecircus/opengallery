@@ -82,7 +82,8 @@ export const initialState = {
     tile: 0,
     grid: [1, 2, 3, 4, 5, 6, 7, 8],
     filter: [],
-
+    page: 0,
+    total_photos: 0,
     /*--------------*/
     /*     DATA     */
     /*--------------*/
@@ -208,23 +209,41 @@ export const initialState = {
         showHiRes: false,
         feedback: [[6, 20], [9, 30], [3, 40], [1, 50]]
       }
-    },
-
-    /*--------------------*/
-    /*     DICTIONARY     */
-    /*--------------------*/
-
-    dictionary: {
-      '1': 'beautiful',
-      '2': 'cool',
-      '3': 'awesome',
-      '4': 'weird',
-      '5': 'trippy',
-      '6': 'nice',
-      '7': 'great',
-      '8': 'adorbs',
-      '9': 'love',
-      '10': 'dig'
     }
+  },
+
+  /*--------------------*/
+  /*     DICTIONARY     */
+  /*--------------------*/
+
+  dictionary: {
+    '1': 'beautiful',
+    '2': 'cool',
+    '3': 'awesome',
+    '4': 'weird',
+    '5': 'trippy',
+    '6': 'nice',
+    '7': 'great',
+    '8': 'adorbs',
+    '9': 'love',
+    '10': 'dig'
+  },
+
+  /*--------------------*/
+  /*       ARTIST       */
+  /*--------------------*/
+
+  artist: {
+    id: null,
+    username: null,
+    name: null,
+    email: null,
+    website: null,
+    facebook_url: null,
+    twitter_url: null,
+    avatar: null,
+    media: null,
+    about: null,
   }
+
 }

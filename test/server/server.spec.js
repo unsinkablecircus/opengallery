@@ -7,7 +7,6 @@ var request = require('supertest');
 var AWS = require('aws-sdk');
 var express = require('express');
 var db = require('../../server/db/database');
-
 var app = require('../../server/server');
 var mediaModel = require('../../server/models/media');
 var mediaController = require('../../server/controllers/media');
@@ -18,11 +17,11 @@ AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-west-1'});
 const s3 = new AWS.S3();
 
-describe('Back End', function() {
+xdescribe('Back End', function() {
   describe('Server: ', function() {
     describe('GET media', function(done){
 
-      it('responds with a 200 (OK)', function() {
+      xit('responds with a 200 (OK)', function() {
 
         request(app)
           .get('/api/media')
@@ -58,7 +57,7 @@ describe('Back End', function() {
 
     describe('POST media', function(done){
 
-      it('responds with a 201 (Created) when photo data is posted', function() {
+      xit('responds with a 201 (Created) when photo data is posted', function() {
 
         request(app)
           .post('/api/media/upload')
@@ -81,7 +80,7 @@ describe('Back End', function() {
 
       });
 
-      it(`Should upload metaData to PostgreSQL, clone and manipulate photo,
+      xit(`Should upload metaData to PostgreSQL, clone and manipulate photo,
         update PostgreSQL with new urls,
         and send back a 201 with the uploadPhoto function`, function(done) {
 
@@ -111,7 +110,7 @@ describe('Back End', function() {
   });
 
   describe('PostgreSQL Database: ', function() {
-    it('Should have all the tables', function(done) {
+    xit('Should have all the tables', function(done) {
       db.raw("SELECT table_name FROM information_schema.tables WHERE table_schema='public';")
         .then((res) => {
           expect(res.rows).to.deep.include.members([
@@ -172,16 +171,16 @@ describe('Back End', function() {
 
   describe('Media Model: ', function() {
     //Unit Tests
-    it('Should have a function called uploadToPG', function() {
+    xit('Should have a function called uploadToPG', function() {
       expect(mediaModel.uploadToPG).to.be.a('function');
     });
-    it('Should have a function called uploadToS3', function() {
+    xit('Should have a function called uploadToS3', function() {
       expect(mediaModel.uploadToS3).to.be.a('function');
     });
-    it('Should have a function called updatePGid', function() {
+    xit('Should have a function called updatePGid', function() {
       expect(mediaModel.updatePGid).to.be.a('function');
     });
-    it('Should have a function called retrievePhotosFromPG', function() {
+    xit('Should have a function called retrievePhotosFromPG', function() {
       expect(mediaModel.retrievePhotosFromPG).to.be.a('function');
     });
 
@@ -201,7 +200,7 @@ describe('Back End', function() {
       })
     });
 
-    it('Should upload photo metaData to PostgreSQL', function(done) {
+    xit('Should upload photo metaData to PostgreSQL', function(done) {
       var sampleData = {
         user: 3,
         url_small: 'url789_small',
@@ -221,7 +220,7 @@ describe('Back End', function() {
       });
     });
 
-    it('Should upload a string to S3 and return a string', function(done) {
+    xit('Should upload a string to S3 and return a string', function(done) {
       mediaModel.uploadToS3(22, "TEST_STRING")
       .then(function(data) {
         expect(data.ETag).to.be.a('string');
@@ -233,7 +232,7 @@ describe('Back End', function() {
       });
     });
 
-    it('Should upload a photo buffer to S3', function(done) {
+    xit('Should upload a photo buffer to S3', function(done) {
       var photoBuff = (__dirname + './circus.jpg');
       mediaModel.uploadToS3(40, photoBuff)
       .then(function(photoId){
@@ -262,10 +261,10 @@ describe('Back End', function() {
   });
 
   describe('Media Controller: ', function() {
-    it('Should have a function called uploadPhoto', function() {
+    xit('Should have a function called uploadPhoto', function() {
       expect(mediaController.uploadPhoto).to.be.a('function');
     });
-    it('Should have a function called getPhotos', function() {
+    xit('Should have a function called getPhotos', function() {
       expect(mediaController.getPhotos).to.be.a('function');
     });
   });

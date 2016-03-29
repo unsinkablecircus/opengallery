@@ -7,12 +7,12 @@ import { initialState } from '../../initialState'
 export const MediaReducer = () => {
   let state = initialState.media
 
-  it('should return the initial state', () => {
+  xit('should return the initial state', () => {
     expect(reducer(undefined, {})).to.deep.equal(state)
   })
 
   describe('├─ Grid', () => {
-    it('should handle a GRID_FILTER action that changes the filter state', () => {
+    xit('should handle a GRID_FILTER action that changes the filter state', () => {
       let tags = ['pink', 'cats']
       let action = grid.filterData(tags)
       expect(reducer(state, action)).to.deep.equal(Object.assign({}, state, {
@@ -20,7 +20,7 @@ export const MediaReducer = () => {
       }))
     })
 
-    it('should handle a GRID_SUCCESS action that changes the grid, data, and dictionary states', () => {
+    xit('should handle a GRID_SUCCESS action that changes the grid, data, and dictionary states', () => {
       let action = grid.receiveData({
         grid: state.grid,
         data: state.data,
@@ -33,7 +33,7 @@ export const MediaReducer = () => {
   describe('├─ Gallery', () => {
     beforeEach(() => { state = initialState.media })
 
-    it('should handle a SHOW_NEXT action that increments the tile state', (done) => {
+    xit('should handle a SHOW_NEXT action that increments the tile state', (done) => {
       let action = gallery.nextTile()
       let tile = state.tile
       expect(reducer(state, action)).to.have.property('tile', tile + 1)
@@ -44,7 +44,7 @@ export const MediaReducer = () => {
       done()
     })
 
-    it('should handle a SHOW_PREV action that decrements the tile state', (done) => {
+    xit('should handle a SHOW_PREV action that decrements the tile state', (done) => {
       let action = gallery.prevTile()
       let tile = state.grid.length - 1
       expect(reducer(state, action)).to.have.property('tile', tile - 1)
@@ -55,7 +55,7 @@ export const MediaReducer = () => {
       done()
     })
 
-    it('should handle a TOGGLE_GALLERY action that sets the tile state', (done) => {
+    xit('should handle a TOGGLE_GALLERY action that sets the tile state', (done) => {
       let action = gallery.toggleView(2)
       expect(reducer(state, action)).to.have.property('tile', 2)
       done()

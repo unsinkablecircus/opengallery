@@ -1,11 +1,14 @@
 import { initialState } from '../../test/initialState'
-import { GRID_FILTER, GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
+import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE, CLEAR_MEDIA } from '../actions/grid'
 import { SHOW_NEXT, SHOW_PREV, TOGGLE_GALLERY } from '../actions/gallery'
 
-let startingState = initialState.media
-if (window) {
-  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined
-  startingState = prevState ? prevState.media : initialState.media
+let startingState = initialState.media;
+
+var isNode = new Function("try {return this===global;}catch(e){return false;}");
+
+if (isNode() !== true) {
+  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+  startingState = prevState ? prevState.media : initialState.media;
 }
 
 const media = (state = startingState, action) => {
@@ -15,13 +18,18 @@ const media = (state = startingState, action) => {
   switch (action.type) {
     case GRID_SUCCESS:
       return Object.assign({}, state, {
-        grid: action.payload.grid,
-        data: action.payload.data,
-        dictionary: action.payload.dictionary
+        grid: state.grid.concat(action.payload.grid),
+        data: Object.assign({}, state.data, action.payload.data),
+        page: state.page + 1,
+        total_photos: action.payload.total_photos
       })
-    case GRID_FILTER:
+    case CLEAR_MEDIA:
       return Object.assign({}, state, {
-        filter: action.payload
+        grid: [],
+        data: [],
+        page: 0,
+        total_photos: 0,
+        tile: 0
       })
     case TOGGLE_GALLERY:
       return Object.assign({}, state, {
