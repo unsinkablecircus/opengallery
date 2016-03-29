@@ -18,8 +18,8 @@ module.exports = function (app, express) {
 
   app.get('/api/media', Media.getPhotos); 
   app.post('/api/media/upload', multer().single('artImage'), Media.uploadPhoto);
-  // app.put('/api/media/edit', Media.updatePhoto);
-  // app.delete('api/media/delete', Media.deletePhoto);
+  app.put('/api/media/edit', Media.updatePhoto);
+  app.delete('api/media/delete', Media.deletePhoto);
 
   app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 
