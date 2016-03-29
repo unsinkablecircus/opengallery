@@ -24,6 +24,7 @@ module.exports = function (app, express) {
   // app.post('/api/media/edit', Media.updatePhoto);
 
   app.post('/api/message/submitMessage', Messages.submitMessage);
+  app.post('/api/message/fetchConversations', Messages.fetchConversations);
 
   app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 

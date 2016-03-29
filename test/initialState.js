@@ -36,8 +36,9 @@ export const initialState = {
     ],
     conversations: [
       {
-        person_name: 'Megan',
-        person_id: 56
+        id: 56,
+        username: 'Megan',
+        self_id: 26 
       }
     ]
 

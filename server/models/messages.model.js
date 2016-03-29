@@ -31,5 +31,41 @@ module.exports = {
             )
           RETURNING *
     `)
+  },
+
+  fetchConversations: (self_id) => {
+    // send back name, conversation id,
+    return db.raw(`
+    WITH convo AS (
+      SELECT 
+        id,
+        user1_id AS self_id,
+        user2_id AS user_id
+      FROM conversations
+      WHERE user1_id = ${self_id}
+      UNION
+      SELECT 
+        id, 
+        user2_id AS self_id,
+        user1_id AS user_id
+      FROM conversations
+      WHERE user2_id = ${self_id}
+    )
+    SELECT
+      convo.id,
+      convo.self_id,
+      users.id,
+      users.username
+    FROM
+      users, convo
+    WHERE
+      convo.user_id = users.id;
+    `)
   }
 }
+
+
+
+
+
+

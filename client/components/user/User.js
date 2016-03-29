@@ -22,16 +22,15 @@ import Colors from 'material-ui/lib/styles/colors';
 const User = ({
   artist,
   selfUsername,
+  self_id,
   editMode,
   switchEditMode,
   saveChanges,
-<<<<<<< 12ba93ada55687c524608e751d8ba028fe6e0173
   location,
-  displayGridAndNotMessageFeed
-=======
   displayGridAndNotMessageFeed,
-  toggleShowGridAndNotMessageFeed
->>>>>>> Can now toggle between show grid and show message feed in user
+  displayGridAndNotMessageFeed,
+  toggleShowGridAndNotMessageFeed,
+  fetchConversations
 }) => {
   let path = window.location.pathname.split('/')[2];
   let isSelf = (path === selfUsername);
@@ -172,7 +171,8 @@ const User = ({
             style={{color: displayGridAndNotMessageFeed ? 'black' : 'red'}}
             onClick={ () => {
               if ( displayGridAndNotMessageFeed ) {
-                toggleShowGridAndNotMessageFeed()
+                toggleShowGridAndNotMessageFeed();
+                fetchConversations(self_id);
               }
             }}
           > 

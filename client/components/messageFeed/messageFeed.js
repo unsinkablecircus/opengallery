@@ -20,11 +20,10 @@ class MessageFeed extends React.Component {
           <div 
             key={index}
             onClick={ () => {
-              // do a fetch here to get the messages
               toggleMessageModal(index);
             }}
           >
-            {'conversation with: ' + conversation.person_name}
+            {'conversation with: ' + conversation.username}
           </div>
         ))}
         <MessageModal/>
