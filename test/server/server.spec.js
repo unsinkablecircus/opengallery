@@ -11,6 +11,8 @@ var app = require('../../server/server');
 var mediaModel = require('../../server/models/media');
 var mediaController = require('../../server/controllers/media');
 
+var metaTags = require('../server/models/metatags.model');
+
 // load AWS credentials
 var credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
 AWS.config.credentials = credentials;
@@ -256,6 +258,20 @@ describe('BackEnd', function() {
       })
       .catch(function(err) {
         // expect(err).to.be.null;
+        // db.destroy();
+        done(err);
+      });
+    });
+
+    it('Should associate tags with a given photo', function(done) {
+      metaTags.insert(['funny', 'circus', 'canon', 'cartoon'], 121)
+      .then(function(data) {
+        expect(data).to.be.a('object');
+        // db.destroy();
+        done();
+      })
+      .catch(function(err) {
+        expect(err).to.be.null;
         // db.destroy();
         done(err);
       });
