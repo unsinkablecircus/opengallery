@@ -4,7 +4,7 @@
   "description": "A peer to peer artist platform for sharing and discovering new media content.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --harmony_destructuring --watch server server/server.js --ignore client",
+    "start": "npm run build | nodemon --harmony_destructuring --watch server server/server.js --ignore client",
     "build": "webpack --progress --colors --config ./config/webpack.config.js",
     "build-prod": "webpack --progress --colors --config ./config/webpack.prod.config.js",
     "dev": "webpack-dev-server --devtool source-map --progress --colors --hot --content-base public",
@@ -41,6 +41,7 @@
     "morgan": "^1.7.0",
     "multer": "^1.1.0",
     "node-bourbon": "^4.2.7",
+    "node-cloud-vision-api": "^0.2.0",
     "pg": "^4.5.1",
     "react": "^0.14.7",
     "react-bubble-chart": "^0.3.0",
