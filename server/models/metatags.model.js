@@ -37,7 +37,7 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
   }
 }
 
-exports.insert = ({ tags, mediaId }) => {
+exports.insert = (tags, mediaId) => {
   if (Array.isArray(tags)) {
     return pg.raw(`
       BEGIN;

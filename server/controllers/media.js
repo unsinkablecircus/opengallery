@@ -99,17 +99,10 @@ exports.uploadPhoto = function (req, res) {
       res.status(404).json({"error": err});
     })
     .then(() => {
-      MetaTags.insert(req.body.tags);
+      MetaTags.insert(req.body.tags, responseObject.id);
     })
     .catch((err) => {
       console.log('Error uploading tags to PostgreSQL', err);
-    })
-    .then((tagsTables) => {
-      console.log(tagsTables);
-      Media_MetaTags.insert(/*req.body.tags*/, responseObject.id);
-    })
-    .catch((err) => {
-      console.log('Error uploading media_tags to PostgreSQL', err);
     })
     .then(() => {
       res.status(201).json(responseObject);
