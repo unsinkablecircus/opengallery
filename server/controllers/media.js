@@ -5,9 +5,7 @@ const fs = require('fs')
 const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
 
-//helper functions
 const separateData = (data) => {
-  //not sure how req.body will come in
   var photoData = {
     PGupload: data.photoInfo,
     s3upload: data.photoRaw
@@ -19,7 +17,7 @@ const resizePhoto = ({ buffer, mimetype }, size, quality) => {
   return jimp.read(buffer)
   .then(image => {
     return new Promise(function(resolve, reject) {
-      image.clone().resize(size, jimp.AUTO).quality(quality)
+      image.clone().resize(size, jimp.AUTO, jimp.RESIZE_BEZIER).quality(quality)
       .getBuffer(mimetype, (err, buffer) => {
         if (err) {
           console.error(`Error parsing Jimp buffer to ${mimetype}: ${err}`)
@@ -48,7 +46,6 @@ exports.getPhotos = function (req, res) {
 }
 
 exports.uploadPhoto = function (req, res) {
-
   var responseObject = {
     id: null,
     user_id: 5,
@@ -60,6 +57,7 @@ exports.uploadPhoto = function (req, res) {
   }
 
   if (req.file) {
+    req.file.mimetype = 'image/jpeg'
     resizePhoto(req.file, 25, 0)
     .then( buffer => {
       responseObject.url_small = new Buffer(buffer).toString('base64')
@@ -69,16 +67,16 @@ exports.uploadPhoto = function (req, res) {
       Media.uploadToPG(req.body)
       .then((id) => {
         responseObject.id = id.rows[0].id;
-        var urlExtMedium = responseObject.id + 'medium';
-        var urlExtLarge = responseObject.id + 'large';
-        responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
-        responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
+        var urlExtMedium = `${responseObject.id}medium`
+        var urlExtLarge = `${responseObject.id}large`
+        responseObject.url_med = `http://d14shq3s3khz77.cloudfront.net/${urlExtMedium}`
+        responseObject.url_large = `http://d14shq3s3khz77.cloudfront.net/${urlExtLarge}`
 
         new Promise.all([
           Media.uploadToS3(urlExtLarge, req.file.buffer), Media.uploadToS3(urlExtMedium, mediumBuffer)
         ])
         .then((url) => {
-          Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
+          Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id)
           .then(() => {
             res.status(201).json(responseObject);
           })
@@ -95,19 +93,8 @@ exports.uploadPhoto = function (req, res) {
       });
     })
     .catch( err => {
-      // check the type of error that was caught and display proper message
       console.error(`Error resizing photo: ${err}`)
       reject(`Error resizing photo: ${err}`)
     })
   }
-
-  //parse data to separate photodata from photo
-  // var photo = separateData(req.body);
-  // console.log("Request files line 82 of media controllers: ", req.file);
-  // clone photos and turn into buffers for upload
-  // var resizedPhotos = resizePhoto(photo.s3upload);
-  // console.log("resizedPhotos object-boolean line 86 of media controllers: ", !!resizedPhotos);
-  // update PG upload object to include small photo buffer
-  // photo.PGupload.url_small = resizedPhotos.small;
-
 };
