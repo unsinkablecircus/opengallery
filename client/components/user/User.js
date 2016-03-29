@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import MessageFeed from '../../containers/messageFeed.container';
 import Grid from '../../containers/grid';
-import MessageModal from '../../containers/messageModal.container'
 
 
 import Avatar from 'material-ui/lib/avatar';
@@ -175,7 +174,6 @@ const User = ({
         </section>
       </div>
 
-      <MessageModal foo={'bar'}/>
 
     </div>
   )

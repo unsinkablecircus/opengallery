@@ -2,26 +2,33 @@ import React from 'react'
 import MessageModal from '../../containers/messageModal.container'
 
 
-const MessageFeed = ({
-  messages,
-  toggleMessageModal
-}) => {
-  console.log('messages', messages);
-  return (
-    <div>
-      { messages.map((message, index) => (
-        <div 
-          key={index}
-          onClick={ () => {
-            toggleMessageModal(index);
-          }}
-        >
-          {message}
-        </div>
-      ))}
-      <MessageModal foo={'bar'}/>
-    </div>
-  )
+class MessageFeed extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentWillMount() {
+
+  }
+
+  render() {
+    let { messages, conversations, toggleMessageModal } = this.props
+    return (
+      <div>
+        { conversations.map((conversation, index) => (
+          <div 
+            key={index}
+            onClick={ () => {
+              toggleMessageModal(index);
+            }}
+          >
+            {'conversation with: ' + conversation.person_name}
+          </div>
+        ))}
+        <MessageModal/>
+      </div>
+    )
+  }
 }
 
 

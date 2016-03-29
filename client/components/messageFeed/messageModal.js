@@ -21,6 +21,10 @@ const messageModal = ({
   textModalField
 }) => {
 
+  id
+}) => {
+
+  let textFieldMessage;
   const textField = (
     <TextField
       multiLine={ true }

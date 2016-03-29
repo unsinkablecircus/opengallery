@@ -1,26 +1,20 @@
 import MessageFeed from '../components/messageFeed/messageFeed.js'
 import { connect } from 'react-redux'
+import  { toggleMessageModal } from '../actions/messageFeed.actions'
 
 
 console.log(MessageFeed);
 const mapStateToProps = (state) => {
   return {
-    messages: state.messageFeed.messages
+    messages: state.messageFeed.messages,
+    conversations: state.messageFeed.conversations
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleMessageModal: (index) => {
-      // toggle modal
-      dispatch({
-        type: 'TOGGLE_MESSAGE_MODAL'
-      });
-      // change the current message on message state (integer)
-      dispatch({
-        type: 'SET_CURRENT_MESSAGE',
-        payload: index
-      });
+      dispatch(toggleMessageModal());
     }
   }
 }

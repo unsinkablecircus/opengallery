@@ -53,6 +53,7 @@ module.exports = {
     // fetch the user and compare the password
     users.findUser(username)
     .then( (user) => {
+      console.log('userrrr', user);
       var user = user.rows[0];
       id = user.id;
       name = user.name;

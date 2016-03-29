@@ -17,21 +17,30 @@ export const initialState = {
   /*--------------*/
 
   messageFeed: {
-    currentMessage: 0,
+    person_id: 56,
+    showTextField: false,
+    person_name: 'Megan',
     messages: [
       {
-       person: 'John Domingo',
-       message:`HELLO AGAIN , WORLD %jojowong% %BREAK% 
-       YELLOW WORLD %DW% %BREAK%
-       CELLO WORLD %DW% %BREAK%`
-      },  
+        sender: 'DW',
+        text: 'hi there!'
+      },
       {
-        person: 'Megan',
-        message: `HELLO DANIEL!! %jojowong% %BREAK%
-                  HI MEGAN %DW% %BREAK%
-                  BYE DANIEL! %DW% %BREAK%`
+        sender: 'Megan',
+        text: 'hey Daniel!'
+      },
+      {
+        sender: 'DW',
+        text: 'Bye !'
+      }
+    ],
+    conversations: [
+      {
+        person_name: 'Megan',
+        person_id: 56
       }
     ]
+
   },
 
   user: {
