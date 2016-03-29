@@ -24,8 +24,13 @@ const User = ({
   editMode,
   switchEditMode,
   saveChanges,
+<<<<<<< 12ba93ada55687c524608e751d8ba028fe6e0173
   location,
   displayGridAndNotMessageFeed
+=======
+  displayGridAndNotMessageFeed,
+  toggleShowGridAndNotMessageFeed
+>>>>>>> Can now toggle between show grid and show message feed in user
 }) => {
   let path = window.location.pathname.split('/')[2];
   let isSelf = (path === selfUsername);
@@ -152,8 +157,19 @@ const User = ({
           </div>
         </section>
         <section className="user-right">
-          <Grid loc={location.location}/>
-          { displayGridAndNotMessageFeed ? <Grid/> : <MessageFeed/> }
+          <span
+           style={{color: displayGridAndNotMessageFeed ? 'red' : 'black'}}
+           onClick={toggleShowGridAndNotMessageFeed}
+          >
+           Show Grid
+          </span>
+          <span 
+            style={{color: displayGridAndNotMessageFeed ? 'black' : 'red'}}
+            onClick={toggleShowGridAndNotMessageFeed}
+          > 
+            Show Message Feed 
+          </span>
+          { displayGridAndNotMessageFeed ? <Grid loc={location.location}/> : <MessageFeed/> }
         </section>
       </div>
     </div>

@@ -29,6 +29,11 @@ const view = (state = startingState, action) => {
       return Object.assign({}, state, {
         isUploadModalOpen: !state.isUploadModalOpen
       })
+    case 'TOGGLE_GRID_MESSAGE_FEED':
+    console.log(state.displayGridAndNotMessageFeed);
+      return Object.assign({}, state, {
+        displayGridAndNotMessageFeed: !state.displayGridAndNotMessageFeed
+      })
     default:
       return state
   }
