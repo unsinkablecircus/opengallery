@@ -38,7 +38,6 @@ export function uploadRequest(file) {
 };
 
 export function uploadCancel() {
-  console.log("Inside onUploadCancel function in upload actions");
   return {
     type: 'UPLOAD_CANCEL',
   }
@@ -65,13 +64,14 @@ export function uploadError(message) {
 export function uploadPhoto(data, photo) {
 
   return (dispatch) => {
+
     dispatch(uploadRequest(photo))
     return request
             .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/upload`)
             .field('user', data.userId)
             .field('title', data.title)
             .field('description', data.description)
-            .field('metaTags', JSON.stringify(data.tags))
+            .field('metaTags', data.tags)
             .attach('artImage', photo[0])
             .end(function(err, res){
               if (err) {
