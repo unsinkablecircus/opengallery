@@ -66,9 +66,8 @@ exports.updatePGphotoUrls = function (photosURLsArr, id) {
 };
 
 exports.updatePGmetaData = function (photoData, id) {
-  //array order is med, large
-  //identify which record to update
-  // return
+  // identify which fields to update, 
+    // only overwrite those
   return pg.raw(
     `UPDATE media
     SET
