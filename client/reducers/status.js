@@ -1,8 +1,11 @@
 import { initialState } from '../../test/initialState'
 import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE } from '../actions/grid'
 
-let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
-const startingState = prevState ? prevState.status : initialState.status;
+let startingState = initialState.status
+if (window) {
+  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined
+  startingState = prevState ? prevState.status : initialState.status
+}
 
 const status = (state = startingState, action) => {
   switch (action.type) {
