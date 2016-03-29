@@ -37,7 +37,7 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
   }
 }
 
-exports.insert = tags => {
+exports.insert = ({ tags, mediaId }) => {
   if (Array.isArray(tags)) {
     return pg.raw(`
       BEGIN;
@@ -55,8 +55,16 @@ exports.insert = tags => {
         WHERE t.tag_text = m.tag_text
       );
 
-      SELECT * FROM tags
-      WHERE tag_text = ANY ('{${ tags.join(',') }}'::text[]);
+      WITH new_tags AS (
+        SELECT m.id, t.id FROM tags t
+        INNER JOIN media m ON (m.id = ${ mediaId })
+        WHERE tag_text = ANY ('{${ tags.join(',') }}'::text[])
+      )
+      INSERT INTO media_tags (media_id, tag_id)
+      SELECT * FROM new_tags;
+
+      SELECT * FROM media_tags mt
+      WHERE mt.media_id = ${ mediaId };
 
       COMMIT;
     `)
