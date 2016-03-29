@@ -54,7 +54,7 @@ module.exports = {
     SELECT
       convo.id,
       convo.self_id,
-      users.id,
+      users.id as user_id,
       users.username
     FROM
       users, convo

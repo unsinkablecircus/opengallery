@@ -13,13 +13,15 @@ class MessageFeed extends React.Component {
   }
 
   render() {
-    let { messages, conversations, toggleMessageModal } = this.props
+    let { messages, conversations, toggleMessageModal, fetchMessages } = this.props
     return (
       <div>
         { conversations.map((conversation, index) => (
           <div 
             key={index}
             onClick={ () => {
+              // do a fetch here for the messages, in server, using conversation id
+              fetchMessages(conversation.)
               toggleMessageModal(index);
             }}
           >
