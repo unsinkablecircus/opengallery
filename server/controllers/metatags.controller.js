@@ -21,7 +21,7 @@ exports.searchTags = (req, res) => {
 /*     POST /api/meta     */
 /*------------------------*/
 exports.createTags = (req, res) => {
-  Meta.insert(req.body.tags)
+  Meta.insert(req.body)
   .then( data => {
     res.status(201).json(data)
   })

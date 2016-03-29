@@ -6,11 +6,11 @@ var request = require('supertest');
 
 var AWS = require('aws-sdk');
 var express = require('express');
-var db = require('../server/db/database.js');
+var db = require('../../server/db/database');
 
-var app = require('../server/server.js');
-var mediaModel = require('../server/models/media');
-var mediaController = require('../server/controllers/media');
+var app = require('../../server/server');
+var mediaModel = require('../../server/models/media');
+var mediaController = require('../../server/controllers/media');
 
 // load AWS credentials
 var credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
