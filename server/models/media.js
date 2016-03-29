@@ -18,7 +18,7 @@ exports.uploadToPG = function (photoData) {
 
     `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description, width, height, mimetype) 
     values(
-      ${photoData.userId}
+      ${photoData.user},
       '${photoData.url_small}',
       '${photoData.url_medium}',
       '${photoData.url_large}',
