@@ -38,6 +38,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     closeUploadModal: () => {
       dispatch(toggleUpload());
+      dispatch(photo.removePhoto());
     }
   }
 }
