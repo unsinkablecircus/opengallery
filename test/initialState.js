@@ -17,13 +17,21 @@ export const initialState = {
   /*--------------*/
 
   messageFeed: {
+    currentMessage: 0,
     messages: [
-     'HELLO WORLD %danielwong%',
-     'HELLO AGAIN , WORLD %jojowong%', 
-     'YELLOW WORLD %danielwong%', 
-     'CELLO WORLD %danielwong%'
-    ],
-    currentMessage: 0
+      {
+       person: 'John Domingo',
+       message:`HELLO AGAIN , WORLD %jojowong% %BREAK% 
+       YELLOW WORLD %DW% %BREAK%
+       CELLO WORLD %DW% %BREAK%`
+      },  
+      {
+        person: 'Megan',
+        message: `HELLO DANIEL!! %jojowong% %BREAK%
+                  HI MEGAN %DW% %BREAK%
+                  BYE DANIEL! %DW% %BREAK%`
+      }
+    ]
   },
 
   user: {
