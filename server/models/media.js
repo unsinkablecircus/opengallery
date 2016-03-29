@@ -79,6 +79,16 @@ exports.updatePGmetaData = function (photoData, id) {
   );
 };
 
+exports.deletePhotoById = function (id) {
+  // identify which fields to update, 
+    // only overwrite those
+  return pg.raw(
+    `DELETE FROM media
+    WHERE id = ${id}
+    `
+  );
+};
+
 exports.retrievePhotos = function () {
   return pg.raw(
     `SELECT * FROM media
