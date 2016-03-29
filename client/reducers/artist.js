@@ -2,7 +2,7 @@ import { initialState } from '../../test/initialState';
 
 let startingState = initialState.artist;
 
-if (!module) {
+if (window) {
   let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
   startingState = prevState ? prevState.artist : initialState.artist;
 }
