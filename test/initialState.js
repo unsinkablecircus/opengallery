@@ -22,15 +22,15 @@ export const initialState = {
     person_name: 'Megan',
     messages: [
       {
-        sender: 'DW',
+        sender: 26,
         text: 'hi there!'
       },
       {
-        sender: 'Megan',
+        sender: 56,
         text: 'hey Daniel!'
       },
       {
-        sender: 'DW',
+        sender: 26,
         text: 'Bye !'
       }
     ],

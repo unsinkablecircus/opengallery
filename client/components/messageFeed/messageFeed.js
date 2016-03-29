@@ -8,7 +8,7 @@ class MessageFeed extends React.Component {
   }
 
   componentWillMount() {
-
+    // do a fetch to get the conversations
   }
 
   render() {
@@ -19,6 +19,7 @@ class MessageFeed extends React.Component {
           <div 
             key={index}
             onClick={ () => {
+              // do a fetch here to get the messages
               toggleMessageModal(index);
             }}
           >
