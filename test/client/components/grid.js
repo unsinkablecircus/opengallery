@@ -24,7 +24,7 @@ function setup() {
 const { output } = setup()
 
 export const GridComponent = () => {
-  it('should render a Material-UI GridList', (done) => {
+  xit('should render a Material-UI GridList', (done) => {
     expect(output.type, 'GridList :').to.equal(GridList)
     expect(output.props.className, 'props.className :').to.be.empty
     expect(output.props.cellHeight, 'props.cellHeight :').to.equal(300)
@@ -33,7 +33,7 @@ export const GridComponent = () => {
     done()
   })
 
-  it('should have GridTile child components', (done) => {
+  xit('should have GridTile child components', (done) => {
     let gridTile = output.props.children[0]
     expect(gridTile.type).to.equal(GridTile)
     expect(gridTile.key).to.equal('0')

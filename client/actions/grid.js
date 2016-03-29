@@ -60,7 +60,7 @@ export function updateArtist(artist) {
   }
 }
 
-export function loadData(id, artist, page) {
+export function loadData(id, artist, page, search) {
   let params = {
     method: 'GET',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }

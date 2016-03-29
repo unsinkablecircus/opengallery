@@ -1,7 +1,8 @@
 import Nav from '../components/nav/Nav';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authActions';
-import { toggleUpload } from '../actions/upload'
+import { toggleUpload } from '../actions/upload';
+import { loadData } from '../actions/grid';
 
 
 const mapStateToProps = (state) => {
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSearchSubmit: searchInput => {
       console.log('searchinput: ', searchInput);
-      //dispatch( /*** SOME ACTION HERE *****/);
+      dispatch(loadData());
     }
   }
 }

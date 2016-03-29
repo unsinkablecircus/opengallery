@@ -11,11 +11,9 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert'
 import ProfileIcon from 'material-ui/lib/svg-icons/action/face'
 
-
 import darkBaseTheme from 'material-ui/lib/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider'
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme'
-
 
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
@@ -27,12 +25,12 @@ const darkMuiTheme = getMuiTheme(darkBaseTheme)
 
 let Nav = ({
   isAuth,
+  id,
+  username, 
   onLogoutClick,
   onToggleUpload,
-  username,
   onSearchSubmit
 }) => {
-
 
   const styles = {
     nav: {

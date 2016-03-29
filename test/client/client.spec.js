@@ -12,7 +12,7 @@ import { GridComponent } from './components/grid'
 // import { TileComponent } from './components/tile'
 // import { WordmapComponent } from './components/wordmap'
 
-describe('CLIENT TESTS', () => {
+xdescribe('CLIENT TESTS', () => {
   describe('├─ Actions', () => {
     describe('├─ Grid', GridActions)
     describe('├─ Gallery', GalleryActions)
