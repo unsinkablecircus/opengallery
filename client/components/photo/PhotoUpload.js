@@ -6,18 +6,19 @@ import TextField from 'material-ui/lib/text-field';
 import DropZone from './dropZone';
 
 const PhotoUpload = ({
+  closeUploadModal,
+  currentFileUploading,
   currentUser,
+  error,
+  isDropOpen,
   isUploadModalOpen,
   isUploading,
-  currentFileUploading,
-  isDropOpen,
-  error,
   onPhotoDrop,
   onOpenClick,
+  onRemoveCurrentPhoto,
   onUploadSuccess,
   onUploadFailure,
-  onUploadButtonClick,
-  closeUploadModal
+  onUploadButtonClick
 }) => {
   let info = {}
   let title
@@ -26,9 +27,13 @@ const PhotoUpload = ({
 
   const actions = [
     <FlatButton 
+      label='Remove'
+      primary={true}
+      onTouchTap={ onRemoveCurrentPhoto } />,
+    <FlatButton 
       label='Close'
       primary={true}
-      onTouchTap={closeUploadModal} />,
+      onTouchTap={ closeUploadModal } />,
     <FlatButton
       label="Submit"
       primary={true}
