@@ -1,13 +1,19 @@
 import React from 'react'
 
 const MessageFeed = ({
-  messages
+  messages,
+  toggleMessageModal
 }) => {
   console.log('messages', messages);
   return (
     <div>
-      { messages.map((message) => (
-        <div> {message} </div>
+      { messages.map((message, index) => (
+        <div 
+          key={index}
+          onClick={toggleMessageModal}
+        >
+          {message}
+        </div>
       ))}
 
     </div>

@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import MessageFeed from '../../containers/messageFeed.container';
 import Grid from '../../containers/grid';
+import MessageModal from '../../containers/messageModal.container'
+
 
 import Avatar from 'material-ui/lib/avatar';
 import List from 'material-ui/lib/lists/list';
@@ -172,6 +174,9 @@ const User = ({
           { displayGridAndNotMessageFeed ? <Grid loc={location.location}/> : <MessageFeed/> }
         </section>
       </div>
+
+      <MessageModal />
+
     </div>
   )
 }

@@ -34,6 +34,11 @@ const view = (state = startingState, action) => {
       return Object.assign({}, state, {
         displayGridAndNotMessageFeed: !state.displayGridAndNotMessageFeed
       })
+    case 'TOGGLE_MESSAGE_MODAL':
+      return Object.assign({}, state, {
+        displayMessageModal: !state.displayMessageModal
+
+      })
     default:
       return state
   }

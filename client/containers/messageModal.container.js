@@ -1,6 +1,5 @@
 import messageModal from '../components/messageFeed/messageModal'
 import { connect } from 'react-redux'
-<<<<<<< df4a0eeed863394f29c90489962ef6326c72de19
 import  { toggleMessageModal, submitMessage } from '../actions/messageFeed.actions'
 
 
@@ -42,24 +41,3 @@ const container = connect(
 )(messageModal)
 
 export default container;
-=======
-
-const mapStateToProps = () => {
-  return {
-
-  }
-}
-
-const mapDispatchToProps = () => {
-  return {
-
-  }
-}
-
-
-
-const container = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(messageModal)
->>>>>>> Create a message modal container and pres component

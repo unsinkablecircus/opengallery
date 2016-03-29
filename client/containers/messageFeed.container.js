@@ -9,9 +9,13 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
   return {
-
+    toggleMessageModal: () => {
+       dispatch({
+        type: 'TOGGLE_MESSAGE_MODAL'
+      })
+    }
   }
 }
 
