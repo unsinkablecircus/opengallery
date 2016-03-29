@@ -2,10 +2,13 @@ import { initialState } from '../../test/initialState'
 import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE, CLEAR_MEDIA } from '../actions/grid'
 import { SHOW_NEXT, SHOW_PREV, TOGGLE_GALLERY } from '../actions/gallery'
 
-let startingState = initialState.media
-if (window) {
-  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined
-  startingState = prevState ? prevState.media : initialState.media
+let startingState = initialState.media;
+
+var isNode = new Function("try {return this===global;}catch(e){return false;}");
+
+if (isNode() !== true) {
+  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+  startingState = prevState ? prevState.media : initialState.media;
 }
 
 const media = (state = startingState, action) => {

@@ -17,7 +17,6 @@ import Face from 'material-ui/lib/svg-icons/social/mood';
 import Website from 'material-ui/lib/svg-icons/social/public';
 import Colors from 'material-ui/lib/styles/colors';
 
-
 const User = ({
   artist,
   selfUsername,
