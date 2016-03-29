@@ -6,6 +6,7 @@ const Feedback = require('../controllers/feedback');
 const Media = require('../controllers/media');
 const Meta = require('../controllers/metatags.controller');
 const User = require('../controllers/user.controller');
+const Vision = require('../controllers/vision.controller');
 
 module.exports = function (app, express) {
 
@@ -22,6 +23,7 @@ module.exports = function (app, express) {
 
   app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 
+  app.get('/api/vision', Vision.detectLabels)
   app.post('/api/metatags', Meta.createTags)
 
   // With react router, server needs to serve up files
