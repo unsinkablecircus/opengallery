@@ -3,6 +3,7 @@ const jimp = require('jimp')
 
 const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
+const Media_MetaTags = require('../models/media_metatags')
 
 const imageData = {};
 const resizePhoto = ({ buffer, mimetype }, size, quality) => {
@@ -96,6 +97,18 @@ exports.uploadPhoto = function (req, res) {
     .catch((err) => {
       console.log('Error updating URLs to PG db', err);
       res.status(404).json({"error": err});
+    })
+    .then(() => {
+      MetaTags.insert(req.body.tags);
+    })
+    .catch((err) => {
+      console.log('Error uploading tags to PostgreSQL', err);
+    })
+    .then(() => {
+      MetaTags.insert(req.body.tags);
+    })
+    .catch((err) => {
+      console.log('Error uploading tags to PostgreSQL', err);
     })
     .then(() => {
       res.status(201).json(responseObject);
