@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import MessageFeed from '../../containers/messageFeed.container';
 import Grid from '../../containers/grid';
 
 import Avatar from 'material-ui/lib/avatar';
@@ -23,12 +24,12 @@ const User = ({
   editMode,
   switchEditMode,
   saveChanges,
-  location
+  location,
+  displayGridAndNotMessageFeed
 }) => {
   let path = window.location.pathname.split('/')[2];
   let isSelf = (path === selfUsername);
   let { id, name, username, email, facebook_url, twitter_url, avatar, media, about, website } = artist;
-  console.log('artist', artist);
   let refHolder = {};
 
   let data = { id: self.id };
@@ -152,6 +153,7 @@ const User = ({
         </section>
         <section className="user-right">
           <Grid loc={location.location}/>
+          { displayGridAndNotMessageFeed ? <Grid/> : <MessageFeed/> }
         </section>
       </div>
     </div>

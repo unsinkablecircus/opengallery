@@ -8,6 +8,7 @@ const mapStateToProps = (state, ownProps) => {
     artist: state.artist,
     editMode: state.user.editMode,
     location: ownProps,
+    showGridAndNotMessageFeed: state.view.displayGridAndNotMessageFeed
   }
 }
 

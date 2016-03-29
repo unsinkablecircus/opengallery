@@ -1,14 +1,15 @@
-import messageFeed from '../messageFeed.js'
+import MessageFeed from '../components/messageFeed/messageFeed.js'
+import { connect } from 'react-redux'
 
 
+console.log(MessageFeed);
 const mapStateToProps = () => {
   return {
-    
+
   }
 }
 
 const mapDispatchToProps = () => {
-
   return {
 
   }
@@ -21,6 +22,6 @@ const mapDispatchToProps = () => {
 const container = connect(
   mapStateToProps,
   mapDispatchToProps
-)(messageFeed);
+)(MessageFeed);
 
-export default container;
+export default container

@@ -1,18 +1,18 @@
+import React from 'react'
 
-
-const messageFeed = ({
-  
-}) => {
-
+const MessageFeed = () => {
+  console.log('MessageFEEED');
   return (
+    <div>
     <div> hello world </div>
+    </div>
   )
 }
 
 
 
 
-export default messageFeed
+export default MessageFeed
 
 
 

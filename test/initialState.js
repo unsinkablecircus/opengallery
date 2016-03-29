@@ -75,7 +75,8 @@ export const initialState = {
     displayGallery: false,
     displaySignIn: false,
     displaySignUp: false,
-    displayWordmap: false
+    displayWordmap: false,
+    displayGridAndNotMessageFeed: true
   },
 
   /*---------------*/
