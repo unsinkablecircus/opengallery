@@ -1,6 +1,6 @@
 import React from 'react';
 import Tile from '../tile/Tile';
-
+import { Route } from 'react-router';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class Grid extends React.Component { 
@@ -9,7 +9,7 @@ export default class Grid extends React.Component {
   }
 
   componentWillMount = () => {
-    let artist = window.location.pathname.split('/')[2];
+    let artist = this.props.loc ? this.props.loc.pathname.split('/')[2] : undefined;
     this.props.loadData(this.props.id, artist, 0);
   }
 

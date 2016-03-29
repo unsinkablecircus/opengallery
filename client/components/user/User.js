@@ -23,7 +23,8 @@ const User = ({
   selfUsername,
   editMode,
   switchEditMode,
-  saveChanges
+  saveChanges,
+  location
 }) => {
   let path = window.location.pathname.split('/')[2];
   let isSelf = (path === selfUsername);
@@ -31,7 +32,6 @@ const User = ({
   let refHolder = {};
 
   let data = { id: self.id };
-
   let button;
   if ( isSelf ) {
     button = <FlatButton
@@ -152,7 +152,7 @@ const User = ({
           </div>
         </section>
         <section className="user-right">
-          <Grid/>
+          <Grid loc={location.location}/>
         </section>
       </div>
     </div>

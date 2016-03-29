@@ -1,9 +1,11 @@
 import { initialState } from '../../test/initialState'
 
+let startingState = initialState.auth;
 
-let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
-const startingState = prevState ? prevState.auth : initialState.auth;
-
+if (!module) {
+  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+  startingState = prevState ? prevState.auth : initialState.auth;
+}
 
 const auth = (state=startingState, action) => {
   switch (action.type) {

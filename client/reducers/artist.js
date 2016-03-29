@@ -1,7 +1,11 @@
 import { initialState } from '../../test/initialState';
 
-let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
-const startingState = prevState ? prevState.artist : initialState.artist;
+let startingState = initialState.artist;
+
+if (!module) {
+  let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
+  startingState = prevState ? prevState.artist : initialState.artist;
+}
 
 const artist = (state=startingState, action) => {
   switch (action.type) {
