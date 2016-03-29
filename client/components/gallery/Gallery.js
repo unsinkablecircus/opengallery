@@ -11,12 +11,10 @@ const config = {stiffness: 170, damping: 26}
 export default class Gallery extends React.Component {
   componentDidMount () {
     document.addEventListener('keydown', this.navigateGallery)
-    // disable scrolling
   }
 
   componentWillUnmount () {
     document.removeEventListener('keydown', this.navigateGallery)
-    // enable scrolling
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -24,7 +22,6 @@ export default class Gallery extends React.Component {
   }
 
   navigateGallery = ({ keyCode }) => {
-    // Add debounce function
     if (keyCode === 27 || keyCode > 36 && keyCode < 41) {
       const { nextTile, prevTile, hideGallery, showWordmap, hideWordmap } = this.props
       switch (keyCode) {
@@ -50,7 +47,7 @@ export default class Gallery extends React.Component {
   }
 
   render () {
-    const { tile, grid, data, dictionary, displayWordmap, hideGallery, userId, submitInput } = this.props
+    const { tile, grid, data, displayWordmap, hideGallery, userId, submitInput } = this.props
     const tileWidth = data[grid[tile]].width
     const tileHeight = data[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
@@ -91,7 +88,6 @@ export default class Gallery extends React.Component {
                       { displayWordmap ? <Wordmap
                         tile={tile}
                         media={data[grid[i]]}
-                        dictionary={dictionary}
                         displayWordmap={displayWordmap}
                         userId={userId}
                         submitInput={submitInput}
