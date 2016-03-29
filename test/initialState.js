@@ -16,6 +16,10 @@ export const initialState = {
   /*     USER     */
   /*--------------*/
 
+  messageFeed: {
+    messages: []
+  },
+
   user: {
     id: 1,
     username: 'username',

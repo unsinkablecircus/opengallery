@@ -28,6 +28,7 @@ const User = ({
   let path = window.location.pathname.split('/')[2];
   let isSelf = (path === selfUsername);
   let { id, name, username, email, facebook_url, twitter_url, avatar, media, about, website } = artist;
+  console.log('artist', artist);
   let refHolder = {};
 
   let data = { id: self.id };
@@ -38,8 +39,7 @@ const User = ({
                 secondary={true}
                 icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user_edit_save_button" />}
                 onTouchTap={ () => {
-                  const values = {};
-                  values.id = self.id;
+                  const values = {id: id};
                   for ( var key in refHolder ) {
                     values[key] = refHolder[key].getValue();
                   }

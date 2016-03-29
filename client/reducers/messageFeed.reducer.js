@@ -5,7 +5,7 @@ const startingState = prevState ? prevState.messageFeed : initialState.messageFe
 
 
 
-const messageFeedReducer = (state=startingState, action) => {
+const messageFeed = (state=startingState, action) => {
 
   switch (action.type) {
     case 'SUBMIT_MESSAGE':
@@ -20,3 +20,6 @@ const messageFeedReducer = (state=startingState, action) => {
 
   }
 }
+
+
+export default messageFeed; 
