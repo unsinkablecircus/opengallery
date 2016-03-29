@@ -99,13 +99,19 @@ exports.uploadPhoto = function (req, res) {
       res.status(404).json({"error": err});
     })
     .then(() => {
-      MetaTags.insert(req.body.tags, responseObject.id);
+      return MetaTags.insert(req.body.metaTags, responseObject.id);
     })
     .catch((err) => {
       console.log('Error uploading tags to PostgreSQL', err);
     })
-    .then(() => {
+    .then((tags) => {
+      console.log('tags returned from metaTags insert', tags);
+      // responseObject.tags = tags;
       res.status(201).json(responseObject);
+    })
+    .catch((err) => {
+      console.log("error sending response to client", err);
+      res.status(404).send(err);
     })
   }
 };
