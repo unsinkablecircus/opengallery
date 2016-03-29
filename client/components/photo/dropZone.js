@@ -8,13 +8,6 @@ const DropZone = ({
   onPhotoDrop,
   onOpenClick
 }) => {
-  // console.log('currentfileuploading in dropzone', currentFileUploading)
-const actions = [
-    <FlatButton 
-      label='Remove'
-      primary={true}
-      onTouchTap={ onRemoveCurrentPhoto } />
-  ];
 
   return (
     <div className="drop-zone-box">
