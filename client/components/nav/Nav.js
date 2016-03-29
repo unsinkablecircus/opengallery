@@ -72,7 +72,7 @@ let Nav = ({
             <FlatButton 
               style={{'marginLeft': '10px', fontSize:'20px'}}
               label='Search'
-              onTouchTap={ () => {onSearchSubmit(searchInput.value)} }
+              onTouchTap={ () => {onSearchSubmit(id, searchInput.value)} }
             />
           </div>
         }

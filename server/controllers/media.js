@@ -35,7 +35,6 @@ const resizePhoto = ({ buffer, mimetype }, size, quality) => {
 }
 
 exports.getPhotos = function (req, res) {
-  console.log('req.query: ', req.query);
   MetaTags.fetch(req.query)
   .then( data => {
     res.status(200).json(data)

@@ -65,13 +65,19 @@ export function loadData(id, artist, page, search) {
     method: 'GET',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
   }
-  console.log('id, artist, page: ', id, artist, page);
+
   if (artist) {
     var endpoint = `/api/artist?user=${id}&artist=${artist}&page=${page}`;
+  } else if (search) {
+    var tagsArray = search.replace(/\W+/g, " ").split(" ")
+    var tags = '';
+    tagsArray.forEach(tag => {
+      tags = tags + '&tags[]=' + tag;
+    });
+    var endpoint = `/api/media?user=${id}&page=${page}${tags}`;
   } else {
     var endpoint = `/api/media?user=${id}&page=${page}`;
   }
-  console.log('endpoint: ', endpoint);
   return dispatch => {
     if (page === 0) {
       dispatch(clearMedia());

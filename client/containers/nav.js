@@ -4,10 +4,10 @@ import { logoutUser } from '../actions/authActions';
 import { toggleUpload } from '../actions/upload';
 import { loadData } from '../actions/grid';
 
-
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuthenticated,
+    id: state.user.id,
     username: state.user.username
   }
 }
@@ -20,9 +20,9 @@ const mapDispatchToProps = (dispatch) => {
     onToggleUpload: () => {
       dispatch(toggleUpload());
     },
-    onSearchSubmit: searchInput => {
+    onSearchSubmit: (id, searchInput) => {
       console.log('searchinput: ', searchInput);
-      dispatch(loadData());
+      dispatch(loadData(id, null, 0, searchInput));
     }
   }
 }
