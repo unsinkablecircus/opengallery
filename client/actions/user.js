@@ -93,7 +93,7 @@ export function deleteError(message) {
 export function DeletePhoto(photosArray) {
 
   return (dispatch) => {
-    dispatch(deleteRequest(photoId)) //TODO: dispatch delete request
+    dispatch(deleteRequest()) //TODO: dispatch delete request
     return request
             .delete(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/delete`)
             .field('photos', photosArray)
