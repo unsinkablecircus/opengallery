@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
     self_id: state.user.id,
     artist: state.artist,
     editMode: state.user.editMode,
+    deleteMode: state.user.deleteMode,
     location: ownProps,
     formData: state.form.profileInformation
   }
