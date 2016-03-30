@@ -15,6 +15,7 @@ module.exports = {
     const currentConversation = req.body.currentConversation;
     messagesModel.submitMessage(message, user1_id, user2_id, createdAt, currentConversation)
     .then( (data) => {
+      console.log('data', data.rows[0])
       res.send(data.rows);
     })
     .catch( (err) => {
