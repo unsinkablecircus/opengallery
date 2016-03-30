@@ -31,20 +31,28 @@ export default class Grid extends React.Component {
     } = this.props;
     let artist = this.props.loc ? this.props.loc.pathname.split('/')[2] : undefined;
 
-    return (
-      <div id="grid-component">
-        <div className="grid-section">
-          {this.state.hasMounted ? grid.map((mediaId, index) => (
-            <Tile key={index} tile={index} url={data[grid[index]].url_lg} data={data[grid[index]]} handleClick={toggleGallery}/>
-          )) : ''}
+    if (total_photos === undefined) {
+      return (
+        <div id="grid-component">
+          No Photos
         </div>
-        <div className="button-load">
-          { grid.length < total_photos 
-            ? <RaisedButton label="Load More Images" onMouseUp={() => loadData(id, artist, page)} /> 
-            : ''
-          }
+      )
+    } else {
+      return (
+        <div id="grid-component">
+          <div className="grid-section">
+            {this.state.hasMounted ? grid.map((mediaId, index) => (
+              <Tile key={index} tile={index} url={data[grid[index]].url_lg} data={data[grid[index]]} handleClick={toggleGallery}/>
+            )) : ''}
+          </div>
+          <div className="button-load">
+            { grid.length < total_photos 
+              ? <RaisedButton label="Load More Images" onMouseUp={() => loadData(id, artist, page)} /> 
+              : ''
+            }
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 }

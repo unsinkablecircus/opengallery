@@ -95,31 +95,33 @@ export function loadData(id, artist, page, search) {
     })
     .then(res => {
       console.log('res on fetch: ', res);
+
       var grid = []
       var data = {}
       if (artist) {
         dispatch(updateArtist(res.rows[0].artist[0]));
+      } 
+      if (res.rows[artist ? 1 : 0].data !== null) {
+        res.rows[artist ? 1 : 0].data.forEach((image) => {
+          grid.push(image.media_id);
+          data[image.media_id] = {
+            media_id: image.media_id,
+            title: image.title,
+            media: image.media,
+            description: image.description,
+            width: image.width || 800,
+            height: image.height || 600,
+            url_sm: image.url_sm,
+            url_md: image.url_md,
+            url_lg: image.url_lg,
+            artist: image.artist,
+            tags: image.tags || [],
+            user_feedback_id: image.user_feedback_id || null,
+            feedback: image.feedback || []
+          };
+        });
+        var total_photos = res.rows[artist ? 2 : 1].total_records;
       }
-      res.rows[artist ? 1 : 0].data.forEach((image) => {
-        grid.push(image.media_id);
-        data[image.media_id] = {
-          media_id: image.media_id,
-          title: image.title,
-          media: image.media,
-          description: image.description,
-          width: image.width || 800,
-          height: image.height || 600,
-          url_sm: image.url_sm,
-          url_md: image.url_md,
-          url_lg: image.url_lg,
-          artist: image.artist,
-          tags: image.tags || [],
-          user_feedback_id: image.user_feedback_id || null,
-          feedback: image.feedback || []
-        };
-      });
-      var total_photos = res.rows[artist ? 2 : 1].total_records;
-
       dispatch(receiveData(grid, data, total_photos));
     })
     .catch(err => {
