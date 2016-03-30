@@ -80,14 +80,48 @@ exports.updatePGmetaData = function (photoData, id) {
   );
 };
 
-exports.deletePhotoById = function (id) {
-  // identify which fields to update, 
-    // only overwrite those
+exports.deletePhotoByIdPG = function (mediaId) {
+
   return pg.raw(
-    `DELETE FROM media
-    WHERE id = ${id}
+    `DELETE FROM media_hashTags
+    WHERE media_id = ${mediaId};
+    DELETE FROM media_hashTag_totals
+    WHERE media_id = ${mediaId};
+    DELETE FROM media_tags
+    WHERE media_id = ${mediaId};
+    DELETE FROM media
+    WHERE id = ${mediaId};
     `
   );
+};
+
+exports.deletePhotoByIdS3 = function (mediaId) {
+
+  var params = {
+    Bucket: 'opengallery', // required
+    Delete: { // required 
+      Objects: [ // required 
+        {
+          Key: mediaId + 'large', // required
+        },
+        {
+          Key: mediaId + 'medium', // required
+        }
+      ]
+    }
+  };
+
+  return new Promise(function(resolve, reject) {
+    s3.deleteObjects(params, function(err, data) {
+      if (err) {
+        console.log(err, err.stack); // an error occurred
+        reject(err);
+      } else {
+        console.log(data);           // successful response
+        resolve(data);
+      }
+    });
+  });
 };
 
 exports.retrievePhotos = function () {
