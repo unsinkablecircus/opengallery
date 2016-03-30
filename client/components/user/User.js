@@ -22,6 +22,7 @@ const User = ({
   selfUsername,
   self_id,
   editMode,
+  deleteMode,
   switchEditMode,
   saveChanges,
   location,
