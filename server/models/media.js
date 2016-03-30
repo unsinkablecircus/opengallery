@@ -90,7 +90,8 @@ exports.deletePhotoByIdPG = function (mediaId) {
     DELETE FROM media_tags
     WHERE media_id = ${mediaId};
     DELETE FROM media
-    WHERE id = ${mediaId};
+    WHERE id = ${mediaId}
+    RETURNING ${mediaId};
     `
   );
 };
