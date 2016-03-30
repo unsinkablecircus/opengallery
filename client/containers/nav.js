@@ -4,6 +4,11 @@ import { logoutUser } from '../actions/authActions';
 import { toggleUpload } from '../actions/upload';
 import { loadData } from '../actions/grid';
 
+import { push } from 'react-router-redux'
+import { browserHistory } from 'react-router'
+
+import {store} from '../store'
+
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuthenticated,
@@ -21,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(toggleUpload());
     },
     onSearchSubmit: (id, searchInput) => {
-      console.log('searchinput: ', searchInput);
+      browserHistory.push('/');
       dispatch(loadData(id, null, 0, searchInput));
     }
   }
