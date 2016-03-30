@@ -14,7 +14,7 @@ module.exports = {
           UPDATE media_hashtag_totals
             SET total = total - 1
             WHERE media_id = ${mediaId} AND hashtag_id = (SELECT hashtag_id FROM UserMedia)
-            RETURNING *;
+            RETURNING hashtag_id AS id, total AS count;
 
         WITH
         new_row AS(
