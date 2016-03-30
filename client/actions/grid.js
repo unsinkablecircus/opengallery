@@ -94,6 +94,7 @@ export function loadData(id, artist, page, search) {
       return response.json()
     })
     .then(res => {
+      console.log('res on fetch: ', res);
       var grid = []
       var data = {}
       if (artist) {
@@ -117,7 +118,7 @@ export function loadData(id, artist, page, search) {
           feedback: image.feedback || []
         };
       });
-      var total_photos = artist ? res.rows[2].total_records : res.rows[1].count;
+      var total_photos = res.rows[artist ? 2 : 1].total_records;
 
       dispatch(receiveData(grid, data, total_photos));
     })

@@ -85,7 +85,7 @@ exports.total_tags = (tags) => (`
 `)
 
 exports.total = (`
-  SELECT COUNT(*)
+  SELECT COUNT(*) as total_records
   FROM (
     SELECT DISTINCT m.id
     FROM media m
