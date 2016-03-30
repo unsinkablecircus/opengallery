@@ -3,8 +3,7 @@ import { Motion, spring } from 'react-motion'
 import Tile from '../tile/Tile'
 import GalleryTile from './GalleryTile'
 import Wordmap from '../wordmap/Wordmap'
-
-import FlatButton from 'material-ui/lib/flat-button';
+import Feedback from '../wordmap/Feedback'
 
 const config = {stiffness: 170, damping: 26}
 
@@ -71,12 +70,13 @@ export default class Gallery extends React.Component {
       <div id="gallery-component" onClick={() => hideGallery(tile)}>
         <Motion style={{height: spring(tileHeight), width: spring(tileWidth)}}>
           { container =>
-            <div className="gallery-tile" style={container}>
+            <div
+              className="gallery-tile"
+              style={container}
+              onClick={() => hideGallery(tile)}
+            >
               { gallery.map((style, i) =>
-                <Motion
-                  key={data[grid[i]].mediaId}
-                  style={style}
-                >
+                <Motion key={i} style={style}>
                   { style =>
                     <Tile
                       style={style}
@@ -85,30 +85,28 @@ export default class Gallery extends React.Component {
                       handleClick={() => hideGallery(tile)}
                     >
                       <GalleryTile data={data[grid[i]]}/>
-                      { displayWordmap ? <Wordmap
-                        tile={tile}
-                        media={data[grid[i]]}
-                        displayWordmap={displayWordmap}
-                        userId={userId}
-                        submitInput={submitInput}
-                      /> : '' }
                     </Tile>
                   }
                 </Motion>
               )}
+              { displayWordmap ?
+                <Wordmap
+                  tile={tile}
+                  media={data[grid[tile]]}
+                  displayWordmap={displayWordmap}
+                  userId={userId}
+                  submitInput={submitInput}
+                >
+                  <Feedback
+                    user={userId}
+                    data={grid[tile]}
+                    submit={submitInput}
+                  />
+                </Wordmap>
+              : '' }
             </div>
           }
         </Motion>
-        <div style={{zIndex: 2000, length: '150px', position: 'absolute', left: '45%', bottom: '10%'}}>
-          <input ref='feedbackInfo'/>
-          <FlatButton
-            label='Submit'
-            onTouchTap={ () => {
-              const inputValue = this.refs.feedbackInfo.value;
-              submitInput(userId, grid[tile], inputValue);
-            }}
-          />
-        </div>
       </div>
 
     )
