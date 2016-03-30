@@ -52,6 +52,12 @@ export function switchEditMode() {
   }
 };
 
+export function switchDeleteMode() {
+  return {
+    type: 'SWITCH_DELETE_MODE'
+  }
+};
+
 export function SaveChanges(data) {
   const config = {
     method: 'POST',
