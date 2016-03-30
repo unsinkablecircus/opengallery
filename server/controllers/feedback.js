@@ -8,8 +8,10 @@ module.exports = {
 
     media_hashTags.submitFeedback(userId, mediaId, feedback)
     .then( data => {
-      data.rows[0].tag = feedback;
-      res.status(201).json(data.rows[0]);
+      res.status(201).json({
+        feedback: data.rows[0].feedback,
+        user_feedback_id: data.rows[0].user_feedback_id
+      });
     })
     .catch ( err => {
       console.error(`[Error] Could not post user feedback: ${err}`);
