@@ -20,7 +20,7 @@ class MessageFeed extends React.Component {
             key={index}
             onClick={ () => {
               // do a fetch here for the messages, in server, using conversation id
-              fetchMessages(conversation.id);
+              fetchMessages(conversation);
               toggleMessageModal(index);
             }}
           >

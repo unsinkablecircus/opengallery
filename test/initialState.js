@@ -18,6 +18,7 @@ export const initialState = {
 
   messageFeed: {
     person_id: 56,
+    person_name: 'Megan',
     showTextField: false,
     currentConversation: 5,
     messages: [

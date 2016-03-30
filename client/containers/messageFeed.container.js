@@ -16,8 +16,8 @@ const mapDispatchToProps = (dispatch) => {
     toggleMessageModal: (index) => {
       dispatch(toggleMessageModal());
     },
-    fetchMessages: (conversation_id) => {
-      dispatch(fetchMessages(conversation_id));
+    fetchMessages: (conversation) => {
+      dispatch(fetchMessages(conversation));
     }
   }
 }

@@ -24,6 +24,18 @@ const updateConversations = (conversations) => {
   }
 }
 
+const setCurrentConversation = (conversation, messages) => {
+  return {
+    type: 'SET_CURRENT_CONVERSATION',
+    payload: {
+      conversation: conversation,
+      messages: messages
+    }
+
+  }
+
+}
+
 const messageError = () => {
 
 }
@@ -78,27 +90,28 @@ let config = {
   }
 }
 
-export const fetchMessages = (conversation_id) => {
-let config = {
-    method: 'POST',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `conversation_id=${conversation_id}`
-  }
-  return dispatch => {
-    // We dispatch requestSignup to kickoff the call to the API
-    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/message/fetchMessages`, config)
-      .then( response => {
-        if ( !response.ok ) {
-          // dispatch(messageError('cannot submit message'));
-          return Promise.reject('cannot submit message');
-        }
-        return response.json();
-      })
-      .then( (messages) => {
-        console.log('messages', messages);
-        // dispatch(updateConversations(conversations));
-      })
-      .catch( err => console.log("Error: ", err) )
+export const fetchMessages = (conversation) => {
+  const conversation_id = conversation.id;
+  let config = {
+      method: 'POST',
+      headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+      body: `conversation_id=${conversation_id}`
+    }
+    return dispatch => {
+      // We dispatch requestSignup to kickoff the call to the API
+      return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/message/fetchMessages`, config)
+        .then( response => {
+          if ( !response.ok ) {
+            // dispatch(messageError('cannot submit message'));
+            return Promise.reject('cannot submit message');
+          }
+          return response.json();
+        })
+        .then( (messages) => {
+          console.log('messages', messages);
+          dispatch(setCurrentConversation(conversation, messages));
+        })
+        .catch( err => console.log("Error: ", err) )
   }
 }
 
