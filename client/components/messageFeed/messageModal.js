@@ -21,7 +21,6 @@ const messageModal = ({
   textModalField
 }) => {
 
-  let textFieldMessage;
   const textField = (
     <TextField
       multiLine={ true }
@@ -90,7 +89,6 @@ const messageModal = ({
           hintText='Message'
           fullWidth={ true }
         />
-      <div> {index + ': ' + currentMessage} </div>
       </Dialog>
     </div>
   );

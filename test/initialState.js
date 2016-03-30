@@ -16,6 +16,12 @@ export const initialState = {
   /*     USER     */
   /*--------------*/
 
+  form: {
+    messageModal: {
+      input: ""
+    }
+  },
+
   messageFeed: {
     person_id: 56,
     person_name: 'Megan',
@@ -42,7 +48,8 @@ export const initialState = {
         username: 'Megan',
         self_id: 26 
       }
-    ]
+    ],
+    error: 'error'
 
   },
 

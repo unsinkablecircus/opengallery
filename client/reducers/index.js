@@ -7,12 +7,11 @@ import view from './view'
 import user from './user'
 import artist from './artist'
 import messageFeed from './messageFeed.reducer'
+import form from './form'
 import { routerReducer } from 'react-router-redux'
 
-
-console.log('msgfeed in index', messageFeed);
-
 const reducers = combineReducers({
+  form,
   messageFeed,
   auth,
   user,

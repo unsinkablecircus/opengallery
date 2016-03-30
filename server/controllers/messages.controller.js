@@ -1,10 +1,5 @@
 const messagesModel = require('../models/messages.model')
 
-
-
-
-
-
 module.exports = {
 
   submitMessage: (req, res, next) => {

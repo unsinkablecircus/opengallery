@@ -1,12 +1,8 @@
-
-
-
 export const toggleMessageModal = () => {
   return {
     type: 'TOGGLE_MESSAGE_MODAL'
   };
 }
-
 
 const updateMessage = (message) => {
   return {
@@ -31,12 +27,14 @@ const setCurrentConversation = (conversation, messages) => {
       conversation: conversation,
       messages: messages
     }
-
   }
-
 }
 
-const messageError = () => {
+const messageError = (err) => {
+  return {
+    type: 'MESSAGE_ERROR',
+    payload: err
+  }
 
 }
 
@@ -61,7 +59,10 @@ export const submitMessage = (user1_id, user2_id, message, createdAt, currentCon
         console.log('message', message[0]);
         dispatch(updateMessage(message[0]));
       })
-      .catch( err => console.log("Error: ", err) )
+      .catch( err => {
+        console.log("Error: ", err);
+        dispatch(messageError(err));
+      })
   }
 }
 
@@ -86,7 +87,10 @@ let config = {
         console.log('conversations', conversations);
         dispatch(updateConversations(conversations));
       })
-      .catch( err => console.log("Error: ", err) )
+      .catch( err => {
+        console.log("Error: ", err);
+        dispatch(messageError(err));
+      })
   }
 }
 
@@ -111,7 +115,10 @@ export const fetchMessages = (conversation) => {
           console.log('messages', messages);
           dispatch(setCurrentConversation(conversation, messages));
         })
-        .catch( err => console.log("Error: ", err) )
+        .catch( err => {
+          console.log("Error: ", err);
+          dispatch(messageError(err));
+        })
   }
 }
 

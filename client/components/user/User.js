@@ -5,7 +5,6 @@ import { createStore } from 'redux';
 import MessageFeed from '../../containers/messageFeed.container';
 import Grid from '../../containers/grid';
 
-
 import Avatar from 'material-ui/lib/avatar';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
@@ -54,7 +53,6 @@ const User = ({
                 }}
               />
   }
-
 
   return (
     <div id="user-component">
@@ -157,28 +155,31 @@ const User = ({
           </div>
         </section>
         <section className="user-right">
-          <span
-           style={{color: displayGridAndNotMessageFeed ? 'red' : 'black'}}
-           onClick={ () => {
-            if ( !displayGridAndNotMessageFeed ) {
-              toggleShowGridAndNotMessageFeed()
-            }
-          }}
-          >
-           Show Grid
-          </span>
-          <span 
-            style={{color: displayGridAndNotMessageFeed ? 'black' : 'red'}}
-            onClick={ () => {
-              if ( displayGridAndNotMessageFeed ) {
-                toggleShowGridAndNotMessageFeed();
-                fetchConversations(self_id);
+          {isSelf ? <div className='toggleGridMessageFeed'>
+            <span
+             style={{color: displayGridAndNotMessageFeed ? 'red' : 'black'}}
+             onClick={ () => {
+              if ( !displayGridAndNotMessageFeed ) {
+                toggleShowGridAndNotMessageFeed()
               }
             }}
-          > 
-            Show Message Feed 
-          </span>
-          { displayGridAndNotMessageFeed ? <Grid loc={location.location}/> : <MessageFeed/> }
+            >
+             Show Grid
+            </span>
+            <span 
+              style={{color: displayGridAndNotMessageFeed ? 'black' : 'red'}}
+              onClick={ () => {
+                if ( displayGridAndNotMessageFeed ) {
+                  toggleShowGridAndNotMessageFeed();
+                  fetchConversations(self_id);
+                }
+              }}
+            > 
+              Show Message Feed 
+            </span>
+          </div>
+          : null }
+          { displayGridAndNotMessageFeed ? <Grid/> : <MessageFeed/> }
         </section>
       </div>
 

@@ -2,8 +2,6 @@ import MessageFeed from '../components/messageFeed/messageFeed.js'
 import { connect } from 'react-redux'
 import  { toggleMessageModal, fetchMessages } from '../actions/messageFeed.actions'
 
-
-console.log(MessageFeed);
 const mapStateToProps = (state) => {
   return {
     messages: state.messageFeed.messages,
@@ -21,10 +19,6 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
-
-
-
-
 
 const container = connect(
   mapStateToProps,
