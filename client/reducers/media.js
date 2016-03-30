@@ -5,6 +5,8 @@ import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE, CLEAR_MEDIA } from '../action
 import { SHOW_NEXT, SHOW_PREV, TOGGLE_GALLERY } from '../actions/gallery'
 import { ADD_TO_WORDMAP, UPDATE_WORDMAP } from '../actions/wordmap.actions'
 
+import * as wordmap from './wordmap.reducer'
+
 let startingState = initialState.media;
 const isNode = new Function("try {return this===global;}catch(e){return false;}");
 
@@ -51,29 +53,7 @@ const media = (state = startingState, {type, payload, meta}) => {
       })
 
     case UPDATE_WORDMAP:
-      const { media, user_feedback_id } = meta
-      const idExists = payload.reduce((acc, feed) =>
-        acc || feed.id == user_feedback_id, false)
-
-      if (idExists) {
-        return update( state, {
-          data: {
-            [media]: {
-              user_feedback_id: { $set: user_feedback_id },
-              feedback: { $set: payload }
-            }
-          }
-        })
-      } else {
-        return update( state, {
-          data: {
-            [media]: {
-              user_feedback_id: { $set: null },
-              feedback: { $set: payload }
-            }
-          }
-        })
-      }
+      wordmap.addFeedback(state, { payload, ...meta })
       break
 
     default:
