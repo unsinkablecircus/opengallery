@@ -13,6 +13,21 @@ export function toggleDropWindow() {
   }
 };
 
+export function selectPhoto(file) {
+  return {
+    type: 'PHOTO_SELECT',
+    payload: {
+      file: file
+    }
+  }
+};
+
+export function removePhoto() {
+  return {
+    type: 'REMOVE_PHOTO'
+  }
+};
+
 export function uploadRequest(file) {
   return {
     type: 'UPLOAD_REQUEST',
@@ -23,18 +38,14 @@ export function uploadRequest(file) {
 };
 
 export function uploadCancel() {
-  console.log("Inside onUploadCancel function in upload actions");
   return {
     type: 'UPLOAD_CANCEL',
   }
 };
 
-export function uploadSuccess(id) {
+export function uploadSuccess() {
   return {
-    type: 'UPLOAD_SUCCESS',
-    payload: {
-      photoId: id
-    }
+    type: 'UPLOAD_SUCCESS'
   }
 };
 
@@ -47,47 +58,25 @@ export function uploadError(message) {
   }
 };
 
-export function UploadPhoto(photo, userId) {
+export function uploadPhoto(data, photo) {
 
   return (dispatch) => {
+
     dispatch(uploadRequest(photo))
-    
     return request
             .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/upload`)
-            .field('user', userId)
+            .field('user', data.userId)
+            .field('title', data.title)
+            .field('description', data.description)
+            .field('metaTags', data.tags)
             .attach('artImage', photo[0])
             .end(function(err, res){
               if (err) {
                 console.log('Oh no! error', err);
                 dispatch(uploadError(err));
               } else {
-                alert('yay got ' + JSON.stringify(res.body));
-                dispatch(uploadSuccess(res.body.id));
+                dispatch(uploadSuccess());
               }
             });
   }
-}
-
-export function UploadMetaData(photoData, photoId) {
-
-  return (dispatch) =>
-    console.log("Inside UploadMetaData function")
-
-    return request
-            .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/edit`)
-            .field('title', '')
-            .field('description', '')
-            .field('metaTags', JSON.stringify([]))
-            .end(function(err, res) {
-              if (err) {
-                console.log('Oh no! error updating metaData!', err);
-                dispatch(uploadError(err));
-              } else {
-                console.log('done uploading');
-                alert('yay! great success!' + JSON.stringify(res.body));
-                dispatch(uploadSuccess(''));
-                //updateSuccess function instead of uploadSuccess
-                //dispatch(updateSuccess());
-              }
-            })
 }

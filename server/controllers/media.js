@@ -1,29 +1,26 @@
 const Promise = require('bluebird')
 const jimp = require('jimp')
-const fs = require('fs')
 
 const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
+const Media_MetaTags = require('../models/media_metatags')
 
-const separateData = (data) => {
-  var photoData = {
-    PGupload: data.photoInfo,
-    s3upload: data.photoRaw
-  }
-  return photoData
-}
-
+const imageData = {};
 const resizePhoto = ({ buffer, mimetype }, size, quality) => {
   return jimp.read(buffer)
   .then(image => {
+    imageData.width = image.bitmap.width;
+    imageData.height = image.bitmap.height;
     return new Promise(function(resolve, reject) {
-      image.clone().resize(size, jimp.AUTO, jimp.RESIZE_BEZIER).quality(quality)
+      image.clone()
+      .resize(size, jimp.AUTO, jimp.RESIZE_BEZIER)
+      .quality(quality)
       .getBuffer(mimetype, (err, buffer) => {
         if (err) {
           console.error(`Error parsing Jimp buffer to ${mimetype}: ${err}`)
           reject(`Error parsing Jimp buffer to ${mimetype}: ${err}`)
         } else {
-          resolve(buffer)
+          resolve(buffer);
         }
       })
     })
@@ -48,53 +45,94 @@ exports.getPhotos = function (req, res) {
 exports.uploadPhoto = function (req, res) {
   var responseObject = {
     id: null,
-    user_id: 5,
-    url_small: '', //resizedPhotos.small
+    url_small: '',
     url_med: '',
-    url_large: '',
-    title: '', // photo.PGupload.title
-    description: 'GOT IT' // photo.PGupload.description
+    url_large: ''
   }
-
-  if (req.file) {
-    req.file.mimetype = 'image/jpeg'
-    resizePhoto(req.file, 25, 0)
+  const photo = req.file;
+  const photoData = req.body;
+  res.status(201).send();
+  
+  if (photo) {
+    photo.mimetype = 'image/jpeg';
+    resizePhoto(photo, 25, 0)
     .then( buffer => {
+      photoData.width = imageData.width;
+      photoData.height = imageData.height;
+      photoData.mimetype = photo.mimetype;
+      photoData.url_small = new Buffer(buffer).toString('base64')
+      photoData.url_medium = '';
+      photoData.url_large = '';
       responseObject.url_small = new Buffer(buffer).toString('base64')
-      return resizePhoto(req.file, 800, 0)
-    })
-    .then( mediumBuffer => {
-      Media.uploadToPG(req.body)
-      .then((id) => {
-        responseObject.id = id.rows[0].id;
-        var urlExtMedium = `${responseObject.id}medium`
-        var urlExtLarge = `${responseObject.id}large`
-        responseObject.url_med = `http://d14shq3s3khz77.cloudfront.net/${urlExtMedium}`
-        responseObject.url_large = `http://d14shq3s3khz77.cloudfront.net/${urlExtLarge}`
 
-        new Promise.all([
-          Media.uploadToS3(urlExtLarge, req.file.buffer), Media.uploadToS3(urlExtMedium, mediumBuffer)
-        ])
-        .then((url) => {
-          Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id)
-          .then(() => {
-            res.status(201).json(responseObject);
-          })
-          .catch((err) => {
-            console.log('error updating URLs to PG db', err);
-          });
-        })
-        .catch((err) => {
-          console.log('error uploading images to s3 db', err)
-        });
-      })
-      .catch((err) => {
-        console.log('Error uploading metaData to PostgreSQL', err);
-      });
+      return resizePhoto(photo, 800, 100)
     })
     .catch( err => {
       console.error(`Error resizing photo: ${err}`)
-      reject(`Error resizing photo: ${err}`)
+    })
+    .then( mediumBuffer => {
+      photo.buffer_med = mediumBuffer;
+      return Media.uploadToPG(photoData)
+    })
+    .catch((err) => {
+      console.log('Error uploading images to PostgreSQL', err)
+    })
+    .then((id) => {
+      responseObject.id = id.rows[0].id;
+
+      var urlExtMedium = responseObject.id + 'medium';
+      var urlExtLarge = responseObject.id + 'large';
+      responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
+      responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
+
+      return new Promise.all([
+        Media.uploadToS3(urlExtLarge, photo.buffer), Media.uploadToS3(urlExtMedium, photo.buffer_med)
+      ])
+    })
+    .catch((err) => {
+      console.log('Error uploading images to s3 db', err)
+    })
+    .then((url) => {
+      return Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
+    })
+    .catch((err) => {
+      console.log('Error updating URLs to PG db', err);
+    })
+    .then(() => {
+      return MetaTags.insert(photoData.metaTags.split(','), responseObject.id);
+    })
+    .catch((err) => {
+      console.log('Error uploading tags to PostgreSQL', err);
+    })
+    .then((tags) => {
+      responseObject.tags = tags.rows;
+    })
+    .catch((err) => {
+      console.log("error sending response to client", err);
     })
   }
 };
+
+exports.updatePhoto = function (req, res) {
+  //parse request to find which fields need to be update
+  Media.updatePGmetaData(/*photoData, req.body.id*/)
+  .then( data => {
+    res.status(201).json(data)
+  })
+  .catch( err => {
+    console.error(`[Error] Failed to query meta tags in PG: ${err}`)
+    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+  })
+}
+
+exports.deletePhoto = function (req, res) {
+  //parse request to find which fields need to be update
+  Media.deletePhotoById(/*req.body, req.body.id*/)
+  .then( () => {
+    res.status(201)
+  })
+  .catch( err => {
+    console.error(`[Error] Failed to query meta tags in PG: ${err}`)
+    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+  })
+}

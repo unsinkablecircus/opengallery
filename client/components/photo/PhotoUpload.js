@@ -5,77 +5,83 @@ import TextField from 'material-ui/lib/text-field';
 
 import DropZone from './dropZone';
 
-
-//on click => dispatch action: show photo upload
-//action: show photo upload => update state on model component (this?)
-// on drop (use drop zone) => dispatch 'isUploading' function (similar to authActions file)
-// on http request for photoUpload endpoint, dispatch 'uploaded' action
-// 
-
 const PhotoUpload = ({
-  currentUser,
-  isDropOpen,
+  closeUploadModal,
   currentFileUploading,
-  isUploaded,
-  isUploadModalOpen, 
+  currentUser,
   error,
+  isDropOpen,
+  isUploadModalOpen,
+  isUploading,
   onPhotoDrop,
   onOpenClick,
+  onRemoveCurrentPhoto,
   onUploadSuccess,
   onUploadFailure,
-  onUploadCancel,
-  onUploadButtonClick,
-  closeUploadModal
+  onUploadButtonClick
 }) => {
   let info = {}
   let title
   let description
+  let tags
 
   const actions = [
     <FlatButton 
-      label='Cancel'
-      onTouchTap={closeUploadModal}
-    />,
+      label='Remove'
+      primary={true}
+      onTouchTap={ onRemoveCurrentPhoto } />,
+    <FlatButton 
+      label='Close'
+      primary={true}
+      onTouchTap={ closeUploadModal } />,
     <FlatButton
       label="Submit"
       primary={true}
       onTouchTap={ () => {
-        // generate an object with the values from the input forms
         let metaData = {};
+        metaData.userId = currentUser;
         for (let key in info) {
           if ( info[key].getValue() !== "" ) {
             metaData[key] = info[key].getValue();
           }
+          if ( key === 'tags') {
+            metaData.tags = metaData.tags.split(' ');
+          }
         }
-        onTouchTap(onUploadButtonClick(metaData, currentFileUploading));
-      }}/>
+        onUploadButtonClick(metaData, currentFileUploading);
+      }} />
   ];
 
-  console.log('currentFileUploading in photoupload', currentFileUploading)
-
   return (
-    <div>
-      <Dialog
-        title= { 'Upload Photo' }
-        actions = { actions }
-        modal={ true }
-        open={ isUploadModalOpen }
-      >
-        <DropZone 
-          currentUser={ currentUser }
-          onUploadCancel={ onUploadCancel }
-          onPhotoDrop={ onPhotoDrop } 
-          onOpenClick={ onOpenClick } 
-          currentFileUploading={ currentFileUploading }/>
+    <Dialog
+          title= { 'Upload Photo' }
+          actions = { actions }
+          modal={ true }
+          open={ isUploadModalOpen }
+          autoScrollBodyContent={ true }
+        >
+      <div className="photo-upload-container">
+        <div className="photo-data-container">
+          <br />
+          <TextField ref= { (node) => {info.title = node} } hintText='title' fullWidth={true}/> 
+          <br />
+          <TextField ref= { (node) => {info.description = node} } hintText='description' fullWidth={true}/>
+          <br />
+          <TextField ref= { (node) => {info.tags = node} } hintText='media tags' fullWidth={true}/>
+        </div>
         <br />
+        <div className="drop-zone-container">
+          { error !== '' ? <p>errorMessage </p>: '' }
+          { isUploading ? <p>Your image is uploading...Upload another!</p> : '' }
+          <DropZone 
+            onRemoveCurrentPhoto={ onRemoveCurrentPhoto }
+            onPhotoDrop={ onPhotoDrop } 
+            currentFileUploading={ currentFileUploading } 
+            onOpenClick={ onOpenClick } />
+        </div>
         <br />
-        <TextField ref= { (node) => {info.title = node} } hintText='title'/> 
-        <br />
-        <TextField ref= { (node) => {info.description = node} } hintText='description'/>
-        { error !== '' ? <p>errorMessage </p>: '' }
-      </Dialog>
-
-    </div>
+      </div>
+    </Dialog>
   )
 }
 

@@ -12,13 +12,21 @@ const s3 = new AWS.S3();
 
 //model handles pg manipulation
 
-exports.uploadToPG = function (userId) {
+exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
   return pg.raw(
 
-    `INSERT INTO media (user_id) 
+    `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description, width, height, mimetype) 
     values(
-      ${userId}
+      ${photoData.user},
+      '${photoData.url_small}',
+      '${photoData.url_medium}',
+      '${photoData.url_large}',
+      '${photoData.title}',
+      '${photoData.description}',
+      ${photoData.width},
+      ${photoData.height},
+      '${photoData.mimetype}'
     ) 
     RETURNING id`
   );
@@ -58,9 +66,8 @@ exports.updatePGphotoUrls = function (photosURLsArr, id) {
 };
 
 exports.updatePGmetaData = function (photoData, id) {
-  //array order is med, large
-  //identify which record to update
-  // return
+  // identify which fields to update, 
+    // only overwrite those
   return pg.raw(
     `UPDATE media
     SET
@@ -68,6 +75,16 @@ exports.updatePGmetaData = function (photoData, id) {
       description = '${photoData.description}',
     WHERE id = ${id}
     RETURNING *
+    `
+  );
+};
+
+exports.deletePhotoById = function (id) {
+  // identify which fields to update, 
+    // only overwrite those
+  return pg.raw(
+    `DELETE FROM media
+    WHERE id = ${id}
     `
   );
 };

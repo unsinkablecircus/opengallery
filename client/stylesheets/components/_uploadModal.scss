@@ -1,0 +1,83 @@
+.photo-upload-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  justify-content: space-around;
+
+  @include respond-to('xsmall') {
+    flex-direction: column;
+  };
+
+  @include respond-to('small') {
+    flex-direction: column;
+  };
+
+  @include respond-to('medium') {
+    flex-direction: row;
+  };
+
+  @include respond-to('large') {
+    flex-direction: row;
+  };
+}
+
+.photo-upload-container >
+.photo-data-container {
+  width: 200px;
+  flex: 1;
+
+  @include respond-to('xsmall') {
+    flex: 1;
+  };
+
+  @include respond-to('small') {
+    flex: 1;
+  };
+
+  @include respond-to('medium') {
+    flex: 1;
+  };
+
+  @include respond-to('large') {
+    flex: 1;
+  };
+}
+
+.photo-upload-container >
+.drop-zone-container {
+  justify-content: flex-end;
+  flex: 1;
+
+  @include respond-to('xsmall') {
+    flex: 1;
+  };
+
+  @include respond-to('small') {
+    flex: 1;
+  };
+
+  @include respond-to('medium') {
+    flex: 1;
+  };
+
+  @include respond-to('large') {
+    flex: 1;
+  };
+}
+
+.drop-zone-box {
+  justify-content: flex-end;
+  height: 200px;
+  flex: 1;
+}
+
+.image-preview {
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 25vh;
+}
