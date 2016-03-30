@@ -72,7 +72,7 @@ const PhotoUpload = ({
         <br />
         <div className="drop-zone-container">
           { error !== '' ? <p>errorMessage </p>: '' }
-          { isUploading ? <p>Your image is uploading...</p> : '' }
+          { isUploading ? <p>Your image is uploading...Upload another!</p> : '' }
           <DropZone 
             onRemoveCurrentPhoto={ onRemoveCurrentPhoto }
             onPhotoDrop={ onPhotoDrop } 
