@@ -56,8 +56,13 @@ export const submitMessage = (user1_id, user2_id, message, createdAt, currentCon
         return response.json();
       })
       .then( (message) => {
-        console.log('message', message[0]);
         dispatch(updateMessage(message[0]));
+
+        // after submitting message, make sure that the scroll bar is at the bottom to show the most recent message
+        const messageContainer = document.getElementsByClassName('messageModalContainer')[0];
+        if(messageContainer.scrollHeight > messageContainer.clientHeight) {
+          messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
+        }
       })
       .catch( err => {
         console.log("Error: ", err);

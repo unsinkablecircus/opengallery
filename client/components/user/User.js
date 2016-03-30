@@ -31,12 +31,16 @@ const User = ({
   toggleShowGridAndNotMessageFeed,
   fetchConversations
 }) => {
+
+  // Check if the user is on his/her own page
   let path = window.location.pathname.split('/')[2];
   let isSelf = (path === selfUsername);
+
   let { id, name, username, email, facebook_url, twitter_url, avatar, media, about, website } = artist;
+  // refHolder will temporarily hold the form information
   let refHolder = {};
 
-  let data = { id: self.id };
+  // Save changes/ Edit Profile button
   let button;
   if ( isSelf ) {
     button = <FlatButton
@@ -44,11 +48,10 @@ const User = ({
                 secondary={true}
                 icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user_edit_save_button" />}
                 onTouchTap={ () => {
-                  const values = {id: id};
+                  const values = { id: id };
                   for ( var key in refHolder ) {
                     values[key] = refHolder[key].getValue();
                   }
-                  console.log(values);
                   editMode ? saveChanges(values) : switchEditMode()
                 }}
               />
@@ -90,7 +93,6 @@ const User = ({
                 disabled={isSelf && editMode ? false : true}
                 defaultValue={ email }
                 hintText='email'
-
                 className="user-field"
                 underlineShow={isSelf && editMode ? true : false}
                 ref={ (node) => {refHolder.email = node}}
