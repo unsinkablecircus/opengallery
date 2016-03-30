@@ -43,12 +43,9 @@ export function uploadCancel() {
   }
 };
 
-export function uploadSuccess(id) {
+export function uploadSuccess() {
   return {
-    type: 'UPLOAD_SUCCESS',
-    payload: {
-      photoId: id
-    }
+    type: 'UPLOAD_SUCCESS'
   }
 };
 
@@ -78,8 +75,7 @@ export function uploadPhoto(data, photo) {
                 console.log('Oh no! error', err);
                 dispatch(uploadError(err));
               } else {
-                alert('yay got ' + JSON.stringify(res.body));
-                dispatch(uploadSuccess(res.body.id));
+                dispatch(uploadSuccess());
               }
             });
   }
