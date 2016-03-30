@@ -61,21 +61,13 @@ export function switchDeleteMode() {
 
 export function deleteRequest() {
   return {
-    type: 'DELETE_REQUEST',
-    payload: {
-      isDeleting: true,
-      isDeleted: false
-    }
+    type: 'DELETE_REQUEST'
   }
 };
 
 export function deleteSuccess() {
   return {
-    type: 'DELETE_SUCCESS',
-    payload: {
-      isDeleting: false,
-      isDeleted: true
-    }
+    type: 'DELETE_SUCCESS'
   }
 };
 
@@ -83,8 +75,6 @@ export function deleteError(message) {
   return {
     type: 'DELETE_SUCCESS',
     payload: {
-      isDeleting: false,
-      isDeleted: true,
       message
     }
   }
