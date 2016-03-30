@@ -128,12 +128,19 @@ exports.updatePhoto = function (req, res) {
 
 exports.deletePhoto = function (req, res) {
   //parse request to find which fields need to be update
-  Media.deletePhotoById(/*req.body, req.body.id*/)
-  .then( () => {
-    res.status(201)
+  Media.deletePhotoByIdPG(req.body.id)
+  .catch((err) => {
+    console.log("Error deleting from PG", err);
+    res.status(404).send(`[Error] Failed to delete records in PG: ${err}`);
+  })
+  .then(() => {
+    return deletePhotoByIdS3(req.body.id);
   })
   .catch( err => {
     console.error(`[Error] Failed to query meta tags in PG: ${err}`)
-    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+    res.status(404).send(`[Error] Failed to delete records from S3: ${err}`)
+  })
+  .then( () => {
+    res.status(200).send();
   })
 }
