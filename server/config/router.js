@@ -25,6 +25,7 @@ module.exports = function (app, express) {
 
   app.post('/api/message/submitMessage', Messages.submitMessage);
   app.post('/api/message/fetchConversations', Messages.fetchConversations);
+  app.post('/api/message/fetchMessages', Messages.fetchMessages);
 
   app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 

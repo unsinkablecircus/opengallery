@@ -8,14 +8,10 @@ export const toggleMessageModal = () => {
 }
 
 
-const updateMessage = (username, text) => {
-  console.log('update message', username, text);
+const updateMessage = (message) => {
   return {
     type: 'SUBMIT_MESSAGE',
-    payload: {
-      sender: username,
-      text: text
-    }
+    payload: message
   }
 }
 
@@ -32,13 +28,11 @@ const messageError = () => {
 
 }
 
-
-
-export const submitMessage = (user1_id, user2_id, message, time, username) => {
+export const submitMessage = (user1_id, user2_id, message, createdAt, currentConversation) => {
    let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `user1_id=${user1_id}&user2_id=${user2_id}&message=${message}&time=${time}`
+    body: `user1_id=${user1_id}&user2_id=${user2_id}&message=${message}&createdAt=${createdAt}&currentConversation=${currentConversation}`
   }
   
   return dispatch => {
@@ -51,9 +45,9 @@ export const submitMessage = (user1_id, user2_id, message, time, username) => {
         }
         return response.json();
       })
-      .then( (data) => {
-        console.log('data', data);
-        dispatch(updateMessage(username, data.message));
+      .then( (message) => {
+        console.log('message', message[0]);
+        dispatch(updateMessage(message[0]));
       })
       .catch( err => console.log("Error: ", err) )
   }
@@ -82,7 +76,48 @@ let config = {
       })
       .catch( err => console.log("Error: ", err) )
   }
-
-
-
 }
+
+export const fetchMessages = (conversation_id) => {
+let config = {
+    method: 'POST',
+    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+    body: `conversation_id=${conversation_id}`
+  }
+  return dispatch => {
+    // We dispatch requestSignup to kickoff the call to the API
+    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/message/fetchMessages`, config)
+      .then( response => {
+        if ( !response.ok ) {
+          // dispatch(messageError('cannot submit message'));
+          return Promise.reject('cannot submit message');
+        }
+        return response.json();
+      })
+      .then( (messages) => {
+        console.log('messages', messages);
+        // dispatch(updateConversations(conversations));
+      })
+      .catch( err => console.log("Error: ", err) )
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

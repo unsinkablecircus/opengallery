@@ -1,6 +1,6 @@
 import MessageFeed from '../components/messageFeed/messageFeed.js'
 import { connect } from 'react-redux'
-import  { toggleMessageModal } from '../actions/messageFeed.actions'
+import  { toggleMessageModal, fetchMessages } from '../actions/messageFeed.actions'
 
 
 console.log(MessageFeed);
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     toggleMessageModal: (index) => {
       dispatch(toggleMessageModal());
+    },
+    fetchMessages: (conversation_id) => {
+      dispatch(fetchMessages(conversation_id));
     }
   }
 }

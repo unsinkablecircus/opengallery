@@ -1,40 +1,21 @@
 const db = require('./../db/database')
 
 module.exports = { 
-  submitMessage: (message, user1_id, user2_id, time) => {
-    console.log(message, user1_id, user2_id, time);
+  submitMessage: (message, user1_id, user2_id, createdAt, currentConversation) => {
+    console.log(message, user1_id, user2_id, createdAt, currentConversation);
     return db.raw(`
-          INSERT INTO conversations (user1_id, user2_id)
-          SELECT ${user1_id}, ${user2_id}
-          WHERE NOT EXISTS (
-            SELECT * FROM conversations
-            WHERE (
-              user1_id = ${user1_id} AND
-              user2_id = ${user2_id}
-            )
-            UNION
-            SELECT * FROM conversations
-            WHERE (
-              user1_id = ${user2_id} AND
-              user2_id = ${user1_id}
-            )
-          );
         INSERT INTO messages (conversation_id, message, sender_id, created_at)
           VALUES (
-            (SELECT id FROM conversations WHERE (
-            user1_id = ${user1_id} AND user2_id = ${user2_id} 
-            OR
-            user1_id = ${user2_id} AND user2_id = ${user1_id})),
-             '${message}',
-              ${user1_id},
-              '${time}'
+            ${currentConversation},
+            '${message}',
+            ${user1_id},
+            '${createdAt}'
             )
           RETURNING *
     `)
   },
 
   fetchConversations: (self_id) => {
-    // send back name, conversation id,
     return db.raw(`
     WITH convo AS (
       SELECT 
@@ -60,6 +41,12 @@ module.exports = {
       users, convo
     WHERE
       convo.user_id = users.id;
+    `)
+  },
+
+  fetchMessages: (conversation_id) => {
+    return db.raw(`
+      SELECT * FROM messages WHERE conversation_id = ${conversation_id}
     `)
   }
 }

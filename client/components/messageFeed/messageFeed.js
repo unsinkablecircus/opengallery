@@ -1,7 +1,6 @@
 import React from 'react'
 import MessageModal from '../../containers/messageModal.container'
 
-
 class MessageFeed extends React.Component {
   constructor(props) {
     super(props)
@@ -21,7 +20,7 @@ class MessageFeed extends React.Component {
             key={index}
             onClick={ () => {
               // do a fetch here for the messages, in server, using conversation id
-              fetchMessages(conversation.)
+              fetchMessages(conversation.id);
               toggleMessageModal(index);
             }}
           >

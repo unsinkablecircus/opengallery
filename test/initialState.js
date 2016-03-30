@@ -19,19 +19,21 @@ export const initialState = {
   messageFeed: {
     person_id: 56,
     showTextField: false,
-    person_name: 'Megan',
+    currentConversation: 5,
     messages: [
       {
-        sender: 26,
-        text: 'hi there!'
+        id: 1,
+        createdAt: "3/29/2016 2:35:24 PM",
+        conversation_id: 5,
+        sender_id: 26,
+        message: 'hi there!'
       },
       {
-        sender: 56,
-        text: 'hey Daniel!'
-      },
-      {
-        sender: 26,
-        text: 'Bye !'
+        id:2,
+        createdAt: "3/29/2016 2:35:24 PM",
+        conversation_id: 5,
+        sender_id: 56,
+        message: 'hey Daniel!'
       }
     ],
     conversations: [
