@@ -6,8 +6,7 @@ import { SHOW_NEXT, SHOW_PREV, TOGGLE_GALLERY } from '../actions/gallery'
 import { ADD_TO_WORDMAP, UPDATE_WORDMAP } from '../actions/wordmap.actions'
 
 let startingState = initialState.media;
-
-var isNode = new Function("try {return this===global;}catch(e){return false;}");
+const isNode = new Function("try {return this===global;}catch(e){return false;}");
 
 if (isNode() !== true) {
   let prevState = localStorage['my-save-key'] ? JSON.parse(localStorage['my-save-key']) : undefined;
@@ -26,6 +25,7 @@ const media = (state = startingState, {type, payload, meta}) => {
         page: state.page + 1,
         total_photos: payload.total_photos
       })
+
     case CLEAR_MEDIA:
       return Object.assign({}, state, {
         grid: [],
@@ -34,30 +34,48 @@ const media = (state = startingState, {type, payload, meta}) => {
         total_photos: 0,
         tile: 0
       })
+
     case TOGGLE_GALLERY:
       return Object.assign({}, state, {
         tile: payload
       })
+
     case SHOW_NEXT:
       return Object.assign({}, state, {
         tile: idx + 1 >= len ? len - 1 : idx + 1
       })
+
     case SHOW_PREV:
       return Object.assign({}, state, {
         tile: idx - 1 < 0 ? 0 : idx - 1
       })
-    case ADD_TO_WORDMAP:
-      return update(state, {
-        data: {
-          [meta.media]: {
-            feedback: { $push: {
-              id: null,
-              count: 1,
-              word: payload
-            } }
+
+    case UPDATE_WORDMAP:
+      const { media, user_feedback_id } = meta
+      const idExists = payload.reduce((acc, feed) =>
+        acc || feed.id == user_feedback_id, false)
+
+      if (idExists) {
+        return update( state, {
+          data: {
+            [media]: {
+              user_feedback_id: { $set: user_feedback_id },
+              feedback: { $set: payload }
+            }
           }
-        }
-      })
+        })
+      } else {
+        return update( state, {
+          data: {
+            [media]: {
+              user_feedback_id: { $set: null },
+              feedback: { $set: payload }
+            }
+          }
+        })
+      }
+      break
+
     default:
       return state
   }
