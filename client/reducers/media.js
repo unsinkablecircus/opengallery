@@ -1,6 +1,9 @@
+import update from 'react-addons-update'
 import { initialState } from '../../test/initialState'
+
 import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE, CLEAR_MEDIA } from '../actions/grid'
 import { SHOW_NEXT, SHOW_PREV, TOGGLE_GALLERY } from '../actions/gallery'
+import { ADD_TO_WORDMAP, UPDATE_WORDMAP } from '../actions/wordmap.actions'
 
 let startingState = initialState.media;
 
@@ -11,17 +14,17 @@ if (isNode() !== true) {
   startingState = prevState ? prevState.media : initialState.media;
 }
 
-const media = (state = startingState, action) => {
+const media = (state = startingState, {type, payload, meta}) => {
   const len = state.grid.length
   const idx = state.tile
 
-  switch (action.type) {
+  switch (type) {
     case GRID_SUCCESS:
       return Object.assign({}, state, {
-        grid: state.grid.concat(action.payload.grid),
-        data: Object.assign({}, state.data, action.payload.data),
+        grid: state.grid.concat(payload.grid),
+        data: Object.assign({}, state.data, payload.data),
         page: state.page + 1,
-        total_photos: action.payload.total_photos
+        total_photos: payload.total_photos
       })
     case CLEAR_MEDIA:
       return Object.assign({}, state, {
@@ -33,7 +36,7 @@ const media = (state = startingState, action) => {
       })
     case TOGGLE_GALLERY:
       return Object.assign({}, state, {
-        tile: action.payload
+        tile: payload
       })
     case SHOW_NEXT:
       return Object.assign({}, state, {
@@ -42,6 +45,18 @@ const media = (state = startingState, action) => {
     case SHOW_PREV:
       return Object.assign({}, state, {
         tile: idx - 1 < 0 ? 0 : idx - 1
+      })
+    case ADD_TO_WORDMAP:
+      return update(state, {
+        data: {
+          [meta.media]: {
+            feedback: { $push: {
+              id: null,
+              count: 1,
+              word: payload
+            } }
+          }
+        }
       })
     default:
       return state
