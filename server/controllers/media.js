@@ -44,7 +44,6 @@ exports.getPhotos = function (req, res) {
 exports.uploadPhoto = function (req, res) {
   var responseObject = {
     id: null,
-    url_small: '',
     url_med: '',
     url_large: ''
   }
@@ -52,19 +51,7 @@ exports.uploadPhoto = function (req, res) {
   const photoData = req.body;
 
   if (photo) {
-    photo.mimetype = 'image/jpeg';
-    resizePhoto(photo, 25, 0)
-    .then( buffer => {
-      photoData.width = imageData.width;
-      photoData.height = imageData.height;
-      photoData.mimetype = photo.mimetype;
-      photoData.url_small = new Buffer(buffer).toString('base64')
-      photoData.url_medium = '';
-      photoData.url_large = '';
-      responseObject.url_small = new Buffer(buffer).toString('base64')
-
-      return Media.uploadToPG(photoData)
-    })
+    Media.uploadToPG(photoData)
     .catch((err) => {
       console.log('Error uploading images to PostgreSQL', err)
     })
@@ -73,6 +60,18 @@ exports.uploadPhoto = function (req, res) {
       responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'medium');
       responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'large');
       res.status(201).json(responseObject);
+
+      photo.mimetype = 'image/jpeg';
+      return resizePhoto(photo, 25, 0)
+    })
+    .then( buffer => {
+      photoData.width = imageData.width;
+      photoData.height = imageData.height;
+      photoData.mimetype = photo.mimetype;
+      photoData.url_small = new Buffer(buffer).toString('base64')
+      photoData.url_medium = '';
+      photoData.url_large = '';
+
       return resizePhoto(photo, 800, 100)
     })
     .catch( err => {
