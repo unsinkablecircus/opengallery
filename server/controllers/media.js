@@ -50,7 +50,6 @@ exports.uploadPhoto = function (req, res) {
   }
   const photo = req.file;
   const photoData = req.body;
-  res.status(201).send();
 
   if (photo) {
     photo.mimetype = 'image/jpeg';
@@ -64,13 +63,6 @@ exports.uploadPhoto = function (req, res) {
       photoData.url_large = '';
       responseObject.url_small = new Buffer(buffer).toString('base64')
 
-      return resizePhoto(photo, 800, 100)
-    })
-    .catch( err => {
-      console.error(`Error resizing photo: ${err}`)
-    })
-    .then( mediumBuffer => {
-      photo.buffer_med = mediumBuffer;
       return Media.uploadToPG(photoData)
     })
     .catch((err) => {
@@ -78,6 +70,16 @@ exports.uploadPhoto = function (req, res) {
     })
     .then((id) => {
       responseObject.id = id.rows[0].id;
+      responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'medium');
+      responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'large');
+      res.status(201).json(responseObject);
+      return resizePhoto(photo, 800, 100)
+    })
+    .catch( err => {
+      console.error(`Error resizing photo: ${err}`)
+    })
+    .then( mediumBuffer => {
+      photo.buffer_med = mediumBuffer;
 
       var urlExtMedium = responseObject.id + 'medium.jpg';
       var urlExtLarge = responseObject.id + 'large.jpg';
