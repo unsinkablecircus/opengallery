@@ -59,18 +59,50 @@ export function switchDeleteMode() {
   }
 };
 
-export function DeletePhoto(photoId) {
+export function deleteRequest() {
+  return {
+    type: 'DELETE_REQUEST',
+    payload: {
+      isDeleting: true,
+      isDeleted: false
+    }
+  }
+};
+
+export function deleteSuccess() {
+  return {
+    type: 'DELETE_SUCCESS',
+    payload: {
+      isDeleting: false,
+      isDeleted: true
+    }
+  }
+};
+
+export function deleteError(message) {
+  return {
+    type: 'DELETE_SUCCESS',
+    payload: {
+      isDeleting: false,
+      isDeleted: true,
+      message
+    }
+  }
+};
+
+export function DeletePhoto(photosArray) {
 
   return (dispatch) => {
     dispatch(deleteRequest(photoId)) //TODO: dispatch delete request
     return request
             .delete(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/delete`)
+            .field('photos', photosArray)
             .end(function(err, res) {
               if (err) {
                 console.log('Oh no! error deleting your photo', photoId, err);
-                dispatch(deleteError(err, photoId))
+                dispatch(deleteError(err))
               } else {
-                dispatch(deleteSuccess(photoId))
+                dispatch(deleteSuccess())
               }
             })
   }
