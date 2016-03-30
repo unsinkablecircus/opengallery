@@ -115,7 +115,7 @@ describe('Back End', function() {
 
         request(app)
           .del('/api/media/delete')
-          .field('id', 618)
+          .field('photos', [618])
           .expect(200, function(res) {
             expect(res).to.be.a('object');
             if (err) {
