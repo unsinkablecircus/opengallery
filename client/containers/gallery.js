@@ -23,7 +23,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     hideGallery: (tile) => { dispatch(gallery.toggleView(tile)) },
     showWordmap: () => { dispatch(wordmap.show()) },
     hideWordmap: () => { dispatch(wordmap.hide()) },
-    submitInput: (userId, mediaId, input) => { dispatch(gallery.submitInput(userId, mediaId, input)) }
+    submitInput: (user, media, word, event) => {
+      dispatch(wordmap.submit(user, media, word))
+    }
   }
 }
 
