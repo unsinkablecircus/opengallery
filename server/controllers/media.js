@@ -49,31 +49,33 @@ exports.uploadPhoto = function (req, res) {
     url_med: '',
     url_large: ''
   }
-
-  if (req.file) {
-    req.file.mimetype = 'image/jpeg';
-    resizePhoto(req.file, 25, 0)
+  const photo = req.file;
+  const photoData = req.body;
+  res.status(201).send();
+  
+  if (photo) {
+    photo.mimetype = 'image/jpeg';
+    resizePhoto(photo, 25, 0)
     .then( buffer => {
-      req.body.width = imageData.width;
-      req.body.height = imageData.height;
-      req.body.mimetype = req.file.mimetype;
-      req.body.url_small = new Buffer(buffer).toString('base64')
-      req.body.url_medium = '';
-      req.body.url_large = '';
+      photoData.width = imageData.width;
+      photoData.height = imageData.height;
+      photoData.mimetype = photo.mimetype;
+      photoData.url_small = new Buffer(buffer).toString('base64')
+      photoData.url_medium = '';
+      photoData.url_large = '';
       responseObject.url_small = new Buffer(buffer).toString('base64')
 
-      return resizePhoto(req.file, 800, 100)
+      return resizePhoto(photo, 800, 100)
     })
     .catch( err => {
       console.error(`Error resizing photo: ${err}`)
     })
     .then( mediumBuffer => {
-      req.file.buffer_med = mediumBuffer;
-      return Media.uploadToPG(req.body)
+      photo.buffer_med = mediumBuffer;
+      return Media.uploadToPG(photoData)
     })
     .catch((err) => {
       console.log('Error uploading images to PostgreSQL', err)
-      res.status(404).json({"error": err});
     })
     .then((id) => {
       responseObject.id = id.rows[0].id;
@@ -84,40 +86,36 @@ exports.uploadPhoto = function (req, res) {
       responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
 
       return new Promise.all([
-        Media.uploadToS3(urlExtLarge, req.file.buffer), Media.uploadToS3(urlExtMedium, req.file.buffer_med)
+        Media.uploadToS3(urlExtLarge, photo.buffer), Media.uploadToS3(urlExtMedium, photo.buffer_med)
       ])
     })
     .catch((err) => {
       console.log('Error uploading images to s3 db', err)
-      res.status(404).json({"error": err});
     })
     .then((url) => {
       return Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
     })
     .catch((err) => {
       console.log('Error updating URLs to PG db', err);
-      res.status(404).json({"error": err});
     })
     .then(() => {
-      return MetaTags.insert(req.body.metaTags.split(','), responseObject.id);
+      return MetaTags.insert(photoData.metaTags.split(','), responseObject.id);
     })
     .catch((err) => {
       console.log('Error uploading tags to PostgreSQL', err);
     })
     .then((tags) => {
       responseObject.tags = tags.rows;
-      res.status(201).json(responseObject);
     })
     .catch((err) => {
       console.log("error sending response to client", err);
-      res.status(404).send(err);
     })
   }
 };
 
 exports.updatePhoto = function (req, res) {
   //parse request to find which fields need to be update
-  Media.updatePGmetaData(/*req.body, req.body.id*/)
+  Media.updatePGmetaData(/*photoData, req.body.id*/)
   .then( data => {
     res.status(201).json(data)
   })
