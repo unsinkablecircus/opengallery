@@ -274,7 +274,6 @@ describe('Back End', function() {
       it('Should delete photos from S3 database', function(done) {
         mediaModel.deletePhotoByIdS3(123)
         .then(function(data) {
-          console.log('data returned from S3 delete function', data);
           expect(data).to.be.a('object');
           // db.destroy();
           done();
