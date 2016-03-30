@@ -109,6 +109,25 @@ describe('Back End', function() {
 
     });
 
+    xdescribe('DELETE media', function(done){
+
+      it('responds with a 200 (Deleted) when photo record deleted', function() {
+
+        request(app)
+          .del('/api/media/delete')
+          .field('id', 618)
+          .expect(200, function(res) {
+            expect(res).to.be.a('object');
+            if (err) {
+              console.log("Error requesting data: ", err);
+              expect(err).to.be.null;
+            }
+          }, done)
+
+      });
+
+    });
+
   });
 
   describe('Database: ', function() {
@@ -271,8 +290,8 @@ describe('Back End', function() {
         });
       });
 
-      it('Should delete photos from S3 database', function(done) {
-        mediaModel.deletePhotoByIdS3(123)
+      xit('Should delete photos from S3 database', function(done) {
+        mediaModel.deletePhotoByIdS3(621)
         .then(function(data) {
           expect(data).to.be.a('object');
           // db.destroy();
@@ -285,10 +304,10 @@ describe('Back End', function() {
         });
       });
 
-      it('Should delete photo record from PostgreSQL database', function(done) {
-        mediaModel.deletePhotoByIdSPG(123)
+      xit('Should delete photo record from PostgreSQL database', function(done) {
+        mediaModel.deletePhotoByIdPG(617)
         .then(function(data) {
-          console.log('data returned from PostgreSQL delete function', data);
+          console.log(data);
           expect(data).to.be.a('object');
           // db.destroy();
           done();
