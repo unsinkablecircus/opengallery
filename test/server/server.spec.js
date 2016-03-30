@@ -189,6 +189,13 @@ describe('Back End', function() {
         expect(mediaModel.retrievePhotosFromPG).to.be.a('function');
       });
 
+      xit('Should have a function called deletePhotoByIdPG', function() {
+        expect(mediaModel.deletePhotoByIdPG).to.be.a('function');
+      });
+      xit('Should have a function called deletePhotoByIdS3', function() {
+        expect(mediaModel.deletePhotoByIdS3).to.be.a('function');
+      });
+
       //Writing to DB Tests
       xit('Should retrieve photos information from PostgreSQL', function(done) {
 
@@ -263,6 +270,37 @@ describe('Back End', function() {
           done(err);
         });
       });
+
+      it('Should delete photos from S3 database', function(done) {
+        mediaModel.deletePhotoByIdS3(123)
+        .then(function(data) {
+          console.log('data returned from S3 delete function', data);
+          expect(data).to.be.a('object');
+          // db.destroy();
+          done();
+        })
+        .catch(function(err) {
+          expect(err).to.be.null;
+          // db.destroy();
+          done(err);
+        });
+      });
+
+      it('Should delete photo record from PostgreSQL database', function(done) {
+        mediaModel.deletePhotoByIdSPG(123)
+        .then(function(data) {
+          console.log('data returned from PostgreSQL delete function', data);
+          expect(data).to.be.a('object');
+          // db.destroy();
+          done();
+        })
+        .catch(function(err) {
+          expect(err).to.be.null;
+          // db.destroy();
+          done(err);
+        });
+      });
+
     });
 
     describe('MediaTags Model: ', function() {
