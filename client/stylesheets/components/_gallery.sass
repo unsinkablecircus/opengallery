@@ -4,7 +4,7 @@
   width: 100vw
   height: 100vh
   background: $dimmer-color
-  align-items: center
+  +align-items(center)
   z-index: 1105
 
   .gallery-tile
@@ -12,8 +12,11 @@
     overflow: hidden
     margin: auto
     box-sizing: border-box
-    box-shadow: $box-shadow
     +user-select(none)
+    z-index: 1106
+
+    &:hover + .gallery-nav
+      opacity: 1
 
     .tile-component
       position: absolute
@@ -31,7 +34,7 @@
         +transition(all .5s ease-out)
         width: 0
 
-      &:hover .overlay
+      &:active .overlay
         border-bottom: 200vh solid yellow //size must be double container
         border-left: 200vw solid transparent //size must be double container
         +transition(all .5s ease-out)
@@ -43,7 +46,7 @@
         right: 15px
         +transition(all .5s ease-out)
 
-      &:hover .corner-overlay-content
+      &:active .corner-overlay-content
         opacity: 0
         +transition(all .5s ease-out)
 
@@ -61,11 +64,14 @@
           border-bottom: 1px solid #333
           padding: 0 0 12px
 
-      &:hover .overlay-content
+      &:active .overlay-content
         opacity: 1
         +transition(all .3s ease-out)
         +transition-delay(.3s)
 
+  //////////////////////////
+  //     BLUR OVERLAY     //
+  //////////////////////////
 
   & + #nav-component,
   & + #nav-component + #grid-component,
@@ -76,3 +82,10 @@
   & + #nav-component + #grid-component
     max-height: calc(100vh - 70px)
     overflow: hidden
+
+  ////////////////////////
+  //     NAVIGATION     //
+  ////////////////////////
+
+  @import '../snippets/gallery-nav'
+  @import '../snippets/gallery-close'
