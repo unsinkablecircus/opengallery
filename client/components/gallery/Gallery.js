@@ -8,12 +8,27 @@ import Feedback from '../wordmap/Feedback'
 const config = {stiffness: 170, damping: 26}
 
 export default class Gallery extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { data: {} }
+  }
+
+  componentWillMount (nextProps) {
+    this.resizeGallery(nextProps)
+  }
+
   componentDidMount () {
     document.addEventListener('keydown', this.navigateGallery)
   }
 
   componentWillUnmount () {
     document.removeEventListener('keydown', this.navigateGallery)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.displayGallery) {
+      this.resizeGallery(nextProps)
+    }
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -41,6 +56,20 @@ export default class Gallery extends React.Component {
           break
         default:
         return
+      }
+    }
+  }
+
+  resizeGallery ({ data }) {
+    const vw = window.innerWidth * 0.9
+    const vh = window.innerHeight * 0.9
+    const resizedData = Object.assign({}, data)
+
+    for (let [media_id, { width, height }] of Object.entries(resizedData)) {
+      if () {
+        console.log('media_id:', media_id)
+        console.log('width:', width)
+        console.log('height:', height)
       }
     }
   }
