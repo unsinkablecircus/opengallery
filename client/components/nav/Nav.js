@@ -3,7 +3,6 @@ import { Link } from 'react-router'
 
 import AppBar from 'material-ui/lib/app-bar'
 import CreateIcon from 'material-ui/lib/svg-icons/image/palette'
-import DiscoverIcon from 'material-ui/lib/svg-icons/device/wallpaper'
 import FlatButton from 'material-ui/lib/flat-button'
 import IconButton from 'material-ui/lib/icon-button'
 import IconMenu from 'material-ui/lib/menus/icon-menu'
@@ -62,9 +61,6 @@ let Nav = ({
             <IconButton tooltip='Create' onClick={ onToggleUpload }>
               <CreateIcon color='#303030'/>
             </IconButton>
-            <IconButton tooltip='Discover'>
-              <DiscoverIcon color='#303030'/>
-            </IconButton>
             <input
               style={{borderRadius: '3px', height: '30px', width: '500px', marginLeft: '20px', transform: 'translateY(-5px)', fontSize:'20px'}} 
               ref={ (node) => {searchInput = node} }
@@ -89,7 +85,6 @@ let Nav = ({
                 primaryText='Profile'
               />
             </Link>
-            <Link to={`/profile/${username}1`}><MenuItem primaryText='Different Profile'/></Link>
             <Link to={'/'}><MenuItem primaryText='Sign Out' onClick={ onLogoutClick }/></Link>
           </IconMenu>
         }

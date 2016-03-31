@@ -1,7 +1,7 @@
 import update from 'react-addons-update'
 import { initialState } from '../../test/initialState'
 
-import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE, CLEAR_MEDIA } from '../actions/grid'
+import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE, SHOW_EMPTY_MEDIA, CLEAR_MEDIA } from '../actions/grid'
 import { SHOW_NEXT, SHOW_PREV, TOGGLE_GALLERY } from '../actions/gallery'
 import { ADD_TO_WORDMAP, UPDATE_WORDMAP } from '../actions/wordmap.actions'
 
@@ -29,6 +29,14 @@ const media = (state = startingState, {type, payload, meta}) => {
       })
 
     case CLEAR_MEDIA:
+      return Object.assign({}, state, {
+        grid: [],
+        data: [],
+        page: 0,
+        total_photos: undefined,
+        tile: 0
+      })
+    case SHOW_EMPTY_MEDIA:
       return Object.assign({}, state, {
         grid: [],
         data: [],
