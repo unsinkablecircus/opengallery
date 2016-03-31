@@ -1,8 +1,16 @@
 import { connect } from 'react-redux';
 import User from '../components/user/User';
+<<<<<<< 804ab17d1221ce49334fb26d7f9e261ab207028a
 import { SaveChanges, switchEditMode, fetchUserInfo } from '../actions/user';
+<<<<<<< 548023de9598ea9ae8fbe4e3d965f4c52ce1b2a8
 import { fetchConversations, fetchMessages, fetchConversation, toggleMessageModal } from '../actions/messageFeed.actions'
 
+=======
+import { fetchConversations } from '../actions/messageFeed.actions'
+=======
+import { SaveChanges, switchEditMode, fetchUserInfo, DeletePhotos } from '../actions/user';
+>>>>>>> Create function in user container to dipatch deletePhotos function
+>>>>>>> Create function in user container to dipatch deletePhotos function
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -39,6 +47,8 @@ const mapDispatchToProps = (dispatch) => {
           value: value
         }
       })
+    deletePhotos: (photos) => {
+      dispatch(deletePhotos(photos));
     }
   }
 }
