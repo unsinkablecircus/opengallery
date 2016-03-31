@@ -1,4 +1,3 @@
-import update from 'react-addons-update'
 import { initialState } from '../../test/initialState'
 
 import { GRID_REQUEST, GRID_SUCCESS, GRID_FAILURE, SHOW_EMPTY_MEDIA, CLEAR_MEDIA } from '../actions/grid'
