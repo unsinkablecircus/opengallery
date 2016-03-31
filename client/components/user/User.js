@@ -27,7 +27,6 @@ const User = ({
   saveChanges,
   location,
   displayGridAndNotMessageFeed,
-  displayGridAndNotMessageFeed,
   toggleShowGridAndNotMessageFeed,
   fetchConversations
 }) => {

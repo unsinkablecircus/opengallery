@@ -3,31 +3,13 @@ import React from 'react'
 import FlatButton from 'material-ui/lib/flat-button'
 import TextField from 'material-ui/lib/text-field'
 import moment from 'moment'
+import ChatBox from './chatBox'
 
 const messageModal = ({
-  messages,
-  person_id,
-  person_name,
-  props,
-  currentMessage,
-  index,
-  displayMessageModal,
-  toggleMessageModal,
-  username,
-  submitMessage,
-  id,
-  currentConversation,
-  editInput,
-  textModalField
+  messages, person_id, person_name, props, currentMessage, index,
+  displayMessageModal, toggleMessageModal, username, submitMessage,
+  id, currentConversation, editInput, textModalField 
 }) => {
-
-  const textField = (
-    <TextField
-      multiLine={ true }
-      ref = { (node) => { textFieldMessage = node } }
-    />
-  )
-
   const actions = [
     <FlatButton
       label="Send"
@@ -49,6 +31,8 @@ const messageModal = ({
     />
   ];
 
+  const chatBoxProps = { person_name, username, id, textModalField, editInput, messages }
+
   return (
     <div>
       <Dialog
@@ -57,38 +41,9 @@ const messageModal = ({
         modal={ true }
         open={ displayMessageModal }
       >
-        <div className='messageModalContainer' style={{height: '300px', overflow:'scroll'}}>
-          {messages.map( (message, index) => {
-            let style = {
-              borderRadius: '10px',
-              height: '25px',
-              margin: '4px 0px',
-              padding: '10px 0px 5px 10px',
-              lineHeight: '25px',
-              fontSize: '20px'
-            }
-            style.backgroundColor = message.sender_id === id ? 'rgba(63, 191, 191, 0.3)' : 'rgba(0,0,0,0.07)'
 
-            const sender = message.sender_id === id ? username : person_name;
+        <ChatBox {...chatBoxProps}/>
 
-            return (
-              <div
-                style = {style}
-                key = {index}
-              >
-              { sender + ': ' + message.message }
-              </div>
-            )
-          })}
-        </div>
-        <TextField
-          style = {{ marginTop: '20px'}}
-          multiLine={ true }
-          value = {textModalField.input}
-          onChange={ event => {editInput(event.target.value)} }
-          hintText='Message'
-          fullWidth={ true }
-        />
       </Dialog>
     </div>
   );

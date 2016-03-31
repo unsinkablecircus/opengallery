@@ -89,7 +89,6 @@ let config = {
         return response.json();
       })
       .then( (conversations) => {
-        console.log('conversations', conversations);
         dispatch(updateConversations(conversations));
       })
       .catch( err => {
@@ -117,7 +116,6 @@ export const fetchMessages = (conversation) => {
           return response.json();
         })
         .then( (messages) => {
-          console.log('messages', messages);
           dispatch(setCurrentConversation(conversation, messages));
         })
         .catch( err => {
