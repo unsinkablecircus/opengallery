@@ -2,12 +2,12 @@ import React from 'react'
 import IconButton from 'material-ui/lib/icon-button'
 import DeleteIcon from 'material-ui/lib/svg-icons/action/delete'
 
-const GridTile = ({ tile, img, toggleGallery, deleteMode, addPhotoToBeDeleted }) => {
+const GridTile = ({ key, tile, img, toggleGallery, deleteMode, addPhotoToBeDeleted }) => {
   let button;
-  if ( deleteMode ) {
-    button =  <IconButton onTouchTap={ (photo) => addPhotoToBeDeleted(photo) }>
-                <DeleteIcon>
-              </IconButton>
+    if ( deleteMode ) {
+      console.log("EXTREME DELETE MODE!!!!!!!!!!!!!!")
+      button =  <IconButton icon={<DeleteIcon/>} 
+                            onTouchTap={ () => {console.log("Inside GridTile"); addPhotoToBeDeleted(key) }} />
   }
   return (
     <div
