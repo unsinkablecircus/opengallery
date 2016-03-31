@@ -80,7 +80,7 @@ export function deleteError(message) {
   }
 };
 
-export function DeletePhoto(photosArray) {
+export function DeletePhotos(photosArray) {
 
   return (dispatch) => {
     dispatch(deleteRequest()) //TODO: dispatch delete request
