@@ -100,19 +100,17 @@ exports.uploadPhoto = function (req, res) {
     })
     .then(() => {
       if (photoData.metaTags.length > 0) {
-        return MetaTags.insert(photoData.metaTags.split(','), responseObject.id);
-      } else {
-        return;
+        MetaTags.insert(photoData.metaTags.split(','), responseObject.id)
+        .then((tags) => {
+          responseObject.tags = tags.rows;
+        })
+        .catch((err) => {
+          console.log("error sending response to client", err);
+        })
       }
     })
     .catch((err) => {
       console.log('Error uploading tags to PostgreSQL', err);
-    })
-    .then((tags) => {
-      responseObject.tags = tags.rows;
-    })
-    .catch((err) => {
-      console.log("error sending response to client", err);
     })
   }
 };
