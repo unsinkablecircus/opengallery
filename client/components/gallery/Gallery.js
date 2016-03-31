@@ -10,11 +10,11 @@ const config = {stiffness: 170, damping: 26}
 export default class Gallery extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { data: {} }
+    this.state = { dimensions: {} }
   }
 
-  componentWillMount (nextProps) {
-    this.resizeGallery(nextProps)
+  componentWillMount () {
+    this.resizeGallery(this.props)
   }
 
   componentDidMount () {
@@ -61,26 +61,32 @@ export default class Gallery extends React.Component {
   }
 
   resizeGallery ({ data }) {
-    const vw = window.innerWidth * 0.9
-    const vh = window.innerHeight * 0.9
-    const resizedData = Object.assign({}, data)
+    let dimensions = {}
+    const vw = window.innerWidth
+    const vh = window.innerHeight
 
-    for (let [media_id, { width, height }] of Object.entries(resizedData)) {
-      if () {
-        console.log('media_id:', media_id)
-        console.log('width:', width)
-        console.log('height:', height)
+    for (let [media_id, { width, height }] of Object.entries(data)) {
+      dimensions[media_id] = {}
+      if (width > vw || height > vh) {
+        const ratio = Math.max(width / vw, height / vh)
+        dimensions[media_id].width = width / ratio
+        dimensions[media_id].height = height / ratio
+      } else {
+        dimensions[media_id].width = width
+        dimensions[media_id].height = height
       }
     }
+    this.setState({ dimensions: dimensions })
   }
 
   render () {
     const { tile, grid, data, displayWordmap, hideGallery, userId, submitInput } = this.props
-    const tileWidth = data[grid[tile]].width
-    const tileHeight = data[grid[tile]].height
+    const { dimensions } = this.state
+    const tileWidth = dimensions[grid[tile]].width
+    const tileHeight = dimensions[grid[tile]].height
     const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
 
-    const widths = grid.map(i => tileHeight / data[i].height * data[i].width)
+    const widths = grid.map(i => tileHeight / dimensions[i].height * dimensions[i].width)
 
     const start = widths.slice(0, tile)
     .reduce((sum, width) => sum - width, 0);
