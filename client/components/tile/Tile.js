@@ -1,4 +1,6 @@
 import React from 'react';
+import IconButton from 'material-ui/lib/icon-button'
+import DeleteIcon from 'material-ui/lib/svg-icons/action/delete'
 
 export default class Tile extends React.Component {
   constructor(props) {
@@ -37,6 +39,7 @@ export default class Tile extends React.Component {
     return (
       <div className={`tile-component ${ classname }`} style={style} onClick={() => handleClick(tile)}>
         {children}
+        {button}
       </div>
     )
   }
