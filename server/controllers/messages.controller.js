@@ -38,6 +38,17 @@ module.exports = {
       console.log('data', data.rows);
       res.send(data.rows);
     })
+  },
+
+  fetchOrCreateConversation: (req, res, next) => {
+    const self = req.body.self_id;
+    const user = req.body.user_id;
+    console.log('fetch', self, user);
+    messagesModel.fetchOrCreateConversation(self, user)
+    .then( (data) => {
+      console.log('data', data.rows);
+      res.send(data);
+    })
   }
 
 

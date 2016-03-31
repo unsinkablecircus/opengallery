@@ -17,7 +17,8 @@ module.exports = {
 
   fetchConversations: (self_id) => {
     return db.raw(`
-    WITH convo AS (
+    WITH 
+    convo AS (
       SELECT 
         id,
         user1_id AS self_id,
@@ -41,6 +42,47 @@ module.exports = {
       users, convo
     WHERE
       convo.user_id = users.id;
+    `)
+  },
+
+  fetchOrCreateConversation: (self_id, user_id) => {
+    // insert if it exists, else fetch it
+    return db.raw(`
+      INSERT INTO conversations (user1_id, user2_id)
+      SELECT ${self_id}, ${user_id}
+      WHERE NOT EXISTS (
+        SELECT * FROM conversations 
+        WHERE (
+          user1_id = ${self_id} AND user2_id = ${user_id}
+          OR
+          user1_id = ${user_id} AND user2_id = ${self_id}
+        )
+      );
+      WITH 
+      convo AS (
+        SELECT 
+          id,
+          user1_id AS self_id,
+          user2_id AS user_id
+        FROM conversations
+        WHERE user1_id = ${self_id} AND user2_id = ${user_id}
+        UNION
+        SELECT 
+          id, 
+          user2_id AS self_id,
+          user1_id AS user_id
+        FROM conversations
+        WHERE user2_id = ${self_id} AND user1_id = ${user_id}
+      )
+      SELECT 
+        convo.id,
+        convo.self_id,
+        users.id as user_id,
+        users.username
+      FROM 
+        users, convo
+      WHERE 
+        users.id = ${user_id}
     `)
   },
 
