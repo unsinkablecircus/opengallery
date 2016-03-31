@@ -44,6 +44,8 @@ export const initialState = {
     editMode: false,
     id: 1,
     username: 'username',
+    editMode: false,
+    deleteMode: false,
     name: 'User Name',
     email: 'user@email.com',
     website: 'Website',
