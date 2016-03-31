@@ -1,6 +1,5 @@
 import React from 'react'
-import TextField from 'material-ui/lib/text-field'
-import FlatButton from 'material-ui/lib/flat-button'
+import { browserHistory } from 'react-router'
 
 const GalleryTile = ({ data }) => {
   return (
@@ -10,7 +9,12 @@ const GalleryTile = ({ data }) => {
       <div className="overlay-content">
         <h2>{data.title}</h2>
         <p>{data.description}</p>
-
+        <a onClick={ (e) => {
+          e.preventDefault()
+          browserHistory.push(`/profile/${ data.artist.username }`)
+        }}>
+          { data.artist.username }
+        </a>
       </div>
     </div>
   )
