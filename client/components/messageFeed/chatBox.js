@@ -15,8 +15,8 @@ export default class ChatBox extends React.Component {
   render(){
   let { person_name, username, id, textModalField, editInput, messages } = this.props;
     return (
-      <div>
-        <div className='messageModalContainer' style={{height: '300px', overflow:'scroll'}}>
+      <div className='messageModalContainer'>
+        <div  style={{height: '300px', overflow:'scroll'}}>
             {messages.map( (message, index) => {
               const backgroundColor = message.sender_id === id ? 'rgba(63, 191, 191, 0.3)' : 'rgba(0,0,0,0.07)'
               const sender = message.sender_id === id ? username : person_name;
@@ -24,7 +24,7 @@ export default class ChatBox extends React.Component {
               return (
                 <div
                   style = {{ backgroundColor }}
-                  className = 'messageModal'
+                  className = 'message'
                   key = {index}
                 >
                 { sender + ': ' + message.message }

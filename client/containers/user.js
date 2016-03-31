@@ -11,9 +11,6 @@ const mapStateToProps = (state, ownProps) => {
     artist: state.artist,
     editMode: state.user.editMode,
     location: ownProps,
-    showGridAndNotMessageFeed: state.view.displayGridAndNotMessageFeed,
-    displayGridAndNotMessageFeed: state.view.displayGridAndNotMessageFeed,
-
     formData: state.form.profileInformation
   }
 }
@@ -25,12 +22,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     saveChanges: (values) => {
       dispatch(SaveChanges(values));
-    },
-    toggleShowGridAndNotMessageFeed: () => {
-      dispatch({type: 'TOGGLE_GRID_MESSAGE_FEED'});
-    },
-    fetchConversations: (self_id) => {
-      dispatch(fetchConversations(self_id));
     },
     fetchConversation: (self_id, user_id, username) => {
       dispatch(fetchConversation(self_id, user_id, username))

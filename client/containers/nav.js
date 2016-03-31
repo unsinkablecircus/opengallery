@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authActions';
 import { toggleUpload } from '../actions/upload';
 import { loadData } from '../actions/grid';
+import  { toggleMessageModal } from '../actions/messageFeed.actions'
+
 
 import { push } from 'react-router-redux'
 import { browserHistory } from 'react-router'
@@ -24,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onToggleUpload: () => {
       dispatch(toggleUpload());
+    },
+    handleConversationsIconClick: () => {
+      dispatch(toggleMessageModal());
     },
     onSearchSubmit: (id, searchInput) => {
       browserHistory.push('/');

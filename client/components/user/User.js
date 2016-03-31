@@ -27,9 +27,6 @@ const User = ({
   switchEditMode,
   saveChanges,
   location,
-  displayGridAndNotMessageFeed,
-  toggleShowGridAndNotMessageFeed,
-  fetchConversations,
   fetchConversation,
   formData,
   updateField,
@@ -113,31 +110,7 @@ const User = ({
           </div>
         </section>
         <section className="user-right">
-          {isSelf ? <div className='toggleGridMessageFeed'>
-            <span
-             style={{color: displayGridAndNotMessageFeed ? 'red' : 'black'}}
-             onClick={ () => {
-              if ( !displayGridAndNotMessageFeed ) {
-                toggleShowGridAndNotMessageFeed()
-              }
-            }}
-            >
-             Show Grid
-            </span>
-            <span 
-              style={{color: displayGridAndNotMessageFeed ? 'black' : 'red'}}
-              onClick={ () => {
-                if ( displayGridAndNotMessageFeed ) {
-                  toggleShowGridAndNotMessageFeed();
-                  fetchConversations(self_id);
-                }
-              }}
-            > 
-              Show Message Feed 
-            </span>
-          </div>
-          : null }
-          { displayGridAndNotMessageFeed ? <Grid loc={location.location}/> : <MessageFeed/> }
+          <Grid loc={location.location}/>
         </section>
       </div>
 

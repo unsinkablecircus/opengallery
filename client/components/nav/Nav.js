@@ -17,6 +17,8 @@ import getMuiTheme from 'material-ui/lib/styles/getMuiTheme'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
+
+
 const darkMuiTheme = getMuiTheme(darkBaseTheme)
 
 // refactored to utilize the container / presentational component model
@@ -28,7 +30,8 @@ let Nav = ({
   username, 
   onLogoutClick,
   onToggleUpload,
-  onSearchSubmit
+  onSearchSubmit,
+  handleConversationsIconClick
 }) => {
 
   const styles = {
@@ -60,6 +63,12 @@ let Nav = ({
             /></Link>
             <IconButton tooltip='Create' onClick={ onToggleUpload }>
               <CreateIcon color='#303030'/>
+            </IconButton>
+            <IconButton 
+              tooltip='Discover'
+              onClick={handleConversationsIconClick}
+            >
+              <DiscoverIcon color='#303030'/>
             </IconButton>
             <input
               style={{borderRadius: '3px', height: '30px', width: '500px', marginLeft: '20px', transform: 'translateY(-5px)', fontSize:'20px'}} 

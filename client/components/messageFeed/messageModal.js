@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import TextField from 'material-ui/lib/text-field'
 import moment from 'moment'
 import ChatBox from './chatBox'
+import ConversationList from '../../containers/messageFeed.container'
 
 const messageModal = ({
   messages, person_id, person_name, props, currentMessage, index,
@@ -41,7 +42,10 @@ const messageModal = ({
         modal={ true }
         open={ displayMessageModal }
       >
-        <ChatBox {...chatBoxProps}/>
+        <div className='messageModalBox'>
+          <ChatBox {...chatBoxProps}/>
+          <ConversationList className='conversationList'/>
+        </div>
       </Dialog>
     </div>
   );
