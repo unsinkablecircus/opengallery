@@ -10,8 +10,11 @@ module.exports = {
             '${message}',
             ${user1_id},
             '${createdAt}'
-            )
-          RETURNING *
+            );
+        SELECT * FROM messages
+        WHERE (
+          conversation_id = ${currentConversation}
+        )
     `)
   },
 
@@ -47,6 +50,7 @@ module.exports = {
 
   fetchOrCreateConversation: (self_id, user_id) => {
     // insert if it exists, else fetch it
+    console.log('ids', self_id, user_id)
     return db.raw(`
       INSERT INTO conversations (user1_id, user2_id)
       SELECT ${self_id}, ${user_id}
@@ -80,9 +84,8 @@ module.exports = {
         messages.created_at,
         messages.message
       FROM 
-        messages, convo
-      WHERE 
-        messages.conversation_id = convo.id
+        convo LEFT JOIN messages
+        on convo.id=messages.conversation_id
     `)
   },
 

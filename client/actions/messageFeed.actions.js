@@ -57,8 +57,9 @@ export const submitMessage = (user1_id, user2_id, message, createdAt, currentCon
         }
         return response.json();
       })
-      .then( (message) => {
-        dispatch(updateMessage(message[0]));
+      .then( (messages) => {
+        console.log(messages)
+        dispatch(updateMessage(messages));
 
         // after submitting message, make sure that the scroll bar is at the bottom to show the most recent message
         const messageContainer = document.getElementsByClassName('messageModalContainer')[0];
@@ -146,7 +147,7 @@ export const fetchConversation = (self_id, user_id, username) => {
       return response.json();
     })
     .then( (conversation) => {
-      console.log('convo', conversation);
+      console.log(conversation);
       dispatch(setCurrentConversation(conversation[0].id, username, user_id, conversation));
     })
     .catch( (err) => {

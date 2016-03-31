@@ -9,22 +9,20 @@ const messageFeed = (state=startingState, action) => {
   switch (action.type) {
     case 'SUBMIT_MESSAGE':
       return Object.assign({}, state, {
-        messages: [
-          ...state.messages,
-          action.payload
-        ]
+        messages: action.payload
       })
     case 'UPDATE_CONVERSATIONS':
       return Object.assign({}, state, {
         conversations: action.payload.conversations 
       })
     case 'SET_CURRENT_CONVERSATION':
+      console.log('action.payload', action.payload.messages[0].sender_id);
       // reset the messages, change person_name, change currentConversation
       return Object.assign({}, state, {
         currentConversation: action.payload.conversation_id,
         person_username: action.payload.username,
         person_id: action.payload.user_id,
-        messages: action.payload.messages
+        messages: action.payload.messages[0].sender_id ? action.payload.messages : []
       })
     default:
       return state;
