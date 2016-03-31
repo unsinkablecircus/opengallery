@@ -80,8 +80,8 @@ exports.uploadPhoto = function (req, res) {
     .then((id) => {
       responseObject.id = id.rows[0].id;
 
-      var urlExtMedium = responseObject.id + 'medium';
-      var urlExtLarge = responseObject.id + 'large';
+      var urlExtMedium = responseObject.id + 'medium.jpg';
+      var urlExtLarge = responseObject.id + 'large.jpg';
       responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
       responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
 
