@@ -18,7 +18,7 @@ export default class Tile extends React.Component {
     let img = new Image()
     img.src = url
     img.onload = () => {
-      this.setState({ photo: `url(${url})` })
+      this.render() && this.setState({ photo: `url(${url})` })
     }
   }
 
