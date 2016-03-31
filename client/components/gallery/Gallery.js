@@ -19,10 +19,12 @@ export default class Gallery extends React.Component {
 
   componentDidMount () {
     document.addEventListener('keydown', this.navigateGallery)
+    window.addEventListener('resize', this.handleResizeGallery)
   }
 
   componentWillUnmount () {
     document.removeEventListener('keydown', this.navigateGallery)
+    window.removeEventListener('resize', this.handleResizeGallery)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -60,10 +62,14 @@ export default class Gallery extends React.Component {
     }
   }
 
-  resizeGallery ({ data }) {
+  handleResizeGallery = () => {
+    this.resizeGallery(this.props)
+  }
+
+  resizeGallery = ({ data }) => {
     let dimensions = {}
-    const vw = window.innerWidth
-    const vh = window.innerHeight
+    const vw = window.innerWidth * 0.9
+    const vh = window.innerHeight * 0.9
 
     for (let [media_id, { width, height }] of Object.entries(data)) {
       dimensions[media_id] = {}
