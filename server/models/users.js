@@ -13,7 +13,7 @@ module.exports = {
   },
 
   updateUser: (name, email, website, facebook_url, twitter_url, id) => {
-    console.log('id', id);
+    console.log(name, email, website, facebook_url, twitter_url, id);
     return (
       db.raw(`UPDATE users 
               SET name='${name}',

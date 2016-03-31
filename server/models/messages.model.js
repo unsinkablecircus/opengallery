@@ -7,7 +7,7 @@ module.exports = {
         INSERT INTO messages (conversation_id, message, sender_id, created_at)
           VALUES (
             ${currentConversation},
-            E'${message}',
+            '${message}',
             ${user1_id},
             '${createdAt}'
             )

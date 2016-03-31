@@ -28,7 +28,6 @@ module.exports = {
           return users.createUser(username, hashedPW)
         })
         .then( (user) => {
-          console.log('userRRRR', user);
           // generate a token from the username and send it back
           id = user.rows[0].id;
           const token = jwt.encode({iss: username, exp: expires}, secret);
@@ -54,7 +53,6 @@ module.exports = {
     // fetch the user and compare the password
     users.findUser(username)
     .then( (user) => {
-      console.log('userrrr', user);
       var user = user.rows[0];
       id = user.id;
       name = user.name;
@@ -97,7 +95,6 @@ module.exports = {
       facebook_url: req.body.facebook_url === 'undefined' ? '' : req.body.facebook_url,
       twitter_url: req.body.twitter_url === 'undefined' ? '' : req.body.twitter_url
     }
-    console.log(data);
     users.updateUser(data.name, data.email, data.website, data.facebook_url, data.twitter_url, data.id)
     .then ((user) => {
       const data = user.rows[0];
