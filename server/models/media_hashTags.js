@@ -13,8 +13,7 @@ module.exports = {
             )
           UPDATE media_hashtag_totals
             SET total = total - 1
-            WHERE media_id = ${mediaId} AND hashtag_id = (SELECT hashtag_id FROM UserMedia)
-            RETURNING hashtag_id AS id, total AS count;
+            WHERE media_id = ${mediaId} AND hashtag_id = (SELECT hashtag_id FROM UserMedia);
 
         WITH
         new_row AS(
@@ -61,6 +60,22 @@ module.exports = {
                 media_id = ${mediaId}
               )
             );
+
+        DELETE FROM media_hashtag_totals WHERE total = 0;
+
+        SELECT array_to_json(array_agg(row_to_json(f))) AS feedback
+        FROM (
+          SELECT mht.hashtag_id AS id, h.hashtag_text AS tag, mht.total AS count
+          FROM media_hashtag_totals mht
+          INNER JOIN hashtags h
+          ON h.id = mht.hashtag_id
+          WHERE media_id = ${mediaId}
+        ) f;
+
+        SELECT mh.hashtag_id AS user_feedback_id
+        FROM media_hashtags mh
+        WHERE mh.media_id = ${mediaId}
+        AND mh.user_id = ${userId}
       `)
 
     )
