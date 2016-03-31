@@ -7,6 +7,7 @@ const Media = require('../controllers/media');
 const Meta = require('../controllers/metatags.controller');
 const User = require('../controllers/user.controller');
 const Vision = require('../controllers/vision.controller');
+const Messages = require('../controllers/messages.controller')
 
 module.exports = function (app, express) {
 
@@ -20,6 +21,11 @@ module.exports = function (app, express) {
   app.post('/api/media/upload', multer().single('artImage'), Media.uploadPhoto);
   app.put('/api/media/edit', Media.updatePhoto);
   app.delete('api/media/delete', Media.deletePhoto);
+  // app.post('/api/media/edit', Media.updatePhoto);
+
+  app.post('/api/message/submitMessage', Messages.submitMessage);
+  app.post('/api/message/fetchConversations', Messages.fetchConversations);
+  app.post('/api/message/fetchMessages', Messages.fetchMessages);
 
   app.post('/api/feedback/submitFeedback', Feedback.submitFeedback)
 

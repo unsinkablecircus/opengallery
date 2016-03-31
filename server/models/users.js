@@ -9,10 +9,11 @@ module.exports = {
   },
 
   createUser: (username, hashedPW) => {
-    db.raw(`INSERT INTO users (username, password) VALUES ('${username}', '${hashedPW}') RETURNING id, username`)
+    return db.raw(`INSERT INTO users (username, password) VALUES ('${username}', '${hashedPW}') RETURNING id, username`)
   },
 
   updateUser: (name, email, website, facebook_url, twitter_url, id) => {
+    console.log(name, email, website, facebook_url, twitter_url, id);
     return (
       db.raw(`UPDATE users 
               SET name='${name}',

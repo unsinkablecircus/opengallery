@@ -35,7 +35,7 @@ export default class Grid extends React.Component {
       <div id="grid-component">
         <div className="grid-section">
           {this.state.hasMounted ? grid.map((mediaId, index) => (
-            <Tile key={mediaId} tile={index} url={data[grid[index]].url_lg} data={data[grid[index]]} handleClick={toggleGallery}/>
+            <Tile key={index} tile={index} url={data[grid[index]].url_lg} data={data[grid[index]]} handleClick={toggleGallery}/>
           )) : ''}
         </div>
         <div className="button-load">

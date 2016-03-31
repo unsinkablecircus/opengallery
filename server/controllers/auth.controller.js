@@ -87,15 +87,15 @@ module.exports = {
   },
 
   saveChanges: function (req, res, next) {
-    console.log('data', req.body);
     var data = {
+      id: req.body.id,
       name: req.body.name === 'undefined' ? '' : req.body.name,
       email: req.body.email === 'undefined' ? '' : req.body.email,
       website: req.body.website === 'undefined' ? '' : req.body.website,
       facebook_url: req.body.facebook_url === 'undefined' ? '' : req.body.facebook_url,
       twitter_url: req.body.twitter_url === 'undefined' ? '' : req.body.twitter_url
     }
-    users.updateUser(data.name, data.email, data.website, data.facebook_url, data.twitter_url, req.body.id)
+    users.updateUser(data.name, data.email, data.website, data.facebook_url, data.twitter_url, data.id)
     .then ((user) => {
       const data = user.rows[0];
       console.log('data after update: ', data);

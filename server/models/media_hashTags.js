@@ -60,9 +60,8 @@ module.exports = {
                 media_id = ${mediaId}
               )
             );
-
         DELETE FROM media_hashtag_totals WHERE total = 0;
-
+        
         SELECT array_to_json(array_agg(row_to_json(f))) AS feedback
         FROM (
           SELECT mht.hashtag_id AS id, h.hashtag_text AS tag, mht.total AS count
@@ -77,7 +76,6 @@ module.exports = {
         WHERE mh.media_id = ${mediaId}
         AND mh.user_id = ${userId}
       `)
-
     )
   },
 }
