@@ -1,0 +1,27 @@
+.gallery-nav
+  +display(flex)
+  +align-items(center)
+  +justify-content(center)
+  +position(absolute, 0 0 0 50%)
+  +transform(translateX(-50%))
+  height: 100vh
+  padding: 0 20px
+  box-sizing: border-box
+  opacity: 0
+  z-index: 1104
+
+  &:hover
+    opacity: 1
+
+  .gallery-nav-arrow
+    +size(30px)
+    border-bottom: 2px solid white
+    border-right: 2px solid white
+
+    &.gallery-nav-prev
+      margin: 0 auto 0 0
+      +transform(rotate(135deg))
+
+    &.gallery-nav-next
+      margin: 0 0 0 auto
+      +transform(rotate(-45deg))
