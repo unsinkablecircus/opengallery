@@ -32,7 +32,7 @@ export const initialState = {
 
   messageFeed: {
     person_id: 56,
-    person_name: 'Megan',
+    person_username: 'Megan',
     currentConversation: 5,
     messages: [
       {
@@ -119,7 +119,8 @@ export const initialState = {
     displaySignUp: false,
     displayWordmap: false,
     displayGridAndNotMessageFeed: true,
-    displayMessageModal: false
+    displayMessageModal: false,
+    hideConversationsInMessageModal: false
   },
 
   /*---------------*/

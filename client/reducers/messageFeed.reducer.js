@@ -22,7 +22,7 @@ const messageFeed = (state=startingState, action) => {
       // reset the messages, change person_name, change currentConversation
       return Object.assign({}, state, {
         currentConversation: action.payload.conversation_id,
-        person_name: action.payload.username,
+        person_username: action.payload.username,
         person_id: action.payload.user_id,
         messages: action.payload.messages
       })

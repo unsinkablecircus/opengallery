@@ -66,7 +66,7 @@ let Nav = ({
             </IconButton>
             <IconButton 
               tooltip='Discover'
-              onClick={handleConversationsIconClick}
+              onClick={ () => {handleConversationsIconClick(id)}}
             >
               <DiscoverIcon color='#303030'/>
             </IconButton>

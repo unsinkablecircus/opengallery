@@ -8,7 +8,6 @@
 
 .conversation
   height: 30px
-  border: 1px solid black
   line-height: 30px
   margin-top: 5px
 
@@ -18,12 +17,31 @@
 
 .conversationList
   font-size: 20px
-  width: 30%
+  width: 25%
+  flex: 1
   display: inline-block
-  margin-left: 5px
+  margin-left: 15px
+  overflow: scroll
 
 
 .messageModalContainer
-  width: 60%
+  width: 70%
+  flex: 3
   margin-right: 5px
   display: inline-block
+
+.messageModalContainer .messageBox
+  height: 300px
+  overflow: scroll
+
+.messageModalTitle
+  text-align: center
+  font-size: 30px
+  height: 50px
+  position: relative
+
+.toggleConversation
+  font-size: 12px
+  position: absolute
+  bottom: 0
+  right: 0

@@ -7,9 +7,10 @@ import ChatBox from './chatBox'
 import ConversationList from '../../containers/messageFeed.container'
 
 const messageModal = ({
-  messages, person_id, person_name, props, currentMessage, index,
+  messages, person_id, person_username, props, currentMessage, index,
   displayMessageModal, toggleMessageModal, username, submitMessage,
-  id, currentConversation, editInput, textModalField 
+  id, currentConversation, editInput, textModalField, hideConversationsInMessageModal,
+  toggleConversations
 }) => {
   const actions = [
     <FlatButton
@@ -32,20 +33,37 @@ const messageModal = ({
     />
   ];
 
-  const chatBoxProps = { person_name, username, id, textModalField, editInput, messages }
+  const chatBoxProps = { person_username, username, id, textModalField, editInput, messages }
 
   return (
     <div>
       <Dialog
-        title= {  'Conversation With: ' + person_name }
         actions={actions}
         modal={ true }
         open={ displayMessageModal }
       >
+        <div 
+          className='messageModalTitle'
+        > 
+          { person_username }
+          <span 
+            className='toggleConversation'
+            onClick={ toggleConversations}
+          > {hideConversationsInMessageModal ? 'show conversations' : 'hide conversations' } </span>
+        </div>
         <div className='messageModalBox'>
           <ChatBox {...chatBoxProps}/>
-          <ConversationList className='conversationList'/>
+          { hideConversationsInMessageModal ? null : <ConversationList className='conversationList'/> }
         </div>
+          <TextField
+            style = {{ marginTop: '20px'}}
+            multiLine={ true }
+            value = {textModalField.input}
+            onChange={ event => {editInput(event.target.value)} }
+            hintText='Message'
+            fullWidth={ true }
+          />
+
       </Dialog>
     </div>
   );

@@ -4,22 +4,29 @@ import TextField from 'material-ui/lib/text-field'
 
 
 export default class ChatBox extends React.Component {
-  componentDidMount() {
+  componentDidUpdate() {
     // set the scroll to the bottom to show the most recent messages
-    const messageContainer = document.getElementsByClassName('messageModalContainer')[0];
+    console.log('updating');
+    const messageContainer = document.getElementsByClassName('messageBox')[0];
     if(messageContainer.scrollHeight > messageContainer.clientHeight) {
       messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
     }
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    // Update only when a message is submitted, not when state changes with keystrokes
+    return this.props.messages.length !== nextProps.messages.length;
+  }
 
   render(){
-  let { person_name, username, id, textModalField, editInput, messages } = this.props;
+  let { person_username, username, id, textModalField, editInput, messages } = this.props;
     return (
       <div className='messageModalContainer'>
-        <div  style={{height: '300px', overflow:'scroll'}}>
+        <div  className='messageBox'>
             {messages.map( (message, index) => {
+            console.log('rendering');
+
               const backgroundColor = message.sender_id === id ? 'rgba(63, 191, 191, 0.3)' : 'rgba(0,0,0,0.07)'
-              const sender = message.sender_id === id ? username : person_name;
+              const sender = message.sender_id === id ? username : person_username;
 
               return (
                 <div
@@ -32,14 +39,6 @@ export default class ChatBox extends React.Component {
               )
             })}
           </div>
-          <TextField
-            style = {{ marginTop: '20px'}}
-            multiLine={ true }
-            value = {textModalField.input}
-            onChange={ event => {editInput(event.target.value)} }
-            hintText='Message'
-            fullWidth={ true }
-          />
       </div>
     )
   }

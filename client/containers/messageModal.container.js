@@ -11,8 +11,9 @@ const mapStateToProps = (state, props) => {
     username: state.user.username,
     id: state.user.id,
     currentConversation: state.messageFeed.currentConversation,
-    person_name: state.messageFeed.person_name,
-    textModalField: state.form.messageModal
+    person_username: state.messageFeed.person_username,
+    textModalField: state.form.messageModal,
+    hideConversationsInMessageModal: state.view.hideConversationsInMessageModal
   }
 }
 
@@ -29,6 +30,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'MESSAGE_MODAL_FIELD',
         payload: { input: value }
+      })
+    },
+    toggleConversations: () => {
+      console.log('clicked');
+      dispatch({
+        type: 'TOGGLE_CONVERSATIONS'
       })
     }
   }
