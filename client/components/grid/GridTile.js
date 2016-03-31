@@ -2,10 +2,10 @@ import React from 'react'
 import IconButton from 'material-ui/lib/icon-button'
 import DeleteIcon from 'material-ui/lib/svg-icons/action/delete'
 
-const GridTile = ({ tile, img, toggleGallery }) => {
+const GridTile = ({ tile, img, toggleGallery, deleteMode }) => {
   let button;
   if ( deleteMode ) {
-    button =  <IconButton>
+    button =  <IconButton onTouchTap={ () => }>
                 <DeleteIcon>
               </IconButton>
   }
