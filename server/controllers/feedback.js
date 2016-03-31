@@ -10,7 +10,7 @@ module.exports = {
     .then( data => {
       res.status(201).json({
         feedback: data.rows[0].feedback,
-        user_feedback_id: data.rows[0].user_feedback_id
+        user_feedback_id: data.rows[1].user_feedback_id
       });
     })
     .catch ( err => {
