@@ -32,11 +32,10 @@ const mapDispatchToProps = (dispatch) => {
     fetchConversations: (self_id) => {
       dispatch(fetchConversations(self_id));
     },
-    fetchConversation: (self_id, user_id) => {
-      dispatch(fetchConversation(self_id, user_id))
+    fetchConversation: (self_id, user_id, username) => {
+      dispatch(fetchConversation(self_id, user_id, username))
     },
     toggleMessageModal: () => {
-      console.log('clicked');
       dispatch({
         type: 'TOGGLE_MESSAGE_MODAL'
       })

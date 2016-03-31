@@ -76,13 +76,13 @@ module.exports = {
       )
       SELECT 
         convo.id,
-        convo.self_id,
-        users.id as user_id,
-        users.username
+        messages.sender_id,
+        messages.created_at,
+        messages.message
       FROM 
-        users, convo
+        messages, convo
       WHERE 
-        users.id = ${user_id}
+        messages.conversation_id = convo.id
     `)
   },
 

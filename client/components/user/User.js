@@ -60,8 +60,8 @@ const User = ({
     label='Send Message'
     secondary={true}
     onTouchTap= { () => {
-      fetchConversation(self_id, artist.id);
-      // this should either create a conversation, or fetch it from the database.
+      fetchConversation(self_id, artist.id, artist.username);
+      toggleMessageModal();
     }}
   />
 

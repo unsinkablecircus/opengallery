@@ -20,12 +20,14 @@ const updateConversations = (conversations) => {
   }
 }
 
-const setCurrentConversation = (conversation, messages) => {
+const setCurrentConversation = (conversation_id, username, user_id, messages) => {
   return {
     type: 'SET_CURRENT_CONVERSATION',
     payload: {
-      conversation: conversation,
-      messages: messages
+      conversation_id,
+      username,
+      user_id,
+      messages
     }
   }
 }
@@ -97,9 +99,8 @@ let config = {
       })
   }
 }
-
-export const fetchMessages = (conversation) => {
-  const conversation_id = conversation.id;
+//conversation.id, conversation.username, conversation.user_id
+export const fetchMessages = (conversation_id, username, user_id) => {
   let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
@@ -118,7 +119,7 @@ export const fetchMessages = (conversation) => {
         return response.json();
       })
       .then( (messages) => {
-        dispatch(setCurrentConversation(conversation, messages));
+        dispatch(setCurrentConversation(conversation_id, username, user_id, messages));
       })
       .catch( err => {
         console.log("Error: ", err);
@@ -127,7 +128,8 @@ export const fetchMessages = (conversation) => {
   }
 }
 
-export const fetchConversation = (self_id, user_id) => {
+export const fetchConversation = (self_id, user_id, username) => {
+  console.log(self_id, user_id, username)
  let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
@@ -145,6 +147,7 @@ export const fetchConversation = (self_id, user_id) => {
     })
     .then( (conversation) => {
       console.log('convo', conversation);
+      dispatch(setCurrentConversation(conversation[0].id, username, user_id, conversation));
     })
     .catch( (err) => {
       console.log('err', err);

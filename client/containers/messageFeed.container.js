@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(toggleMessageModal());
     },
     fetchMessages: (conversation) => {
-      dispatch(fetchMessages(conversation));
+      dispatch(fetchMessages(conversation.id, conversation.username, conversation.user_id));
     }
   }
 }
