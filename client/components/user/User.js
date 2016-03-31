@@ -74,6 +74,7 @@ const User = ({
         deleteMode ? deletePhotos() : switchDeleteMode()
       }} />
 
+
   return (
     <div id="user-component">
       <div className="user-columns-container">
