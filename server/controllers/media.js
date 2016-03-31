@@ -80,8 +80,8 @@ exports.uploadPhoto = function (req, res) {
     .then((id) => {
       responseObject.id = id.rows[0].id;
 
-      var urlExtMedium = responseObject.id + 'medium';
-      var urlExtLarge = responseObject.id + 'large';
+      var urlExtMedium = responseObject.id + 'medium.jpg';
+      var urlExtLarge = responseObject.id + 'large.jpg';
       responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
       responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
 
@@ -99,16 +99,18 @@ exports.uploadPhoto = function (req, res) {
       console.log('Error updating URLs to PG db', err);
     })
     .then(() => {
-      return MetaTags.insert(photoData.metaTags.split(','), responseObject.id);
+      if (photoData.metaTags.length > 0) {
+        MetaTags.insert(photoData.metaTags.split(','), responseObject.id)
+        .then((tags) => {
+          responseObject.tags = tags.rows;
+        })
+        .catch((err) => {
+          console.log("error sending response to client", err);
+        })
+      }
     })
     .catch((err) => {
       console.log('Error uploading tags to PostgreSQL', err);
-    })
-    .then((tags) => {
-      responseObject.tags = tags.rows;
-    })
-    .catch((err) => {
-      console.log("error sending response to client", err);
     })
   }
 };

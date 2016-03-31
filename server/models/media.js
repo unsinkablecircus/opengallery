@@ -37,6 +37,7 @@ exports.uploadToS3 = function (photoId, photo) {
     Bucket: 'opengallery', // required
     Key: photoId.toString(), // required
     ACL: 'public-read',
+    ContentType: 'image/jpeg',
     Body: photo
   };
   return new Promise(function(resolve, reject) {

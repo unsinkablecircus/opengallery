@@ -45,7 +45,11 @@ const PhotoUpload = ({
             metaData[key] = info[key].getValue();
           }
           if ( key === 'tags') {
-            metaData.tags = metaData.tags.split(' ');
+            if (metaData.tags !== undefined){
+              metaData.tags = metaData.tags.split(' ');
+            } else {
+              metaData.tags = [];
+            }
           }
         }
         onUploadButtonClick(metaData, currentFileUploading);
