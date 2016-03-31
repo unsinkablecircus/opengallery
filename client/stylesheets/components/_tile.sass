@@ -5,5 +5,13 @@
     background-repeat: no-repeat
     background-position: center center
     overflow: hidden
-    +transition(background 0.25s ease-in)
     will-change: left, width, height
+
+  .progressive-image
+    +animation(sharpen 500ms ease-in-out)
+
+    +keyframes(sharpen)
+      from
+        +filter(blur(10px))
+      to
+        +filter(none)
