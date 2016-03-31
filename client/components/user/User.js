@@ -130,29 +130,6 @@ const User = ({
                 ref={ (node) => {refHolder.twitter_url = node}}
               />
             </div>
-             <div className="user-row">
-              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-              <TextField
-                disabled={isSelf && editMode ? false : true}
-                defaultValue={ media }
-                className="user-field"
-                hintText='twitter_url'
-                underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.media = node}}
-              />
-            </div>
-             <div className="user-row">
-              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-              <TextField
-                disabled={isSelf && editMode ? false : true}
-                defaultValue={ about }
-                className="user-field"
-                hintText='twitter_url'
-                multiLine = { true }
-                underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.about = node}}
-              />
-            </div>
           </div>
         </section>
         <section className="user-right">
@@ -180,7 +157,7 @@ const User = ({
             </span>
           </div>
           : null }
-          { displayGridAndNotMessageFeed ? <Grid/> : <MessageFeed/> }
+          { displayGridAndNotMessageFeed ? <Grid loc={location.location}/> : <MessageFeed/> }
         </section>
       </div>
 
