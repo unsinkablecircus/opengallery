@@ -41,9 +41,7 @@ const messageModal = ({
         modal={ true }
         open={ displayMessageModal }
       >
-
         <ChatBox {...chatBoxProps}/>
-
       </Dialog>
     </div>
   );

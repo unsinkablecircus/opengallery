@@ -4,11 +4,8 @@ import TextField from 'material-ui/lib/text-field'
 
 
 export default class ChatBox extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
+    // set the scroll to the bottom to show the most recent messages
     const messageContainer = document.getElementsByClassName('messageModalContainer')[0];
     if(messageContainer.scrollHeight > messageContainer.clientHeight) {
       messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
