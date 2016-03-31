@@ -86,16 +86,20 @@ export default class Gallery extends React.Component {
   }
 
   render () {
-    const { tile, grid, data, displayWordmap, hideGallery, userId, submitInput } = this.props
+    const { tile, grid, data, displayWordmap, hideGallery, nextTile, prevTile, userId, submitInput } = this.props
     const { dimensions } = this.state
-    const tileWidth = dimensions[grid[tile]].width
-    const tileHeight = dimensions[grid[tile]].height
-    const tilePhoto = data[grid[tile]].url_lg || data[grid[tile]].url_md
+
+    const dim = dimensions[grid[tile]]
+    const tileWidth = dim.width
+    const tileHeight = dim.height
+
+    const d = (tile) => data[grid[tile]]
+    const tilePhoto = d(tile).url_lg || d(tile).url_md
 
     const widths = grid.map(i => tileHeight / dimensions[i].height * dimensions[i].width)
 
     const start = widths.slice(0, tile)
-    .reduce((sum, width) => sum - width, 0);
+    .reduce((sum, width) => sum - width, 0)
 
     let gallery = []
     grid.reduce((left, undefined, i) => {
@@ -108,32 +112,35 @@ export default class Gallery extends React.Component {
     }, start)
 
     return (
-      <div id="gallery-component" onClick={() => hideGallery(tile)}>
+      <div id="gallery-component">
+        <span
+          className="gallery-close rounded"
+          onClick={() => { hideGallery(tile) }}>
+        </span>
         <Motion style={{height: spring(tileHeight), width: spring(tileWidth)}}>
           { container =>
             <div
               className="gallery-tile"
               style={container}
-              onClick={() => hideGallery(tile)}
             >
               { gallery.map((style, i) =>
                 <Motion key={i} style={style}>
                   { style =>
-                    <Tile
-                      style={style}
-                      url={data[grid[i]].url_lg}
-                      data={data[grid[i]]}
-                      handleClick={() => hideGallery(tile)}
-                    >
-                      <GalleryTile data={data[grid[i]]}/>
-                    </Tile>
+                      <Tile
+                        style={style}
+                        url={d(i).url_lg}
+                        data={d(i)}
+                        handleClick={() => {}}
+                      >
+                        <GalleryTile data={d}/>
+                      </Tile>
                   }
                 </Motion>
               )}
               { displayWordmap ?
                 <Wordmap
                   tile={tile}
-                  media={data[grid[tile]]}
+                  media={d(tile)}
                   displayWordmap={displayWordmap}
                   userId={userId}
                   submitInput={submitInput}
@@ -141,6 +148,8 @@ export default class Gallery extends React.Component {
                   <Feedback
                     user={userId}
                     data={grid[tile]}
+                    feedback={d(tile).feedback}
+                    idx={d(tile).user_feedback_id}
                     submit={submitInput}
                   />
                 </Wordmap>
@@ -148,6 +157,16 @@ export default class Gallery extends React.Component {
             </div>
           }
         </Motion>
+        <div className="gallery-nav" style={{width: spring(tileWidth).val + 100}}>
+          <div
+            className="gallery-nav-arrow gallery-nav-prev"
+            onClick={() => prevTile()}>
+          </div>
+          <div
+            className="gallery-nav-arrow gallery-nav-next"
+            onClick={() => nextTile()}>
+          </div>
+        </div>
       </div>
 
     )
