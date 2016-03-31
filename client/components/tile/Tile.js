@@ -3,7 +3,10 @@ import React from 'react';
 export default class Tile extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { photo: '' }
+    this.state = {
+      photo: '',
+      classname: ''
+    }
   }
 
   componentWillMount = () => {
@@ -18,17 +21,21 @@ export default class Tile extends React.Component {
     let img = new Image()
     img.src = url
     img.onload = () => {
-      this.render() && this.setState({ photo: `url(${url})` })
+      this.render() && this.setState({
+        photo: `url(${url})`,
+        classname: 'progressive-image'
+      })
     }
   }
 
   render () {
-    let { children, tile, handleClick } = this.props
+    const { children, tile, handleClick } = this.props
+    const { photo, classname } = this.state
     let style = Object.assign({}, this.props.style)
-    style.backgroundImage = this.state.photo
+    style.backgroundImage = photo
 
     return (
-      <div className="tile-component" style={style} onClick={() => handleClick(tile)}>
+      <div className={`tile-component ${ classname }`} style={style} onClick={() => handleClick(tile)}>
         {children}
       </div>
     )
