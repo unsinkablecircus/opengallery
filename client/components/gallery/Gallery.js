@@ -93,8 +93,8 @@ export default class Gallery extends React.Component {
     const tileWidth = dim.width
     const tileHeight = dim.height
 
-    const d = (tile) => data[grid[tile]]
-    const tilePhoto = d(tile).url_lg || d(tile).url_md
+    const  media = data[grid[tile]]
+    const tilePhoto = media.url_lg || media.url_md
 
     const widths = grid.map(i => tileHeight / dimensions[i].height * dimensions[i].width)
 
@@ -120,7 +120,7 @@ export default class Gallery extends React.Component {
         <Motion style={{height: spring(tileHeight), width: spring(tileWidth)}}>
           { container =>
             <div
-              className="gallery-tile"
+              className="gallery-motion"
               style={container}
             >
               { gallery.map((style, i) =>
@@ -128,11 +128,11 @@ export default class Gallery extends React.Component {
                   { style =>
                       <Tile
                         style={style}
-                        url={d(i).url_lg}
-                        data={d(i)}
+                        url={data[grid[i]].url_lg}
+                        data={data[grid[i]]}
                         handleClick={() => {}}
                       >
-                        <GalleryTile data={d}/>
+                        <GalleryTile data={media}/>
                       </Tile>
                   }
                 </Motion>
@@ -140,7 +140,7 @@ export default class Gallery extends React.Component {
               { displayWordmap ?
                 <Wordmap
                   tile={tile}
-                  media={d(tile)}
+                  media={media}
                   displayWordmap={displayWordmap}
                   userId={userId}
                   submitInput={submitInput}
@@ -148,8 +148,8 @@ export default class Gallery extends React.Component {
                   <Feedback
                     user={userId}
                     data={grid[tile]}
-                    feedback={d(tile).feedback}
-                    idx={d(tile).user_feedback_id}
+                    feedback={media.feedback}
+                    idx={media.user_feedback_id}
                     submit={submitInput}
                   />
                 </Wordmap>
