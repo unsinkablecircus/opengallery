@@ -99,7 +99,11 @@ exports.uploadPhoto = function (req, res) {
       console.log('Error updating URLs to PG db', err);
     })
     .then(() => {
-      return MetaTags.insert(photoData.metaTags.split(','), responseObject.id);
+      if (photoData.metaTags.length > 0) {
+        return MetaTags.insert(photoData.metaTags.split(','), responseObject.id);
+      } else {
+        return;
+      }
     })
     .catch((err) => {
       console.log('Error uploading tags to PostgreSQL', err);
