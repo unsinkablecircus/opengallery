@@ -1,0 +1,26 @@
+#feedback-component
+  height: 60px
+  margin: 0 auto
+  text-align: center
+
+  .feedback-input
+    width: 40%
+    height: 80%
+    font-size: 2em
+    padding: 0 10px 10px
+    background: transparent
+    color: white
+    box-sizing: border-box
+    border: none
+    border-bottom: 2px solid white
+    opacity: 0
+    transition: opacity 5s ease-in-out
+
+    &:focus
+    outline: none
+
+  &:hover input.feedback-input,
+  & input.feedback-input:focus,
+  & input.feedback-input:active
+    opacity: 1
+    transition: opacity 500ms ease-in-out

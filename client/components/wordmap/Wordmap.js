@@ -2,47 +2,41 @@ import React from 'react';
 import ReactBubbleChart from './ReactBubbleChart'
 
 const tooltipProps = [{
-  css: 'symbol',
-  prop: '_id'
-}, {
-  css: 'value',
+  css: 'tooltip',
   prop: 'value',
-  display: 'Last Value'
-}, {
-  css: 'change',
-  prop: 'colorValue',
-  display: 'Change'
+  display: 'Likes'
 }]
 
 export default class Wordmap extends React.Component {
   render () {
-    let { tile, media, dictionary, userId, submitInput } = this.props
-    let sentiment = media.feedback.map((hashtag, i) => ({
-      _id: dictionary[hashtag[0]],
-      value: hashtag[1],
+    let { tile, media, dictionary, userId, submitInput, children } = this.props
+    let data = media.feedback && media.feedback.map((word, i) => ({
+      _id: word.tag,
+      value: word.count,
       colorValue: i,
-      selected: hashtag[0] === media.userFeedbackId
+      selected: word.id === media.user_feedback_id
     }))
 
-    let mediaId = media.mediaId;
+    let { media_id } = media;
 
     return (
       <div className="wordmap-component">
         <ReactBubbleChart
-          data={sentiment}
+          data={data}
           selectedColor="white"
           selectedTextColor="rgba(0, 0, 0, 0.75)"
           fixedDomain={{ min: -1, max: 1 }}
-          onClick={({_id}) => { submitInput(userId, mediaId, _id) }}
+          onClick={({_id}) => submitInput(userId, media_id, _id, 'tap')}
           legend={false}
           legendSpacing={0}
-          tooltip={false}
+          tooltip={true}
           tooltipProps={tooltipProps}
           tooltipFunc={() => {}}
           fontSizeFactor={0.5}
           duration={0}
           delay={0}
         />
+        {children}
       </div>
     )
   }

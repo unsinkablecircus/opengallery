@@ -33,7 +33,7 @@ exports.media = (user) => (`
   (
     SELECT array_to_json(array_agg(row_to_json(f)))
     FROM (
-      SELECT h.id, h.hashtag_text AS word, mht.total AS count
+      SELECT h.id, h.hashtag_text AS tag, mht.total AS count
       FROM media_hashtag_totals mht
         INNER JOIN hashtags h
         ON (mht.hashtag_id = h.id)

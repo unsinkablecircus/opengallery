@@ -9,9 +9,9 @@ if (isNode() !== true) {
   startingState = prevState ? prevState.artist : initialState.artist;
 }
 
-const artist = (state=startingState, action) => {
+const artist = (state = startingState, action) => {
   switch (action.type) {
-    case 'UPDATE_ARTIST': 
+    case 'UPDATE_ARTIST':
       return Object.assign({}, state, action.payload);
     default:
       return state;

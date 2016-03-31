@@ -96,7 +96,7 @@ export function loadData(id, artist, page, search) {
     .then(res => {
       var grid = []
       var data = {}
-      if (artist) { 
+      if (artist) {
         dispatch(updateArtist(res.rows[0].artist[0]));
       }
       res.rows[artist ? 1 : 0].data.forEach((image) => {
@@ -106,15 +106,15 @@ export function loadData(id, artist, page, search) {
           title: image.title,
           media: image.media,
           description: image.description,
-          width: image.width,
-          height: image.height,
+          width: image.width || 800,
+          height: image.height || 600,
           url_sm: image.url_sm,
           url_md: image.url_md,
           url_lg: image.url_lg,
           artist: image.artist,
-          tags: image.tags,
-          user_feedback_id: image.user_feedback_id,
-          feedback: image.feedback
+          tags: image.tags || [],
+          user_feedback_id: image.user_feedback_id || null,
+          feedback: image.feedback || []
         };
       });
       var total_photos = artist ? res.rows[2].total_records : res.rows[1].count;
