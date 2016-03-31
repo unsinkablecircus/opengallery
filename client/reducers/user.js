@@ -19,7 +19,7 @@ const user = (state=startingState, action) => {
       })
     case 'SWITCH_DELETE_MODE':
       return Object.assign({}, state, {
-        editMode: !state.deleteMode
+        deleteMode: !state.deleteMode
       })
     default:
       return state;
