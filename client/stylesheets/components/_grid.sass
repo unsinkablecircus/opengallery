@@ -3,6 +3,18 @@
   top: 65px
   width: calc(100% - ($app-padding * 2))
 
+  #grid-error
+    position: fixed
+    color: white
+    font-size: 1.5em
+    text-align: center
+    width: 150px
+    padding: 15px
+    background-color: $logo-red
+    top: 50%
+    left: 50%
+    +transform(translate3d(-50%, -50%, 0))
+
   .grid-section
     +display(flex)
     +flex-wrap(wrap)
