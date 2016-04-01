@@ -33,7 +33,7 @@ const User = ({
   toggleMessageModal,
   displayGridAndNotMessageFeed,
   toggleShowGridAndNotMessageFeed,
-  fetchConversations
+  fetchConversations,
   deleteMode,
   deletePhotos,
   addPhotoToBeDeleted,
