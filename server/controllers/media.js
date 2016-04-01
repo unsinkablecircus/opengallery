@@ -139,13 +139,13 @@ exports.updatePhoto = function (req, res) {
 
 exports.deletePhoto = function (req, res) {
   //parse request to find which fields need to be update
-  Media.deletePhotoByIdPG(req.body.id)
+  Media.deletePhotoByIdPG(req.body.photos)
   .catch((err) => {
     console.log("Error deleting from PG", err);
     res.status(404).send(`[Error] Failed to delete records in PG: ${err}`);
   })
   .then(() => {
-    return deletePhotoByIdS3(req.body.id);
+    return deletePhotoByIdS3(req.body.photos);
   })
   .catch( err => {
     console.error(`[Error] Failed to query meta tags in PG: ${err}`)
