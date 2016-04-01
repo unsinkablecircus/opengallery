@@ -76,19 +76,19 @@ exports.deletePhotoByIdPG = function (mediaId) {
   );
 };
 
-exports.deletePhotoByIdS3 = function (mediaId) {
-
+exports.deletePhotoByIdS3 = function (photos) {
+  var photosArray = [];
+  photos.forEach(function(photo) {
+    photosArray.push({
+      Key: photo + 'large',
+    },{
+      Key: photo + 'medium',
+    })
+  })
   var params = {
     Bucket: 'opengallery', // required
     Delete: { // required 
-      Objects: [ // required 
-        {
-          Key: mediaId + 'large', // required
-        },
-        {
-          Key: mediaId + 'medium', // required
-        }
-      ]
+      Objects: photosArray // required 
     }
   };
 
