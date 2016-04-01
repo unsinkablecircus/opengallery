@@ -3,6 +3,15 @@
   margin: 0 auto
   text-align: center
 
+  .feedback-form::before
+    content: '#'
+    padding: 0 10px
+    margin: 0
+    font-size: 2em
+    color: white
+    opacity: 0
+    transition: opacity 5s ease-in-out
+
   .feedback-input
     width: 40%
     height: 80%
@@ -17,10 +26,11 @@
     transition: opacity 5s ease-in-out
 
     &:focus
-    outline: none
+      outline: none
 
-  &:hover input.feedback-input,
-  & input.feedback-input:focus,
-  & input.feedback-input:active
+  &:hover .feedback-form::before,
+  &:hover .feedback-input,
+  & .feedback-input:focus,
+  & .feedback-input:active
     opacity: 1
     transition: opacity 500ms ease-in-out

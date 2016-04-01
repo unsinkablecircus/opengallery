@@ -1,0 +1,68 @@
+.gallery-close
+  +size(50px)
+  display: inline-block
+  position: absolute
+  top: 10px
+  right: 10px
+  overflow: hidden
+  z-index: 1106
+
+  .gallery-escape
+    +display(flex)
+    +align-items(center)
+    +justify-content(center)
+    +size(50px 30px)
+    color: white
+    font-family: helvetica
+    border-left: 2px solid white
+    border-right: 2px solid white
+    box-sizing: border-box
+    margin-top: 10px
+    opacity: 0
+    +transform(scale(0.1))
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out
+
+  &::before, &::after
+    content: ''
+    position: absolute
+    height: 2px
+    width: 100%
+    top: 50%
+    left: 0
+    margin-top: -1px
+    background: transparentize(white, 0.4)
+    transition: transform 0.2s ease-in-out
+
+  &::before
+    +transform(rotate(45deg))
+
+  &::after
+    +transform(rotate(-45deg))
+
+  &:hover
+    &::before, &::after
+      background: white
+      transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out
+
+    &::before
+      text-align: center
+      +transform(rotate(0deg) translateY(-15px))
+
+    &::after
+      +transform(rotate(0deg) translateY(15px))
+
+    .gallery-escape
+      opacity: 1
+      +transform(scale(1))
+
+  &.big
+    +transform(scale(3))
+
+  &.thick
+    &::before, &::after
+      height: 4px
+      margin-top: -2px
+
+  &.rounded
+    &::before, &::after
+      border-radius: 5px

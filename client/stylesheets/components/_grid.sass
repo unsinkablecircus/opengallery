@@ -1,11 +1,23 @@
 #grid-component
-  position: relative
-  display: flex
-  flex-wrap: wrap
-  z-index: 1099
+  position: absolute
+  top: 65px
+  width: calc(100% - ($app-padding * 2))
 
-  .tile-component
-    flex: auto
-    width: 433px
-    height: 40vh
-    margin: 2.5px
+  .grid-section
+    +display(flex)
+    +flex-wrap(wrap)
+    z-index: 1099
+
+    .grid-tile-container
+      +flex(auto)
+      width: 433px
+      height: 40vh
+      margin: 15px
+
+  .grid-load-button
+    position: relative
+    margin: 15px 0
+    +display(flex)
+    +flex-wrap(wrap)
+    +justify-content(center)
+    z-index: 1099
