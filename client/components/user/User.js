@@ -67,7 +67,7 @@ const User = ({
 
   const button3 = 
     <FlatButton
-      label={deleteMode ? 'Exit Delete Mode' : 'Delete photos'}
+      label={deleteMode ? 'Confirm Delete Photos' : 'Delete photos'}
       secondary={true}
       icon={<DeleteIcon color={deleteMode ? Colors.red500 : Colors.blue500} className="user_delete_photos_button" />}
       onTouchTap={ () => {
