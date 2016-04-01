@@ -59,7 +59,7 @@ export function switchDeleteMode() {
   }
 };
 
-export function addPhotoToBeDeleted(id) {
+export function addToBeDeletedPhoto(id) {
   return {
     type: 'ADD_DELETE_PHOTO',
     payload: {
@@ -104,7 +104,7 @@ export function DeletePhotos(photosArray) {
             .field('photos', photosArray)
             .end(function(err, res) {
               if (err) {
-                console.log('Oh no! error deleting your photo', photoId, err);
+                console.log('Oh no! error deleting your photo', photosArray, err);
                 dispatch(deleteError(err))
               } else {
                 dispatch(deleteSuccess())
