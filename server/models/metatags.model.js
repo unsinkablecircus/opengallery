@@ -4,6 +4,7 @@ const { isInt } = query
 const Promise = require('bluebird')
 
 exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
+  console.log('tags, user, page: ', tags, user, page, tags.join(','));
   if (Array.isArray(tags) && tags.length) {
     return pg.raw(`
       SELECT * FROM (
@@ -11,7 +12,7 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
         FROM (
           SELECT DISTINCT ON (m.id) ${ query.media(user) }
           FROM ${ query.metatags}
-          WHERE t.tag_text ~* ANY ('{${ tags.join(',') }}'::text[])
+          WHERE t.text ~* ANY ('{${ tags.join(',') }}'::text[])
           ORDER BY m.id
           OFFSET ${ 18 * page } LIMIT 18
         ) some_tags
@@ -26,7 +27,7 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
         FROM (
           SELECT DISTINCT ON (m.id) ${ query.media(user) }
           FROM ${ query.metatags}
-          WHERE t.tag_text NOTNULL
+          WHERE t.text NOTNULL
           ORDER BY m.id DESC
           OFFSET ${ 18 * page } LIMIT 18
         ) some_tags
@@ -37,7 +38,7 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
   }
 }
 
-exports.insert = (tags, mediaId) => {
+exports.insert = (tags, mediaId, userId) => {
   if (Array.isArray(tags)) {
     return pg.raw(`
       BEGIN;
@@ -48,22 +49,45 @@ exports.insert = (tags, mediaId) => {
           tags.map(t => `('${t}')`).join(',')
         }
       )
-      INSERT INTO tags (tag_text)
+      INSERT INTO tags (text)
       SELECT m.tag_text FROM meta_tags m
       WHERE NOT EXISTS (
         SELECT 1 FROM tags t
-        WHERE t.tag_text = m.tag_text
+        WHERE t.text = m.tag_text
       );
 
       WITH new_tags AS (
-        SELECT m.id, t.id FROM tags t
-        INNER JOIN media m ON (m.id = ${ mediaId })
-        WHERE tag_text = ANY ('{${ tags.join(',') }}'::text[])
+        SELECT ${ mediaId }, t.id, 'metatag', ${ userId } 
+        FROM tags t
+        WHERE t.text = ANY ('{${ tags.join(',') }}'::text[])
       )
-      INSERT INTO media_tags (media_id, tag_id)
+      INSERT INTO media_tags (media_id, tag_id, tag_type, user_id)
       SELECT * FROM new_tags;
 
-      SELECT * FROM media_tags mt
+      WITH newTags AS (
+        SELECT t.id
+        FROM tags t
+        WHERE t.text = ANY ('{${ tags.join(',') }}'::text[])
+      ),
+      update_tag_totals AS (
+        UPDATE media_tag_totals
+          SET total = total + 1
+        WHERE tag_id = ANY (select id from newTags)
+          AND media_id = ${mediaId}
+      ),
+      insert_tag_totals AS (
+        INSERT INTO media_tag_totals (media_id, tag_id, total)
+        SELECT ${mediaId}, (SELECT id FROM newTags), 1
+        WHERE NOT EXISTS (
+          SELECT * 
+          FROM media_tag_totals
+          WHERE media_id = ${mediaId} 
+            AND tag_id = ANY (SELECT id FROM newTags)
+        )
+      )
+
+      SELECT * 
+      FROM media_tags mt
       WHERE mt.media_id = ${ mediaId };
 
       COMMIT;

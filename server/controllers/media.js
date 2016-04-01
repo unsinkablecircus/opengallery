@@ -3,7 +3,6 @@ const jimp = require('jimp')
 
 const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
-const Media_MetaTags = require('../models/media_metaTags')
 
 const imageData = {};
 const resizePhoto = ({ buffer, mimetype }, size, quality) => {
@@ -100,7 +99,7 @@ exports.uploadPhoto = function (req, res) {
     })
     .then(() => {
       if (photoData.metaTags.length > 0) {
-        MetaTags.insert(photoData.metaTags.split(','), responseObject.id)
+        MetaTags.insert(photoData.metaTags.split(','), responseObject.id, req.body.user)
         .then((tags) => {
           responseObject.tags = tags.rows;
         })

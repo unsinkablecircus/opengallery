@@ -6,17 +6,35 @@ CREATE TABLE conversations
   CONSTRAINT conversations_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE hashtags
+CREATE TABLE tags
 (
   id serial NOT NULL,
-  hashtag_text character varying(40),
-  CONSTRAINT hashtags_pkey PRIMARY KEY (id)
+  text character varying(40),
+  CONSTRAINT tags_pkey PRIMARY KEY (id)
 );
 
-CREATE UNIQUE INDEX hashtag_text
-  ON hashtags
+CREATE UNIQUE INDEX text
+  ON tags
   USING btree
-  (hashtag_text COLLATE pg_catalog."default");
+  (text COLLATE pg_catalog."default");
+
+CREATE TABLE users
+(
+  id serial NOT NULL,
+  username character varying(20) NOT NULL,
+  password character varying(65) NOT NULL,
+  name character varying(50),
+  email character varying(50),
+  facebook_url character varying(60),
+  twitter_url character varying(60),
+  avatar_url character varying(60),
+  media character varying(25),
+  about character varying(255),
+  website character varying(80),
+  created_at timestamp with time zone,
+  updated_at timestamp with time zone,
+  CONSTRAINT users_pkey PRIMARY KEY (id)
+);
 
 CREATE TABLE media
 (
@@ -37,7 +55,7 @@ CREATE TABLE media
   CONSTRAINT media_user_id_fkey FOREIGN KEY (user_id)
       REFERENCES users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE
-)
+);
 
 CREATE TABLE media_hashtag_totals
 (
@@ -47,28 +65,25 @@ CREATE TABLE media_hashtag_totals
   total integer,
   CONSTRAINT media_hashtag_totals_pkey PRIMARY KEY (id),
   CONSTRAINT media_hashtag_totals_hashtag_id_fkey FOREIGN KEY (hashtag_id)
-      REFERENCES hashtags (id) MATCH SIMPLE
+      REFERENCES tags (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT media_hashtag_totals_media_id_fkey FOREIGN KEY (media_id)
       REFERENCES media (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE
 );
 
-CREATE TABLE media_hashtags
+CREATE TABLE media_tag_totals
 (
   id serial NOT NULL,
+  tag_id integer,
   media_id integer,
-  user_id integer,
-  hashtag_id integer,
-  CONSTRAINT media_hashtags_pkey PRIMARY KEY (id),
-  CONSTRAINT media_hashtags_hashtag_id_fkey FOREIGN KEY (hashtag_id)
-      REFERENCES hashtags (id) MATCH SIMPLE
+  total integer,
+  CONSTRAINT media_tag_totals_pkey PRIMARY KEY (id),
+  CONSTRAINT media_tag_totals_tag_id_fkey FOREIGN KEY (tag_id)
+      REFERENCES tags (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT media_hashtags_media_id_fkey FOREIGN KEY (media_id)
+  CONSTRAINT media_tag_totals_media_id_fkey FOREIGN KEY (media_id)
       REFERENCES media (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT media_hashtags_user_id_fkey FOREIGN KEY (user_id)
-      REFERENCES users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE
 );
 
@@ -76,13 +91,18 @@ CREATE TABLE media_tags
 (
   id serial NOT NULL,
   media_id integer,
+  user_id integer,
   tag_id integer,
+  tag_type character varying(20),
   CONSTRAINT media_tags_pkey PRIMARY KEY (id),
+  CONSTRAINT media_tags_tag_id_fkey FOREIGN KEY (id)
+      REFERENCES tags (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT media_tags_media_id_fkey FOREIGN KEY (media_id)
       REFERENCES media (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT media_tags_tag_id_fkey FOREIGN KEY (tag_id)
-      REFERENCES tags (id) MATCH SIMPLE
+  CONSTRAINT media_tags_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE
 );
 
@@ -100,34 +120,4 @@ CREATE TABLE messages
   CONSTRAINT messages_sender_id_fkey FOREIGN KEY (sender_id)
       REFERENCES users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE
-);
-
-CREATE TABLE tags
-(
-  id serial NOT NULL,
-  tag_text character varying(40),
-  CONSTRAINT tags_pkey PRIMARY KEY (id)
-);
-
-CREATE UNIQUE INDEX tag_text
-  ON tags
-  USING btree
-  (tag_text COLLATE pg_catalog."default");
-
-CREATE TABLE users
-(
-  id serial NOT NULL,
-  username character varying(20) NOT NULL,
-  password character varying(65) NOT NULL,
-  name character varying(50),
-  email character varying(50),
-  facebook_url character varying(60),
-  twitter_url character varying(60),
-  avatar_url character varying(60),
-  media character varying(25),
-  about character varying(255),
-  website character varying(80),
-  created_at timestamp with time zone,
-  updated_at timestamp with time zone,
-  CONSTRAINT users_pkey PRIMARY KEY (id)
 );
