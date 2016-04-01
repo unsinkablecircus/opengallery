@@ -68,7 +68,7 @@ let Nav = ({
               tooltip='Discover'
               onClick={ () => {handleConversationsIconClick(id)}}
             >
-              <DiscoverIcon color='#303030'/>
+              <ProfileIcon color='#303030'/>
             </IconButton>
             <input
               style={{borderRadius: '3px', height: '30px', width: '500px', marginLeft: '20px', transform: 'translateY(-5px)', fontSize:'20px'}} 
