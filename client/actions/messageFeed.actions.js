@@ -40,7 +40,6 @@ const messageError = (err) => {
     type: 'MESSAGE_ERROR',
     payload: err
   }
-
 }
 
 export const submitMessage = (user1_id, user2_id, message, createdAt, currentConversation) => {
@@ -51,11 +50,9 @@ export const submitMessage = (user1_id, user2_id, message, createdAt, currentCon
   }
   
   return dispatch => {
-    // We dispatch requestSignup to kickoff the call to the API
     return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/message/submitMessage`, config)
       .then( response => {
         if ( !response.ok ) {
-          // dispatch(messageError('cannot submit message'));
           return Promise.reject('cannot submit message');
         }
         return response.json();
@@ -64,11 +61,11 @@ export const submitMessage = (user1_id, user2_id, message, createdAt, currentCon
         console.log(messages)
         dispatch(updateMessage(messages));
 
-        // after submitting message, make sure that the scroll bar is at the bottom to show the most recent message
-        const messageContainer = document.getElementsByClassName('messageModalContainer')[0];
-        if(messageContainer.scrollHeight > messageContainer.clientHeight) {
-          messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
-        }
+        // // after submitting message, make sure that the scroll bar is at the bottom to show the most recent message
+        // const messageContainer = document.getElementsByClassName('messageModalContainer')[0];
+        // if(messageContainer.scrollHeight > messageContainer.clientHeight) {
+        //   messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
+        // }
       })
       .catch( err => {
         console.log("Error: ", err);
@@ -125,8 +122,6 @@ export const fetchMessages = (conversation_id, username, user_id) => {
         return response.json();
       })
       .then( (messages) => {
-        console.log('messages', messages); 
-        // if no messages, messages is empty
         dispatch(setCurrentConversation(conversation_id, username, user_id, messages));
       })
       .catch( err => {
@@ -154,9 +149,9 @@ export const fetchConversation = (self_id, user_id, username) => {
       return response.json();
     })
     .then( (payload) => {
-      console.log('payload', payload);
+      // If no messages exist in the current conversation, 
+      // CurrentMessages will contain one row with the conversation id, all other values null
       const currentMessages =  payload.currentMessages[0].sender_id === null ? [] : payload.currentMessages;
-      // if no messages, then current Message is empty
       dispatch(setCurrentConversation(payload.currentMessages[0].id, username, user_id, currentMessages));
       dispatch(updateConversations(payload.allConversations));
     })

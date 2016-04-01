@@ -44,7 +44,6 @@ module.exports = {
     var payload = {};
     const self = req.body.self_id;
     const user = req.body.user_id;
-    console.log('body', req.body);
     messagesModel.fetchOrCreateConversation(self, user)
     .then( (data) => {
       // returns the current conversation

@@ -8,7 +8,6 @@ const MessageFeed = ({
 
   return (
     <div className='conversationList'>
-      Talk To: 
       { conversations.map((conversation, index) => (
         <div 
           key={index}

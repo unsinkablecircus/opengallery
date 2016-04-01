@@ -62,7 +62,6 @@ const User = ({
     }}
   />
 
-
   return (
     <div id="user-component">
       <div className="user-columns-container">
