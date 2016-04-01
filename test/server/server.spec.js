@@ -114,7 +114,7 @@ describe('Back End', function() {
   describe('Database: ', function() {
 
     describe('PostgreSQL Database: ', function() {
-      xit('Should have all the tables', function(done) {
+      it('Should have all the tables', function(done) {
         db.raw("SELECT table_name FROM information_schema.tables WHERE table_schema='public';")
           .then((res) => {
             expect(res.rows).to.deep.include.members([
@@ -122,9 +122,10 @@ describe('Back End', function() {
               { table_name: 'media_tags' },
               { table_name: 'media' },
               { table_name: 'media_hashtag_totals' },
+              { table_name: 'media_tag_totals' },
               { table_name: 'users' },
-              { table_name: 'hashtags' },
-              { table_name: 'media_hashtags' }
+              { table_name: 'conversations' },
+              { table_name: 'messages' }
             ]);
             expect(res.rows.length).to.equal(7);
           })
