@@ -59,6 +59,15 @@ export function switchDeleteMode() {
   }
 };
 
+export function addPhotoToBeDeleted(id) {
+  return {
+    type: 'ADD_DELETE_PHOTO',
+    payload: {
+      photo: id
+    }
+  }
+};
+
 export function deleteRequest() {
   return {
     type: 'DELETE_REQUEST'
