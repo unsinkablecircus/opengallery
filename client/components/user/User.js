@@ -100,7 +100,7 @@ const User = ({
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
-            <TextField disabled={!editMode} hintText='about' value={about} updateField={updateField}>
+            <TextField disabled={!editMode} hintText='about' value={about} updateField={updateField} >
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 

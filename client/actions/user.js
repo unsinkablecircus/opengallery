@@ -64,7 +64,6 @@ export function SaveChanges(data) {
           `&about=${data.about === 'undefined' ? null : data.about}` +
           `&media=${data.media === 'undefined' ? null : data.media}` 
   }
-  console.log('confit', config)
   return dispatch => {
     dispatch(fetchingUserInfo())
 
