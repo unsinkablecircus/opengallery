@@ -11,6 +11,7 @@ export default class Tile extends React.Component {
     }
   }
 
+
   componentWillMount = () => {
     let newStyle = Object.assign({}, this.props.style)
     const { width, height, url_sm } = this.props.data
@@ -35,9 +36,24 @@ export default class Tile extends React.Component {
     const { photo, classname } = this.state
     let style = Object.assign({}, this.props.style)
     style.backgroundImage = photo
+    style.position = 'relative';
+    let styles = {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      backgroundColor: 'red',
+      zIndex: 5000
+    }
+    
+    const button =
+      <IconButton
+        icon={<DeleteIcon/>} 
+        onTouchTap={ () => {console.log("Inside GridTile"); addPhotoToBeDeleted(key) }} 
+        style={styles}/>
 
     return (
       <div className={`tile-component ${ classname }`} style={style} onClick={() => handleClick(tile)}>
+        { this.props.deleteMode ? button : null}
         {children}
       </div>
     )
