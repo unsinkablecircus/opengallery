@@ -1,0 +1,40 @@
+.gallery-tile-component
+  width: calc(100% - 36px)
+  position: absolute
+  left: 0
+  bottom: 0
+  padding: 20px 18px 24px
+  background: transparentize(white, 0.3)
+  +transform(translateY(100%))
+  transition: transform 500ms ease-in-out
+
+  .gallery-tile-title
+    color: $gallery-desc-color
+    margin-top: 0
+
+  .gallery-tile-artist
+    color: $gallery-desc-color
+    font-weight: bold
+    margin-right: 10px
+    cursor: pointer
+    padding: 2px 4px
+    border-radius: 3px
+    box-sizing: border-box
+
+    &:hover
+      color: $gallery-link-color
+      background-color: transparentize(white, 0.1)
+
+  .gallery-tile-desc
+    color: $gallery-desc-color
+
+  .gallery-tile-tags
+    margin-top: 20px
+
+    .gallery-tile-tag
+      margin-right: 10px
+      padding: 4px 8px
+      color: white
+      background-color: $gallery-tag-color
+      border-radius: 3px
+      text-align: center
