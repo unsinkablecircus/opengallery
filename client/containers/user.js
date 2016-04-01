@@ -10,13 +10,13 @@ const mapStateToProps = (state, ownProps) => {
     artist: state.artist,
     editMode: state.user.editMode,
     deleteMode: state.user.deleteMode,
+    photosToBeDeleted: state.user.photosToBeDeleted,
     location: ownProps,
     formData: state.form.profileInformation
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  let photosToBeDeleted = [];
 
   return {
     switchEditMode: () => {
@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch) => {
 
     deletePhotos: () => {
       if(photosToBeDeleted.length > 0){
-        dispatch(DeletePhotos(photosToBeDeleted));
+        // dispatch(DeletePhotos(photosToBeDeleted));
       }
       dispatch(switchDeleteMode());
     },
