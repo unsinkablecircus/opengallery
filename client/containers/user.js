@@ -51,6 +51,9 @@ const mapDispatchToProps = (dispatch) => {
       }
       dispatch(switchDeleteMode());
     },
+    unstagePhotos: () => {
+      dispatch(unstagePhotosToBeDeleted());
+    },
     addPhotoToBeDeleted: (photoId) => {
       photosToBeDeleted.push(photoId);
     }
