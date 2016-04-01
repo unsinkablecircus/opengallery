@@ -1,11 +1,13 @@
 const vision = require('node-cloud-vision-api')
 const Promise = require('bluebird')
 
-vision.init({ auth: process.env.API_GOOL_VISION_SERVER_KEY })
+vision.init({ auth: process.env.API_GOO_VISION_SERVER_KEY })
 
-exports.analyze = () => {
+console.log("api key", process.env.API_GOO_VISION_SERVER_KEY)
+
+exports.analyze = (imageUrl) => {
   const req = new vision.Request({
-    image: new vision.Image({ url: 'http://images.birthdayexpress.com/mgen/jointed-circus-clown-cutout-bx-85682.jpg' }),
+    image: new vision.Image({ url: '${imageUrl}' }),
     // image: new vision.Image(__dirname + '/../../test/server/circus.jpg'),
     features: [
       new vision.Feature('LABEL_DETECTION', 10),
