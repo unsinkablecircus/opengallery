@@ -48,7 +48,7 @@ export default class Tile extends React.Component {
     const button =
       <IconButton
         icon={<DeleteIcon/>} 
-        onTouchTap={ () => {console.log("Inside GridTile"); addPhotoToBeDeleted(this.props.mediaId) }} 
+        onTouchTap={ () => {console.log("Inside GridTile"); this.props.addPhotoToBeDeleted(this.props.mediaId) }} 
         style={styles}/>
 
     return (
