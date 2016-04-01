@@ -3,6 +3,7 @@ const jimp = require('jimp')
 
 const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
+const GoogleVision = require('../models/vision.model')
 
 const imageData = {};
 const resizePhoto = ({ buffer, mimetype }, size, quality) => {
@@ -64,6 +65,9 @@ exports.uploadPhoto = function (req, res) {
       photo.mimetype = 'image/jpeg';
       return resizePhoto(photo, 25, 0)
     })
+    .catch((err) => {
+      console.log("error sending response to client", err);
+    })
     .then( buffer => {
       photoData.width = imageData.width;
       photoData.height = imageData.height;
@@ -99,15 +103,20 @@ exports.uploadPhoto = function (req, res) {
       console.log('Error updating URLs to PG db', err);
     })
     .then(() => {
-      if (photoData.metaTags.length > 0) {
-        MetaTags.insert(photoData.metaTags.split(','), responseObject.id, req.body.user)
-        .then((tags) => {
-          responseObject.tags = tags.rows;
-        })
-        .catch((err) => {
-          console.log("error sending response to client", err);
-        })
-      }
+      //incorporate GoogleVision API
+      return GoogleVision.analyze(photoData.url_large)
+    })
+    .catch(() => {
+      console.error(`Error detecting labels for photo: ${err}`)
+    })
+    .then((labels) => {
+      console.log("Labels returned from GoogleVision", labels);
+      const filteredLabels = labels.labelAnnotations.map((label) => {return label.description})
+      const labelsArray = photoData.metaTags.split(',').concat(filteredLabels);
+      return MetaTags.insert(labelsArray, responseObject.id)
+    })
+    .then((tags) => {
+      responseObject.tags = tags.rows;
     })
     .catch((err) => {
       console.log('Error uploading tags to PostgreSQL', err);
