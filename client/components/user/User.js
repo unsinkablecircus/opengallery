@@ -36,7 +36,9 @@ const User = ({
   let path = window.location.pathname.split('/')[2]
   let isSelf = (path === selfUsername)
 
-  let { name, username, avatar, email, website, facebook, twitter, about, media } = formData
+  let { name, username, email, website, facebook, twitter, about, media } = formData
+
+
 
   const button1 =
     <FlatButton
@@ -67,7 +69,6 @@ const User = ({
             <Avatar
               size={200}
               className="user-avatar"
-              src={ avatar }
             />
             { isSelf ? button1 : button2 }
 
