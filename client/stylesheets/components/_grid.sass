@@ -4,28 +4,20 @@
   width: calc(100% - ($app-padding * 2))
 
   .grid-section
-    display: flex
-    flex-wrap: wrap
+    +display(flex)
+    +flex-wrap(wrap)
     z-index: 1099
 
-<<<<<<< 5770f2fca9551eb5071639176f9f6513baf36daa
     .grid-tile-container
-      flex: auto
-      width: 500px
+      +flex(auto)
+      width: 433px
       height: 40vh
       margin: 15px
-=======
-.tile-component
-  flex: auto
-  width: 500px
-  height: 40vh
-  margin: 15px
->>>>>>> Resize grid component to two tiles on large screen
 
-    .grid-load-button
-      position: relative
-      display: flex
-      flex-wrap: wrap
-      z-index: 1099
-      justify-content: center
-      margin: 15px 0
+  .grid-load-button
+    position: relative
+    margin: 15px 0
+    +display(flex)
+    +flex-wrap(wrap)
+    +justify-content(center)
+    z-index: 1099
