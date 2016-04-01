@@ -39,7 +39,6 @@ export default class Tile extends React.Component {
     return (
       <div className={`tile-component ${ classname }`} style={style} onClick={() => handleClick(tile)}>
         {children}
-        {button}
       </div>
     )
   }
