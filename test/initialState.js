@@ -31,33 +31,12 @@ export const initialState = {
   },
 
   messageFeed: {
-    person_id: 56,
-    person_username: 'Megan',
-    currentConversation: 5,
-    messages: [
-      {
-        id: 1,
-        createdAt: "3/29/2016 2:35:24 PM",
-        conversation_id: 5,
-        sender_id: 26,
-        message: 'hi there!'
-      },
-      {
-        id:2,
-        createdAt: "3/29/2016 2:35:24 PM",
-        conversation_id: 5,
-        sender_id: 56,
-        message: 'hey Daniel!'
-      }
-    ],
-    conversations: [
-      {
-        id: 56,
-        username: 'Megan',
-        self_id: 26 
-      }
-    ],
-    error: 'error'
+    person_id: 0,
+    person_username: '',
+    currentConversation: 0,
+    messages: [],
+    conversations: [],
+    error: ''
 
   },
 
