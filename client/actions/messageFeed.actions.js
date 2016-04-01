@@ -125,6 +125,8 @@ export const fetchMessages = (conversation_id, username, user_id) => {
         return response.json();
       })
       .then( (messages) => {
+        console.log('messages', messages); 
+        // if no messages, messages is empty
         dispatch(setCurrentConversation(conversation_id, username, user_id, messages));
       })
       .catch( err => {
@@ -153,7 +155,9 @@ export const fetchConversation = (self_id, user_id, username) => {
     })
     .then( (payload) => {
       console.log(payload);
-      dispatch(setCurrentConversation(payload.currentConversation[0].id, username, user_id, payload.currentConversation));
+      currentMessages =  payload.currentMessages[0].sender_id === null ? [] : payload.currentMessages;
+      // if no messages, then current Message is empty
+      dispatch(setCurrentConversation(payload.currentMessages[0].id, username, user_id, currentMessages));
       dispatch(updateConversations(payload.allConversations));
     })
     .catch( (err) => {

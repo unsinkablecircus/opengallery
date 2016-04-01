@@ -21,7 +21,7 @@ const messageFeed = (state=startingState, action) => {
         currentConversation: action.payload.conversation_id,
         person_username: action.payload.username,
         person_id: action.payload.user_id,
-        messages: action.payload.messages[0].sender_id ? action.payload.messages : []
+        messages: action.payload.messages
       })
     default:
       return state;
