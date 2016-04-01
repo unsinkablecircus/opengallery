@@ -28,11 +28,11 @@ const PhotoUpload = ({
   const actions = [
     <FlatButton
       label='Remove'
-      primary={true}
+      secondary={true}
       onTouchTap={ onRemoveCurrentPhoto } />,
     <FlatButton
       label='Close'
-      primary={true}
+      secondary={true}
       onTouchTap={ closeUploadModal } />,
     <FlatButton
       label="Submit"
