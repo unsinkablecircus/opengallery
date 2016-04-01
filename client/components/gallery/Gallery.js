@@ -113,10 +113,11 @@ export default class Gallery extends React.Component {
 
     return (
       <div id="gallery-component">
-        <span
+        <div
           className="gallery-close rounded"
           onClick={() => { hideGallery(tile) }}>
-        </span>
+          <div className="gallery-escape">ESC</div>
+        </div>
         <Motion style={{height: spring(tileHeight), width: spring(tileWidth)}}>
           { container =>
             <div
