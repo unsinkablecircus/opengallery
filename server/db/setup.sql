@@ -95,7 +95,7 @@ CREATE TABLE media_tags
   tag_id integer,
   tag_type character varying(20),
   CONSTRAINT media_tags_pkey PRIMARY KEY (id),
-  CONSTRAINT media_tags_tag_id_fkey FOREIGN KEY (id)
+  CONSTRAINT media_tags_tag_id_fkey FOREIGN KEY (tag_id)
       REFERENCES tags (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT media_tags_media_id_fkey FOREIGN KEY (media_id)
