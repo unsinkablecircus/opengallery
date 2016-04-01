@@ -36,6 +36,8 @@ const User = ({
   fetchConversations,
   deleteMode,
   deletePhotos,
+  photosToBeDeleted,
+  unstagePhotos,
   addPhotoToBeDeleted,
   switchDeleteMode
 }) => {
@@ -74,6 +76,14 @@ const User = ({
         deleteMode ? deletePhotos() : switchDeleteMode()
       }} />
 
+  const button4 =
+    <FlatButton
+      label={ deleteMode ? 'Undo Delete Photos' : ''}
+      primary={ deleteMode }
+      icon={<DeleteIcon color={deleteMode ? Colors.red500 : Colors.blue500} className="user_delete_photos_button" />}
+      onTouchTap={ () => {
+        deleteMode ? unstagePhotos() : null
+      }} />;
 
   return (
     <div id="user-component">
