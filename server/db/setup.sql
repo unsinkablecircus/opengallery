@@ -64,7 +64,7 @@ CREATE TABLE media_hashtag_totals
   media_id integer,
   total integer,
   CONSTRAINT media_hashtag_totals_pkey PRIMARY KEY (id),
-  CONSTRAINT media_hashtag_totals_hashtag_id_fkey FOREIGN KEY (id)
+  CONSTRAINT media_hashtag_totals_hashtag_id_fkey FOREIGN KEY (hashtag_id)
       REFERENCES tags (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT media_hashtag_totals_media_id_fkey FOREIGN KEY (media_id)
@@ -79,7 +79,7 @@ CREATE TABLE media_tag_totals
   media_id integer,
   total integer,
   CONSTRAINT media_tag_totals_pkey PRIMARY KEY (id),
-  CONSTRAINT media_tag_totals_tag_id_fkey FOREIGN KEY (id)
+  CONSTRAINT media_tag_totals_tag_id_fkey FOREIGN KEY (tag_id)
       REFERENCES tags (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT media_tag_totals_media_id_fkey FOREIGN KEY (media_id)
