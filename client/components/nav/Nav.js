@@ -58,21 +58,25 @@ let Nav = ({
     <nav id="nav-component">
       <ul className="nav-list">
         <li className="nav-item-logo">
-          <Logo/>
+          <Link to={'/'}>
+            <Logo/>
+          </Link>
         </li>
         <li className="nav-item nav-item-search">
           <input className="nav-item-input"
-            placeholder="Discover"
+            placeholder="discover"
             style={style}
             ref={ (node) => {searchInput = node} }
           />
         </li>
         <li className="nav-item">
-          <div className="nav-item-button">
-            Upload
+          <div
+            onClick={ onToggleUpload }
+            className="nav-item-button">
+            upload
           </div>
           <div className="nav-item-button">
-            Inbox
+            inbox
           </div>
           <Link
             to={`/profile/${username}`}
