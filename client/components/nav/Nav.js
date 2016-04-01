@@ -27,7 +27,7 @@ const darkMuiTheme = getMuiTheme(darkBaseTheme)
 let Nav = ({
   isAuth,
   id,
-  username, 
+  username,
   onLogoutClick,
   onToggleUpload,
   onSearchSubmit,
@@ -50,7 +50,7 @@ let Nav = ({
 
   return (
     <MuiThemeProvider muiTheme={darkMuiTheme}>
-    
+
       <AppBar
         id="nav-component"
         style={styles.nav}
@@ -71,10 +71,10 @@ let Nav = ({
               <ProfileIcon color='#303030'/>
             </IconButton>
             <input
-              style={{borderRadius: '3px', height: '30px', width: '500px', marginLeft: '20px', transform: 'translateY(-5px)', fontSize:'20px'}} 
+              style={{borderRadius: '3px', height: '30px', width: '500px', marginLeft: '20px', transform: 'translateY(-5px)', fontSize:'20px'}}
               ref={ (node) => {searchInput = node} }
             />
-            <FlatButton 
+            <FlatButton
               style={{'marginLeft': '10px', fontSize:'20px'}}
               label='Search'
               onTouchTap={ () => {onSearchSubmit(id, searchInput.value)} }
@@ -90,7 +90,7 @@ let Nav = ({
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
             <Link to={`/profile/${username}`}>
-              <MenuItem 
+              <MenuItem
                 primaryText='Profile'
               />
             </Link>
