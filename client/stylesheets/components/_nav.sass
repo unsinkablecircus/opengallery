@@ -1,0 +1,59 @@
+#nav-component
+  background-color: white
+  padding: 20px 10px
+  margin: 0
+
+  .nav-list
+    +display(flex)
+    +align-items(center)
+    +justify-content(center)
+    +flex-wrap(wrap)
+    list-style: none
+    font-size: 1rem
+    margin: 0
+    padding: 0
+
+    .nav-item, a:link, a:visited, a:hover, a:active
+      +display(flex)
+      +flex(1)
+      height: 65px
+      text-decoration: none
+      cursor: pointer
+      color: $text-color
+
+      .nav-item-button
+        +display(flex)
+        +align-items(center)
+        +justify-content(center)
+        +flex(1)
+        height: 65px
+
+    .nav-item-logo
+      min-width: 350px
+      padding: 0
+      margin: 0 20px
+
+    .nav-item-search
+      width: 450px
+
+      .nav-item-input
+        margin: 0
+        padding: 0 50px
+        min-width: 100%
+        height: 100%
+        font-size: 1.2rem
+        border: none
+        box-sizing: border-box
+        border-bottom: 2px solid white
+        transition: background-color 0.25s ease-in-out, border 0.25s ease-in-out
+        background:
+          repeat: no-repeat
+          size: 24px
+          position: 15px center
+
+        &:focus
+          outline: none
+          border-bottom: 2px solid $logo-blue
+          box-shadow:
+          background-color: darken(white, 2)
+          transition: background-color 0.25s ease-in-out, border 0.25s ease-in-out
