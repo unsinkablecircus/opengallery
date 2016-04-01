@@ -68,6 +68,12 @@ export function addPhotoToBeDeleted(id) {
   }
 };
 
+export function unstagePhotosToBeDeleted() {
+  return {
+    type: 'UNSTAGE_DELETE_PHOTO'
+  }
+};
+
 export function deleteRequest() {
   return {
     type: 'DELETE_REQUEST'
