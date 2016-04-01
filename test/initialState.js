@@ -19,12 +19,20 @@ export const initialState = {
   form: {
     messageModal: {
       input: ""
+    },
+    profileInformation: {
+      username: '',
+      name: '',
+      email: '',
+      website: '',
+      facebookUrl: '',
+      twitterUrl: ''
     }
   },
 
   messageFeed: {
     person_id: 56,
-    person_name: 'Megan',
+    person_username: 'Megan',
     currentConversation: 5,
     messages: [
       {
@@ -54,6 +62,7 @@ export const initialState = {
   },
 
   user: {
+    editMode: false,
     id: 1,
     username: 'username',
     name: 'User Name',
@@ -110,7 +119,8 @@ export const initialState = {
     displaySignUp: false,
     displayWordmap: false,
     displayGridAndNotMessageFeed: true,
-    displayMessageModal: false
+    displayMessageModal: false,
+    hideConversationsInMessageModal: false
   },
 
   /*---------------*/

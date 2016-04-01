@@ -12,7 +12,6 @@ if (isNode() !== true) {
 const user = (state=startingState, action) => {
   switch (action.type) {
     case 'STORE_USER_DATA':
-    console.log('action payload', action.payload);
       return Object.assign({}, state, action.payload)
     case 'SWITCH_EDIT_MODE':
       return Object.assign({}, state, {

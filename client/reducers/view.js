@@ -30,14 +30,17 @@ const view = (state = startingState, action) => {
         isUploadModalOpen: !state.isUploadModalOpen
       })
     case 'TOGGLE_GRID_MESSAGE_FEED':
-    console.log(state.displayGridAndNotMessageFeed);
       return Object.assign({}, state, {
         displayGridAndNotMessageFeed: !state.displayGridAndNotMessageFeed
       })
     case 'TOGGLE_MESSAGE_MODAL':
+      console.log('called');
       return Object.assign({}, state, {
         displayMessageModal: !state.displayMessageModal
-
+      })
+    case 'TOGGLE_CONVERSATIONS':
+      return Object.assign({}, state, {
+        hideConversationsInMessageModal: !state.hideConversationsInMessageModal
       })
     default:
       return state

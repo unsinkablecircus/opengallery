@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import User from '../components/user/User';
 import { SaveChanges, switchEditMode, fetchUserInfo } from '../actions/user';
-import { fetchConversations } from '../actions/messageFeed.actions'
+import { fetchConversations, fetchMessages, fetchConversation, toggleMessageModal } from '../actions/messageFeed.actions'
+
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -10,8 +11,7 @@ const mapStateToProps = (state, ownProps) => {
     artist: state.artist,
     editMode: state.user.editMode,
     location: ownProps,
-    showGridAndNotMessageFeed: state.view.displayGridAndNotMessageFeed,
-    displayGridAndNotMessageFeed: state.view.displayGridAndNotMessageFeed
+    formData: state.form.profileInformation
   }
 }
 
@@ -23,12 +23,21 @@ const mapDispatchToProps = (dispatch) => {
     saveChanges: (values) => {
       dispatch(SaveChanges(values));
     },
-    toggleShowGridAndNotMessageFeed: () => {
-      console.log('clicked');
-      dispatch({type: 'TOGGLE_GRID_MESSAGE_FEED'});
+    fetchConversation: (self_id, user_id, username) => {
+      dispatch(fetchConversation(self_id, user_id, username))
     },
-    fetchConversations: (self_id) => {
+    toggleMessageModal: (self_id) => {
+      dispatch(toggleMessageModal(self_id));
       dispatch(fetchConversations(self_id));
+    },
+    updateField: (field, value) => {
+      dispatch({
+        type: 'EDIT_PROFILE_INFORMATION',
+        payload: {
+          field: field,
+          value: value
+        }
+      })
     }
   }
 }

@@ -4,27 +4,32 @@ import TextField from 'material-ui/lib/text-field'
 
 
 export default class ChatBox extends React.Component {
-  componentDidMount() {
+  componentDidUpdate() {
     // set the scroll to the bottom to show the most recent messages
-    const messageContainer = document.getElementsByClassName('messageModalContainer')[0];
+    const messageContainer = document.getElementsByClassName('messageBox')[0];
     if(messageContainer.scrollHeight > messageContainer.clientHeight) {
       messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
     }
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    // Update if the number of messages changes, or if the username changes
+    return this.props.person_username !== nextProps.person_username || this.props.messages.length !== nextProps.messages.length;
+  }
 
   render(){
-  let { person_name, username, id, textModalField, editInput, messages } = this.props;
+  let { person_username, username, id, textModalField, editInput, messages } = this.props;
     return (
-      <div>
-        <div className='messageModalContainer' style={{height: '300px', overflow:'scroll'}}>
+      <div className='messageModalContainer'>
+        <div  className='messageBox'>
             {messages.map( (message, index) => {
+
               const backgroundColor = message.sender_id === id ? 'rgba(63, 191, 191, 0.3)' : 'rgba(0,0,0,0.07)'
-              const sender = message.sender_id === id ? username : person_name;
+              const sender = message.sender_id === id ? username : person_username;
 
               return (
                 <div
                   style = {{ backgroundColor }}
-                  className = 'messageModal'
+                  className = 'message'
                   key = {index}
                 >
                 { sender + ': ' + message.message }
@@ -32,14 +37,6 @@ export default class ChatBox extends React.Component {
               )
             })}
           </div>
-          <TextField
-            style = {{ marginTop: '20px'}}
-            multiLine={ true }
-            value = {textModalField.input}
-            onChange={ event => {editInput(event.target.value)} }
-            hintText='Message'
-            fullWidth={ true }
-          />
       </div>
     )
   }

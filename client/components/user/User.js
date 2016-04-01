@@ -1,14 +1,9 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import MessageFeed from '../../containers/messageFeed.container';
-import Grid from '../../containers/grid';
 
+// Material UI icons
 import Avatar from 'material-ui/lib/avatar';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
-import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 import Email from 'material-ui/lib/svg-icons/communication/email';
 import Edit from 'material-ui/lib/svg-icons/editor/mode-edit';
@@ -18,6 +13,11 @@ import Face from 'material-ui/lib/svg-icons/social/mood';
 import Website from 'material-ui/lib/svg-icons/social/public';
 import Colors from 'material-ui/lib/styles/colors';
 
+import TextField from './textField'
+import MessageFeed from '../../containers/messageFeed.container';
+import Grid from '../../containers/grid';
+
+
 const User = ({
   artist,
   selfUsername,
@@ -26,35 +26,40 @@ const User = ({
   switchEditMode,
   saveChanges,
   location,
-  displayGridAndNotMessageFeed,
-  toggleShowGridAndNotMessageFeed,
-  fetchConversations
+  fetchConversation,
+  formData,
+  updateField,
+  toggleMessageModal
 }) => {
 
   // Check if the user is on his/her own page
   let path = window.location.pathname.split('/')[2];
   let isSelf = (path === selfUsername);
 
-  let { id, name, username, email, facebook_url, twitter_url, avatar, media, about, website } = artist;
-  // refHolder will temporarily hold the form information
-  let refHolder = {};
+  let { name, username, email, website, facebook, twitter, about, media } = formData;
 
-  // Save changes/ Edit Profile button
-  let button;
-  if ( isSelf ) {
-    button = <FlatButton
-                label={editMode ? 'Save Changes' : 'Edit Profile'}
-                secondary={true}
-                icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user_edit_save_button" />}
-                onTouchTap={ () => {
-                  const values = { id: id };
-                  for ( var key in refHolder ) {
-                    values[key] = refHolder[key].getValue();
-                  }
-                  editMode ? saveChanges(values) : switchEditMode()
-                }}
-              />
-  }
+
+
+  const button1 = 
+    <FlatButton
+    label={editMode ? 'Save Changes' : 'Edit Profile'}
+    secondary={true}
+    icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user_edit_save_button" />}
+    onTouchTap={ () => {
+      let data = Object.assign({}, formData, {id: self_id})
+      editMode ? saveChanges(data) : switchEditMode()                
+    }}
+  />
+
+  const button2 =
+   <FlatButton
+    label='Send Message'
+    secondary={true}
+    onTouchTap= { () => {
+      fetchConversation(self_id, artist.id, artist.username)
+      toggleMessageModal(self_id);
+    }}
+  />
 
   return (
     <div id="user-component">
@@ -65,99 +70,44 @@ const User = ({
               size={200} 
               className="user-avatar"
             />
-            {button}
-            <div className="user-row">
-              <Person color={ editMode ? Colors.red500 : Colors.blue500 } className="user-icon" />
-              <TextField
-                disabled={true}
-                defaultValue={ username }
-                className="user-field"
-                underlineShow={false}
-              />
-            </div>
-            <div className="user-row">
+            { isSelf ? button1 : button2 }
+
+            <TextField disabled={ true } hintText='username' value={username}>
+              <Person color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+            </TextField>
+
+            <TextField disabled={!editMode} hintText='name' value={name}>
               <Face color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-              <TextField
-                disabled={isSelf && editMode ? false : true}
-                defaultValue={ name }
-                hintText='name'
-                className="user-field"
-                underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.name = node}}
-              />
-            </div>
-            <div className="user-row">
+            </TextField>
+
+            <TextField disabled={!editMode} hintText='email' value={email}>
               <Email color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-              <TextField
-                disabled={isSelf && editMode ? false : true}
-                defaultValue={ email }
-                hintText='email'
-                className="user-field"
-                underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.email = node}}
-              />
-            </div>
-            <div className="user-row">
+            </TextField>
+
+            <TextField disabled={!editMode} hintText='website' value={website}>
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-              <TextField
-                disabled={isSelf && editMode ? false : true}
-                defaultValue={ website }
-                className="user-field"
-                hintText='website'
-                underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.website = node}}
-              />
-            </div>
-            <div className="user-row">
+            </TextField>
+
+            <TextField disabled={!editMode} hintText='facebook' value={facebook}>
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-              <TextField
-                disabled={isSelf && editMode ? false : true}
-                defaultValue={ facebook_url }
-                className="user-field"
-                hintText='facebook_url'
-                underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.facebook_url = node}}
-              />
-            </div>
-            <div className="user-row">
+            </TextField>
+
+            <TextField disabled={!editMode} hintText='twitter' value={twitter}>
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-              <TextField
-                disabled={isSelf && editMode ? false : true}
-                defaultValue={ twitter_url }
-                className="user-field"
-                hintText='twitter_url'
-                underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.twitter_url = node}}
-              />
-            </div>
+            </TextField>
+
+            <TextField disabled={!editMode} hintText='media' value={media}>
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+            </TextField>
+
+            <TextField disabled={!editMode} hintText='about' value={about}>
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+            </TextField>
+
           </div>
         </section>
         <section className="user-right">
-          {isSelf ? <div className='toggleGridMessageFeed'>
-            <span
-             style={{color: displayGridAndNotMessageFeed ? 'red' : 'black'}}
-             onClick={ () => {
-              if ( !displayGridAndNotMessageFeed ) {
-                toggleShowGridAndNotMessageFeed()
-              }
-            }}
-            >
-             Show Grid
-            </span>
-            <span 
-              style={{color: displayGridAndNotMessageFeed ? 'black' : 'red'}}
-              onClick={ () => {
-                if ( displayGridAndNotMessageFeed ) {
-                  toggleShowGridAndNotMessageFeed();
-                  fetchConversations(self_id);
-                }
-              }}
-            > 
-              Show Message Feed 
-            </span>
-          </div>
-          : null }
-          { displayGridAndNotMessageFeed ? <Grid loc={location.location}/> : <MessageFeed/> }
+          <Grid loc={location.location}/>
         </section>
       </div>
 

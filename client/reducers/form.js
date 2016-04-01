@@ -17,6 +17,17 @@ const form = (state = startingState, action) => {
           input: ""
         }
       })
+    case 'UPDATE_PROFILE_FORM_AFTER_FETCH':
+      return Object.assign({}, state, {
+        profileInformation: action.payload
+      });
+    case 'EDIT_PROFILE_INFORMATION':
+      let newProfileInformation = Object.assign({}, state.profileInformation);
+      newProfileInformation[action.payload.field] = action.payload.value;
+
+      return Object.assign({}, state, {
+        profileInformation: newProfileInformation
+      });
     default:
       return state
 
