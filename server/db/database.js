@@ -3,7 +3,7 @@ const connectionInfo = {
   port: '5432',
   user: process.env.AWS_POSTGRESQL_USERNAME,
   password: process.env.AWS_POSTGRESQL_PW,
-  database: 'opengallery'
+  database: 'test'
 };
 
 const pg = require('knex')({

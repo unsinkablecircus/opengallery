@@ -16,7 +16,7 @@ exports.media = (user) => (`
   (
     SELECT array_agg(tags) AS tags
     FROM (
-      SELECT t.tag_text AS tags
+      SELECT t.text AS tags
       FROM media_tags mt
         INNER JOIN tags t
         ON (mt.tag_id = t.id)

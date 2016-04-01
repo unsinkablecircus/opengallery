@@ -3,7 +3,6 @@ const jimp = require('jimp')
 
 const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
-const Media_MetaTags = require('../models/media_metaTags')
 
 const imageData = {};
 const resizePhoto = ({ buffer, mimetype }, size, quality) => {

@@ -15,6 +15,17 @@ module.exports = {
             SET total = total - 1
             WHERE media_id = ${mediaId} 
             AND hashtag_id = (SELECT tag_id FROM UserMedia);
+        WITH
+          User_Media AS (
+            SELECT * FROM media_tags
+            WHERE user_id = ${userId} 
+            AND media_id = ${mediaId}
+            AND tag_type = 'hashtag'
+          )
+          UPDATE media_tag_totals
+            SET total = total - 1
+            WHERE media_id = ${mediaId} 
+            AND tag_id = (SELECT tag_id FROM User_Media);
 
         WITH
         new_row AS (
@@ -41,7 +52,13 @@ module.exports = {
             SET total = total + 1
           WHERE hashtag_id = (SELECT id FROM combine) 
             AND media_id = ${mediaId}
-            AND tag_type = 'hashtag'
+         RETURNING *
+        ),
+        update_tag_totals AS (
+          UPDATE media_tag_totals
+            SET total = total + 1
+          WHERE tag_id = (SELECT id FROM combine) 
+            AND media_id = ${mediaId}
          RETURNING *
         ),
         insert_hashtag_totals AS (
@@ -53,6 +70,16 @@ module.exports = {
             WHERE media_id = ${mediaId} 
               AND hashtag_id = (SELECT id FROM combine)
           )
+        ),
+        insert_tag_totals AS (
+          INSERT INTO media_tag_totals (media_id, tag_id, total)
+          SELECT ${mediaId}, (SELECT id FROM combine), 1
+          WHERE NOT EXISTS (
+            SELECT * 
+            FROM media_tag_totals
+            WHERE media_id = ${mediaId} 
+              AND tag_id = (SELECT id FROM combine)
+          )
         )
         INSERT INTO media_tags (media_id, user_id, hashtag_id, tag_type)
           SELECT ${mediaId}, ${userId}, (SELECT id FROM combine), 'hashtag'
@@ -63,6 +90,7 @@ module.exports = {
                 AND tag_type = 'hashtag'
             );
         DELETE FROM media_hashtag_totals WHERE total = 0;
+        DELETE FROM media_tag_totals WHERE total = 0;
         
         SELECT array_to_json(array_agg(row_to_json(f))) AS feedback
         FROM (
