@@ -96,17 +96,17 @@ export function deleteError(message) {
 };
 
 export function DeletePhotos(photosArray) {
-
   return (dispatch) => {
     dispatch(deleteRequest()) //TODO: dispatch delete request
+
     return request
-            .delete(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/delete`)
+            .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/delete`)
             .field('photos', photosArray)
             .end(function(err, res) {
               if (err) {
-                console.log('Oh no! error deleting your photo', photosArray, err);
+                console.log('Oh no! error deleting your photo', err);
                 dispatch(deleteError(err))
-              } else {
+              } else if (res) {
                 dispatch(deleteSuccess())
               }
             })
