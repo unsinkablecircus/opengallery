@@ -35,7 +35,6 @@ const messageModal = ({
 
   const chatBoxProps = { person_username, username, id, textModalField, editInput, messages }
 
-  console.log('displayMessageModal', displayMessageModal);
   return (
     <div>
       <Dialog
