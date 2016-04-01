@@ -16,7 +16,6 @@ import Colors from 'material-ui/lib/styles/colors';
 import TextField from './textField'
 import MessageFeed from '../../containers/messageFeed.container';
 import Grid from '../../containers/grid';
-import MessageModal from '../../containers/messageModal.container'
 
 
 const User = ({
@@ -72,7 +71,6 @@ const User = ({
               className="user-avatar"
             />
             { isSelf ? button1 : button2 }
-            <MessageModal />
 
             <TextField disabled={ true } hintText='username' value={username}>
               <Person color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />

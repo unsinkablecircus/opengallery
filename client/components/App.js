@@ -5,6 +5,7 @@ import Grid from '../containers/grid'
 import Nav from '../containers/nav'
 import Gallery from '../containers/gallery'
 import PhotoUpload from '../containers/photoUpload'
+import MessageModal from '../containers/messageModal.container'
 
 import injectTapEventPlugin from'react-tap-event-plugin'
 injectTapEventPlugin()
@@ -12,6 +13,7 @@ injectTapEventPlugin()
 const App = ({ children, displayGallery, isUploadModalOpen }) => {
   return (
     <div>
+      <MessageModal />
       <Auth/>
       { isUploadModalOpen ? <PhotoUpload /> : '' }
       { displayGallery ? <Gallery/> : '' }
