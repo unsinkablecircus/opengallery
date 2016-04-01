@@ -13,10 +13,10 @@ CREATE TABLE tags
   CONSTRAINT tags_pkey PRIMARY KEY (id)
 );
 
-CREATE UNIQUE INDEX tag_text
+CREATE UNIQUE INDEX text
   ON tags
   USING btree
-  (tag_text COLLATE pg_catalog."default");
+  (text COLLATE pg_catalog."default");
 
 CREATE TABLE users
 (

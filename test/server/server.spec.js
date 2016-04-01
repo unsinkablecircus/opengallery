@@ -82,7 +82,7 @@ describe('Back End', function() {
 
       });
 
-      it(`Should upload metaData to PostgreSQL, clone and manipulate photo,
+      xit(`Should upload metaData to PostgreSQL, clone and manipulate photo,
         update PostgreSQL with new urls,
         and send back a 201 with the uploadPhoto function`, function(done) {
 
