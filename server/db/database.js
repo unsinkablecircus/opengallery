@@ -11,9 +11,9 @@ const pg = require('knex')({
   connection: connectionInfo,
   pool: {
     min: 2,
-    max: 20
+    max: 25
   },
-  acquireConnectionTimeout: 30000,
+  acquireConnectionTimeout: 10000,
   searchPath: 'knex,public'
 });
 
