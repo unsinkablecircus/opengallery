@@ -53,6 +53,8 @@ exports.updatePGmetaData = function (photoData, id) {
     `UPDATE media
     SET
       url_small = '${photoData.url_small}',
+      url_medium = '${photoData.url_medium}',
+      url_large = '${photoData.url_large}',
       title ='${photoData.title}',
       description = '${photoData.description}',
       width = ${photoData.width},
