@@ -75,7 +75,9 @@ let Nav = ({
             className="nav-item-button">
             upload
           </div>
-          <div className="nav-item-button">
+          <div
+            onClick={ () => {handleConversationsIconClick(id)}}
+            className="nav-item-button">
             inbox
           </div>
           <Link
