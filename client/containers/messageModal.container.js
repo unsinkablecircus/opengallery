@@ -33,7 +33,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     toggleConversations: () => {
-      console.log('clicked');
       dispatch({
         type: 'TOGGLE_CONVERSATIONS'
       })

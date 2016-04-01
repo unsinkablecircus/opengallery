@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import User from '../components/user/User';
 import { SaveChanges, switchEditMode, fetchUserInfo } from '../actions/user';
-import { fetchConversations, fetchMessages, fetchConversation } from '../actions/messageFeed.actions'
+import { fetchConversations, fetchMessages, fetchConversation, toggleMessageModal } from '../actions/messageFeed.actions'
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -26,10 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     fetchConversation: (self_id, user_id, username) => {
       dispatch(fetchConversation(self_id, user_id, username))
     },
-    toggleMessageModal: () => {
-      dispatch({
-        type: 'TOGGLE_MESSAGE_MODAL'
-      })
+    toggleMessageModal: (self_id) => {
+      dispatch(toggleMessageModal(self_id));
+      dispatch(fetchConversations(self_id));
     },
     updateField: (field, value) => {
       dispatch({

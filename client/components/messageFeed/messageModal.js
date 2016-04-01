@@ -42,14 +42,11 @@ const messageModal = ({
         modal={ true }
         open={ displayMessageModal }
       >
-        <div 
-          className='messageModalTitle'
-        > 
+        <div className='messageModalTitle'> 
           { person_username }
-          <span 
-            className='toggleConversation'
-            onClick={ toggleConversations}
-          > {hideConversationsInMessageModal ? 'show conversations' : 'hide conversations' } </span>
+          <span className='toggleConversation' onClick={ toggleConversations} > 
+            {hideConversationsInMessageModal ? 'show conversations' : 'hide conversations' } 
+          </span>
         </div>
         <div className='messageModalBox'>
           <ChatBox {...chatBoxProps}/>

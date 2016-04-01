@@ -1,4 +1,6 @@
-export const toggleMessageModal = () => {
+
+export const toggleMessageModal = (self_id) => {
+  // whenever you pop open the modal, you want to fetch the conversations and save them to state
   return {
     type: 'TOGGLE_MESSAGE_MODAL'
   };
@@ -12,6 +14,7 @@ const updateMessage = (message) => {
 }
 
 const updateConversations = (conversations) => {
+  console.log('convos', conversations);
   return {
     type: 'UPDATE_CONVERSATIONS',
     payload: {
@@ -80,7 +83,6 @@ let config = {
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
     body: `self_id=${self_id}`
   }
-  console.log('fetch convos', self_id);  
   return dispatch => {
     // We dispatch requestSignup to kickoff the call to the API
     return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/message/fetchConversations`, config)
@@ -100,6 +102,9 @@ let config = {
       })
   }
 }
+
+
+
 //conversation.id, conversation.username, conversation.user_id
 export const fetchMessages = (conversation_id, username, user_id) => {
   let config = {
@@ -146,9 +151,10 @@ export const fetchConversation = (self_id, user_id, username) => {
       }
       return response.json();
     })
-    .then( (conversation) => {
-      console.log(conversation);
-      dispatch(setCurrentConversation(conversation[0].id, username, user_id, conversation));
+    .then( (payload) => {
+      console.log(payload);
+      dispatch(setCurrentConversation(payload.currentConversation[0].id, username, user_id, payload.currentConversation));
+      dispatch(updateConversations(payload.allConversations));
     })
     .catch( (err) => {
       console.log('err', err);

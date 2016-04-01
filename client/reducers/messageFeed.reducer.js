@@ -16,7 +16,6 @@ const messageFeed = (state=startingState, action) => {
         conversations: action.payload.conversations 
       })
     case 'SET_CURRENT_CONVERSATION':
-      console.log('action.payload', action.payload.messages[0].sender_id);
       // reset the messages, change person_name, change currentConversation
       return Object.assign({}, state, {
         currentConversation: action.payload.conversation_id,

@@ -28,8 +28,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(toggleUpload());
     },
     handleConversationsIconClick: (self_id) => {
+      dispatch(fetchConversations(self_id));
       dispatch(toggleMessageModal());
-      dispatch(fetchConversations(self_id))
     },
     onSearchSubmit: (id, searchInput) => {
       browserHistory.push('/');
