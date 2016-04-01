@@ -8,6 +8,7 @@ const startingState = prevState ? prevState.messageFeed : initialState.messageFe
 const messageFeed = (state=startingState, action) => {
   switch (action.type) {
     case 'SUBMIT_MESSAGE':
+    console.log( 'action payload', action.payload)
       return Object.assign({}, state, {
         messages: action.payload
       })

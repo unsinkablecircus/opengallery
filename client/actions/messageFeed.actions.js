@@ -6,10 +6,10 @@ export const toggleMessageModal = (self_id) => {
   };
 }
 
-const updateMessage = (message) => {
+const updateMessage = (messages) => {
   return {
     type: 'SUBMIT_MESSAGE',
-    payload: message
+    payload: messages
   }
 }
 
@@ -60,12 +60,6 @@ export const submitMessage = (user1_id, user2_id, message, createdAt, currentCon
       .then( (messages) => {
         console.log(messages)
         dispatch(updateMessage(messages));
-
-        // // after submitting message, make sure that the scroll bar is at the bottom to show the most recent message
-        // const messageContainer = document.getElementsByClassName('messageModalContainer')[0];
-        // if(messageContainer.scrollHeight > messageContainer.clientHeight) {
-        //   messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
-        // }
       })
       .catch( err => {
         console.log("Error: ", err);

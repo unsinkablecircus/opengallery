@@ -12,8 +12,8 @@ export default class ChatBox extends React.Component {
     }
   }
   shouldComponentUpdate(nextProps, nextState) {
-    // Update only when a message is submitted, not when state changes with keystrokes
-    return this.props.person_username !== nextProps.person_username;
+    // Update if the number of messages changes, or if the username changes
+    return this.props.person_username !== nextProps.person_username || this.props.messages.length !== nextProps.messages.length;
   }
 
   render(){
