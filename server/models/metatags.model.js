@@ -4,6 +4,7 @@ const { isInt } = query
 const Promise = require('bluebird')
 
 exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
+  console.log('tags, user, page: ', tags, user, page, tags.join(','));
   if (Array.isArray(tags) && tags.length) {
     return pg.raw(`
       SELECT * FROM (
@@ -37,7 +38,7 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
   }
 }
 
-exports.insert = (tags, mediaId) => {
+exports.insert = (tags, mediaId, userId) => {
   if (Array.isArray(tags)) {
     return pg.raw(`
       BEGIN;
@@ -48,19 +49,19 @@ exports.insert = (tags, mediaId) => {
           tags.map(t => `('${t}')`).join(',')
         }
       )
-      INSERT INTO tags (tag_text)
+      INSERT INTO tags (text)
       SELECT m.tag_text FROM meta_tags m
       WHERE NOT EXISTS (
         SELECT 1 FROM tags t
-        WHERE t.tag_text = m.tag_text
+        WHERE t.text = m.tag_text
       );
 
       WITH new_tags AS (
-        SELECT m.id, t.id FROM tags t
-        INNER JOIN media m ON (m.id = ${ mediaId })
-        WHERE tag_text = ANY ('{${ tags.join(',') }}'::text[])
+        SELECT ${ mediaId }, t.id, 'metatag', ${ userId } 
+        FROM tags t
+        WHERE t.text = ANY ('{${ tags.join(',') }}'::text[])
       )
-      INSERT INTO media_tags (media_id, tag_id)
+      INSERT INTO media_tags (media_id, tag_id, tag_type, user_id)
       SELECT * FROM new_tags;
 
       SELECT * FROM media_tags mt

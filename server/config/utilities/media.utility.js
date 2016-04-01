@@ -82,7 +82,7 @@ exports.total_tags = (tags) => (`
     ON (m.id = mt.media_id)
     INNER JOIN tags t
     ON (mt.tag_id = t.id)
-  WHERE t.tag_text ~* ANY ('{${ tags.join(',') }}'::text[])
+  WHERE t.text ~* ANY ('{${ tags.join(',') }}'::text[])
 `)
 
 exports.total = (`

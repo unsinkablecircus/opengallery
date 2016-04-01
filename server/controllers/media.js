@@ -99,7 +99,7 @@ exports.uploadPhoto = function (req, res) {
     })
     .then(() => {
       if (photoData.metaTags.length > 0) {
-        MetaTags.insert(photoData.metaTags.split(','), responseObject.id)
+        MetaTags.insert(photoData.metaTags.split(','), responseObject.id, req.body.user)
         .then((tags) => {
           responseObject.tags = tags.rows;
         })
