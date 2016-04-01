@@ -16,17 +16,11 @@ exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
   return pg.raw(
 
-    `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description, width, height, mimetype) 
+    `INSERT INTO media (user_id, url_medium, url_large) 
     values(
       ${photoData.user},
-      '${photoData.url_small}',
       '${photoData.url_medium}',
       '${photoData.url_large}',
-      '${photoData.title}',
-      '${photoData.description}',
-      ${photoData.width},
-      ${photoData.height},
-      '${photoData.mimetype}'
     ) 
     RETURNING id`
   );
@@ -51,29 +45,19 @@ exports.uploadToS3 = function (photoId, photo) {
   });
 };
 
-exports.updatePGphotoUrls = function (photosURLsArr, id) {
+exports.updatePGmetaData = function (photoData, id) {
   //array order is med, large
   //identify which record to update
   // return
   return pg.raw(
     `UPDATE media
     SET
-      url_medium = '${photosURLsArr[0]}',
-      url_large = '${photosURLsArr[1]}'
-    WHERE id = ${id}
-    RETURNING *
-    `
-  );
-};
-
-exports.updatePGmetaData = function (photoData, id) {
-  // identify which fields to update, 
-    // only overwrite those
-  return pg.raw(
-    `UPDATE media
-    SET
-      title = '${photoData.title}',
+      url_small = '${photoData.url_small}',
+      title ='${photoData.title}',
       description = '${photoData.description}',
+      width = ${photoData.width},
+      height = ${photoData.height},
+      mimetype = '${photoData.mimetype}'
     WHERE id = ${id}
     RETURNING *
     `
