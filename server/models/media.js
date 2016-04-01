@@ -20,7 +20,7 @@ exports.uploadToPG = function (photoData) {
     values(
       ${photoData.user},
       '${photoData.url_medium}',
-      '${photoData.url_large}',
+      '${photoData.url_large}'
     ) 
     RETURNING id`
   );
