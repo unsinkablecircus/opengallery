@@ -123,7 +123,6 @@ const User = ({
           </div>
         </section>
         <section className="user-right">
-
           {isSelf ? <div className='toggleGridMessageFeed'>
             <span
              style={{color: displayGridAndNotMessageFeed ? 'red' : 'black'}}
