@@ -81,7 +81,7 @@ module.exports = {
               AND tag_id = (SELECT id FROM combine)
           )
         )
-        INSERT INTO media_tags (media_id, user_id, hashtag_id, tag_type)
+        INSERT INTO media_tags (media_id, user_id, tag_id, tag_type)
           SELECT ${mediaId}, ${userId}, (SELECT id FROM combine), 'hashtag'
             WHERE NOT EXISTS (
               SELECT * FROM media_tags

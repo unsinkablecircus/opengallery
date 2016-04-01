@@ -64,7 +64,30 @@ exports.insert = (tags, mediaId, userId) => {
       INSERT INTO media_tags (media_id, tag_id, tag_type, user_id)
       SELECT * FROM new_tags;
 
-      SELECT * FROM media_tags mt
+      WITH newTags AS (
+        SELECT t.id
+        FROM tags t
+        WHERE t.text = ANY ('{${ tags.join(',') }}'::text[])
+      ),
+      update_tag_totals AS (
+        UPDATE media_tag_totals
+          SET total = total + 1
+        WHERE tag_id = ANY (select id from newTags)
+          AND media_id = ${mediaId}
+      ),
+      insert_tag_totals AS (
+        INSERT INTO media_tag_totals (media_id, tag_id, total)
+        SELECT ${mediaId}, (SELECT id FROM newTags), 1
+        WHERE NOT EXISTS (
+          SELECT * 
+          FROM media_tag_totals
+          WHERE media_id = ${mediaId} 
+            AND tag_id = ANY (SELECT id FROM newTags)
+        )
+      )
+
+      SELECT * 
+      FROM media_tags mt
       WHERE mt.media_id = ${ mediaId };
 
       COMMIT;
