@@ -44,14 +44,16 @@ module.exports = {
     var payload = {};
     const self = req.body.self_id;
     const user = req.body.user_id;
+    console.log('body', req.body);
     messagesModel.fetchOrCreateConversation(self, user)
     .then( (data) => {
       // returns the current conversation
-      payload.currentConversation = data.rows;
+      payload.currentMessages = data.rows;
       messagesModel.fetchConversations(self)
       .then( (data) => {
         // returns the rest of the conversations
         payload.allConversations = data.rows;
+        console.log(payload);
         res.send(payload);
       })
     })

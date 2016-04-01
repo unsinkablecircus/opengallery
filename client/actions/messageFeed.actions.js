@@ -154,8 +154,8 @@ export const fetchConversation = (self_id, user_id, username) => {
       return response.json();
     })
     .then( (payload) => {
-      console.log(payload);
-      currentMessages =  payload.currentMessages[0].sender_id === null ? [] : payload.currentMessages;
+      console.log('payload', payload);
+      const currentMessages =  payload.currentMessages[0].sender_id === null ? [] : payload.currentMessages;
       // if no messages, then current Message is empty
       dispatch(setCurrentConversation(payload.currentMessages[0].id, username, user_id, currentMessages));
       dispatch(updateConversations(payload.allConversations));

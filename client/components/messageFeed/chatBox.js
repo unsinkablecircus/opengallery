@@ -6,7 +6,6 @@ import TextField from 'material-ui/lib/text-field'
 export default class ChatBox extends React.Component {
   componentDidUpdate() {
     // set the scroll to the bottom to show the most recent messages
-    console.log('updating');
     const messageContainer = document.getElementsByClassName('messageBox')[0];
     if(messageContainer.scrollHeight > messageContainer.clientHeight) {
       messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
@@ -23,7 +22,6 @@ export default class ChatBox extends React.Component {
       <div className='messageModalContainer'>
         <div  className='messageBox'>
             {messages.map( (message, index) => {
-            console.log('rendering');
 
               const backgroundColor = message.sender_id === id ? 'rgba(63, 191, 191, 0.3)' : 'rgba(0,0,0,0.07)'
               const sender = message.sender_id === id ? username : person_username;
