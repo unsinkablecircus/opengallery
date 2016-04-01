@@ -58,8 +58,8 @@ exports.uploadPhoto = function (req, res) {
     })
     .then((id) => {
       responseObject.id = id.rows[0].id;
-      responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'medium');
-      responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'large');
+      responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'medium.jpg');
+      responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'large.jpg');
       res.status(201).json(responseObject);
 
       photo.mimetype = 'image/jpeg';
@@ -104,6 +104,7 @@ exports.uploadPhoto = function (req, res) {
     })
     .then(() => {
       //incorporate GoogleVision API
+      console.log("Right before invoking GoogleVision analyze function in media controller");
       return GoogleVision.analyze(photoData.url_large)
     })
     .catch(() => {
