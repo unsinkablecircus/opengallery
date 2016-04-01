@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import User from '../components/user/User';
 import { fetchConversations, fetchMessages, fetchConversation, toggleMessageModal } from '../actions/messageFeed.actions'
-
 import { SaveChanges, switchEditMode, switchDeleteMode, fetchUserInfo, DeletePhotos } from '../actions/user';
 
 const mapStateToProps = (state, ownProps) => {
