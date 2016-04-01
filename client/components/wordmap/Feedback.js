@@ -4,8 +4,6 @@ export default class Feedback extends React.Component {
   render () {
     const { user, data, feedback, idx, submit } = this.props
 
-    console.log('props in feedbac', this.props);
-
     const word = feedback.reduce((acc, word) =>
       acc || word.id == idx && word.tag, false)
 

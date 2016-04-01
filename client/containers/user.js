@@ -31,7 +31,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(fetchConversations(self_id));
     },
     updateField: (field, value) => {
-      console.log( field, value);
       dispatch({
         type: 'EDIT_PROFILE_INFORMATION',
         payload: {

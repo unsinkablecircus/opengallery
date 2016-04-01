@@ -23,6 +23,7 @@ const CustomTextField = ({
                 className="user-field"
                 underlineShow={ !disabled }
                 onChange = { (event) => {updateField(hintText, event.target.value)} }
+                multiLine = { true }
               />
             </div>
   )
