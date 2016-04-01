@@ -34,7 +34,7 @@ export default class Grid extends React.Component {
     if (total_photos === undefined) {
       return (
         <div id="grid-component">
-          No Photos
+          <div id="grid-error">No Photos</div>
         </div>
       )
     } else {
