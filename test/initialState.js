@@ -46,6 +46,7 @@ export const initialState = {
     username: 'username',
     editMode: false,
     deleteMode: false,
+    photosToBeDelete: [],
     name: 'User Name',
     email: 'user@email.com',
     website: 'Website',
