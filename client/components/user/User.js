@@ -39,7 +39,7 @@ const User = ({
   let { name, username, email, website, facebook, twitter, about, media } = formData;
 
 
-
+  console.log( name, username, email, website, facebook, twitter, about, media );
   const button1 = 
     <FlatButton
     label={editMode ? 'Save Changes' : 'Edit Profile'}
@@ -72,35 +72,35 @@ const User = ({
             />
             { isSelf ? button1 : button2 }
 
-            <TextField disabled={ true } hintText='username' value={username}>
+            <TextField disabled={ true } hintText='username' value={username} updateField={updateField}>
               <Person color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
-            <TextField disabled={!editMode} hintText='name' value={name}>
+            <TextField disabled={!editMode} hintText='name' value={name} updateField={updateField}>
               <Face color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
-            <TextField disabled={!editMode} hintText='email' value={email}>
+            <TextField disabled={!editMode} hintText='email' value={email} updateField={updateField}>
               <Email color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
-            <TextField disabled={!editMode} hintText='website' value={website}>
+            <TextField disabled={!editMode} hintText='website' value={website} updateField={updateField}>
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
-            <TextField disabled={!editMode} hintText='facebook' value={facebook}>
+            <TextField disabled={!editMode} hintText='facebook' value={facebook} updateField={updateField}>
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
-            <TextField disabled={!editMode} hintText='twitter' value={twitter}>
+            <TextField disabled={!editMode} hintText='twitter' value={twitter} updateField={updateField}>
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
-            <TextField disabled={!editMode} hintText='media' value={media}>
+            <TextField disabled={!editMode} hintText='media' value={media} updateField={updateField}>
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
-            <TextField disabled={!editMode} hintText='about' value={about}>
+            <TextField disabled={!editMode} hintText='about' value={about} updateField={updateField}>
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 

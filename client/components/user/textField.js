@@ -10,7 +10,8 @@ const CustomTextField = ({
   disabled,
   value,
   hintText,
-  children
+  children,
+  updateField
 }) => {
   return (
      <div className="user-row">
@@ -21,6 +22,7 @@ const CustomTextField = ({
                 hintText={ hintText }
                 className="user-field"
                 underlineShow={ !disabled }
+                onChange = { (event) => {updateField(hintText, event.target.value)} }
               />
             </div>
   )
