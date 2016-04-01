@@ -66,12 +66,12 @@ exports.updatePGmetaData = function (photoData, id) {
   );
 };
 
-exports.deletePhotoByIdPG = function (mediaId) {
-
+exports.deletePhotoByIdPG = function (photos) {
+  console.log("photos inside PG function", photos);
   return pg.raw(
     `DELETE FROM media
-    WHERE id = ${mediaId}
-    RETURNING ${mediaId};
+    WHERE id = ANY ('{${photos.join(',')}}'::int[])
+    RETURNING (id);
     `
   );
 };

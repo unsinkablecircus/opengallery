@@ -6,7 +6,7 @@ vision.init({ auth: process.env.API_GOO_VISION_SERVER_KEY })
 exports.analyze = (imageUrl) => {
   console.log("inside googlevision analyze function", imageUrl);
   const req = new vision.Request({
-    image: new vision.Image({ url: {imageUrl} }),
+    image: new vision.Image({ url: imageUrl }),
     // image: new vision.Image(__dirname + '/../../test/server/circus.jpg'),
     features: [
       new vision.Feature('LABEL_DETECTION', 10),
