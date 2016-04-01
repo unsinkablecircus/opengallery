@@ -23,7 +23,7 @@ const user = (state=startingState, action) => {
       })
     case 'ADD_DELETE_PHOTO':
       return Object.assign({}, state, {
-        photosToBeDeleted: [...state.photosToBeDeleted, payload.photo]
+        photosToBeDeleted: [...state.photosToBeDeleted, action.payload.photo]
       })
     case 'UNSTAGE_DELETE_PHOTO':
       return Object.assign({}, state, {
