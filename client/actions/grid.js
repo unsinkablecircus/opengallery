@@ -94,16 +94,17 @@ export function loadData(id, artist, page, search) {
       return response.json()
     })
     .then(res => {
-      dispatch({
-        type: 'UPDATE_PROFILE_FORM_AFTER_FETCH',
-        payload: res.rows[0].artist[0]
-      })
       var grid = []
       var data = {}
       if (artist) {
+        dispatch({
+          type: 'UPDATE_PROFILE_FORM_AFTER_FETCH',
+          payload: res.rows[0].artist[0]
+        })
         dispatch(updateArtist(res.rows[0].artist[0]));
       } 
       if (res.rows[artist ? 1 : 0].data !== null) {
+
         res.rows[artist ? 1 : 0].data.forEach((image) => {
           grid.push(image.media_id);
           data[image.media_id] = {
@@ -114,7 +115,8 @@ export function loadData(id, artist, page, search) {
             width: image.width || 800,
             height: image.height || 600,
             url_sm: image.url_sm,
-            url_md: image.url_md,            url_lg: image.url_lg,
+            url_md: image.url_md,
+            url_lg: image.url_lg,
             artist: image.artist,
             tags: image.tags || [],
             user_feedback_id: image.user_feedback_id || null,
