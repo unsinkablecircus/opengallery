@@ -137,8 +137,9 @@ exports.updatePhoto = function (req, res) {
   })
 }
 
-exports.deletePhoto = function (req, res) {
+exports.deletePhotos = function (req, res) {
   //parse request to find which fields need to be update
+  console.log('photos received form request body', req.body);
   Media.deletePhotoByIdPG(req.body.photos)
   .catch((err) => {
     console.log("Error deleting from PG", err);
