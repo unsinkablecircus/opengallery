@@ -13,7 +13,7 @@ const pg = require('knex')({
     min: 2,
     max: 20
   },
-  acquireConnectionTimeout: 180000,
+  acquireConnectionTimeout: 30000,
   searchPath: 'knex,public'
 });
 
