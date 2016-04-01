@@ -82,8 +82,8 @@ exports.uploadPhoto = function (req, res) {
 
       var urlExtMedium = responseObject.id + 'medium.jpg';
       var urlExtLarge = responseObject.id + 'large.jpg';
-      responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
-      responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
+      photoData.url_medium = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
+      photoData.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
 
       return new Promise.all([
         Media.uploadToS3(urlExtLarge, photo.buffer), Media.uploadToS3(urlExtMedium, photo.buffer_med)
@@ -93,7 +93,7 @@ exports.uploadPhoto = function (req, res) {
       console.log('Error uploading images to s3 db', err)
     })
     .then((url) => {
-      return Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
+      return Media.updatePGmetaData(photoData, responseObject.id) // urlsArr initiated above
     })
     .catch((err) => {
       console.log('Error updating URLs to PG db', err);
