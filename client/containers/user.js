@@ -44,18 +44,15 @@ const mapDispatchToProps = (dispatch) => {
         }
       })
     },
-
-    deletePhotos: () => {
-      if(photosToBeDeleted.length > 0){
-        // dispatch(DeletePhotos(photosToBeDeleted));
-      }
+    deletePhotos: (photos) => {
+      dispatch(DeletePhotos(photos));
       dispatch(switchDeleteMode());
     },
     unstagePhotos: () => {
       dispatch(unstagePhotosToBeDeleted());
     },
     addPhotoToBeDeleted: (photoId) => {
-      photosToBeDeleted.push(photoId);
+      dispatch(addToBeDeletedPhoto(photoId));
     }
   }
 }
