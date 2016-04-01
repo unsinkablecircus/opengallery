@@ -94,8 +94,10 @@ export function loadData(id, artist, page, search) {
       return response.json()
     })
     .then(res => {
-      console.log('res on fetch: ', res);
-
+      dispatch({
+        type: 'UPDATE_PROFILE_FORM_AFTER_FETCH',
+        payload: res.rows[0].artist[0]
+      })
       var grid = []
       var data = {}
       if (artist) {

@@ -56,9 +56,15 @@ export function SaveChanges(data) {
   const config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `id=${data.id}&name=${data.name === 'undefined' ? null : data.name}&email=${data.email === 'undefined' ? null : data.email}&website=${data.website === 'undefined' ? null : data.website}&facebook_url=${data.facebook_url === 'undefined' ? null : data.facebook_url}&twitter_url=${data.twitter_url === 'undefined' ? null : data.twitter_url}`
+    body: `id=${data.id}&name=${data.name === 'undefined' ? null : data.name}` +
+          `&email=${data.email === 'undefined' ? null : data.email}` +
+          `&website=${data.website === 'undefined' ? null : data.website}` + 
+          `&facebook_url=${data.facebook === 'undefined' ? null : data.facebook}` + 
+          `&twitter_url=${data.twitter === 'undefined' ? null : data.twitter}` + 
+          `&about=${data.about === 'undefined' ? null : data.about}` +
+          `&media=${data.media === 'undefined' ? null : data.media}` 
   }
-  console.log(config)
+  console.log('confit', config)
   return dispatch => {
     dispatch(fetchingUserInfo())
 

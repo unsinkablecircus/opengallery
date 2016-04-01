@@ -93,9 +93,12 @@ module.exports = {
       email: req.body.email === 'undefined' ? '' : req.body.email,
       website: req.body.website === 'undefined' ? '' : req.body.website,
       facebook_url: req.body.facebook_url === 'undefined' ? '' : req.body.facebook_url,
-      twitter_url: req.body.twitter_url === 'undefined' ? '' : req.body.twitter_url
+      twitter_url: req.body.twitter_url === 'undefined' ? '' : req.body.twitter_url,
+      about: req.body.about === 'undefined' ? '' : req.body.about,
+      media: req.body.media === 'undefined' ? '' : req.body.media
+
     }
-    users.updateUser(data.name, data.email, data.website, data.facebook_url, data.twitter_url, data.id)
+    users.updateUser(data.name, data.email, data.website, data.facebook_url, data.twitter_url, data.id, data.about, data.media)
     .then ((user) => {
       const data = user.rows[0];
       console.log('data after update: ', data);

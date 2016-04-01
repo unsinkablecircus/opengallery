@@ -19,6 +19,14 @@ export const initialState = {
   form: {
     messageModal: {
       input: ""
+    },
+    profileInformation: {
+      username: '',
+      name: '',
+      email: '',
+      website: '',
+      facebookUrl: '',
+      twitterUrl: ''
     }
   },
 
@@ -54,6 +62,7 @@ export const initialState = {
   },
 
   user: {
+    editMode: false,
     id: 1,
     username: 'username',
     name: 'User Name',

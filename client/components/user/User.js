@@ -28,16 +28,20 @@ const User = ({
   location,
   displayGridAndNotMessageFeed,
   toggleShowGridAndNotMessageFeed,
-  fetchConversations
+  fetchConversations,
+  formData,
+  updateField
 }) => {
 
   // Check if the user is on his/her own page
   let path = window.location.pathname.split('/')[2];
   let isSelf = (path === selfUsername);
 
-  let { id, name, username, email, facebook_url, twitter_url, avatar, media, about, website } = artist;
-  // refHolder will temporarily hold the form information
-  let refHolder = {};
+
+  // on fetch, artist information needs to be updated in form.profileInformation
+  let { name, username, email, website, facebook, twitter, about, media } = formData;
+
+
 
   // Save changes/ Edit Profile button
   let button;
@@ -47,12 +51,10 @@ const User = ({
                 secondary={true}
                 icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user_edit_save_button" />}
                 onTouchTap={ () => {
-                  const values = { id: id };
-                  for ( var key in refHolder ) {
-                    values[key] = refHolder[key].getValue();
-                  }
-                  editMode ? saveChanges(values) : switchEditMode()
-                }}
+                  let data = Object.assign({}, formData, {id: self_id})
+                  console.log(data);
+                  editMode ? saveChanges(data) : switchEditMode()                
+              }}
               />
   }
 
@@ -70,7 +72,7 @@ const User = ({
               <Person color={ editMode ? Colors.red500 : Colors.blue500 } className="user-icon" />
               <TextField
                 disabled={true}
-                defaultValue={ username }
+                value={ username }
                 className="user-field"
                 underlineShow={false}
               />
@@ -79,55 +81,78 @@ const User = ({
               <Face color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
                 disabled={isSelf && editMode ? false : true}
-                defaultValue={ name }
+                value={ name }
                 hintText='name'
                 className="user-field"
                 underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.name = node}}
+                onChange={ event => {updateField('name', event.target.value)} }
               />
             </div>
             <div className="user-row">
               <Email color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
                 disabled={isSelf && editMode ? false : true}
-                defaultValue={ email }
+                value={ email }
                 hintText='email'
                 className="user-field"
                 underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.email = node}}
+                onChange={ event => {updateField('email', event.target.value)} }
               />
             </div>
             <div className="user-row">
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
                 disabled={isSelf && editMode ? false : true}
-                defaultValue={ website }
+                value={ website }
                 className="user-field"
                 hintText='website'
                 underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.website = node}}
+                onChange={ event => {updateField('website', event.target.value)} }
               />
             </div>
             <div className="user-row">
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
                 disabled={isSelf && editMode ? false : true}
-                defaultValue={ facebook_url }
+                value={ facebook }
                 className="user-field"
                 hintText='facebook_url'
                 underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.facebook_url = node}}
+                onChange={ event => {updateField('facebook', event.target.value)} }
               />
             </div>
             <div className="user-row">
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
               <TextField
                 disabled={isSelf && editMode ? false : true}
-                defaultValue={ twitter_url }
+                value={ twitter }
                 className="user-field"
                 hintText='twitter_url'
                 underlineShow={isSelf && editMode ? true : false}
-                ref={ (node) => {refHolder.twitter_url = node}}
+                onChange={ event => {updateField('twitter', event.target.value)} }
+              />
+            </div>
+            <div className="user-row">
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <TextField
+                disabled={isSelf && editMode ? false : true}
+                value={ media }
+                className="user-field"
+                hintText='media'
+                underlineShow={isSelf && editMode ? true : false}
+                onChange={ event => {updateField('media', event.target.value)} }
+              />
+            </div>
+            <div className="user-row">
+              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
+              <TextField
+                disabled={isSelf && editMode ? false : true}
+                value={ about }
+                className="user-field"
+                hintText='about'
+                multiLine={ true }
+                underlineShow={isSelf && editMode ? true : false}
+                onChange={ event => {updateField('about', event.target.value)} }
               />
             </div>
           </div>
