@@ -1,5 +1,5 @@
 #grid-component,
-#gallery-component .gallery-tile
+#gallery-component .gallery-motion
   .tile-component
     background-size: cover
     background-repeat: no-repeat
@@ -7,11 +7,10 @@
     overflow: hidden
     will-change: left, width, height
 
-  .progressive-image
-    +animation(sharpen 500ms ease-in-out)
-
-    +keyframes(sharpen)
-      from
-        +filter(blur(10px))
-      to
-        +filter(none)
+    &.progressive-image
+      +animation(sharpen 500ms ease-in-out)
+      +keyframes(sharpen)
+        from
+          +filter(blur(10px))
+        to
+          +filter(none)
