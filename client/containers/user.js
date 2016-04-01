@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import User from '../components/user/User';
+import * as gallery from '../actions/gallery'
 import { fetchConversations, fetchMessages, fetchConversation, toggleMessageModal } from '../actions/messageFeed.actions'
 import { SaveChanges, switchEditMode, switchDeleteMode, fetchUserInfo, DeletePhotos, addToBeDeletedPhoto } from '../actions/user';
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    tile: state.media.tile,
     selfUsername: state.user.username,
     self_id: state.user.id,
     artist: state.artist,
@@ -53,6 +55,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     addPhotoToBeDeleted: (photoId) => {
       dispatch(addToBeDeletedPhoto(photoId));
+      // dispatch(gallery.toggleView(tile));
     }
   }
 }
