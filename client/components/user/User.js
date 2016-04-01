@@ -31,8 +31,6 @@ const User = ({
   formData,
   updateField,
   toggleMessageModal,
-  displayGridAndNotMessageFeed,
-  toggleShowGridAndNotMessageFeed,
   fetchConversations,
   deleteMode,
   deletePhotos,
@@ -73,7 +71,7 @@ const User = ({
       secondary={true}
       icon={<DeleteIcon color={deleteMode ? Colors.red500 : Colors.blue500} className="user_delete_photos_button" />}
       onTouchTap={ () => {
-        deleteMode ? deletePhotos() : switchDeleteMode()
+        deleteMode ? deletePhotos(photosToBeDeleted) : switchDeleteMode()
       }} />
 
   const button4 =
@@ -133,31 +131,7 @@ const User = ({
           </div>
         </section>
         <section className="user-right">
-          {isSelf ? <div className='toggleGridMessageFeed'>
-            <span
-             style={{color: displayGridAndNotMessageFeed ? 'red' : 'black'}}
-             onClick={ () => {
-              if ( !displayGridAndNotMessageFeed ) {
-                toggleShowGridAndNotMessageFeed()
-              }
-            }}
-            >
-             Show Grid
-            </span>
-            <span 
-              style={{color: displayGridAndNotMessageFeed ? 'black' : 'red'}}
-              onClick={ () => {
-                if ( displayGridAndNotMessageFeed ) {
-                  toggleShowGridAndNotMessageFeed();
-                  fetchConversations(self_id);
-                }
-              }}
-            > 
-              Show Message Feed 
-            </span>
-          </div>
-          : null }
-          { displayGridAndNotMessageFeed ? <Grid loc={location.location} deleteMode={ deleteMode } addPhotoToBeDeleted={ addPhotoToBeDeleted }/> : <MessageFeed/> }
+          <Grid loc={location.location} deleteMode={ deleteMode } addPhotoToBeDeleted={ addPhotoToBeDeleted }/>
         </section>
       </div>
 
