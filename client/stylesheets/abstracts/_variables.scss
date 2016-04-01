@@ -2,11 +2,18 @@
 //     COLORS     //
 ////////////////////
 
+$background-color: #1F282D;
 $dimmer-color: transparentize(#a2b5cd, 0.5);
 $gallery-desc-color: darkslategray;
 $gallery-link-color: #66b5d7;
 $gallery-tag-color: #e87352;
 $shadow-color: transparentize(black, 0.88);
+
+/////////////////////
+//     PADDING     //
+/////////////////////
+
+$app-padding: 0;
 
 /////////////////////
 //     SHADOWS     //
