@@ -67,13 +67,7 @@ exports.updatePGmetaData = function (photoData, id) {
 exports.deletePhotoByIdPG = function (mediaId) {
 
   return pg.raw(
-    `DELETE FROM media_hashTags
-    WHERE media_id = ${mediaId};
-    DELETE FROM media_hashTag_totals
-    WHERE media_id = ${mediaId};
-    DELETE FROM media_tags
-    WHERE media_id = ${mediaId};
-    DELETE FROM media
+    `DELETE FROM media
     WHERE id = ${mediaId}
     RETURNING ${mediaId};
     `
