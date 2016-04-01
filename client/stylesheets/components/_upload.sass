@@ -1,0 +1,56 @@
+#modal-component
+  +display(flex)
+  +align-items(center)
+  +justify-content(center)
+  position: fixed
+  +size(100vw 100vh)
+  background-color: $modal-color
+  z-index: 1105
+
+  @import '../snippets/gallery-close'
+
+  #upload-component
+    color: white
+    width: 50%
+
+    .upload-data-container
+      .upload-input
+        color: white
+        margin: 0 0 20px
+        padding: 0 20px
+        min-width: 100%
+        height: 50px
+        font-size: 1.2rem
+        border: none
+        box-sizing: border-box
+        border-bottom: 2px solid white
+        transition: background-color 0.25s ease-in-out, border 0.25s ease-in-out
+        background:
+          color: transparent
+          repeat: no-repeat
+          size: 24px
+          position: 15px center
+
+        &:focus
+          outline: none
+          border-bottom: 2px solid $logo-blue
+          transition: background-color 0.25s ease-in-out, border 0.25s ease-in-out
+
+    .upload-buttons
+      position: fixed
+      bottom: 25px
+      right: 25px
+
+      .upload-button
+        padding: 10px
+        margin-left: 15px
+        border: none
+        font-size: 1.2rem
+        color: white
+
+
+        &.upload-button-submit
+          background-color: $logo-blue
+
+        &.upload-button-remove
+          background-color: $logo-red
