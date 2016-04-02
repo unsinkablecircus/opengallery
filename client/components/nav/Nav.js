@@ -63,11 +63,13 @@ let Nav = ({
           </Link>
         </li>
         <li className="nav-item nav-item-search">
-          <input className="nav-item-input"
-            placeholder="discover"
-            style={style}
-            ref={ (node) => {searchInput = node} }
-          />
+          <form className="nav-item-input" onSubmit={ onSearchSubmit }>
+            <input className="nav-item-input"
+              placeholder="discover"
+              style={style}
+              ref={ (node) => {searchInput = node} }
+            />
+          </form>
         </li>
         <li className="nav-item">
           <div
