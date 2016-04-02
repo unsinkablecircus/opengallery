@@ -21,50 +21,9 @@ const Upload = ({
   onUploadButtonClick
 }) => {
   let info = {}
-  let title
-  let description
-  let tags
-
-  const actions = [
-    <FlatButton
-      label='Remove'
-      primary={true}
-      onTouchTap={ onRemoveCurrentPhoto } />,
-    <FlatButton
-      label='Close'
-      primary={true}
-      onTouchTap={ closeUploadModal } />,
-    <FlatButton
-      label="Submit"
-      primary={true}
-      onTouchTap={ () => {
-        let metaData = {};
-        metaData.userId = currentUser;
-        for (let key in info) {
-          if ( info[key].getValue() !== "" ) {
-            metaData[key] = info[key].getValue();
-          }
-          if ( key === 'tags') {
-            if (metaData.tags !== undefined){
-              metaData.tags = metaData.tags.split(' ');
-            } else {
-              metaData.tags = [];
-            }
-          }
-        }
-        onUploadButtonClick(metaData, currentFileUploading);
-      }} />
-  ];
 
   return (
-    <div
-      id="modal-component"
-      title= { 'Upload Photo' }
-      actions = { actions }
-      modal={ true }
-      open={ isUploadModalOpen }
-      autoScrollBodyContent={ true }
-    >
+    <div id="modal-component">
       <div
         className="gallery-close rounded"
         onClick={ closeUploadModal }>
@@ -74,16 +33,19 @@ const Upload = ({
         <div className="upload-data-container">
           <h1>upload artwork</h1>
           <input
+            id="upload-title"
             className="upload-input"
             type="text"
             ref= { (node) => {info.title = node} }
             placeholder='title'/>
           <input
+            id="upload-desc"
             className="upload-input"
             type="text"
             ref= { (node) => {info.description = node} }
             placeholder='description'/>
           <input
+            id="upload-tags"
             className="upload-input"
             type="text"
             ref= { (node) => {info.tags = node} }
@@ -104,8 +66,9 @@ const Upload = ({
             let metaData = {}
             metaData.userId = currentUser
             for (let key in info) {
-              if ( info[key] !== "" ) {
-                metaData[key] = info[key];
+              if ( info[key].value !== "" ) {
+                metaData[key] = info[key].value;
+                info[key].value = '';
               }
               if ( key === 'tags') {
                 if (metaData.tags !== undefined){
