@@ -1,21 +1,21 @@
-import React from 'react';
+import React from 'react'
 
 // Material UI icons
-import Avatar from 'material-ui/lib/avatar';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import FlatButton from 'material-ui/lib/flat-button';
-import Email from 'material-ui/lib/svg-icons/communication/email';
-import Edit from 'material-ui/lib/svg-icons/editor/mode-edit';
-import AddPhoto from 'material-ui/lib/svg-icons/image/add-a-photo';
-import Person from 'material-ui/lib/svg-icons/social/person';
-import Face from 'material-ui/lib/svg-icons/social/mood';
-import Website from 'material-ui/lib/svg-icons/social/public';
-import Colors from 'material-ui/lib/styles/colors';
+import Avatar from 'material-ui/lib/avatar'
+import List from 'material-ui/lib/lists/list'
+import ListItem from 'material-ui/lib/lists/list-item'
+import FlatButton from 'material-ui/lib/flat-button'
+import Email from 'material-ui/lib/svg-icons/communication/email'
+import Edit from 'material-ui/lib/svg-icons/editor/mode-edit'
+import AddPhoto from 'material-ui/lib/svg-icons/image/add-a-photo'
+import Person from 'material-ui/lib/svg-icons/social/person'
+import Face from 'material-ui/lib/svg-icons/social/mood'
+import Website from 'material-ui/lib/svg-icons/social/public'
+import Colors from 'material-ui/lib/styles/colors'
 
 import TextField from './textField'
-import MessageFeed from '../../containers/messageFeed.container';
-import Grid from '../../containers/grid';
+import MessageFeed from '../../containers/messageFeed.container'
+import Grid from '../../containers/grid'
 
 
 const User = ({
@@ -33,21 +33,21 @@ const User = ({
 }) => {
 
   // Check if the user is on his/her own page
-  let path = window.location.pathname.split('/')[2];
-  let isSelf = (path === selfUsername);
+  let path = window.location.pathname.split('/')[2]
+  let isSelf = (path === selfUsername)
 
-  let { name, username, email, website, facebook, twitter, about, media } = formData;
+  let { name, username, email, website, facebook, twitter, about, media } = formData
 
 
-  console.log( name, username, email, website, facebook, twitter, about, media );
-  const button1 = 
+
+  const button1 =
     <FlatButton
     label={editMode ? 'Save Changes' : 'Edit Profile'}
     secondary={true}
     icon={<Edit color={editMode ? Colors.red500 : Colors.blue500} className="user_edit_save_button" />}
     onTouchTap={ () => {
       let data = Object.assign({}, formData, {id: self_id})
-      editMode ? saveChanges(data) : switchEditMode()                
+      editMode ? saveChanges(data) : switchEditMode()
     }}
   />
 
@@ -57,7 +57,7 @@ const User = ({
     secondary={true}
     onTouchTap= { () => {
       fetchConversation(self_id, artist.id, artist.username)
-      toggleMessageModal(self_id);
+      toggleMessageModal(self_id)
     }}
   />
 
@@ -66,8 +66,8 @@ const User = ({
       <div className="user-columns-container">
         <section className="user-left">
           <div className="user-details">
-            <Avatar 
-              size={200} 
+            <Avatar
+              size={200}
               className="user-avatar"
             />
             { isSelf ? button1 : button2 }
@@ -116,4 +116,4 @@ const User = ({
   )
 }
 
-export default User;
+export default User

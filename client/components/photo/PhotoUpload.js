@@ -26,11 +26,11 @@ const PhotoUpload = ({
   let tags
 
   const actions = [
-    <FlatButton 
+    <FlatButton
       label='Remove'
       primary={true}
       onTouchTap={ onRemoveCurrentPhoto } />,
-    <FlatButton 
+    <FlatButton
       label='Close'
       primary={true}
       onTouchTap={ closeUploadModal } />,
@@ -67,7 +67,7 @@ const PhotoUpload = ({
       <div className="photo-upload-container">
         <div className="photo-data-container">
           <br />
-          <TextField ref= { (node) => {info.title = node} } hintText='title' fullWidth={true}/> 
+          <TextField ref= { (node) => {info.title = node} } hintText='title' fullWidth={true}/>
           <br />
           <TextField ref= { (node) => {info.description = node} } hintText='description' fullWidth={true}/>
           <br />
@@ -77,10 +77,10 @@ const PhotoUpload = ({
         <div className="drop-zone-container">
           { error !== '' ? <p>errorMessage </p>: '' }
           { isUploading ? <p>Your image is uploading...Upload another!</p> : '' }
-          <DropZone 
+          <DropZone
             onRemoveCurrentPhoto={ onRemoveCurrentPhoto }
-            onPhotoDrop={ onPhotoDrop } 
-            currentFileUploading={ currentFileUploading } 
+            onPhotoDrop={ onPhotoDrop }
+            currentFileUploading={ currentFileUploading }
             onOpenClick={ onOpenClick } />
         </div>
         <br />

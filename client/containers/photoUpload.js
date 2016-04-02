@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import PhotoUpload from '../components/photo/PhotoUpload'
+import Upload from '../components/photo/Upload'
 import * as photo from '../actions/upload'
 
 import { toggleUpload } from '../actions/upload'
@@ -44,8 +44,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const container = connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
-)(PhotoUpload);
+)(Upload);
 
 export default container;

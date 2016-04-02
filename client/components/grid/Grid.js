@@ -34,7 +34,7 @@ export default class Grid extends React.Component {
     if (total_photos === undefined) {
       return (
         <div id="grid-component">
-          No Photos
+          <div id="grid-error">No Photos</div>
         </div>
       )
     } else {
@@ -43,7 +43,7 @@ export default class Grid extends React.Component {
           <div className="grid-section">
             {this.state.hasMounted ? grid.map((mediaId, index) => (
               <div key={index} className="grid-tile-container">
-                <Tile tile={index} url={data[grid[index]].url_lg} data={data[grid[index]]} handleClick={toggleGallery}/>
+                <Tile tile={index} url={data[grid[index]].url_md} data={data[grid[index]]} handleClick={toggleGallery}/>
               </div>
             )) : ''}
           </div>
