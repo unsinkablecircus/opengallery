@@ -51,7 +51,7 @@ exports.uploadPhoto = function (req, res) {
   const photo = req.file;
   const photoData = req.body;
   res.status(201).send();
-  
+
   if (photo) {
     photo.mimetype = 'image/jpeg';
     resizePhoto(photo, 25, 0)
