@@ -71,7 +71,6 @@ const User = ({
             />
             { isSelf ? button1 : button2 }
 
-<<<<<<< fbb2ba375d3149023265c85d7204378a6dacc96e
             <TextField disabled={ true } hintText='username' value={username} updateField={updateField}>
               <Person color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
@@ -85,21 +84,6 @@ const User = ({
             </TextField>
 
             <TextField disabled={!editMode} hintText='website' value={website} updateField={updateField}>
-=======
-            <TextField disabled={ true } hintText='username' value={username || 'username'}>
-              <Person color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-            </TextField>
-
-            <TextField disabled={!editMode} hintText='name' value={name || 'name'}>
-              <Face color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-            </TextField>
-
-            <TextField disabled={!editMode} hintText='email' value={email || 'email'}>
-              <Email color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-            </TextField>
-
-            <TextField disabled={!editMode} hintText='website' value={website || 'website'}>
->>>>>>> Remove top margin
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
@@ -107,7 +91,6 @@ const User = ({
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
-<<<<<<< fbb2ba375d3149023265c85d7204378a6dacc96e
             <TextField disabled={!editMode} hintText='twitter' value={twitter} updateField={updateField}>
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
@@ -117,17 +100,6 @@ const User = ({
             </TextField>
 
             <TextField disabled={!editMode} hintText='about' value={about} updateField={updateField} >
-=======
-            <TextField disabled={!editMode} hintText='twitter' value={twitter || 'twitter'}>
-              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-            </TextField>
-
-            <TextField disabled={!editMode} hintText='media' value={media || 'media'}>
-              <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
-            </TextField>
-
-            <TextField disabled={!editMode} hintText='about' value={about || 'about'}>
->>>>>>> Remove top margin
               <Website color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
             </TextField>
 
