@@ -112,7 +112,9 @@ exports.uploadPhoto = function (req, res) {
     })
     .then((labels) => {
       console.log("Labels returned from GoogleVision", labels);
-      const filteredLabels = labels.labelAnnotations.map((label) => {return label.description})
+
+      const filteredLabels = [];
+      labels.labelAnnotations.forEach((label) => { filteredLabels.push(label.description)})
       const labelsArray = photoData.metaTags.split(',').concat(filteredLabels);
       return MetaTags.insert(labelsArray, responseObject.id)
     })
