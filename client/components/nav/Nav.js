@@ -87,12 +87,12 @@ let Nav = ({
             className="nav-item-button">
             { username || 'Sign In'}
           </Link>
-          {/*<Link
+          <Link
             to={'/'}
             onClick={ onLogoutClick }
             className="nav-item-button">
             Sign Out
-          </Link>*/}
+          </Link>
         </li>
       </ul>
     </nav>
