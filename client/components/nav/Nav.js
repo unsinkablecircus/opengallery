@@ -63,7 +63,12 @@ let Nav = ({
           </Link>
         </li>
         <li className="nav-item nav-item-search">
-          <form className="nav-item-input" onSubmit={ onSearchSubmit }>
+          <form className="nav-item-input"
+            onSubmit={ (e) => {
+              e.preventDefault()
+              onSearchSubmit(id, searchInput.value)
+            }
+          }>
             <input className="nav-item-input"
               placeholder="discover"
               style={style}
@@ -78,7 +83,7 @@ let Nav = ({
             upload
           </div>
           <div
-            onClick={ () => {handleConversationsIconClick(id)}}
+            onClick={ () => {handleConversationsIconClick(id)} }
             className="nav-item-button">
             inbox
           </div>
@@ -87,12 +92,12 @@ let Nav = ({
             className="nav-item-button">
             { username || 'Sign In'}
           </Link>
-          <Link
+          {/*<Link
             to={'/'}
             onClick={ onLogoutClick }
             className="nav-item-button">
             Sign Out
-          </Link>
+          </Link>*/}
         </li>
       </ul>
     </nav>
