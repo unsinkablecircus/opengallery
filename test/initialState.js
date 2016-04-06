@@ -275,6 +275,14 @@ export const initialState = {
     avatar: null,
     media: null,
     about: null,
+  },
+
+  /*--------------------*/
+  /*         NAV        */
+  /*--------------------*/
+
+  nav: {
+    showDropdown: false
   }
 
 }
