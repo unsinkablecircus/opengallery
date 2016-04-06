@@ -282,7 +282,7 @@ export const initialState = {
   /*--------------------*/
 
   nav: {
-    showDropdown: false
+    showSignOut: false
   }
 
 }
