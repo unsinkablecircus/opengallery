@@ -1,7 +1,7 @@
-export const TOGGLE_DROPDOWN = 'TOGGLE_DROPDOWN';
+export const TOGGLE_SIGNOUT = 'TOGGLE_SIGNOUT';
 
-export function toggleDropdown() {
+export function toggleSignOut() {
   return {
-    type: TOGGLE_DROPDOWN
+    type: TOGGLE_SIGNOUT
   }
 }

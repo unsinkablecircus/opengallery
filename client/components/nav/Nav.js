@@ -32,8 +32,7 @@ let Nav = ({
   onToggleUpload,
   onSearchSubmit,
   handleConversationsIconClick,
-  onProfileClick,
-  showDropdown
+  showSignOut
 }) => {
 
   const styles = {
@@ -87,20 +86,17 @@ let Nav = ({
             className="nav-item-button">
             inbox
           </div>
-          <div
-            onClick={ onProfileClick }
+          <Link
+            to={`/profile/${username}`}
+            className="nav-item-button">
+            profile
+          </Link>
+          {showSignOut ? <Link
+            to={'/'}
+            onClick={ onLogoutClick }
             className="nav-item-button"
-          >
-            { username === 'username' ? 'sign in' : username}
-            {showDropdown ? <div className="dropdown-content">
-              <Link to={`/profile/${username}`}>Profile</Link>
-              <Link
-                to={'/'}
-                onClick={ onLogoutClick }
-                className="nav-item-button"
-              >Sign Out</Link>
-            </div> : ''}
-          </div>
+          >sign out</Link>
+          : ''}
         </li>
       </ul>
     </nav>

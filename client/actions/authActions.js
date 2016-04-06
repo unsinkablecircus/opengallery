@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { storeUserData } from './user'
+import { toggleSignOut } from './nav.actions'
 
 export function authRequest() {
   return {
@@ -56,6 +57,7 @@ export function SignupUser(creds) {
       })
       .then( (data) => {
         dispatch(authReceive());
+        dispatch(toggleSignOut());
         localStorage.setItem('id_token', data.token);
         dispatch(storeUserData(data));
         console.log('you are now a member of open gallery!');
@@ -86,6 +88,7 @@ export function SigninUser(creds) {
         } else {
           localStorage.setItem('id_token', data.token);
           dispatch(authReceive());
+          dispatch(toggleSignOut());
           dispatch(storeUserData(data));
         }
       })

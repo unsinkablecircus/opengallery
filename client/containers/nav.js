@@ -4,7 +4,7 @@ import { logoutUser } from '../actions/authActions';
 import { toggleUpload } from '../actions/upload';
 import { loadData } from '../actions/grid';
 import { toggleMessageModal, fetchConversations } from '../actions/messageFeed.actions'
-import { toggleDropdown } from '../actions/nav.actions'
+import { toggleSignOut } from '../actions/nav.actions'
 
 
 import { push } from 'react-router-redux'
@@ -17,13 +17,14 @@ const mapStateToProps = (state) => {
     isAuth: state.auth.isAuthenticated,
     id: state.user.id,
     username: state.user.username,
-    showDropdown: state.nav.showDropdown
+    showSignOut: state.nav.showSignOut
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onLogoutClick: () => {
+      dispatch(toggleSignOut());
       dispatch(logoutUser());
     },
     onToggleUpload: () => {
@@ -36,9 +37,6 @@ const mapDispatchToProps = (dispatch) => {
     onSearchSubmit: (id, searchInput) => {
       browserHistory.push('/');
       dispatch(loadData(id, null, 0, searchInput));
-    },
-    onProfileClick: () => {
-      dispatch(toggleDropdown());
     }
   }
 }
