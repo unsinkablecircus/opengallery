@@ -44,6 +44,7 @@
     "node-bourbon": "^4.2.7",
     "node-cloud-vision-api": "^0.2.0",
     "pg": "^4.5.1",
+    "pg-format": "^1.0.2",
     "react": "^0.14.8",
     "react-addons-update": "^0.14.8",
     "react-bubble-chart": "^0.3.0",
