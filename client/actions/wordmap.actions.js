@@ -30,7 +30,9 @@ export function submit (user, media, feedback) {
   }
 
   return dispatch => {
-    fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/feedback/submitFeedback`, config)
+    var host = window.location.hostname === '54.153.9.57' || window.location.hostname === 'opengallery.io' ? '54.153.9.57' : window.location.hostname;
+
+    fetch(`http://${host}:${host === '54.153.9.57' ? '80' : '8000'}/api/feedback/submitFeedback`, config)
     .then( response => response.json() )
     .then( data => {
       dispatch(update(media, data))
