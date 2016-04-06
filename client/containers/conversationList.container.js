@@ -1,4 +1,4 @@
-import MessageFeed from '../components/messageFeed/messageFeed.js'
+import MessageFeed from '../components/messageFeed/conversationList.js'
 import { connect } from 'react-redux'
 import  { fetchMessages } from '../actions/messageFeed.actions'
 

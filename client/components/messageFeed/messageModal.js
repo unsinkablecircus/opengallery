@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import TextField from 'material-ui/lib/text-field'
 import moment from 'moment'
 import ChatBox from './chatBox'
-import ConversationList from '../../containers/messageFeed.container'
+import ConversationList from '../../containers/conversationList.container'
 
 const messageModal = ({
   messages, person_id, person_username, props, currentMessage, index,

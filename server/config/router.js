@@ -33,6 +33,9 @@ module.exports = function (app, express) {
   app.get('/api/vision', Vision.detectLabels)
   app.post('/api/metatags', Meta.createTags)
 
+  
+
+
   // With react router, server needs to serve up files
   app.get('*', function (request, response){
     response.sendFile('index.html', {"root": "public"})
