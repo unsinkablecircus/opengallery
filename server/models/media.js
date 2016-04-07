@@ -57,14 +57,14 @@ exports.updatePGmetaData = function (photoData, id) {
   return pg.raw(
     `UPDATE media
     SET
-      url_small = '${url_small}',
-      url_medium = '${url_medium}',
-      url_large = '${url_large}',
-      title ='${title}',
-      description = '${description}',
+      url_small = ${url_small},
+      url_medium = ${url_medium},
+      url_large = ${url_large},
+      title =${title},
+      description = ${description},
       width = ${width},
       height = ${height},
-      mimetype = '${mimetype}'
+      mimetype = ${mimetype}
     WHERE id = ${id}
     RETURNING *
     `
@@ -79,8 +79,8 @@ exports.updatePGmetaData = function (photoData, id) {
   return pg.raw(
     `UPDATE media
     SET
-      title = '${title}',
-      description = '${description}'
+      title = ${title},
+      description = ${description}
     WHERE id = ${id}
     RETURNING *
     `
