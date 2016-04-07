@@ -4,7 +4,6 @@ const { isInt } = query
 const Promise = require('bluebird')
 
 exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
-  console.log('tags, user, page: ', tags, user, page, tags.join(','));
   if (Array.isArray(tags) && tags.length) {
     return pg.raw(`
       SELECT * FROM (

@@ -1,7 +1,12 @@
-const db = require('./../db/database')
+const db = require('./../db/database');
+const format = require('pg-format');
 
 module.exports = {
   submitFeedback: (userId, mediaId, feedback) => {
+    var userId = format.literal(userId);
+    var mediaId = format.literal(mediaId);
+    var feedback = format.literal(feedback);
+
     return (
       db.raw(`
         WITH
@@ -30,14 +35,14 @@ module.exports = {
         WITH
         new_row AS (
           INSERT INTO tags (text)
-          SELECT '${feedback}'
-          WHERE NOT EXISTS (SELECT * FROM tags WHERE text='${feedback}')
+          SELECT ${feedback}
+          WHERE NOT EXISTS (SELECT * FROM tags WHERE text=${feedback})
           RETURNING *
         ),
         combine AS (
           SELECT * FROM new_row
           UNION
-          SELECT * FROM tags WHERE text='${feedback}'
+          SELECT * FROM tags WHERE text=${feedback}
         ),
         update_data AS (
           UPDATE media_tags
@@ -110,20 +115,3 @@ module.exports = {
     )
   },
 }
-
-
-
-/*
-  Right now, the query will 1) Find the media hashtag id from the word (create it in the table if it doesn't already exist)
-  Update what the user says about a picture in media_hashtags, if they said anything before
-  Insert an entry into media media_hashtags, if they haven't said anything before
-  Insert/Upate the media_hashtag_totals
-
-  Problem is that there is no control in the media_hashtag_totals. With the current implementation, the user can only
-  comment once on a picture
-  So, I need to 1. check to see if the user has commented on this before.
-    If so, find what he commented on before, decrement that value
-    Increment the total count, if it exists in media_hashtag_totals
-    If it does not exist, create a row in that table where the count is 1.
-
-*/
