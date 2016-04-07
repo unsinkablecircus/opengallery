@@ -59,8 +59,11 @@ exports.uploadPhoto = function (req, res) {
     .then((id) => {
       responseObject.id = id.rows[0].id;
       responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'medium.jpg');
+      photoData.url_medium = responseObject.url_med;
       responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'large.jpg');
+      photoData.url_large = responseObject.url_large;
       res.status(201).json(responseObject);
+      photoData.s3url = ('https://s3-us-west-1.amazonaws.com/opengallery/' + responseObject.id + 'medium.jpg');
 
       photo.mimetype = 'image/jpeg';
       return resizePhoto(photo, 25, 0)
@@ -86,8 +89,6 @@ exports.uploadPhoto = function (req, res) {
 
       var urlExtMedium = responseObject.id + 'medium.jpg';
       var urlExtLarge = responseObject.id + 'large.jpg';
-      photoData.url_medium = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
-      photoData.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
 
       return new Promise.all([
         Media.uploadToS3(urlExtLarge, photo.buffer), Media.uploadToS3(urlExtMedium, photo.buffer_med)
@@ -105,18 +106,20 @@ exports.uploadPhoto = function (req, res) {
     .then(() => {
       //incorporate GoogleVision API
       console.log("Right before invoking GoogleVision analyze function in media controller");
-      return GoogleVision.analyze(photoData.url_large)
+      return GoogleVision.analyze(photoData.s3url);
     })
     .catch(() => {
       console.error(`Error detecting labels for photo: ${err}`)
     })
     .then((labels) => {
-      console.log("Labels returned from GoogleVision", labels);
+      console.log("Labels returned from GoogleVision", labels[0].labelAnnotations);
 
       const filteredLabels = [];
-      labels.labelAnnotations.forEach((label) => { filteredLabels.push(label.description)})
-      const labelsArray = photoData.metaTags.split(',').concat(filteredLabels);
-      return MetaTags.insert(labelsArray, responseObject.id)
+      labels[0].labelAnnotations.forEach((label) => { filteredLabels.push(label.description)})
+      //check if google's labels are not duplicates of user's labels to prevent PG error
+      const comparedLabels = filteredLabels.filter((label) => { return (photoData.metaTags.indexOf(label) < 0) })
+      const labelsArray = photoData.metaTags.split(',').concat(comparedLabels);
+      return MetaTags.insert(labelsArray, responseObject.id, photoData.user)
     })
     .then((tags) => {
       responseObject.tags = tags.rows;
@@ -127,18 +130,19 @@ exports.uploadPhoto = function (req, res) {
   }
 };
 
-exports.updatePhoto = function (req, res) {
-  //parse request to find which fields need to be update
-  Media.updatePGmetaData(/*photoData, req.body.id*/)
-  .then( data => {
-    res.status(201).json(data)
-  })
-  .catch( err => {
-    console.error(`[Error] Failed to query meta tags in PG: ${err}`)
-    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
-  })
-}
-
+/*
+*exports.updatePhoto = function (req, res) {
+*  //parse request to find which fields need to be update
+*  Media.updatePGmetaData(photoData, req.body.id)
+*  .then( data => {
+*    res.status(201).json(data)
+*  })
+*  .catch( err => {
+*    console.error(`[Error] Failed to query meta tags in PG: ${err}`)
+*    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+*  })
+*}
+*/
 exports.deletePhotos = function (req, res) {
   //parse request to find which fields need to be update
   console.log('photos received form request body', req.body);
