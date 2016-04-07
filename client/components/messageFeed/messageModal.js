@@ -14,19 +14,12 @@ class messageModal extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
-    // create the socket
-  }
-
   render() {
     let { messages, person_id, person_username, props, currentMessage, index,
     displayMessageModal, toggleMessageModal, username, submitMessage,
     id, currentConversation, editInput, textModalField, hideConversationsInMessageModal,
-    toggleConversations, socket } = this.props;
+    toggleConversations } = this.props;
 
-    socket.on('connect', function() {
-      console.log('hello world');
-    })
 
 
     const actions = [
@@ -66,11 +59,7 @@ class messageModal extends React.Component {
           </div>
           <div className='messageModalBox'>
             <ChatBox {...chatBoxProps}/>
-            { hideConversationsInMessageModal ? null :
-              <ConversationList 
-                className='conversationList'
-                socket={socket}
-              /> }
+            { hideConversationsInMessageModal ? null : <ConversationList /> }
           </div>
             <TextField
               style = {{ marginTop: '20px'}}

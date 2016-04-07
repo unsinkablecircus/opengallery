@@ -2,16 +2,9 @@ import messageModal from '../components/messageFeed/messageModal'
 import { connect } from 'react-redux'
 import  { toggleMessageModal, submitMessage } from '../actions/messageFeed.actions'
 
-import io from 'socket.io-client'
-
-let socket = io();
-
-
-
 
 const mapStateToProps = (state, props) => {
   return {
-    socket: socket,
     messages: state.messageFeed.messages,
     person_id: state.messageFeed.person_id,
     person_name: state.messageFeed.person_name,
@@ -22,7 +15,6 @@ const mapStateToProps = (state, props) => {
     person_username: state.messageFeed.person_username,
     textModalField: state.form.messageModal,
     hideConversationsInMessageModal: state.view.hideConversationsInMessageModal
-
   }
 }
 
@@ -47,13 +39,6 @@ const mapDispatchToProps = (dispatch) => {
         type: 'TOGGLE_CONVERSATIONS'
       })
     },
-    // createRoom: (user1, user2) => {
-    //   // use the concatenation of two usernames to create a room with both users
-    //   const roomName = user1 > user2 ? user1 + user2 : user2 + user1;
-    //   // socket.emit('createRoom', roomName);
-
-
-
   }
 }
 

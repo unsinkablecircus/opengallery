@@ -2,6 +2,7 @@ import MessageFeed from '../components/messageFeed/conversationList.js'
 import { connect } from 'react-redux'
 import  { fetchMessages } from '../actions/messageFeed.actions'
 
+
 const mapStateToProps = (state) => {
   return {
     messages: state.messageFeed.messages,
