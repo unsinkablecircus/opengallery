@@ -2,13 +2,12 @@ const Promise = require('bluebird')
 const pg = require('./../db/database')
 const AWS = require('aws-sdk');
 const format = require('pg-format');
-// load AWS credentials
+
 const credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
 AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-west-1'});
 
 const s3 = new AWS.S3();
-// const Media = require('../models/media')
 
 //model handles pg manipulation
 
@@ -19,16 +18,16 @@ exports.uploadToPG = function (photoData) {
   return pg.raw(
     `INSERT INTO media (user_id) 
     values(
-      ${photoData.user}
+      ${user}
     ) 
-    RETURNING id`
+    RETURNING id;`
   );
 };
 
 exports.uploadToS3 = function (photoId, photo) {
   var params = {
-    Bucket: 'opengallery', // required
-    Key: photoId.toString(), // required
+    Bucket: 'opengallery',
+    Key: photoId.toString(),
     ACL: 'public-read',
     ContentType: 'image/jpeg',
     Body: photo
@@ -77,7 +76,6 @@ exports.updatePGmetaData = function (photoData, id) {
     // only overwrite those
   var title = format.literal(photoData.title);
   var description = format.literal(photoData.description);
-  var id = format.literal(id);
   return pg.raw(
     `UPDATE media
     SET
