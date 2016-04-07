@@ -16,11 +16,9 @@ exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
   return pg.raw(
 
-    `INSERT INTO media (user_id, url_medium, url_large) 
+    `INSERT INTO media (user_id) 
     values(
-      ${photoData.user},
-      '${photoData.url_medium}',
-      '${photoData.url_large}'
+      ${photoData.user}
     ) 
     RETURNING id`
   );
