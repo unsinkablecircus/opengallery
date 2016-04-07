@@ -92,7 +92,7 @@ exports.uploadPhoto = function (req, res) {
       console.log('Error uploading images to s3 db', err)
     })
     .then((url) => {
-      return Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
+      return Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id)
     })
     .catch((err) => {
       console.log('Error updating URLs to PG db', err);

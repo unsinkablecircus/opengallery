@@ -37,8 +37,6 @@ const User = ({
 
   let { name, username, avatar, email, website, facebook, twitter, about, media } = formData
 
-
-
   const button1 =
     <FlatButton
     label={editMode ? 'Save Changes' : 'Edit Profile'}

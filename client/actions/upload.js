@@ -63,8 +63,9 @@ export function uploadPhoto(data, photo) {
   return (dispatch) => {
 
     dispatch(uploadRequest(photo))
+    var host = window.location.hostname === '54.153.9.57' || window.location.hostname === 'opengallery.io' ? '54.153.9.57' : window.location.hostname;
     return request
-            .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/upload`)
+            .post(`http://${host}:${host === '54.153.9.57' ? '80' : '8000'}/api/media/upload`)
             .field('user', data.userId)
             .field('title', data.title)
             .field('description', data.description)
