@@ -94,7 +94,7 @@ const User = ({
               src={ avatar }
             />
             { isSelf ? button1 : button2 }
-            { isSelf ? button3 : ''}
+            {/* isSelf ? button3 : '' */}
 
             <TextField disabled={ true } hintText='username' value={username} updateField={updateField}>
               <Person color={editMode ? Colors.red500 : Colors.blue500} className="user-icon" />
