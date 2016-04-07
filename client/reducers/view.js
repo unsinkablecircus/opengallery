@@ -1,6 +1,7 @@
 import { initialState } from '../../test/initialState'
 import { TOGGLE_GALLERY } from '../actions/gallery'
 import { SHOW_WORDMAP, HIDE_WORDMAP } from '../actions/wordmap.actions'
+import { TOGGLE_SIGNOUT } from '../actions/nav.actions'
 
 let startingState = initialState.view;
 
@@ -42,6 +43,10 @@ const view = (state = startingState, action) => {
       return Object.assign({}, state, {
         hideConversationsInMessageModal: !state.hideConversationsInMessageModal
       })
+    case TOGGLE_SIGNOUT:
+      return Object.assign({}, state, {
+        showSignOut: !state.showSignOut
+      })  
     default:
       return state
   }

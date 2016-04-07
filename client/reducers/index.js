@@ -8,7 +8,6 @@ import user from './user'
 import artist from './artist'
 import messageFeed from './messageFeed.reducer'
 import form from './form'
-import nav from './nav.reducer'
 import { routerReducer } from 'react-router-redux'
 
 const reducers = combineReducers({
@@ -20,7 +19,6 @@ const reducers = combineReducers({
   status,
   view,
   media,
-  nav,
   routing: routerReducer
 })
 

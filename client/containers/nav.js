@@ -6,7 +6,6 @@ import { loadData } from '../actions/grid';
 import { toggleMessageModal, fetchConversations } from '../actions/messageFeed.actions'
 import { toggleSignOut } from '../actions/nav.actions'
 
-
 import { push } from 'react-router-redux'
 import { browserHistory } from 'react-router'
 
@@ -17,7 +16,7 @@ const mapStateToProps = (state) => {
     isAuth: state.auth.isAuthenticated,
     id: state.user.id,
     username: state.user.username,
-    showSignOut: state.nav.showSignOut
+    showSignOut: state.view.showSignOut
   }
 }
 
