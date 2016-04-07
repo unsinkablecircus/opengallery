@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
     deleteMode: state.user.deleteMode,
     photosToBeDeleted: state.user.photosToBeDeleted,
     location: ownProps,
-    formData: state.form.EDIT_PROFILE_INFORMATION
+    formData: state.form.profileInformation
   }
 }
 
