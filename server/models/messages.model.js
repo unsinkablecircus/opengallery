@@ -1,16 +1,21 @@
-const db = require('./../db/database')
+const db = require('./../db/database');
+const format = require('pg-format');
 
 module.exports = { 
   submitMessage: (message, user1_id, user2_id, createdAt, currentConversation) => {
-    console.log(message, user1_id, user2_id, createdAt, currentConversation);
+    var currentConversation = format.literal(currentConversation);
+    var message = format.literal(message);
+    var user1_id = format.literal(user1_id);
+    var createdAt = format.literal(createdAt);
+
     return db.raw(`
         INSERT INTO messages (conversation_id, message, sender_id, created_at)
           VALUES (
             ${currentConversation},
-            '${message}',
+            ${message},
             ${user1_id},
-            '${createdAt}'
-            );
+            ${createdAt}
+          );
         SELECT * FROM messages
         WHERE (
           conversation_id = ${currentConversation}
@@ -19,6 +24,8 @@ module.exports = {
   },
 
   fetchConversations: (self_id) => {
+    var self_id = format.literal(self_id);
+
     return db.raw(`
     WITH 
     convo AS (
@@ -49,8 +56,9 @@ module.exports = {
   },
 
   fetchOrCreateConversation: (self_id, user_id) => {
-    // insert if it exists, else fetch it
-    console.log('ids', self_id, user_id)
+    var self_id = format.literal(self_id);
+    var user_id = format.literal(user_id);
+
     return db.raw(`
       INSERT INTO conversations (user1_id, user2_id)
       SELECT ${self_id}, ${user_id}
@@ -90,14 +98,10 @@ module.exports = {
   },
 
   fetchMessages: (conversation_id) => {
+    var conversation_id = format.literal(conversation_id);
+
     return db.raw(`
       SELECT * FROM messages WHERE conversation_id = ${conversation_id}
     `)
   }
 }
-
-
-
-
-
-
