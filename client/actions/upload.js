@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch'
 import request from 'superagent'
 
 export function toggleUpload() {

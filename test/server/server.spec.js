@@ -109,6 +109,25 @@ describe('Back End', function() {
 
     });
 
+    xdescribe('DELETE media', function(done){
+
+      it('responds with a 200 (Deleted) when photo record deleted', function() {
+
+        request(app)
+          .del('/api/media/delete')
+          .field('photos', [618])
+          .expect(200, function(res) {
+            expect(res).to.be.a('object');
+            if (err) {
+              console.log("Error requesting data: ", err);
+              expect(err).to.be.null;
+            }
+          }, done)
+
+      });
+
+    });
+
   });
 
   describe('Database: ', function() {
@@ -189,6 +208,13 @@ describe('Back End', function() {
         expect(mediaModel.retrievePhotosFromPG).to.be.a('function');
       });
 
+      xit('Should have a function called deletePhotoByIdPG', function() {
+        expect(mediaModel.deletePhotoByIdPG).to.be.a('function');
+      });
+      xit('Should have a function called deletePhotoByIdS3', function() {
+        expect(mediaModel.deletePhotoByIdS3).to.be.a('function');
+      });
+
       //Writing to DB Tests
       xit('Should retrieve photos information from PostgreSQL', function(done) {
 
@@ -263,6 +289,36 @@ describe('Back End', function() {
           done(err);
         });
       });
+
+      xit('Should delete photos from S3 database', function(done) {
+        mediaModel.deletePhotoByIdS3(621)
+        .then(function(data) {
+          expect(data).to.be.a('object');
+          // db.destroy();
+          done();
+        })
+        .catch(function(err) {
+          expect(err).to.be.null;
+          // db.destroy();
+          done(err);
+        });
+      });
+
+      xit('Should delete photo record from PostgreSQL database', function(done) {
+        mediaModel.deletePhotoByIdPG(617)
+        .then(function(data) {
+          console.log(data);
+          expect(data).to.be.a('object');
+          // db.destroy();
+          done();
+        })
+        .catch(function(err) {
+          expect(err).to.be.null;
+          // db.destroy();
+          done(err);
+        });
+      });
+
     });
 
     describe('MediaTags Model: ', function() {

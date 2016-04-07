@@ -16,17 +16,9 @@ exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
   return pg.raw(
 
-    `INSERT INTO media (user_id, url_small, url_medium, url_large, title, description, width, height, mimetype) 
+    `INSERT INTO media (user_id) 
     values(
-      ${photoData.user},
-      '${photoData.url_small}',
-      '${photoData.url_medium}',
-      '${photoData.url_large}',
-      '${photoData.title}',
-      '${photoData.description}',
-      ${photoData.width},
-      ${photoData.height},
-      '${photoData.mimetype}'
+      ${photoData.user}
     ) 
     RETURNING id`
   );
@@ -51,43 +43,64 @@ exports.uploadToS3 = function (photoId, photo) {
   });
 };
 
-exports.updatePGphotoUrls = function (photosURLsArr, id) {
+exports.updatePGmetaData = function (photoData, id) {
   //array order is med, large
   //identify which record to update
   // return
   return pg.raw(
     `UPDATE media
     SET
-      url_medium = '${photosURLsArr[0]}',
-      url_large = '${photosURLsArr[1]}'
-    WHERE id = ${id}
-    RETURNING *
-    `
-  );
-};
-
-exports.updatePGmetaData = function (photoData, id) {
-  // identify which fields to update, 
-    // only overwrite those
-  return pg.raw(
-    `UPDATE media
-    SET
-      title = '${photoData.title}',
+      url_small = '${photoData.url_small}',
+      url_medium = '${photoData.url_medium}',
+      url_large = '${photoData.url_large}',
+      title ='${photoData.title}',
       description = '${photoData.description}',
+      width = ${photoData.width},
+      height = ${photoData.height},
+      mimetype = '${photoData.mimetype}'
     WHERE id = ${id}
     RETURNING *
     `
   );
 };
 
-exports.deletePhotoById = function (id) {
-  // identify which fields to update, 
-    // only overwrite those
+exports.deletePhotoByIdPG = function (photos) {
+  console.log("photos inside PG function", photos);
   return pg.raw(
     `DELETE FROM media
-    WHERE id = ${id}
+    WHERE id = ANY ('{${photos.join(',')}}'::int[])
+    RETURNING (id);
     `
   );
+};
+
+exports.deletePhotoByIdS3 = function (photos) {
+  var photosArray = [];
+  photos.forEach(function(photo) {
+    photosArray.push({
+      Key: photo + 'large',
+    },{
+      Key: photo + 'medium',
+    })
+  })
+  var params = {
+    Bucket: 'opengallery', // required
+    Delete: { // required 
+      Objects: photosArray // required 
+    }
+  };
+
+  return new Promise(function(resolve, reject) {
+    s3.deleteObjects(params, function(err, data) {
+      if (err) {
+        console.log(err, err.stack); // an error occurred
+        reject(err);
+      } else {
+        console.log(data);           // successful response
+        resolve(data);
+      }
+    });
+  });
 };
 
 exports.retrievePhotos = function () {

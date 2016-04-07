@@ -3,6 +3,7 @@ const jimp = require('jimp')
 
 const Media = require('../models/media')
 const MetaTags = require('../models/metatags.model')
+const GoogleVision = require('../models/vision.model')
 
 const imageData = {};
 const resizePhoto = ({ buffer, mimetype }, size, quality) => {
@@ -44,25 +45,37 @@ exports.getPhotos = function (req, res) {
 exports.uploadPhoto = function (req, res) {
   var responseObject = {
     id: null,
-    url_small: '',
     url_med: '',
     url_large: ''
   }
   const photo = req.file;
   const photoData = req.body;
-  res.status(201).send();
 
   if (photo) {
-    photo.mimetype = 'image/jpeg';
-    resizePhoto(photo, 25, 0)
+    Media.uploadToPG(photoData)
+    .catch((err) => {
+      console.log('Error uploading images to PostgreSQL', err)
+    })
+    .then((id) => {
+      responseObject.id = id.rows[0].id;
+      responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'medium.jpg');
+      photoData.url_medium = responseObject.url_med;
+      responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'large.jpg');
+      photoData.url_large = responseObject.url_large;
+      res.status(201).json(responseObject);
+      photoData.s3url = ('https://s3-us-west-1.amazonaws.com/opengallery/' + responseObject.id + 'medium.jpg');
+
+      photo.mimetype = 'image/jpeg';
+      return resizePhoto(photo, 25, 0)
+    })
+    .catch((err) => {
+      console.log("error sending response to client", err);
+    })
     .then( buffer => {
       photoData.width = imageData.width;
       photoData.height = imageData.height;
       photoData.mimetype = photo.mimetype;
       photoData.url_small = new Buffer(buffer).toString('base64')
-      photoData.url_medium = '';
-      photoData.url_large = '';
-      responseObject.url_small = new Buffer(buffer).toString('base64')
 
       return resizePhoto(photo, 800, 100)
     })
@@ -71,18 +84,9 @@ exports.uploadPhoto = function (req, res) {
     })
     .then( mediumBuffer => {
       photo.buffer_med = mediumBuffer;
-      return Media.uploadToPG(photoData)
-    })
-    .catch((err) => {
-      console.log('Error uploading images to PostgreSQL', err)
-    })
-    .then((id) => {
-      responseObject.id = id.rows[0].id;
 
       var urlExtMedium = responseObject.id + 'medium.jpg';
       var urlExtLarge = responseObject.id + 'large.jpg';
-      responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtMedium);
-      responseObject.url_large = ('http://d14shq3s3khz77.cloudfront.net/' + urlExtLarge);
 
       return new Promise.all([
         Media.uploadToS3(urlExtLarge, photo.buffer), Media.uploadToS3(urlExtMedium, photo.buffer_med)
@@ -92,21 +96,31 @@ exports.uploadPhoto = function (req, res) {
       console.log('Error uploading images to s3 db', err)
     })
     .then((url) => {
-      return Media.updatePGphotoUrls([responseObject.url_med, responseObject.url_large], responseObject.id) // urlsArr initiated above
+      return Media.updatePGmetaData(photoData, responseObject.id) // urlsArr initiated above
     })
     .catch((err) => {
       console.log('Error updating URLs to PG db', err);
     })
     .then(() => {
-      if (photoData.metaTags.length > 0) {
-        MetaTags.insert(photoData.metaTags.split(','), responseObject.id, req.body.user)
-        .then((tags) => {
-          responseObject.tags = tags.rows;
-        })
-        .catch((err) => {
-          console.log("error sending response to client", err);
-        })
-      }
+      //incorporate GoogleVision API
+      console.log("Right before invoking GoogleVision analyze function in media controller");
+      return GoogleVision.analyze(photoData.s3url);
+    })
+    .catch(() => {
+      console.error(`Error detecting labels for photo: ${err}`)
+    })
+    .then((labels) => {
+      console.log("Labels returned from GoogleVision", labels[0].labelAnnotations);
+
+      const filteredLabels = [];
+      labels[0].labelAnnotations.forEach((label) => { filteredLabels.push(label.description)})
+      //check if google's labels are not duplicates of user's labels to prevent PG error
+      const comparedLabels = filteredLabels.filter((label) => { return (photoData.metaTags.indexOf(label) < 0) })
+      const labelsArray = photoData.metaTags.split(',').concat(comparedLabels);
+      return MetaTags.insert(labelsArray, responseObject.id, photoData.user)
+    })
+    .then((tags) => {
+      responseObject.tags = tags.rows;
     })
     .catch((err) => {
       console.log('Error uploading tags to PostgreSQL', err);
@@ -114,26 +128,35 @@ exports.uploadPhoto = function (req, res) {
   }
 };
 
-exports.updatePhoto = function (req, res) {
+/*
+*exports.updatePhoto = function (req, res) {
+*  //parse request to find which fields need to be update
+*  Media.updatePGmetaData(photoData, req.body.id)
+*  .then( data => {
+*    res.status(201).json(data)
+*  })
+*  .catch( err => {
+*    console.error(`[Error] Failed to query meta tags in PG: ${err}`)
+*    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+*  })
+*}
+*/
+exports.deletePhotos = function (req, res) {
   //parse request to find which fields need to be update
-  Media.updatePGmetaData(/*photoData, req.body.id*/)
-  .then( data => {
-    res.status(201).json(data)
+  console.log('photos received form request body', req.body);
+  Media.deletePhotoByIdPG(req.body.photos)
+  .catch((err) => {
+    console.log("Error deleting from PG", err);
+    res.status(404).send(`[Error] Failed to delete records in PG: ${err}`);
+  })
+  .then(() => {
+    return deletePhotoByIdS3(req.body.photos);
   })
   .catch( err => {
     console.error(`[Error] Failed to query meta tags in PG: ${err}`)
-    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+    res.status(404).send(`[Error] Failed to delete records from S3: ${err}`)
   })
-}
-
-exports.deletePhoto = function (req, res) {
-  //parse request to find which fields need to be update
-  Media.deletePhotoById(/*req.body, req.body.id*/)
   .then( () => {
-    res.status(201)
-  })
-  .catch( err => {
-    console.error(`[Error] Failed to query meta tags in PG: ${err}`)
-    res.status(404).send(`[Error] Failed to query meta tags in PG: ${err}`)
+    res.status(200).send();
   })
 }

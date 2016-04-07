@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import request from 'superagent'
 
 export function storeUserData(data) {
   return {
@@ -51,6 +52,66 @@ export function switchEditMode() {
     type: 'SWITCH_EDIT_MODE'
   }
 };
+
+export function switchDeleteMode() {
+  return {
+    type: 'SWITCH_DELETE_MODE'
+  }
+};
+
+export function addToBeDeletedPhoto(id) {
+  return {
+    type: 'ADD_DELETE_PHOTO',
+    payload: {
+      photo: id
+    }
+  }
+};
+
+export function unstagePhotosToBeDeleted() {
+  return {
+    type: 'UNSTAGE_DELETE_PHOTO'
+  }
+};
+
+export function deleteRequest() {
+  return {
+    type: 'DELETE_REQUEST'
+  }
+};
+
+export function deleteSuccess() {
+  return {
+    type: 'DELETE_SUCCESS'
+  }
+};
+
+export function deleteError(message) {
+  return {
+    type: 'DELETE_SUCCESS',
+    payload: {
+      message
+    }
+  }
+};
+
+export function DeletePhotos(photosArray) {
+  return (dispatch) => {
+    dispatch(deleteRequest()) //TODO: dispatch delete request
+
+    return request
+            .post(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/media/delete`)
+            .field('photos', photosArray)
+            .end(function(err, res) {
+              if (err) {
+                console.log('Oh no! error deleting your photo', err);
+                dispatch(deleteError(err))
+              } else if (res) {
+                dispatch(deleteSuccess())
+              }
+            })
+  }
+}
 
 export function SaveChanges(data) {
   const config = {

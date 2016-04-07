@@ -37,6 +37,22 @@ const status = (state = startingState, action) => {
       return Object.assign({}, state, {
         currentFileUploading: action.payload.file
       })
+    case 'DELETE_REQUEST':
+      return Object.assign({}, state, {
+        isDeleting: true,
+        isDeleted: false
+      })
+    case 'DELETE_SUCCESS':
+      return Object.assign({}, state, {
+        isDeleting: false,
+        isDeleted: true
+      })
+    case 'DELETE_ERROR':
+      return Object.assign({}, state, {
+        isDeleting: false,
+        isDeleted: false,
+        message: action.payload
+      })
     case 'REMOVE_PHOTO':
       return Object.assign({}, state, {
         currentFileUploading: ''

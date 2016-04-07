@@ -1,4 +1,6 @@
 import React from 'react';
+import IconButton from 'material-ui/lib/icon-button'
+import DeleteIcon from 'material-ui/lib/svg-icons/action/delete'
 
 export default class Tile extends React.Component {
   constructor(props) {
@@ -8,6 +10,7 @@ export default class Tile extends React.Component {
       classname: ''
     }
   }
+
 
   componentWillMount = () => {
     let newStyle = Object.assign({}, this.props.style)
@@ -33,9 +36,24 @@ export default class Tile extends React.Component {
     const { photo, classname } = this.state
     let style = Object.assign({}, this.props.style)
     style.backgroundImage = photo
+    style.position = 'relative';
+    let styles = {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      backgroundColor: 'red',
+      zIndex: 5000
+    }
+   
+    const button =
+      <IconButton
+        icon={<DeleteIcon/>} 
+        onTouchTap={ () => {console.log("Inside GridTile"); this.props.addPhotoToBeDeleted(this.props.mediaId) }} 
+        style={styles}/>
 
     return (
       <div className={`tile-component ${ classname }`} style={style} onClick={() => handleClick(tile)}>
+        { this.props.deleteMode ? button : null}
         {children}
       </div>
     )

@@ -17,6 +17,18 @@ const user = (state=startingState, action) => {
       return Object.assign({}, state, {
         editMode: !state.editMode
       })
+    case 'SWITCH_DELETE_MODE':
+      return Object.assign({}, state, {
+        deleteMode: !state.deleteMode
+      })
+    case 'ADD_DELETE_PHOTO':
+      return Object.assign({}, state, {
+        photosToBeDeleted: [...state.photosToBeDeleted, action.payload.photo]
+      })
+    case 'UNSTAGE_DELETE_PHOTO':
+      return Object.assign({}, state, {
+        photosToBeDeleted: ''
+      })
     default:
       return state;
   }
