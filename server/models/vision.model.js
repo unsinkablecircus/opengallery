@@ -16,9 +16,6 @@ exports.analyze = (imageUrl) => {
 
   return vision.annotate(req)
   .then( res => {
-    console.log("inside then statement");
-    console.log(JSON.stringify(res.responses))
-    
     return res.responses
   })
   .catch( err => {
