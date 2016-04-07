@@ -102,7 +102,8 @@ export const initialState = {
     displayWordmap: false,
     displayGridAndNotMessageFeed: true,
     displayMessageModal: false,
-    hideConversationsInMessageModal: false
+    hideConversationsInMessageModal: false,
+    showSignOut: false
   },
 
   /*---------------*/
@@ -275,14 +276,6 @@ export const initialState = {
     avatar: null,
     media: null,
     about: null,
-  },
-
-  /*--------------------*/
-  /*         NAV        */
-  /*--------------------*/
-
-  nav: {
-    showSignOut: false
   }
 
 }
