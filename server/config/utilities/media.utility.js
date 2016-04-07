@@ -1,3 +1,5 @@
+const format = require('pg-format');
+
 exports.isInt = (val) => {
   int = parseInt(val)
   return Number(int) === int && int % 1 === 0
@@ -75,15 +77,22 @@ exports.total_artist = (artist) => (`
   WHERE m.user_id = u.id AND u.username = '${ artist }';
 `)
 
-exports.total_tags = (tags) => (`
-  SELECT COUNT(*) as total_records
-  FROM media m
-    INNER JOIN media_tags mt
-    ON (m.id = mt.media_id)
-    INNER JOIN tags t
-    ON (mt.tag_id = t.id)
-  WHERE t.text ~* ANY ('{${ tags.join(',') }}'::text[])
-`)
+exports.total_tags = (tags) => {
+  var tagsArr = [];
+  tags.forEach((tag) => {
+    tagsArr.push(format.literal(tag));
+  });
+
+  return (`
+    SELECT COUNT(*) as total_records
+    FROM media m
+      INNER JOIN media_tags mt
+      ON (m.id = mt.media_id)
+      INNER JOIN tags t
+      ON (mt.tag_id = t.id)
+    WHERE t.text ~* ANY (ARRAY[${tagsArr.join(',')}])
+  `)
+}
 
 exports.total = (`
   SELECT COUNT(*) as total_records
