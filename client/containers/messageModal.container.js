@@ -40,7 +40,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     updateMessage: (message) => {
-      console.log('message', message);
       dispatch(updateMessage(message));
     }
   }

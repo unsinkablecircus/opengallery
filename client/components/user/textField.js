@@ -17,7 +17,6 @@ const CustomTextField = ({
   const field = hintText;
   if ( value === 'null' ) value = "";
   hintText = (value === null || value === '') ? ('no ' + hintText) : null;
-  console.log(field, value, hintText);
   return (
      <div className="user-row">
               { children }
