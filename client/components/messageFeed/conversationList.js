@@ -11,28 +11,22 @@ class MessageFeed extends React.Component {
   }
 
   componentWillMount() {
-    this.socket.on('connect', function() {
-      console.log('hello world');
-    })
 
-    this.socket.emit('createRoom', 'roomies4lyfe');
-    this.socket.on('message', function(msg) {
-      // append to messages.
-      console.log('msg', msg);
-    })
+    // this.socket.on('connect', function() {
+    //   console.log('hello world');
+    // })
+    this.props.changeRooms(this.props.currentConversation);
+    // this.socket.on('message', function(msg) {
+    //   // append to messages.
+    //   console.log('msg', msg);
+    // })
   }
 
   componentWillUnmount() {
-    this.socket.disconnect();
   }
 
   render() {
-    let { messages, conversations, fetchMessages }= this.props;
-
-    const conversationId = conversations[0].id;
-
-    // clicking another conversation, destroy this.socket, recreate a new one
-
+    let { messages, conversations, fetchMessages, changeRooms }= this.props;
 
     return (
       <div className='conversationList'>
@@ -42,9 +36,14 @@ class MessageFeed extends React.Component {
             onClick={ () => {
               console.log('click');
               fetchMessages(conversation);
-              this.socket.disconnect();
-              this.socket = io();
-              this.socket.emit('createRoom', conversation.id);
+              changeRooms(conversation.id);
+              // this.socket.disconnect();
+              // this.socket = io();
+              // this.socket.emit('createRoom', conversation.id);
+
+              // this.socket.on('message', function(message) {
+              //   updateMessage(message);
+              // })
             }}
             className='conversation'
           >

@@ -1,6 +1,6 @@
 import messageModal from '../components/messageFeed/messageModal'
 import { connect } from 'react-redux'
-import  { toggleMessageModal, submitMessage } from '../actions/messageFeed.actions'
+import  { toggleMessageModal, submitMessage, updateMessage } from '../actions/messageFeed.actions'
 
 
 const mapStateToProps = (state, props) => {
@@ -39,6 +39,9 @@ const mapDispatchToProps = (dispatch) => {
         type: 'TOGGLE_CONVERSATIONS'
       })
     },
+    updateMessage: (message) => {
+      dispatch(updateMessage(message));
+    }
   }
 }
 
