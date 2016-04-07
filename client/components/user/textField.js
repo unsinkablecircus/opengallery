@@ -13,6 +13,10 @@ const CustomTextField = ({
   children,
   updateField
 }) => {
+
+  const field = hintText;
+  if ( value === 'null' ) value = "";
+  hintText = (value === null || value === '') ? ('no ' + hintText) : null;
   return (
      <div className="user-row">
               { children }
@@ -22,7 +26,7 @@ const CustomTextField = ({
                 hintText={ hintText }
                 className="user-field"
                 underlineShow={ !disabled }
-                onChange = { (event) => {updateField(hintText, event.target.value)} }
+                onChange = { (event) => {updateField(field, event.target.value)} }
                 multiLine = { true }
               />
             </div>
