@@ -36,7 +36,6 @@ export default class Tile extends React.Component {
     const { photo, classname } = this.state
     let style = Object.assign({}, this.props.style)
     style.backgroundImage = photo
-    style.position = 'relative';
     let styles = {
       position: 'absolute',
       bottom: 0,
