@@ -19,8 +19,6 @@ import getMuiTheme from 'material-ui/lib/styles/getMuiTheme'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
-
-
 const darkMuiTheme = getMuiTheme(darkBaseTheme)
 
 // refactored to utilize the container / presentational component model
@@ -33,7 +31,8 @@ let Nav = ({
   onLogoutClick,
   onToggleUpload,
   onSearchSubmit,
-  handleConversationsIconClick
+  handleConversationsIconClick,
+  showSignOut
 }) => {
 
   const styles = {
@@ -90,14 +89,14 @@ let Nav = ({
           <Link
             to={`/profile/${username}`}
             className="nav-item-button">
-            { username || 'Sign In'}
+            profile
           </Link>
-          {/*<Link
+          {showSignOut ? <Link
             to={'/'}
             onClick={ onLogoutClick }
-            className="nav-item-button">
-            Sign Out
-          </Link>*/}
+            className="nav-item-button"
+          >sign out</Link>
+          : ''}
         </li>
       </ul>
     </nav>

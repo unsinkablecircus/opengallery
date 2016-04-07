@@ -102,7 +102,8 @@ export const initialState = {
     displayWordmap: false,
     displayGridAndNotMessageFeed: true,
     displayMessageModal: false,
-    hideConversationsInMessageModal: false
+    hideConversationsInMessageModal: false,
+    showSignOut: false
   },
 
   /*---------------*/

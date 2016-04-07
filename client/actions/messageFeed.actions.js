@@ -50,7 +50,8 @@ export const submitMessage = (user1_id, user2_id, message, createdAt, currentCon
   }
   
   return dispatch => {
-    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/message/submitMessage`, config)
+    var host = window.location.hostname === '54.153.9.57' || window.location.hostname === 'opengallery.io' ? '54.153.9.57' : window.location.hostname;
+    return fetch(`http://${host}:${host === '54.153.9.57' ? '80' : '8000'}/api/message/submitMessage`, config)
       .then( response => {
         if ( !response.ok ) {
           return Promise.reject('cannot submit message');
@@ -71,7 +72,8 @@ let config = {
   }
   return dispatch => {
     // We dispatch requestSignup to kickoff the call to the API
-    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/message/fetchConversations`, config)
+    var host = window.location.hostname === '54.153.9.57' || window.location.hostname === 'opengallery.io' ? '54.153.9.57' : window.location.hostname;
+    return fetch(`http://${host}:${host === '54.153.9.57' ? '80' : '8000'}/api/message/fetchConversations`, config)
       .then( response => {
         if ( !response.ok ) {
           // dispatch(messageError('cannot submit message'));
@@ -100,8 +102,9 @@ export const fetchMessages = (conversation_id, username, user_id) => {
   }
   return dispatch => {
     // We dispatch requestSignup to kickoff the call to the API
-    return fetch(`http://${window.location.hostname}:` +
-                 `${window.location.hostname === '54.153.9.57' ? '80' : '8000'}` +
+    var host = window.location.hostname === '54.153.9.57' || window.location.hostname === 'opengallery.io' ? '54.153.9.57' : window.location.hostname;
+    return fetch(`http://${host}:` +
+                 `${host === '54.153.9.57' ? '80' : '8000'}` +
                  `/api/message/fetchMessages`, config)
       .then( response => {
         if ( !response.ok ) {
@@ -128,8 +131,9 @@ export const fetchConversation = (self_id, user_id, username) => {
     body: `self_id=${self_id}&user_id=${user_id}`
   }
   return dispatch => {
-    return fetch(`http://${window.location.hostname}:` +
-                 `${window.location.hostname === '54.153.9.57' ? '80' : '8000'}` +
+    var host = window.location.hostname === '54.153.9.57' || window.location.hostname === 'opengallery.io' ? '54.153.9.57' : window.location.hostname;
+    return fetch(`http://${host}:` +
+                 `${host === '54.153.9.57' ? '80' : '8000'}` +
                  `/api/message/fetchConversation`, config)
     .then( response => {
       if ( !response.ok) {
@@ -147,27 +151,5 @@ export const fetchConversation = (self_id, user_id, username) => {
     .catch( (err) => {
       console.log('err', err);
     })
-
-
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

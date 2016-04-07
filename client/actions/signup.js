@@ -13,7 +13,8 @@ export function SignupUser(creds) {
   return dispatch => {
     // We dispatch requestSignup to kickoff the call to the API
     dispatch(authRequest())
-    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/user/signUp`, config)
+    var host = window.location.hostname === '54.153.9.57' || window.location.hostname === 'opengallery.io' ? '54.153.9.57' : window.location.hostname;
+    return fetch(`http://${host}:${host === '54.153.9.57' ? '80' : '8000'}/api/user/signUp`, config)
       .then( response => {
         if ( !response.ok ) {
           dispatch(authError('User already exists'));

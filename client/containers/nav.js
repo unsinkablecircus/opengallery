@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authActions';
 import { toggleUpload } from '../actions/upload';
 import { loadData } from '../actions/grid';
-import  { toggleMessageModal, fetchConversations } from '../actions/messageFeed.actions'
-
+import { toggleMessageModal, fetchConversations } from '../actions/messageFeed.actions'
+import { toggleSignOut } from '../actions/nav.actions'
 
 import { push } from 'react-router-redux'
 import { browserHistory } from 'react-router'
@@ -15,13 +15,15 @@ const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuthenticated,
     id: state.user.id,
-    username: state.user.username
+    username: state.user.username,
+    showSignOut: state.view.showSignOut
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onLogoutClick: () => {
+      dispatch(toggleSignOut());
       dispatch(logoutUser());
     },
     onToggleUpload: () => {

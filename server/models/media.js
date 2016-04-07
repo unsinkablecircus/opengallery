@@ -1,33 +1,33 @@
 const Promise = require('bluebird')
 const pg = require('./../db/database')
 const AWS = require('aws-sdk');
+const format = require('pg-format');
 
-// load AWS credentials
 const credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
 AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-west-1'});
 
 const s3 = new AWS.S3();
-// const Media = require('../models/media')
 
 //model handles pg manipulation
 
 exports.uploadToPG = function (photoData) {
   // SQL Query > Insert Data
-  return pg.raw(
+  var user = format.literal(photoData.user);
 
+  return pg.raw(
     `INSERT INTO media (user_id) 
     values(
-      ${photoData.user}
+      ${user}
     ) 
-    RETURNING id`
+    RETURNING id;`
   );
 };
 
 exports.uploadToS3 = function (photoId, photo) {
   var params = {
-    Bucket: 'opengallery', // required
-    Key: photoId.toString(), // required
+    Bucket: 'opengallery',
+    Key: photoId.toString(),
     ACL: 'public-read',
     ContentType: 'image/jpeg',
     Body: photo
@@ -45,19 +45,42 @@ exports.uploadToS3 = function (photoId, photo) {
 
 exports.updatePGmetaData = function (photoData, id) {
   //array order is med, large
-  //identify which record to update
-  // return
+  var url_small = format.literal(photoData.url_small);
+  var url_medium = format.literal(photoData.url_medium);
+  var url_large = format.literal(photoData.url_large);
+  var title = format.literal(photoData.title);
+  var description = format.literal(photoData.description);
+  var width = format.literal(photoData.width);
+  var height = format.literal(photoData.height);
+  var mimetype = format.literal(photoData.mimetype);
+
   return pg.raw(
     `UPDATE media
     SET
-      url_small = '${photoData.url_small}',
-      url_medium = '${photoData.url_medium}',
-      url_large = '${photoData.url_large}',
-      title ='${photoData.title}',
-      description = '${photoData.description}',
-      width = ${photoData.width},
-      height = ${photoData.height},
-      mimetype = '${photoData.mimetype}'
+      url_small = ${url_small},
+      url_medium = ${url_medium},
+      url_large = ${url_large},
+      title =${title},
+      description = ${description},
+      width = ${width},
+      height = ${height},
+      mimetype = ${mimetype}
+    WHERE id = ${id}
+    RETURNING *
+    `
+  );
+};
+
+exports.updatePGmetaData = function (photoData, id) {
+  // identify which fields to update, 
+    // only overwrite those
+  var title = format.literal(photoData.title);
+  var description = format.literal(photoData.description);
+  return pg.raw(
+    `UPDATE media
+    SET
+      title = ${title},
+      description = ${description}
     WHERE id = ${id}
     RETURNING *
     `
@@ -109,51 +132,4 @@ exports.retrievePhotos = function () {
     LIMIT 20;
     `
   )
-};
-
-// example of connecting to postgresql database below (will move to models later):
-// var client = new pg.Client(connectionInfo);
-// client.connect();
-// var query = client.query('CREATE TABLE items(id SERIAL PRIMARY KEY, text VARCHAR(40) not null, complete BOOLEAN)');
-// query.on('end', function() { client.end(); });
-
-/* Example of connecting to 'opengallery' S3 bucket and executing methods
-More details here: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html
-var s3 = new AWS.S3();
-s3.listBuckets(function(err, data) {
-  if (err) { console.log("Error:", err); }
-  else {
-    for (var index in data.Buckets) {
-      var bucket = data.Buckets[index];
-      console.log("Bucket: ", bucket.Name, ' : ', bucket.CreationDate);
-    }
-  }
-});
-
-var params = {
-  Bucket: 'opengallery', // required
-  Key: 'TEST_KEY', // required
-  ACL: 'public-read',
-  Body: 'TEST_BODY'
-};
-s3.putObject(params, function(err, data) {
-  if (err) {
-    console.log("Error uploading data: ", err);
-  } else {
-    console.log("Successfully uploaded data to myBucket/myKey: ", data);
-  }
-});
-*/
-
-//example s3 function
-var listBuckets = function() {
-  s3.listBuckets(function(err, data) {
-    if (err) { console.log("Error:", err); }
-    else {
-      for (var index in data.Buckets) {
-        var bucket = data.Buckets[index];
-        console.log("Bucket: ", bucket.Name, ' : ', bucket.CreationDate);
-      }
-    }
-  });
 };

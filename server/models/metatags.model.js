@@ -1,10 +1,15 @@
-const pg = require('../db/database')
-const query = require('../config/utilities/media.utility')
-const { isInt } = query
-const Promise = require('bluebird')
+const pg = require('../db/database');
+const query = require('../config/utilities/media.utility');
+const { isInt } = query;
+const Promise = require('bluebird');
+const format = require('pg-format');
 
 exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
-  console.log('tags, user, page: ', tags, user, page, tags.join(','));
+  var tagsArr = [];
+  tags.forEach((tag) => {
+    tagsArr.push(format.literal(tag));
+  });
+
   if (Array.isArray(tags) && tags.length) {
     return pg.raw(`
       SELECT * FROM (
@@ -12,13 +17,13 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
         FROM (
           SELECT DISTINCT ON (m.id) ${ query.media(user) }
           FROM ${ query.metatags}
-          WHERE t.text ~* ANY ('{${ tags.join(',') }}'::text[])
+          WHERE t.text ~* ANY (ARRAY[${tagsArr.join(',')}])
           ORDER BY m.id
           OFFSET ${ 18 * page } LIMIT 18
         ) some_tags
       ) page;
 
-      ${ query.total_tags(tags) }
+      ${ query.total_tags(tagsArr) }
     `)
   } else {
     return pg.raw(`
@@ -39,15 +44,17 @@ exports.fetch = ({ tags = [], user = 0, page = 0 }) => {
 }
 
 exports.insert = (tags, mediaId, userId) => {
+  var tagsArr = tags.map(tag => {
+    return format.literal(tag);
+  });
+
   if (Array.isArray(tags)) {
     return pg.raw(`
       BEGIN;
       LOCK TABLE tags IN SHARE ROW EXCLUSIVE MODE;
 
       WITH meta_tags (tag_text) AS (
-        VALUES ${
-          tags.map(t => `('${t}')`).join(',')
-        }
+        VALUES (${ tagsArr.join(',') })
       )
       INSERT INTO tags (text)
       SELECT m.tag_text FROM meta_tags m
@@ -59,7 +66,7 @@ exports.insert = (tags, mediaId, userId) => {
       WITH new_tags AS (
         SELECT ${ mediaId }, t.id, 'metatag', ${ userId } 
         FROM tags t
-        WHERE t.text = ANY ('{${ tags.join(',') }}'::text[])
+        WHERE t.text ~* ANY (ARRAY[${tagsArr.join(',')}])
       )
       INSERT INTO media_tags (media_id, tag_id, tag_type, user_id)
       SELECT * FROM new_tags;
@@ -67,7 +74,7 @@ exports.insert = (tags, mediaId, userId) => {
       WITH newTags AS (
         SELECT t.id
         FROM tags t
-        WHERE t.text = ANY ('{${ tags.join(',') }}'::text[])
+        WHERE t.text ~* ANY (ARRAY[${tagsArr.join(',')}])
       ),
       update_tag_totals AS (
         UPDATE media_tag_totals

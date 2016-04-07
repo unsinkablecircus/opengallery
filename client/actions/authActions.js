@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { storeUserData } from './user'
+import { toggleSignOut } from './nav.actions'
 
 export function authRequest() {
   return {
@@ -43,7 +44,9 @@ export function SignupUser(creds) {
   return dispatch => {
     // We dispatch requestSignup to kickoff the call to the API
     dispatch(authRequest())
-    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/user/signUp`, config)
+
+    var host = window.location.hostname === '54.153.9.57' || window.location.hostname === 'opengallery.io' ? '54.153.9.57' : window.location.hostname;
+    return fetch(`http://${host}:${host === '54.153.9.57' ? '80' : '8000'}/api/user/signUp`, config)
       .then( response => {
         if ( !response.ok ) {
           console.log('bad response', response);
@@ -54,6 +57,7 @@ export function SignupUser(creds) {
       })
       .then( (data) => {
         dispatch(authReceive());
+        dispatch(toggleSignOut());
         localStorage.setItem('id_token', data.token);
         dispatch(storeUserData(data));
         console.log('you are now a member of open gallery!');
@@ -71,7 +75,9 @@ export function SigninUser(creds) {
   }
   return dispatch => {
     dispatch(authRequest());
-    return fetch(`http://${window.location.hostname}:${window.location.hostname === '54.153.9.57' ? '80' : '8000'}/api/user/signIn`, config)
+
+    var host = window.location.hostname === '54.153.9.57' || window.location.hostname === 'opengallery.io' ? '54.153.9.57' : window.location.hostname;
+    return fetch(`http://${host}:${host === '54.153.9.57' ? '80' : '8000'}/api/user/signIn`, config)
       .then(response =>
         response.json()
       )
@@ -82,6 +88,7 @@ export function SigninUser(creds) {
         } else {
           localStorage.setItem('id_token', data.token);
           dispatch(authReceive());
+          dispatch(toggleSignOut());
           dispatch(storeUserData(data));
         }
       })
