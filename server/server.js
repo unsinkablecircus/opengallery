@@ -36,4 +36,18 @@ module.exports = app;
 
 io.on('connection', function(socket) {
   console.log('hello world');
+
+  socket.on('createRoom', function(roomName) {
+    console.log('joining room', roomName);
+    socket.join(roomName);
+
+    io.to(roomName).emit('message', 'foob');
+  })
+
+
+
+
+  socket.on('disconnect', function() {
+    console.log('user disconnected');
+  })
 })

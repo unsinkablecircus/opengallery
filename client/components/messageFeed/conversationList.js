@@ -3,8 +3,15 @@ import React from 'react'
 const MessageFeed = ({
   messages,
   conversations,
-  fetchMessages  
+  fetchMessages,
+  socket 
 }) => {
+
+  socket.emit('createRoom', 'roomies4lyfe');
+
+  socket.on('message', function(msg) {
+    console.log('msg', msg);
+  })
 
   return (
     <div className='conversationList'>
