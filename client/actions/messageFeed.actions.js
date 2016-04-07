@@ -6,10 +6,10 @@ export const toggleMessageModal = (self_id) => {
   };
 }
 
-const updateMessage = (messages) => {
+export const updateMessage = (message) => {
   return {
-    type: 'SUBMIT_MESSAGE',
-    payload: messages
+    type: 'UPDATE_MESSAGE',
+    payload: message
   }
 }
 
@@ -55,11 +55,6 @@ export const submitMessage = (user1_id, user2_id, message, createdAt, currentCon
         if ( !response.ok ) {
           return Promise.reject('cannot submit message');
         }
-        return response.json();
-      })
-      .then( (messages) => {
-        console.log(messages)
-        dispatch(updateMessage(messages));
       })
       .catch( err => {
         console.log("Error: ", err);

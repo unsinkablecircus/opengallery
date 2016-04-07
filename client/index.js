@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import devTools from 'remote-redux-devtools'
 
-import { Route, Router, /*browserHistory*/ } from 'react-router'
+import { Route, Router } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import App from './components/App'

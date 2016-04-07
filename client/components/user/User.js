@@ -14,7 +14,6 @@ import Website from 'material-ui/lib/svg-icons/social/public'
 import Colors from 'material-ui/lib/styles/colors'
 
 import TextField from './textField'
-import MessageFeed from '../../containers/messageFeed.container'
 import Grid from '../../containers/grid'
 
 

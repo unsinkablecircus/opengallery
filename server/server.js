@@ -1,5 +1,9 @@
 var express = require('express');
 var app = express();
+var http = require('http').Server(app);
+
+var io = require('socket.io')(http);
+
 
 /* -------------------------- */
 /*     MIDDLEWARE & ROUTES    */
@@ -12,9 +16,11 @@ require('./config/router')(app, express);
 /*     SERVER     */
 /* -------------- */
 
+
+
 var port = Number(process.env.PORT || 8000);
 if(!module.parent){
-  app.listen(port, function(err) {
+  http.listen(port, function(err) {
     if (err) {
       console.error(`Node Server Error: ${err}`);
     }
@@ -22,4 +28,28 @@ if(!module.parent){
   });
 }
 
-module.exports = app;
+
+/* -------------- */
+/*     SOCKET     */
+/* -------------- */
+
+
+io.on('connection', function(socket) {
+  console.log('hello world');
+
+  socket.on('createRoom', function(roomName) {
+    console.log('joining room', roomName);
+    socket.join(roomName);
+  })
+
+  socket.on('sendMessage', function(data) {
+    console.log('data', data);
+    io.to(data.conversation_id).emit('message', data);
+  })
+
+  socket.on('disconnect', function() {
+    console.log('user disconnected');
+  })
+})
+
+module.exports = io;
