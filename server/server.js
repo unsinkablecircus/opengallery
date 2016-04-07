@@ -28,6 +28,12 @@ if(!module.parent){
   });
 }
 
+
+/* -------------- */
+/*     SOCKET     */
+/* -------------- */
+
+
 io.on('connection', function(socket) {
   console.log('hello world');
 

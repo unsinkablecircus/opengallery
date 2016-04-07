@@ -22,7 +22,6 @@ class messageModal extends React.Component {
     this.socket = io();
     this.socket.emit('createRoom', conversationId);
     this.socket.on('message', function(message) {
-      console.log('message received', message);
       props.updateMessage(message);
    })
   }

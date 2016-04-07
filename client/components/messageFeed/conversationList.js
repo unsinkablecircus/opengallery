@@ -1,28 +1,13 @@
 import React from 'react'
-import io from 'socket.io-client'
 
 
 class MessageFeed extends React.Component {
-
   constructor(props) {
     super(props);
-
-    this.socket = io();
   }
 
   componentWillMount() {
-
-    // this.socket.on('connect', function() {
-    //   console.log('hello world');
-    // })
     this.props.changeRooms(this.props.currentConversation);
-    // this.socket.on('message', function(msg) {
-    //   // append to messages.
-    //   console.log('msg', msg);
-    // })
-  }
-
-  componentWillUnmount() {
   }
 
   render() {
@@ -37,13 +22,6 @@ class MessageFeed extends React.Component {
               console.log('click');
               fetchMessages(conversation);
               changeRooms(conversation.id);
-              // this.socket.disconnect();
-              // this.socket = io();
-              // this.socket.emit('createRoom', conversation.id);
-
-              // this.socket.on('message', function(message) {
-              //   updateMessage(message);
-              // })
             }}
             className='conversation'
           >
