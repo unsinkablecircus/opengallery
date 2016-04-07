@@ -76,8 +76,6 @@ exports.uploadPhoto = function (req, res) {
       photoData.height = imageData.height;
       photoData.mimetype = photo.mimetype;
       photoData.url_small = new Buffer(buffer).toString('base64')
-      photoData.url_medium = '';
-      photoData.url_large = '';
 
       return resizePhoto(photo, 800, 100)
     })
