@@ -64,7 +64,7 @@ const User = ({
       fetchConversation(self_id, artist.id, artist.username)
       toggleMessageModal(self_id)
     }} />
-
+/*
   const button3 = 
     <FlatButton
       label={deleteMode ? 'Confirm Delete Photos' : 'Delete photos'}
@@ -82,7 +82,7 @@ const User = ({
       onTouchTap={ () => {
         deleteMode ? unstagePhotos() : null
       }} />;
-
+*/
   return (
     <div id="user-component">
       <div className="user-columns-container">
