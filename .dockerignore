@@ -4,7 +4,7 @@
 node_modules/
 public/
 !public/index.html
-!/public/assets
-!/public/favicon.png
+!public/assets
+!public/favicon.png
 *.log
 *.md
