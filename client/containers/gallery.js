@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     submitInput: (user, media, word, event) => {
       dispatch(wordmap.submit(user, media, word))
     }
+    
   }
 }
 

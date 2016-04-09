@@ -32,6 +32,7 @@ export default class Tile extends React.Component {
   }
 
   render () {
+
     const { children, tile, handleClick } = this.props
     const { photo, classname } = this.state
     let style = Object.assign({}, this.props.style)
@@ -47,7 +48,7 @@ export default class Tile extends React.Component {
     const button =
       <IconButton
         icon={<DeleteIcon/>} 
-        onTouchTap={ () => {console.log("Inside GridTile"); this.props.addPhotoToBeDeleted(this.props.mediaId) }} 
+        onTouchTap={ () => {this.props.addPhotoToBeDeleted(this.props.mediaId) }} 
         style={styles}/>
 
     return (

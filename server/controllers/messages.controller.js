@@ -8,7 +8,6 @@ module.exports = {
     const message = req.body.message;
     const createdAt = req.body.createdAt;
     const currentConversation = req.body.currentConversation;
-    console.log('message', req.body);
     messagesModel.submitMessage(message, user1_id, user2_id, createdAt, currentConversation)
     .then( (data) => {
       console.log('data', data.rows[0])

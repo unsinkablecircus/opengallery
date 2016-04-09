@@ -133,7 +133,7 @@ export default class Gallery extends React.Component {
                         data={data[grid[i]]}
                         handleClick={() => {}}
                       >
-                        <GalleryTile data={media}/>
+                        <GalleryTile data={media} hideGallery={ () => {hideGallery(tile)} }/>
                       </Tile>
                   }
                 </Motion>

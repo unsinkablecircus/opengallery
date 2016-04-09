@@ -19,7 +19,6 @@ class MessageFeed extends React.Component {
           <div 
             key={index}
             onClick={ () => {
-              console.log('click');
               fetchMessages(conversation);
               changeRooms(conversation.id);
             }}
