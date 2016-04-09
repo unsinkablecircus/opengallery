@@ -35,15 +35,13 @@ if(!module.parent){
 
 
 io.on('connection', function(socket) {
-  console.log('hello world');
-
+  
   socket.on('createRoom', function(roomName) {
     console.log('joining room', roomName);
     socket.join(roomName);
   })
 
   socket.on('sendMessage', function(data) {
-    console.log('data', data);
     io.to(data.conversation_id).emit('message', data);
   })
 

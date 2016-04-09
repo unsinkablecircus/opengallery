@@ -82,7 +82,6 @@ export function SigninUser(creds) {
         response.json()
       )
       .then((data) =>  {
-        console.log('data', data);
         if ( !data.match ) {
           dispatch(authError('Incorrect username or password'));
         } else {

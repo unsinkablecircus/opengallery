@@ -14,7 +14,6 @@ export const updateMessage = (message) => {
 }
 
 const updateConversations = (conversations) => {
-  console.log('convos', conversations);
   return {
     type: 'UPDATE_CONVERSATIONS',
     payload: {
@@ -124,7 +123,6 @@ export const fetchMessages = (conversation_id, username, user_id) => {
 }
 
 export const fetchConversation = (self_id, user_id, username) => {
-  console.log(self_id, user_id, username)
  let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
