@@ -3,9 +3,9 @@ const pg = require('./../db/database')
 const AWS = require('aws-sdk');
 const format = require('pg-format');
 
-const credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
-AWS.config.credentials = credentials;
-AWS.config.update({region: 'us-west-1'});
+// const credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
+// AWS.config.credentials = credentials;
+// AWS.config.update({region: 'us-west-1'});
 
 const s3 = new AWS.S3();
 
