@@ -1,6 +1,7 @@
 const Promise = require('bluebird')
 const pg = require('./../db/database')
 const AWS = require('aws-sdk');
+AWS.config.region = 'us-west-1';
 const format = require('pg-format');
 
 // const credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
