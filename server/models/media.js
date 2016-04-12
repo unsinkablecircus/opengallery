@@ -71,22 +71,6 @@ exports.updatePGmetaData = function (photoData, id) {
   );
 };
 
-exports.updatePGmetaData = function (photoData, id) {
-  // identify which fields to update, 
-    // only overwrite those
-  var title = format.literal(photoData.title);
-  var description = format.literal(photoData.description);
-  return pg.raw(
-    `UPDATE media
-    SET
-      title = ${title},
-      description = ${description}
-    WHERE id = ${id}
-    RETURNING *
-    `
-  );
-};
-
 exports.deletePhotoByIdPG = function (photos) {
   console.log("photos inside PG function", photos);
   return pg.raw(

@@ -103,7 +103,6 @@ exports.uploadPhoto = function (req, res) {
     })
     .then(() => {
       //incorporate GoogleVision API
-      console.log("Right before invoking GoogleVision analyze function in media controller");
       return GoogleVision.analyze(photoData.s3url);
     })
     .catch(() => {
@@ -113,7 +112,7 @@ exports.uploadPhoto = function (req, res) {
       console.log("Labels returned from GoogleVision", labels[0].labelAnnotations);
 
       const filteredLabels = [];
-      labels[0].labelAnnotations.forEach((label) => { filteredLabels.push(label.description)})
+      labels[0].labelAnnotations.forEach((label) => { filteredLabels.push(label.description.replace(/\s/g, ''))})
       //check if google's labels are not duplicates of user's labels to prevent PG error
       const comparedLabels = filteredLabels.filter((label) => { return (photoData.metaTags.indexOf(label) < 0) })
       const labelsArray = photoData.metaTags.split(',').concat(comparedLabels);
