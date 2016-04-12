@@ -35,6 +35,7 @@ exports.uploadToS3 = function (photoId, photo) {
   return new Promise(function(resolve, reject) {
     s3.putObject(params, function(err, data) {
       if (err) {
+        console.log('Error uploading to S3: ', err);
         reject(err);
       } else {
         resolve(data);
