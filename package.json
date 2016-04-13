@@ -4,7 +4,7 @@
   "description": "A peer to peer artist platform for sharing and discovering new media content.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --harmony_destructuring --watch server server/server.js --ignore client",
+    "start": "nodemon --harmony_destructuring server/server.js --ignore client",
     "build": "webpack --progress --colors --config ./config/webpack.config.js",
     "build-prod": "webpack --progress --colors --config ./config/webpack.prod.config.js",
     "dev": "webpack-dev-server --devtool source-map --progress --colors --hot --content-base public",

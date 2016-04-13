@@ -33,12 +33,15 @@ exports.uploadToS3 = function (photoId, photo) {
     ContentType: 'image/jpeg',
     Body: photo
   };
+  console.log('params: ', params);
   return new Promise(function(resolve, reject) {
+    console.log('uploading to S3...');
     s3.putObject(params, function(err, data) {
       if (err) {
         console.log('Error uploading to S3: ', err);
         reject(err);
       } else {
+        console.log('Uploaded to S3: ', data);
         resolve(data);
       }
     });
