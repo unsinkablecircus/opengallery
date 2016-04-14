@@ -74,11 +74,20 @@ exports.updatePGmetaData = function (photoData, id) {
   );
 };
 
-exports.deletePhotoByIdPG = function (photos) {
-  console.log("photos inside PG function", photos);
+// exports.deletePhotoByIdPG = function (photos) {
+//   console.log("photos inside PG function", photos);
+//   return pg.raw(
+//     `DELETE FROM media
+//     WHERE id = ANY ('{${photos.join(',')}}'::int[])
+//     RETURNING (id);
+//     `
+//   );
+// };
+
+exports.deletePhotoByIdPG = function (id) {
   return pg.raw(
     `DELETE FROM media
-    WHERE id = ANY ('{${photos.join(',')}}'::int[])
+    WHERE id = ${id}
     RETURNING (id);
     `
   );
