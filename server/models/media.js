@@ -1,11 +1,12 @@
 const Promise = require('bluebird')
 const pg = require('./../db/database')
 const AWS = require('aws-sdk');
+AWS.config.region = 'us-west-1';
 const format = require('pg-format');
 
-const credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
-AWS.config.credentials = credentials;
-AWS.config.update({region: 'us-west-1'});
+// const credentials = new AWS.SharedIniFileCredentials({profile: 'opengallery'});
+// AWS.config.credentials = credentials;
+// AWS.config.update({region: 'us-west-1'});
 
 const s3 = new AWS.S3();
 
@@ -34,9 +35,12 @@ exports.uploadToS3 = function (photoId, photo) {
   };
   return new Promise(function(resolve, reject) {
     s3.putObject(params, function(err, data) {
+      console.log('Uploading to S3');
       if (err) {
+        console.log('Error uploading to S3: ', err);
         reject(err);
       } else {
+        console.log('Uploaded to S3: ', data);
         resolve(data);
       }
     });
@@ -71,27 +75,20 @@ exports.updatePGmetaData = function (photoData, id) {
   );
 };
 
-exports.updatePGmetaData = function (photoData, id) {
-  // identify which fields to update, 
-    // only overwrite those
-  var title = format.literal(photoData.title);
-  var description = format.literal(photoData.description);
-  return pg.raw(
-    `UPDATE media
-    SET
-      title = ${title},
-      description = ${description}
-    WHERE id = ${id}
-    RETURNING *
-    `
-  );
-};
+// exports.deletePhotoByIdPG = function (photos) {
+//   console.log("photos inside PG function", photos);
+//   return pg.raw(
+//     `DELETE FROM media
+//     WHERE id = ANY ('{${photos.join(',')}}'::int[])
+//     RETURNING (id);
+//     `
+//   );
+// };
 
-exports.deletePhotoByIdPG = function (photos) {
-  console.log("photos inside PG function", photos);
+exports.deletePhotoByIdPG = function (id) {
   return pg.raw(
     `DELETE FROM media
-    WHERE id = ANY ('{${photos.join(',')}}'::int[])
+    WHERE id = ${id}
     RETURNING (id);
     `
   );

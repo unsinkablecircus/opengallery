@@ -50,13 +50,12 @@ exports.uploadPhoto = function (req, res) {
   }
   const photo = req.file;
   const photoData = req.body;
+  var newId;
 
   if (photo) {
     Media.uploadToPG(photoData)
-    .catch((err) => {
-      console.log('Error uploading images to PostgreSQL', err)
-    })
     .then((id) => {
+      newId = id.rows[0].id;
       responseObject.id = id.rows[0].id;
       responseObject.url_med = ('http://d14shq3s3khz77.cloudfront.net/' + responseObject.id + 'medium.jpg');
       photoData.url_medium = responseObject.url_med;
@@ -68,9 +67,6 @@ exports.uploadPhoto = function (req, res) {
       photo.mimetype = 'image/jpeg';
       return resizePhoto(photo, 25, 0)
     })
-    .catch((err) => {
-      console.log("error sending response to client", err);
-    })
     .then( buffer => {
       photoData.width = imageData.width;
       photoData.height = imageData.height;
@@ -78,9 +74,6 @@ exports.uploadPhoto = function (req, res) {
       photoData.url_small = new Buffer(buffer).toString('base64')
 
       return resizePhoto(photo, 800, 100)
-    })
-    .catch( err => {
-      console.error(`Error resizing photo: ${err}`)
     })
     .then( mediumBuffer => {
       photo.buffer_med = mediumBuffer;
@@ -92,28 +85,21 @@ exports.uploadPhoto = function (req, res) {
         Media.uploadToS3(urlExtLarge, photo.buffer), Media.uploadToS3(urlExtMedium, photo.buffer_med)
       ])
     })
-    .catch((err) => {
-      console.log('Error uploading images to s3 db', err)
-    })
     .then((url) => {
       return Media.updatePGmetaData(photoData, responseObject.id) // urlsArr initiated above
     })
-    .catch((err) => {
-      console.log('Error updating URLs to PG db', err);
-    })
     .then(() => {
       //incorporate GoogleVision API
-      console.log("Right before invoking GoogleVision analyze function in media controller");
       return GoogleVision.analyze(photoData.s3url);
-    })
-    .catch(() => {
-      console.error(`Error detecting labels for photo: ${err}`)
     })
     .then((labels) => {
       console.log("Labels returned from GoogleVision", labels[0].labelAnnotations);
 
       const filteredLabels = [];
-      labels[0].labelAnnotations.forEach((label) => { filteredLabels.push(label.description)})
+      if (labels[0].labelAnnotations !== undefined) {
+        labels[0].labelAnnotations.forEach((label) => { filteredLabels.push(label.description.replace(/\s/g, ''))})
+      }
+
       //check if google's labels are not duplicates of user's labels to prevent PG error
       const comparedLabels = filteredLabels.filter((label) => { return (photoData.metaTags.indexOf(label) < 0) })
       const labelsArray = photoData.metaTags.split(',').concat(comparedLabels);
@@ -123,7 +109,14 @@ exports.uploadPhoto = function (req, res) {
       responseObject.tags = tags.rows;
     })
     .catch((err) => {
-      console.log('Error uploading tags to PostgreSQL', err);
+      console.log('Error uploading photos', err);
+      Media.deletePhotoByIdPG(newId)
+      .then(id => {
+        console.log('Deleted temp record from DB: ', id);
+      })
+      .catch(err => {
+        console.log('Error deleting temp records from DB: ', err);
+      })
     })
   }
 };
