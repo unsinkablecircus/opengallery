@@ -112,7 +112,10 @@ exports.uploadPhoto = function (req, res) {
       console.log("Labels returned from GoogleVision", labels[0].labelAnnotations);
 
       const filteredLabels = [];
-      labels[0].labelAnnotations.forEach((label) => { filteredLabels.push(label.description.replace(/\s/g, ''))})
+      if (labels[0].labelAnnotations !== undefined) {
+        labels[0].labelAnnotations.forEach((label) => { filteredLabels.push(label.description.replace(/\s/g, ''))})
+      }
+
       //check if google's labels are not duplicates of user's labels to prevent PG error
       const comparedLabels = filteredLabels.filter((label) => { return (photoData.metaTags.indexOf(label) < 0) })
       const labelsArray = photoData.metaTags.split(',').concat(comparedLabels);
